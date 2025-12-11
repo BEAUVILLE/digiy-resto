@@ -13,18 +13,20 @@
             --card:#030712;
             --accent:#facc15;
             --accent-soft:#f97316;
-            --accent-green:#22c55e; /* VERT VIF */
+            --accent-green:#22c55e;
             --ink:#f9fafb;
             --muted:#cbd5f5;
             --line:#1f2937;
             --shadow-soft:0 20px 45px rgba(15,23,42,0.9);
         }
+
         *{
             box-sizing:border-box;
             margin:0;
             padding:0;
             font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
         }
+
         body{
             min-height:100vh;
             background:
@@ -35,9 +37,8 @@
             display:flex;
             justify-content:center;
             padding:10px;
-            font-size:16px; 
+            font-size:16px;
         }
-        /* ... Le reste du CSS d'en-tête reste inchangé ... */
 
         .app{
             width:100%;
@@ -53,6 +54,7 @@
             position:relative;
             overflow:hidden;
         }
+
         .app::before{
             content:"";
             position:absolute;
@@ -63,6 +65,7 @@
             opacity:0.8;
             pointer-events:none;
         }
+
         header{
             position:relative;
             z-index:2;
@@ -72,11 +75,13 @@
             gap:10px;
             margin-bottom:12px;
         }
+
         .brand{
             display:flex;
             align-items:center;
             gap:10px;
         }
+
         .brand-logo{
             width:42px;
             height:42px;
@@ -88,92 +93,78 @@
             font-size:24px;
             box-shadow:0 12px 30px rgba(234,179,8,0.65);
         }
+
         .brand-text-title{
-            /* COULEUR DIGIY EN VERT POUR UN MEILLEUR CONTRASTE */
             font-size:20px;
             font-weight:900;
             letter-spacing:0.09em;
             text-transform:uppercase;
             color:var(--accent-green);
         }
+
         .brand-text-sub{
-            font-size:14px; 
+            font-size:14px;
             color:var(--muted);
             font-weight:600;
         }
+
         .back-link{
-            font-size:13px; 
+            font-size:13px;
             color:var(--muted);
             text-decoration:none;
             background:rgba(15,23,42,0.9);
             border-radius:999px;
             border:1px solid rgba(148,163,184,0.6);
-            padding:8px 14px; 
+            padding:8px 14px;
             display:inline-flex;
             align-items:center;
             gap:6px;
-            z-index:2;
-            position:relative;
             font-weight:700;
         }
-        .back-link span{
-            font-size:18px; 
-        }
+
         .back-link:hover{
             border-color:var(--accent);
             color:var(--accent);
         }
 
-        main{
-            position:relative;
-            z-index:2;
-            flex:1;
-            display:flex;
-            flex-direction:column;
-            gap:14px;
-        }
 
+        /* HERO */
         .hero{
-            /* Base de la Hero section en vert/jaune pour rappeler la marque */
             background:radial-gradient(circle at top left,rgba(34,197,94,0.18),rgba(3,7,18,0.96));
             border-radius:22px;
             border:1px solid rgba(148,163,184,0.6);
-            padding:16px 16px 14px; 
+            padding:16px;
             box-shadow:0 18px 44px rgba(15,23,42,0.95);
             display:flex;
             flex-direction:column;
             gap:8px;
         }
-        /* MODIFICATION : TITRE EN VERT */
+
         .hero-title{
-            font-size:26px; 
+            font-size:26px;
             font-weight:900;
-            color:var(--accent-green); /* Couleur verte pour tout le titre */
+            color:var(--accent-green);
         }
+
         .hero-title span{
-            color:var(--accent); /* La partie "DIGIY RESTO" reste jaune pour le contraste */
+            color:var(--accent);
         }
-        /* J'ai inversé les couleurs pour le titre : "Restaurants partenaires" est en vert et "DIGIY RESTO" en jaune. */
-        .hero-title span{
-             color:var(--accent-green); /* Rétabli en vert */
-        }
-        
+
         .hero-sub{
-            font-size:16px; 
+            font-size:16px;
             color:#e5e7eb;
             max-width:620px;
             font-weight:500;
-            line-height:1.6; 
+            line-height:1.6;
         }
-        .hero-sub strong{
-            font-weight:800;
-        }
+
         .hero-tags{
             display:flex;
             flex-wrap:wrap;
             gap:7px;
             margin-top:4px;
         }
+
         .hero-tag{
             font-size:13px;
             padding:5px 11px;
@@ -183,152 +174,120 @@
             color:#e5e7eb;
             font-weight:600;
         }
-        .hero-tag strong{
-            color:var(--accent);
-            font-weight:800;
+
+        .hero-tag strong{ color:var(--accent); }
+
+
+        /* CTA */
+        .cta-partner{
+            margin-top:14px;
+            display:flex;
+            justify-content:center;
+        }
+
+        .cta-btn{
+            background:linear-gradient(135deg,#facc15,#f97316);
+            padding:14px 22px;
+            border-radius:999px;
+            color:#111;
+            font-size:15px;
+            font-weight:900;
+            text-decoration:none;
+            box-shadow:0 8px 20px rgba(250,204,21,0.45);
+            border:1px solid rgba(250,204,21,0.65);
+        }
+
+        .cta-btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 12px 26px rgba(250,204,21,0.65);
         }
 
 
+        /* GRID */
         .grid{
-            margin-top:14px; 
+            margin-top:18px;
             display:grid;
             grid-template-columns:repeat(3,minmax(0,1fr));
-            gap:14px; 
+            gap:16px;
         }
+
         @media(max-width:900px){
-            .grid{
-                grid-template-columns:repeat(2,minmax(0,1fr));
-            }
+            .grid{ grid-template-columns:repeat(2,1fr); }
         }
         @media(max-width:640px){
-            .app{
-                border-radius:0;
-                border:none;
-                box-shadow:none;
-            }
-            .grid{
-                grid-template-columns:1fr;
-                gap:20px; 
-            }
+            .app{ border-radius:0; border:none; box-shadow:none; }
+            .grid{ grid-template-columns:1fr; }
         }
-<!-- CTA POUR DEVENIR RESTAURANT PARTENAIRE -->
-<section class="cta-partner">
-    <a href="https://beauville.github.io/inscription-digiy/?module=resto"
-       class="cta-btn">
-        🍽️ Devenir Restaurant Partenaire DIGIY • 0% commission
-    </a>
-</section>
 
-<style>
-.cta-partner{
-    margin-top:10px;
-    display:flex;
-    justify-content:center;
-}
-.cta-btn{
-    background:linear-gradient(135deg,#facc15,#f97316);
-    padding:14px 22px;
-    border-radius:999px;
-    color:#111;
-    font-size:15px;
-    font-weight:900;
-    text-decoration:none;
-    box-shadow:0 8px 20px rgba(250,204,21,0.45);
-    border:1px solid rgba(250,204,21,0.65);
-}
-.cta-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 26px rgba(250,204,21,0.65);
-}
-</style>
 
+        /* CARDS */
         .shop-card{
             background:radial-gradient(circle at top,rgba(15,23,42,0.98),#020617);
-            border-radius:24px; 
+            border-radius:24px;
             border:1px solid rgba(30,64,175,0.7);
-            padding:12px 12px 14px; 
+            padding:12px;
             box-shadow:0 14px 34px rgba(15,23,42,0.95);
             display:flex;
             flex-direction:column;
-            gap:10px; 
+            gap:10px;
             position:relative;
             overflow:hidden;
         }
-        .shop-card::before{
-            content:"";
-            position:absolute;
-            inset:-40%;
-            background:radial-gradient(circle at top,rgba(250,204,21,0.08),transparent 55%);
-            opacity:0.8;
-            pointer-events:none;
+
+        .shop-photo{
+            height:220px;
+            border-radius:16px;
+            overflow:hidden;
+            border:2px solid rgba(30,64,175,0.85);
         }
-        .shop-head{
-            position:relative;
-            z-index:2;
-            display:flex;
-            justify-content:space-between;
-            align-items:flex-start;
-            gap:8px;
+
+        .shop-photo img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
         }
+
         .shop-name{
-            /* Les noms des restos restent jaunes pour la lisibilité */
-            font-size:22px; 
-            font-weight:900; 
-            color:var(--accent); 
+            font-size:22px;
+            font-weight:900;
+            color:var(--accent);
         }
+
         .shop-type{
-            font-size:15px; 
+            font-size:15px;
             color:#e5e7eb;
             font-weight:600;
         }
+
         .shop-badge{
-            font-size:12px; 
             padding:5px 9px;
+            font-size:12px;
             border-radius:999px;
             border:1px solid rgba(34,197,94,0.9);
             color:var(--accent-green);
             background:rgba(15,23,42,0.98);
-            white-space:nowrap;
             font-weight:700;
+            white-space:nowrap;
         }
-        .shop-body{
-            position:relative;
-            z-index:2;
-            display:flex;
-            flex-direction:column;
-            gap:8px;
-        }
+
         .shop-desc{
-            font-size:15px; 
+            font-size:15px;
             color:#f3f4f6;
-            font-weight:500;
             line-height:1.6;
+            font-weight:500;
         }
-        .shop-photo{
-            margin-top:0px; 
-            border-radius:16px; 
-            overflow:hidden;
-            max-height:220px; 
-            height:220px; 
-            border:2px solid rgba(30,64,175,0.85); 
-            order: -1; 
-        }
-        .shop-photo img{
-            width:100%;
-            height:100%;
-            object-fit:cover; 
-            display:block;
-        }
+
         .shop-meta{
-            margin-top:6px;
-            font-size:14px; 
+            font-size:14px;
             color:#e5e7eb;
             font-weight:500;
         }
 
+
+        /* Wave */
         .wave-block{
             margin-top:10px;
-            border-radius:16px; 
+            border-radius:16px;
             border:1px solid rgba(34,197,94,1);
             background:rgba(6,78,59,0.98);
             padding:10px 12px;
@@ -336,88 +295,76 @@
             flex-direction:column;
             gap:4px;
         }
+
         .wave-title{
-            font-size:14px; 
-            font-weight:800;
-            color:#bbf7d0;
-        }
-        .wave-number{
-            font-size:24px; 
-            font-weight:900; 
-            color:#ecfdf5;
-            letter-spacing: 1px; 
-        }
-        .wave-note{
-            font-size:14px; 
+            font-size:14px;
             font-weight:800;
             color:#bbf7d0;
         }
 
+        .wave-number{
+            font-size:24px;
+            font-weight:900;
+            color:#ecfdf5;
+            letter-spacing:1px;
+        }
+
+
+        /* Actions */
         .shop-actions{
             margin-top:10px;
             display:flex;
-            justify-content:space-between;
-            align-items:center;
             gap:10px;
-            font-size:11px;
-            color:var(--muted);
             flex-wrap:wrap;
         }
+
         .btn{
             border:none;
             border-radius:999px;
-            padding:10px 14px; 
-            font-size:14px; 
-            font-weight:900; 
+            padding:10px 14px;
+            font-size:14px;
+            font-weight:900;
             cursor:pointer;
-            display:inline-flex;
-            align-items:center;
-            gap:6px;
+            display:flex;
+            justify-content:center;
             text-decoration:none;
-            white-space:nowrap;
-            transition:all 0.25s;
-            flex-grow: 1; 
-            justify-content: center; 
+            transition:0.25s;
+            flex:1;
         }
+
         .btn-pos{
             background:linear-gradient(135deg,#facc15,#f97316);
-            color:#111827;
+            color:#111;
             box-shadow:0 7px 18px rgba(250,204,21,0.55);
         }
-        .btn-pos:hover{
-            transform:translateY(-1px);
-            box-shadow:0 11px 26px rgba(250,204,21,0.7);
-        }
+
         .btn-wa{
             background:rgba(22,163,74,0.2);
             color:#bbf7d0;
             border:1px solid rgba(34,197,94,0.85);
         }
-        .btn-wa:hover{
-            border-color:#22c55e;
-        }
 
+
+        /* Footer */
         footer{
-            position:relative;
-            z-index:2;
-            margin-top:16px;
-            font-size:12px; 
+            margin-top:20px;
+            font-size:12px;
             color:var(--muted);
+            font-weight:600;
             display:flex;
             justify-content:space-between;
             flex-wrap:wrap;
             gap:6px;
-            font-weight:600;
-            line-height: 1.4;
         }
-        footer span{
-            color:var(--accent);
-            font-weight:800;
-        }
+
+        footer span{ color:var(--accent); font-weight:800; }
+
     </style>
 </head>
 <body>
+
 <div class="app">
+
     <header>
         <div class="brand">
             <div class="brand-logo">🍽️</div>
@@ -432,290 +379,280 @@
         </a>
     </header>
 
+
     <main>
+
+        <!-- HERO -->
         <section class="hero">
-            <div class="hero-title" style="color:var(--accent-green);">
+            <div class="hero-title">
                 Restaurants partenaires <span>DIGIY RESTO</span>
             </div>
+
             <div class="hero-sub">
                 Commande et encaissement <strong>Wave direct</strong> du client au restaurateur.
                 DIGIY ne touche pas l’argent : <strong>0% commission</strong> sur tes ventes.
-                Utilise ces fiches pour mettre en avant tes abonnés.
             </div>
+
             <div class="hero-tags">
                 <div class="hero-tag"><strong>0% commission</strong> — paiement direct</div>
                 <div class="hero-tag">Livraison & à emporter</div>
                 <div class="hero-tag">Restaurants locaux mis en avant</div>
-                <div class="hero-tag">Menus optimisés pour mobile</div>
+                <div class="hero-tag">Menus optimisés mobile</div>
             </div>
         </section>
 
+
+        <!-- CTA -->
+        <section class="cta-partner">
+            <a href="https://beauville.github.io/inscription-digiy/?module=resto"
+               class="cta-btn">
+               🍽️ Devenir Restaurant Partenaire DIGIY • 0% commission
+            </a>
+        </section>
+
+
+        <!-- GRID RESTAURANTS -->
         <section class="grid">
 
+            <!-- RESTO 1 -->
             <article class="shop-card">
-                <div class="shop-head">
-                    <div>
-                        <div class="shop-name">Le Grill Royal</div>
-                        <div class="shop-type">Barbecue • Viandes grillées • Mbour</div>
-                    </div>
-                    <div class="shop-badge">0% com DIGIY</div>
+                <div class="shop-photo">
+                    <img src="https://images.unsplash.com/photo-1544025166-50a049405eb7?auto=format&fit=crop&w=800&q=80">
                 </div>
-                <div class="shop-body">
-                    <div class="shop-photo">
-                        <img src="https://images.unsplash.com/photo-1544025166-50a049405eb7?auto=format&fit=crop&w=800&q=80"
-                            alt="Plat de viandes grillées au Grill Royal">
-                    </div>
-                    <p class="shop-desc">
-                        Spécialités de viandes braisées, poulet Yassa, Thieboudienne, et grillades au feu de bois. 
-                        Parfait pour un bon repas entre amis ou en famille.
-                    </p>
-                    <div class="shop-meta">
-                        Ouvert tous les soirs (18h-23h). Sur place, à emporter ou Livraison.
-                    </div>
 
-                    <div class="wave-block">
-                        <div class="wave-title">Paiement Wave direct propriétaire</div>
-                        <div class="wave-number">+221 77 555 11 22</div>
-                        <div class="wave-note">À utiliser dans votre application Wave (Diallo Samba).</div>
-                    </div>
+                <div class="shop-name">Le Grill Royal</div>
+                <div class="shop-type">Barbecue • Mbour</div>
 
-                    <div class="shop-actions">
-                        <a class="btn btn-pos"
-                            href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-                            target="_blank" rel="noopener">
-                            Commander / Voir le menu
-                        </a>
-                        <button class="btn btn-wa" type="button"
-                            onclick="openWa('+221775551122','Bonjour, je souhaite commander au Grill Royal (DIGIY RESTO).');">
-                            💬 WhatsApp
-                        </button>
-                    </div>
+                <div class="shop-badge">0% com DIGIY</div>
+
+                <p class="shop-desc">
+                    Viandes braisées, poulet Yassa, grillades feu de bois. Ambiance conviviale.
+                </p>
+
+                <div class="shop-meta">
+                    Ouvert 18h–23h • Sur place, emporter, livraison.
+                </div>
+
+                <div class="wave-block">
+                    <div class="wave-title">Paiement Wave direct</div>
+                    <div class="wave-number">+221 77 555 11 22</div>
+                </div>
+
+                <div class="shop-actions">
+                    <a class="btn btn-pos"
+                       href="https://beauville.github.io/Caisse-officielle-ASTOU/"
+                       target="_blank">Commander</a>
+
+                    <button class="btn btn-wa"
+                        onclick="openWa('+221775551122','Bonjour, je souhaite commander au Grill Royal (DIGIY RESTO).');">
+                        💬 WhatsApp
+                    </button>
                 </div>
             </article>
 
+
+            <!-- RESTO 2 -->
             <article class="shop-card">
-                <div class="shop-head">
-                    <div>
-                        <div class="shop-name">Pizzeria La Flambée</div>
-                        <div class="shop-type">Pizzas artisanales • Livraisons • Saly</div>
-                    </div>
-                    <div class="shop-badge">Livraison rapide</div>
+                <div class="shop-photo">
+                    <img src="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?auto=format&fit=crop&w=800&q=80">
                 </div>
-                <div class="shop-body">
-                     <div class="shop-photo">
-                        <img src="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?auto=format&fit=crop&w=800&q=80"
-                            alt="Pizza artisanale de Pizzeria La Flambée">
-                    </div>
-                    <p class="shop-desc">
-                        Véritables pizzas cuites au four à bois. Marguerita, 4 saisons, Végétarienne... 
-                        Ingrédients frais et pâte croustillante garantie.
-                    </p>
-                    <div class="shop-meta">
-                        Ouvert 7j/7 (12h-22h). Livraison gratuite à partir de 5000 XOF.
-                    </div>
 
-                    <div class="wave-block">
-                        <div class="wave-title">Paiement Wave direct pizzeria</div>
-                        <div class="wave-number">+221 77 888 33 44</div>
-                        <div class="wave-note">À utiliser dans votre application Wave (La Flambée).</div>
-                    </div>
+                <div class="shop-name">Pizzeria La Flambée</div>
+                <div class="shop-type">Pizzas au feu de bois • Saly</div>
 
-                    <div class="shop-actions">
-                        <a class="btn btn-pos"
-                            href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-                            target="_blank" rel="noopener">
-                            Commander / Voir le menu
-                        </a>
-                        <button class="btn btn-wa" type="button"
-                            onclick="openWa('+221778883344','Bonjour, je souhaite commander à La Flambée (DIGIY RESTO).');">
-                            💬 WhatsApp
-                        </button>
-                    </div>
+                <div class="shop-badge">Livraison rapide</div>
+
+                <p class="shop-desc">
+                    Pizzas artisanales, pâte croustillante, ingrédients frais.
+                </p>
+
+                <div class="shop-meta">
+                    Ouvert 12h–22h • Livraison gratuite dès 5000 XOF.
+                </div>
+
+                <div class="wave-block">
+                    <div class="wave-title">Paiement Wave direct</div>
+                    <div class="wave-number">+221 77 888 33 44</div>
+                </div>
+
+                <div class="shop-actions">
+                    <a class="btn btn-pos"
+                       href="https://beauville.github.io/Caisse-officielle-ASTOU/"
+                       target="_blank">Commander</a>
+
+                    <button class="btn btn-wa"
+                        onclick="openWa('+221778883344','Bonjour, je souhaite commander à La Flambée (DIGIY RESTO).');">
+                        💬 WhatsApp
+                    </button>
                 </div>
             </article>
 
+
+            <!-- RESTO 3 -->
             <article class="shop-card">
-                <div class="shop-head">
-                    <div>
-                        <div class="shop-name">Fast-Food Le Gourmet</div>
-                        <div class="shop-type">Burgers • Tacos • Sandwiches • Thiès</div>
-                    </div>
-                    <div class="shop-badge">Le plus populaire</div>
+                <div class="shop-photo">
+                    <img src="https://images.unsplash.com/photo-1572807505299-80862022e3c0?auto=format&fit=crop&w=800&q=80">
                 </div>
-                <div class="shop-body">
-                    <div class="shop-photo">
-                        <img src="https://images.unsplash.com/photo-1572807505299-80862022e3c0?auto=format&fit=crop&w=800&q=80"
-                            alt="Burger et frites du Fast-Food Le Gourmet">
-                    </div>
-                    <p class="shop-desc">
-                        Burgers gourmets, Tacos revisités, et une variété de snacks pour emporter. 
-                        Des produits de qualité avec un service rapide.
-                    </p>
-                    <div class="shop-meta">
-                        Ouvert du Lundi au Samedi (11h-23h). Menu étudiant disponible.
-                    </div>
 
-                    <div class="wave-block">
-                        <div class="wave-title">Paiement Wave direct comptoir</div>
-                        <div class="wave-number">+221 77 333 99 88</div>
-                        <div class="wave-note">À utiliser dans votre application Wave (Le Gourmet).</div>
-                    </div>
+                <div class="shop-name">Fast-Food Le Gourmet</div>
+                <div class="shop-type">Burgers • Tacos • Thiès</div>
 
-                    <div class="shop-actions">
-                        <a class="btn btn-pos"
-                            href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-                            target="_blank" rel="noopener">
-                            Commander / Voir le menu
-                        </a>
-                        <button class="btn btn-wa" type="button"
-                            onclick="openWa('+221773339988','Bonjour, je souhaite commander au Fast-Food Le Gourmet (DIGIY RESTO).');">
-                            💬 WhatsApp
-                        </button>
-                    </div>
+                <div class="shop-badge">Populaire</div>
+
+                <p class="shop-desc">
+                    Burgers gourmets, tacos revisités, service rapide.
+                </p>
+
+                <div class="shop-meta">
+                    Ouvert 11h–23h • Menu étudiant.
                 </div>
-            </article>
-            
-            <article class="shop-card">
-                <div class="shop-head">
-                    <div>
-                        <div class="shop-name">L'Oasis</div>
-                        <div class="shop-type">Végétarien • Cuisine saine • Dakar</div>
-                    </div>
-                    <div class="shop-badge">Healthy</div>
+
+                <div class="wave-block">
+                    <div class="wave-title">Paiement Wave direct</div>
+                    <div class="wave-number">+221 77 333 99 88</div>
                 </div>
-                <div class="shop-body">
-                     <div class="shop-photo">
-                        <img src="https://images.unsplash.com/photo-1512621776951-a57143f7e7d1?auto=format&fit=crop&w=800&q=80"
-                            alt="Salade composée et repas végétarien">
-                    </div>
-                    <p class="shop-desc">
-                        Cuisine végétarienne et vegan savoureuse. Salades composées, plats du jour 
-                        équilibrés et jus de fruits frais. Une parenthèse de fraîcheur.
-                    </p>
-                    <div class="shop-meta">
-                        Ouvert du Mardi au Dimanche (10h-17h). Déjeuner uniquement.
-                    </div>
 
-                    <div class="wave-block">
-                        <div class="wave-title">Paiement Wave direct propriétaire</div>
-                        <div class="wave-number">+221 77 222 77 11</div>
-                        <div class="wave-note">À utiliser dans votre application Wave (Adja Sokhna Diop).</div>
-                    </div>
+                <div class="shop-actions">
+                    <a class="btn btn-pos"
+                       href="https://beauville.github.io/Caisse-officielle-ASTOU/"
+                       target="_blank">Commander</a>
 
-                    <div class="shop-actions">
-                        <a class="btn btn-pos"
-                            href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-                            target="_blank" rel="noopener">
-                            Commander / Voir le menu
-                        </a>
-                        <button class="btn btn-wa" type="button"
-                            onclick="openWa('+221772227711','Bonjour, je souhaite commander à L\'Oasis (DIGIY RESTO).');">
-                            💬 WhatsApp
-                        </button>
-                    </div>
+                    <button class="btn btn-wa"
+                        onclick="openWa('+221773339988','Bonjour, je souhaite commander au Gourmet (DIGIY RESTO).');">
+                        💬 WhatsApp
+                    </button>
                 </div>
             </article>
 
+
+            <!-- RESTO 4 -->
             <article class="shop-card">
-                <div class="shop-head">
-                    <div>
-                        <div class="shop-name">Le Coin du Poisson</div>
-                        <div class="shop-type">Poissons et Fruits de mer • Côte</div>
-                    </div>
-                    <div class="shop-badge">Pêche du jour</div>
+                <div class="shop-photo">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57143f7e7d1?auto=format&fit=crop&w=800&q=80">
                 </div>
-                <div class="shop-body">
-                    <div class="shop-photo">
-                        <img src="https://images.unsplash.com/photo-1534449830867-24876b5025d5?auto=format&fit=crop&w=800&q=80"
-                            alt="Assiette de poisson grillé et riz">
-                    </div>
-                    <p class="shop-desc">
-                        Poisson frais pêché du matin, préparé à la braise ou frit. Y compris les fruits 
-                        de mer selon arrivage. La saveur de l'océan dans ton assiette.
-                    </p>
-                    <div class="shop-meta">
-                        Cuisine ouverte de 12h à 15h et de 19h à 22h. Pense à pré-commander.
-                    </div>
 
-                    <div class="wave-block">
-                        <div class="wave-title">Paiement Wave direct comptoir</div>
-                        <div class="wave-number">+221 77 666 44 33</div>
-                        <div class="wave-note">À utiliser dans votre application Wave (Coin Poisson).</div>
-                    </div>
+                <div class="shop-name">L'Oasis</div>
+                <div class="shop-type">Végétarien • Dakar</div>
 
-                    <div class="shop-actions">
-                        <a class="btn btn-pos"
-                            href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-                            target="_blank" rel="noopener">
-                            Commander / Voir le menu
-                        </a>
-                        <button class="btn btn-wa" type="button"
-                            onclick="openWa('+221776664433','Bonjour, je souhaite commander au Coin du Poisson (DIGIY RESTO).');">
-                            💬 WhatsApp
-                        </button>
-                    </div>
+                <div class="shop-badge">Healthy</div>
+
+                <p class="shop-desc">
+                    Cuisine végétarienne, plats équilibrés, jus frais.
+                </p>
+
+                <div class="shop-meta">
+                    Ouvert 10h–17h • Déjeuner uniquement.
+                </div>
+
+                <div class="wave-block">
+                    <div class="wave-title">Paiement Wave direct</div>
+                    <div class="wave-number">+221 77 222 77 11</div>
+                </div>
+
+                <div class="shop-actions">
+                    <a class="btn btn-pos"
+                       href="https://beauville.github.io/Caisse-officielle-ASTOU/"
+                       target="_blank">Commander</a>
+
+                    <button class="btn btn-wa"
+                        onclick="openWa('+221772227711','Bonjour, je souhaite commander à L\'Oasis (DIGIY RESTO).');">
+                        💬 WhatsApp
+                    </button>
                 </div>
             </article>
 
+
+            <!-- RESTO 5 -->
             <article class="shop-card">
-                <div class="shop-head">
-                    <div>
-                        <div class="shop-name">L'Harmonie</div>
-                        <div class="shop-type">Cuisine africaine • Plats locaux</div>
-                    </div>
-                    <div class="shop-badge">Authentique</div>
+                <div class="shop-photo">
+                    <img src="https://images.unsplash.com/photo-1534449830867-24876b5025d5?auto=format&fit=crop&w=800&q=80">
                 </div>
-                <div class="shop-body">
-                    <div class="shop-photo">
-                        <img src="https://images.unsplash.com/photo-1547595304-45318d172e25?auto=format&fit=crop&w=800&q=80"
-                            alt="Plat traditionnel africain">
-                    </div>
-                    <p class="shop-desc">
-                        Redécouvrez les classiques : Mafé, Yassa au poulet ou au poisson, Thiéboudienne. 
-                        Cuisine traditionnelle faite maison avec passion.
-                    </p>
-                    <div class="shop-meta">
-                        Service continu de 11h à 21h. Possibilité de privatisation de salle.
-                    </div>
 
-                    <div class="wave-block">
-                        <div class="wave-title">Paiement Wave direct cuisine</div>
-                        <div class="wave-number">+221 77 444 00 55</div>
-                        <div class="wave-note">À utiliser dans votre application Wave (Mère Fatou).</div>
-                    </div>
+                <div class="shop-name">Le Coin du Poisson</div>
+                <div class="shop-type">Poissons • Côte</div>
 
-                    <div class="shop-actions">
-                        <a class="btn btn-pos"
-                            href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-                            target="_blank" rel="noopener">
-                            Commander / Voir le menu
-                        </a>
-                        <button class="btn btn-wa" type="button"
-                            onclick="openWa('+221774440055','Bonjour, je souhaite commander à L\'Harmonie (DIGIY RESTO).');">
-                            💬 WhatsApp
-                        </button>
-                    </div>
+                <div class="shop-badge">Pêche du jour</div>
+
+                <p class="shop-desc">
+                    Poisson frais du matin, grillé ou frit.
+                </p>
+
+                <div class="shop-meta">
+                    Ouvert 12h–15h & 19h–22h.
+                </div>
+
+                <div class="wave-block">
+                    <div class="wave-title">Paiement Wave direct</div>
+                    <div class="wave-number">+221 77 666 44 33</div>
+                </div>
+
+                <div class="shop-actions">
+                    <a class="btn btn-pos"
+                       href="https://beauville.github.io/Caisse-officielle-ASTOU/"
+                       target="_blank">Commander</a>
+
+                    <button class="btn btn-wa"
+                        onclick="openWa('+221776664433','Bonjour, je souhaite commander au Coin du Poisson (DIGIY RESTO).');">
+                        💬 WhatsApp
+                    </button>
+                </div>
+            </article>
+
+
+            <!-- RESTO 6 -->
+            <article class="shop-card">
+                <div class="shop-photo">
+                    <img src="https://images.unsplash.com/photo-1547595304-45318d172e25?auto=format&fit=crop&w=800&q=80">
+                </div>
+
+                <div class="shop-name">L'Harmonie</div>
+                <div class="shop-type">Cuisine africaine</div>
+
+                <div class="shop-badge">Authentique</div>
+
+                <p class="shop-desc">
+                    Mafé, Yassa, Thiéboudienne — cuisine maison, généreuse.
+                </p>
+
+                <div class="shop-meta">
+                    Service continu 11h–21h.
+                </div>
+
+                <div class="wave-block">
+                    <div class="wave-title">Paiement Wave direct</div>
+                    <div class="wave-number">+221 77 444 00 55</div>
+                </div>
+
+                <div class="shop-actions">
+                    <a class="btn btn-pos"
+                       href="https://beauville.github.io/Caisse-officielle-ASTOU/"
+                       target="_blank">Commander</a>
+
+                    <button class="btn btn-wa"
+                        onclick="openWa('+221774440055','Bonjour, je souhaite commander à L\'Harmonie (DIGIY RESTO).');">
+                        💬 WhatsApp
+                    </button>
                 </div>
             </article>
 
         </section>
+
     </main>
 
     <footer>
         <div>DIGIY RESTO • <span>Super App DIGIYLYFE</span> — Sénégal → Afrique</div>
-        <div>0% commission • Paiement direct Wave au restaurateur • Galerie évolutive.</div>
+        <div>0% commission • Paiement direct Wave • Galerie évolutive</div>
     </footer>
+
 </div>
 
 <script>
-    function openWa(phone, message){
-        const txt = encodeURIComponent(message || "");
-        const clean = phone.replace(/\s+/g,"");
-        window.open(
-            "https://wa.me/" + clean.replace("+","") + (txt ? ("?text=" + txt) : ""),
-            "_blank"
-        );
-    }
+function openWa(phone, message){
+    const txt = encodeURIComponent(message || "");
+    const clean = phone.replace(/\s+/g,"");
+    window.open("https://wa.me/" + clean.replace("+","") + (txt ? "?text="+txt : ""), "_blank");
+}
 </script>
+
 </body>
 </html>
