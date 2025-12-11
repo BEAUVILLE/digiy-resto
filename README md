@@ -1,90 +1,75 @@
-# 🍽️ DIGIY RESTO — Galerie des Restaurants Partenaires
+DIGIY RESTO — Galerie des Restaurants Partenaires
+Super App DIGIYLYFE • Sénégal → Afrique • 0% commission
 
-**DIGIY RESTO** est la vitrine officielle des restaurants et fast-foods locaux utilisant la
-solution DIGIYLYFE.  
-Objectif : mettre en avant les restaurateurs qui encaissent **Wave direct, 0% commission**, et
-offrent un service moderne aux clients.
+Bienvenue dans DIGIY RESTO, la vitrine officielle des restaurants partenaires DIGIYLYFE.
+Objectif : mettre en avant les restaurants locaux, leur offrir une visibilité gratuite, et permettre aux clients de commander en paiement Wave direct, sans intermédiaire, sans frais, sans commission.
 
----
+DIGIY ne touche jamais l’argent du restaurateur.
+0% commission — paiement direct au pro.
 
-## 🌍 Démo en ligne
+🚀 Fonctionnalités
 
-🔗 **URL publique :**  
-https://beauville.github.io/DIGIY-RESTO/
+Galerie de restaurants partenaires DIGIY.
 
----
+Fiches complètes : photo, description, horaires, badge qualité.
 
-## 🎯 Fonctionnalités principales
+Numéro Wave direct du restaurateur (paiement sécurisé et immédiat).
 
-- Mise en avant visuelle des restaurants partenaires  
-- Galerie optimisée mobile  
-- Encaissement **Wave direct** (le restaurateur reçoit 100%)  
-- Boutons rapides :
-  - Voir le menu / Commander
-  - Contacter par WhatsApp
-  - Appeler directement
-- Sections modulables (BBQ, Pizzeria, Fast-food, Healthy, Fruits de mer, Traditionnel…)
+Bouton Commander / Voir menu.
 
----
+Bouton WhatsApp direct avec message pré-rempli.
 
-## 🧩 Structure du projet
+Interface full mobile-first.
 
-- `index.html` : vitrine complète DIGIY RESTO  
-- CSS intégré directement  
-- Script WhatsApp intégré  
-- Aucune dépendance externe  
-- 100% compatible GitHub Pages
+Design premium DIGIY : vert Sénégal + or DIGIY.
 
----
+🧩 Arborescence du projet
+DIGIY-RESTO/
+│── index.html        → Page principale
+│── README.md         → Documentation du projet
+│── /assets           → (optionnel) Images ou médias si ajoutés
 
-## 🚀 Ajouter son restaurant à la plateforme
+🎯 Objectif DIGIY
 
-Les restaurateurs peuvent demander leur fiche via :
+Le rôle de DIGIY RESTO est simple :
+
+🔸 Donner de la visibilité aux restaurants abonnés DIGIY
+
+Une vraie vitrine professionnelle, accessible en un clic.
+
+🔸 Accompagner la commande
+
+Le client peut :
+
+voir le restaurant
+
+consulter le menu (POS DIGIY RESTO)
+
+payer directement via Wave
+
+contacter en 1 clic via WhatsApp
+
+🔸 Aucune commission
+
+Tout l’argent arrive directement sur le numéro Wave du restaurateur.
+
+🧑‍🍳 Ajouter un restaurant partenaire
+
+Un restaurateur peut devenir partenaire DIGIY via le CTA :
 
 👉 https://beauville.github.io/inscription-digiy/?module=resto
 
-Ils recevront ensuite :
-- leur **fiche restaurant**  
-- leur **QR code DIGIY**  
-- leur **espace DIGIY RESTO** + caisse POS si besoin  
-- activation en **0% commission** (paiement direct Wave)
+Prix : 9 900 F CFA / mois
+Accès complet :
 
----
+POS restaurant
 
-## ✨ Personnalisation
+Page vitrine
 
-Tu peux facilement ajouter :
-- plus de restaurants  
-- des catégories  
-- des badges (Healthy, Premium, Pêche du jour…)  
-- une intégration Supabase pour afficher des restaurants dynamiques
+Paiement direct
 
----
+WhatsApp business
 
-## 🦅 DIGIYLYFE — L’aigle du digital africain
+Gestion de commandes
 
-DIGIY RESTO fait partie de l’écosystème :
-
-- DIGIY DRIVER  
-- DIGIY LOC  
-- DIGIY MARKET  
-- DIGIY JOBS  
-- DIGIY BONNE AFFAIRE  
-- DIGIY EXPLORE  
-- DIGIY NOTABLE  
-- DIGIY STORE PRO  
-
-**0% commission. Paiement direct. Souveraineté numérique.**
-
----
-
-## 🤝 Contribution
-
-Toute idée / optimisation est la bienvenue.  
-Pour ajouter ton propre restaurant : envoie une demande via DIGIY.
-
----
-
-## 📄 Licence
-
-Projet DIGIYLYFE — Tous droits réservés.
+Mise en avant DIGIY RESTO
