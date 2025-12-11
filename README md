@@ -1,0 +1,90 @@
+# 🍽️ DIGIY RESTO — Galerie des Restaurants Partenaires
+
+**DIGIY RESTO** est la vitrine officielle des restaurants et fast-foods locaux utilisant la
+solution DIGIYLYFE.  
+Objectif : mettre en avant les restaurateurs qui encaissent **Wave direct, 0% commission**, et
+offrent un service moderne aux clients.
+
+---
+
+## 🌍 Démo en ligne
+
+🔗 **URL publique :**  
+https://beauville.github.io/DIGIY-RESTO/
+
+---
+
+## 🎯 Fonctionnalités principales
+
+- Mise en avant visuelle des restaurants partenaires  
+- Galerie optimisée mobile  
+- Encaissement **Wave direct** (le restaurateur reçoit 100%)  
+- Boutons rapides :
+  - Voir le menu / Commander
+  - Contacter par WhatsApp
+  - Appeler directement
+- Sections modulables (BBQ, Pizzeria, Fast-food, Healthy, Fruits de mer, Traditionnel…)
+
+---
+
+## 🧩 Structure du projet
+
+- `index.html` : vitrine complète DIGIY RESTO  
+- CSS intégré directement  
+- Script WhatsApp intégré  
+- Aucune dépendance externe  
+- 100% compatible GitHub Pages
+
+---
+
+## 🚀 Ajouter son restaurant à la plateforme
+
+Les restaurateurs peuvent demander leur fiche via :
+
+👉 https://beauville.github.io/inscription-digiy/?module=resto
+
+Ils recevront ensuite :
+- leur **fiche restaurant**  
+- leur **QR code DIGIY**  
+- leur **espace DIGIY RESTO** + caisse POS si besoin  
+- activation en **0% commission** (paiement direct Wave)
+
+---
+
+## ✨ Personnalisation
+
+Tu peux facilement ajouter :
+- plus de restaurants  
+- des catégories  
+- des badges (Healthy, Premium, Pêche du jour…)  
+- une intégration Supabase pour afficher des restaurants dynamiques
+
+---
+
+## 🦅 DIGIYLYFE — L’aigle du digital africain
+
+DIGIY RESTO fait partie de l’écosystème :
+
+- DIGIY DRIVER  
+- DIGIY LOC  
+- DIGIY MARKET  
+- DIGIY JOBS  
+- DIGIY BONNE AFFAIRE  
+- DIGIY EXPLORE  
+- DIGIY NOTABLE  
+- DIGIY STORE PRO  
+
+**0% commission. Paiement direct. Souveraineté numérique.**
+
+---
+
+## 🤝 Contribution
+
+Toute idée / optimisation est la bienvenue.  
+Pour ajouter ton propre restaurant : envoie une demande via DIGIY.
+
+---
+
+## 📄 Licence
+
+Projet DIGIYLYFE — Tous droits réservés.
