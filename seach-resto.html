@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DIGIY RESTO — Recherche Intelligente</title>
+  <meta name="theme-color" content="#0A0E1A" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Supabase JS (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root{
+      --bg-dark:#020617;
+      --bg-soft:#0B1120;
+      --card:#0B1120;
+      --card2:rgba(15,23,42,0.98);
+      --cardBorder:rgba(148, 163, 184, 0.48);
+      --ink:#F9FAFB;
+      --ink-soft:#E5E7EB;
+      --muted:#CBD5E1;
+      --accent:#f97316;
+      --accent-strong:#ea580c;
+      --gold:#facc15;
+      --success:#22c55e;
+      --danger:#ef4444;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'Manrope', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at top left, rgba(249,115,22,0.14), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(34,211,238,0.18), transparent 60%),
+        #020617;
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      padding:22px 16px 60px;
+    }
+
+    header{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      padding:14px 16px;
+      border-radius:22px;
+      border:1px solid rgba(148,163,184,0.55);
+      background:linear-gradient(135deg, rgba(15,23,42,0.98), rgba(17,24,39,0.96));
+      box-shadow:0 14px 40px rgba(0,0,0,0.75);
+      margin-bottom:14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      text-decoration:none;color:inherit;
+    }
+    .brand-logo{
+      width:46px;height:46px;border-radius:16px;
+      background:radial-gradient(circle at 30% 20%,#fef3c7,#f97316);
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.8rem;font-weight:900;color:#111827;
+      box-shadow:0 12px 32px rgba(249,115,22,0.55);
+    }
+    .brand-title{
+      font-family:'Outfit',sans-serif;
+      font-weight:950;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:1.2rem;
+      background:linear-gradient(135deg,#f97316,#facc15,#22d3ee);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .brand-sub{
+      font-size:.78rem;
+      color:var(--muted);
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .top-actions{
+      display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end;
+    }
+    .btn{
+      border-radius:999px;
+      padding:.65rem 1.05rem;
+      font-family:'Outfit',sans-serif;
+      font-weight:950;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      font-size:.78rem;
+      text-decoration:none;
+      border:1px solid rgba(148,163,184,0.65);
+      background:rgba(15,23,42,0.98);
+      color:var(--ink);
+      cursor:pointer;
+      transition:transform .15s ease, border-color .15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(249,115,22,0.9);}
+    .btn-primary{
+      background:linear-gradient(135deg,#f97316,#ea580c);
+      color:#111827;
+      border:1px solid rgba(249,115,22,0.85);
+      box-shadow:0 10px 28px rgba(249,115,22,0.35);
+    }
+    .btn-primary:hover{transform:translateY(-2px);}
+    .btn-geo{
+      background:linear-gradient(135deg,#22d3ee,#06b6d4);
+      color:#111827;
+      border:1px solid rgba(34,211,238,0.85);
+    }
+
+    .card{
+      border-radius:24px;
+      border:1px solid rgba(148,163,184,0.50);
+      background:linear-gradient(145deg,rgba(15,23,42,0.98),rgba(15,23,42,0.95));
+      box-shadow:0 16px 52px rgba(0,0,0,0.75);
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    /* 4 colonnes desktop (comme toi), module dans filters */
+    .search-row{
+      display:grid;
+      grid-template-columns: 1.6fr .8fr auto auto;
+      gap:10px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    @media(max-width:900px){
+      .search-row{grid-template-columns:1fr; }
+    }
+
+    input, select{
+      width:100%;
+      border-radius:14px;
+      padding:12px 12px;
+      border:1px solid rgba(148,163,184,0.55);
+      background:rgba(2,6,23,0.55);
+      color:var(--ink);
+      outline:none;
+      font-weight:650;
+      font-size:.95rem;
+    }
+    input::placeholder{color:rgba(203,213,225,0.75);}
+    input:focus, select:focus{
+      border-color:rgba(249,115,22,0.85);
+      box-shadow:0 0 0 3px rgba(249,115,22,0.15);
+    }
+
+    .filters{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:10px;
+      margin-bottom:12px;
+    }
+    @media(max-width:900px){
+      .filters{grid-template-columns:1fr 1fr;}
+    }
+
+    .hint{
+      margin-top:10px;
+      font-size:.9rem;
+      color:var(--muted);
+      font-weight:650;
+      line-height:1.5;
+    }
+    .hint strong{color:#fff;}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.65);
+      background:rgba(15,23,42,0.98);
+      font-size:.78rem;
+      color:var(--ink-soft);
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      margin-right:8px;
+      margin-top:6px;
+    }
+    .pill-live{border-color:rgba(34,197,94,0.9); color:#dcfce7; background:rgba(22,163,74,0.14);}
+    .pill-warn{border-color:rgba(250,204,21,0.95); color:#fef9c3; background:rgba(250,204,21,0.12);}
+    .pill-geo{border-color:rgba(34,211,238,0.9); color:#cffafe; background:rgba(34,211,238,0.12);}
+
+    .results-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+      flex-wrap:wrap;
+      margin:10px 2px 0;
+    }
+    .results-title{
+      font-family:'Outfit',sans-serif;
+      font-weight:950;
+      font-size:1.3rem;
+      letter-spacing:.04em;
+    }
+    .small{
+      font-size:.85rem;
+      color:var(--muted);
+      font-weight:650;
+    }
+
+    .grid{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+      gap:14px;
+    }
+
+    .item{
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,0.50);
+      background:
+        radial-gradient(circle at top left,rgba(249,115,22,0.10),transparent 60%),
+        rgba(11,17,32,0.98);
+      padding:16px;
+      transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+      cursor:pointer;
+      position:relative;
+      overflow:hidden;
+      min-height:160px;
+    }
+    .item:hover{
+      transform:translateY(-4px);
+      border-color:rgba(249,115,22,0.85);
+      box-shadow:0 12px 40px rgba(249,115,22,0.25);
+    }
+    .item-top{
+      display:flex;justify-content:space-between;gap:8px;align-items:flex-start;
+      margin-bottom:10px;
+    }
+    .name{
+      font-family:'Outfit',sans-serif;
+      font-weight:950;
+      font-size:1.05rem;
+      line-height:1.2;
+      flex:1;
+    }
+    .badge{
+      font-size:.72rem;
+      padding:5px 10px;
+      border-radius:999px;
+      font-weight:950;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      border:1px solid rgba(148,163,184,0.65);
+      color:var(--muted);
+      background:rgba(15,23,42,0.98);
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .badge-premium{
+      border-color:rgba(250,204,21,0.95);
+      color:#111827;
+      background:linear-gradient(135deg,#facc15,#fde68a);
+      box-shadow:0 4px 12px rgba(250,204,21,0.35);
+    }
+
+    .meta{
+      display:flex;flex-wrap:wrap;gap:8px;
+      font-size:.86rem;
+      color:var(--ink-soft);
+      font-weight:650;
+      margin-bottom:10px;
+    }
+    .meta span{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+    }
+    .desc{
+      font-size:.88rem;
+      color:var(--muted);
+      line-height:1.5;
+      font-weight:650;
+      min-height:42px;
+      margin-bottom:12px;
+    }
+    .foot{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-top:auto;
+      gap:8px;
+    }
+    .cta{
+      border:none;
+      border-radius:999px;
+      padding:.65rem 1.05rem;
+      background:linear-gradient(135deg,#f97316,#ea580c);
+      color:#111827;
+      font-family:'Outfit',sans-serif;
+      font-weight:950;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      font-size:.75rem;
+      cursor:pointer;
+      white-space:nowrap;
+      transition:transform .15s ease;
+    }
+    .cta:hover{
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(249,115,22,0.45);
+    }
+    .muted{
+      color:var(--muted);
+      font-size:.82rem;
+      font-weight:650;
+    }
+
+    .empty{
+      padding:24px;
+      border-radius:18px;
+      border:1px dashed rgba(148,163,184,0.55);
+      color:var(--muted);
+      font-weight:650;
+      background:rgba(2,6,23,0.35);
+      margin-top:12px;
+      text-align:center;
+      line-height:1.6;
+    }
+    .empty strong{color:#fff;}
+
+    .debug{
+      margin-top:12px;
+      padding:12px;
+      border-radius:12px;
+      background:rgba(2,6,23,0.75);
+      border:1px solid rgba(148,163,184,0.35);
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size:.82rem;
+      color:rgba(203,213,225,0.85);
+      line-height:1.45;
+      white-space:pre-wrap;
+      word-break:break-word;
+      max-height:200px;
+      overflow-y:auto;
+    }
+
+    .mode-tabs{
+      display:flex;
+      gap:8px;
+      margin-bottom:12px;
+      flex-wrap:wrap;
+    }
+    .mode-tab{
+      padding:.6rem 1.1rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.55);
+      background:rgba(15,23,42,0.98);
+      color:var(--muted);
+      font-family:'Outfit',sans-serif;
+      font-weight:800;
+      font-size:.8rem;
+      cursor:pointer;
+      transition:all .15s ease;
+    }
+    .mode-tab.active{
+      border-color:rgba(249,115,22,0.9);
+      background:rgba(249,115,22,0.18);
+      color:var(--ink);
+    }
+    .mode-tab:hover{
+      border-color:rgba(249,115,22,0.7);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header>
+      <a class="brand" href="./index.html">
+        <div class="brand-logo">∞</div>
+        <div>
+          <div class="brand-title">DIGIY RESTO</div>
+          <div class="brand-sub">RECHERCHE INTELLIGENTE — 0% COMMISSION</div>
+        </div>
+      </a>
+
+      <div class="top-actions">
+        <a class="btn" href="./index.html">← HUB</a>
+        <a class="btn" href="https://digiylyfe.com/menus-pages">☰ MENU</a>
+        <a class="btn btn-primary" href="https://beauville.github.io/mon-espace-digiy/">🔐 SE CONNECTER</a>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="mode-tabs">
+        <button class="mode-tab active" id="tabText" onclick="setMode('text', this)">🔍 Recherche textuelle</button>
+        <button class="mode-tab" id="tabGeo" onclick="setMode('geo', this)">📍 Autour de moi</button>
+      </div>
+
+      <!-- MODE TEXTE -->
+      <div id="textMode">
+        <div class="search-row">
+          <input id="q" placeholder='Ex: "fatou plateau" ou "thieboudienne dakar"' />
+          <input id="city" placeholder="Ville : Dakar, Thiès..." />
+          <button class="btn btn-primary" id="btnSearch">Chercher →</button>
+          <button class="btn btn-geo" id="btnGeo">📍 Géo</button>
+        </div>
+
+        <div class="filters">
+          <!-- ✅ MODULE (réel chez toi = modules[]) -->
+          <select id="module">
+            <option value="resto" selected>🍽️ RESTO</option>
+            <option value="loc">🏠 LOC</option>
+            <option value="chauffeur">🚗 CHAUFFEUR</option>
+            <option value="all">🦅 Tous</option>
+          </select>
+
+          <select id="minRating">
+            <option value="">Note minimum</option>
+            <option value="3.5">⭐ 3.5+</option>
+            <option value="4">⭐ 4.0+</option>
+            <option value="4.5">⭐ 4.5+</option>
+          </select>
+
+          <select id="maxPrice">
+            <option value="">Budget max</option>
+            <option value="1">€ - Économique</option>
+            <option value="2">€€ - Modéré</option>
+            <option value="3">€€€ - Élevé</option>
+            <option value="4">€€€€ - Luxe</option>
+          </select>
+
+          <select id="sortBy">
+            <option value="ranking">Tri : Pertinence</option>
+            <option value="rating">Tri : Meilleures notes</option>
+            <option value="price">Tri : Prix croissant</option>
+            <option value="new">Tri : Plus récents</option>
+          </select>
+
+          <select id="pack">
+            <option value="">Tous les packs</option>
+            <option value="premium">⭐ Premium</option>
+            <option value="standard">Standard</option>
+            <option value="basic">Basic</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- MODE GÉO -->
+      <div id="geoMode" style="display:none;">
+        <div class="search-row" style="grid-template-columns: 1fr auto;">
+          <select id="radiusKm">
+            <option value="3">Rayon : 3 km</option>
+            <option value="5">Rayon : 5 km</option>
+            <option value="10" selected>Rayon : 10 km</option>
+            <option value="15">Rayon : 15 km</option>
+            <option value="25">Rayon : 25 km</option>
+          </select>
+          <button class="btn btn-geo" id="btnGeoRun">📍 Lancer la recherche</button>
+        </div>
+        <div class="hint">
+          📍 On utilise ta position réelle (PostGIS) pour remonter les pros proches.
+          Si ton téléphone demande l’autorisation, accepte, sinon… pas de magie 😄
+        </div>
+      </div>
+
+      <div class="hint" id="status">
+        🔥 <strong>Full-text search PostgreSQL</strong> + géolocalisation PostGIS.
+        Tape un mot-clé, cherche par ville, ou géolocalise-toi !
+        <div>
+          <span class="pill pill-live">LIVE</span>
+          <span class="pill pill-warn">SUPABASE</span>
+          <span class="pill pill-geo">POSTGIS</span>
+        </div>
+      </div>
+
+      <div class="debug" id="debug" style="display:none;"></div>
+    </div>
+
+    <div class="results-head">
+      <div>
+        <div class="results-title">Résultats</div>
+        <div class="small" id="count">0 résultat</div>
+      </div>
+      <div class="small" id="info">—</div>
+    </div>
+
+    <div id="results" class="grid"></div>
+    <div id="empty" class="empty" style="display:none;">
+      😕 <strong>Aucun résultat trouvé.</strong><br>
+      Essaie : <strong>"fatou dakar"</strong> ou <strong>"thieboudienne plateau"</strong><br>
+      Ou clique sur <strong>📍 Géo</strong> pour trouver les pros autour de toi !
+    </div>
+
+  </div>
+
+  <script>
+    /* 🔐 SUPABASE CONFIG */
+    const SUPABASE_URL = "https://wesqmwjjtsefyjnluosj.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indlc3Ftd2pqdHNlZnlqbmx1b3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxNzg4ODIsImV4cCI6MjA4MDc1NDg4Mn0.dZfYOc2iL2_wRYL3zExZFsFSBK6AbMeOid2LrIjcTdA";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // UI Elements
+    const elQ = document.getElementById("q");
+    const elCity = document.getElementById("city");
+    const elModule = document.getElementById("module");
+
+    const elBtnSearch = document.getElementById("btnSearch");
+    const elBtnGeo = document.getElementById("btnGeo");
+    const elBtnGeoRun = document.getElementById("btnGeoRun");
+
+    const elStatus = document.getElementById("status");
+    const elDebug = document.getElementById("debug");
+    const elResults = document.getElementById("results");
+    const elEmpty = document.getElementById("empty");
+    const elCount = document.getElementById("count");
+    const elInfo = document.getElementById("info");
+
+    const elMinRating = document.getElementById("minRating");
+    const elMaxPrice = document.getElementById("maxPrice");
+    const elSortBy = document.getElementById("sortBy");
+    const elPack = document.getElementById("pack");
+    const elRadiusKm = document.getElementById("radiusKm");
+
+    const elTextMode = document.getElementById("textMode");
+    const elGeoMode = document.getElementById("geoMode");
+
+    let currentMode = 'text';
+
+    function setMode(mode, el){
+      currentMode = mode;
+
+      document.querySelectorAll('.mode-tab').forEach(tab => tab.classList.remove('active'));
+      if(el) el.classList.add('active');
+
+      elTextMode.style.display = (mode === 'text') ? 'block' : 'none';
+      elGeoMode.style.display  = (mode === 'geo')  ? 'block' : 'none';
+
+      if(mode === 'geo'){
+        geoSearch();
+      } else {
+        setTimeout(() => elQ && elQ.focus(), 50);
+      }
+    }
+
+    function safeText(v){
+      if(v === null || v === undefined) return "";
+      return String(v);
+    }
+
+    function escapeHtml(str){
+      return safeText(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function formatPrice(range){
+      if(!range) return "";
+      return "€".repeat(Math.min(range, 4));
+    }
+
+    function formatRating(rating){
+      if(!rating) return "";
+      return "⭐".repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? "½" : "");
+    }
+
+    function moduleBadgeText(currentModule, pack){
+      if(pack === "premium") return "⭐ PREMIUM";
+      if(currentModule && currentModule !== "all"){
+        if(currentModule === "resto") return "🍽️ RESTO";
+        if(currentModule === "loc") return "🏠 LOC";
+        if(currentModule === "chauffeur") return "🚗 CHAUFFEUR";
+        return currentModule.toUpperCase();
+      }
+      return "PRO";
+    }
+
+    function render(rows){
+      rows = Array.isArray(rows) ? rows : [];
+      elResults.innerHTML = "";
+      elEmpty.style.display = rows.length ? "none" : "block";
+      elCount.textContent = rows.length + (rows.length > 1 ? " résultats" : " résultat");
+
+      const currentModule = elModule ? elModule.value : "resto";
+
+      rows.forEach(r => {
+        const name = r.business_name || r.name || "Sans nom";
+        const city = r.city || "";
+        const quartier = r.quartier || "";
+        const rating = r.rating || 0;
+        const price = r.price_range || 0;
+        const pack = (r.subscription_pack || "").toLowerCase();
+        const desc = r.description || "";
+        const distance = r.distance_km !== undefined ? r.distance_km : null;
+
+        const badge = pack === "premium" ? "badge badge-premium" : "badge";
+        const badgeText = moduleBadgeText(currentModule, pack);
+
+        const card = document.createElement("div");
+        card.className = "item";
+        card.innerHTML = `
+          <div class="item-top">
+            <div class="name">${escapeHtml(name)}</div>
+            <div class="${badge}">${escapeHtml(badgeText).toUpperCase()}</div>
+          </div>
+          <div class="meta">
+            ${city ? `<span>📍 ${escapeHtml(city)}${quartier ? " • " + escapeHtml(quartier) : ""}</span>` : ""}
+            ${distance !== null ? `<span>🚶 ${escapeHtml(distance)} km</span>` : ""}
+            ${rating > 0 ? `<span>${formatRating(rating)} ${Number(rating).toFixed(1)}</span>` : ""}
+            ${price > 0 ? `<span>💰 ${formatPrice(price)}</span>` : ""}
+          </div>
+          <div class="desc">${escapeHtml(desc).slice(0, 120)}${safeText(desc).length > 120 ? "…" : ""}</div>
+          <div class="foot">
+            <button class="cta">${currentModule === "resto" ? "Voir le resto →" : "Voir le pro →"}</button>
+            <div class="muted">Fiche détail</div>
+          </div>
+        `;
+
+        card.addEventListener("click", () => {
+          const id = r.id || r.pro_id;
+          if(id){
+            window.location.href = `pro-detail.html?id=${encodeURIComponent(id)}`;
+          } else {
+            alert("ID manquant pour ce pro");
+          }
+        });
+
+        elResults.appendChild(card);
+      });
+    }
+
+    /* 🔍 RECHERCHE TEXTUELLE — via RPC (modules[] + full-text) */
+    async function textSearch(){
+      const q = safeText(elQ.value).trim();
+      const city = safeText(elCity.value).trim();
+      const module = elModule ? safeText(elModule.value).trim() : "resto";
+
+      if(q.length && q.length < 2){
+        elStatus.innerHTML = `⛔ Tape au moins <strong>2 lettres</strong> frérot.`;
+        return;
+      }
+
+      elStatus.innerHTML = `⏳ Recherche en cours...`;
+      elDebug.style.display = "none";
+
+      const sortBy = elSortBy.value || "ranking";
+
+      try {
+        // 🔥 RPC universelle: filtre par modules[] côté DB
+        const { data, error } = await supabase.rpc('search_pros_universal', {
+          q: q || null,
+          p_module: (module === "all") ? null : module,
+          p_city: city || null,
+          p_quartier: null,
+          p_limit: 80
+        });
+        if(error) throw error;
+
+        let rows = Array.isArray(data) ? data : [];
+
+        // Tri basique (rank natif sinon)
+        if(sortBy === "rating"){
+          rows = rows.sort((a,b) => (b.rating||0) - (a.rating||0));
+        } else if(sortBy === "new"){
+          rows = rows.sort((a,b) => safeText(b.created_at).localeCompare(safeText(a.created_at)));
+        } else {
+          rows = rows.sort((a,b) => (b.rank||0) - (a.rank||0));
+        }
+
+        elInfo.textContent = `Mode: ${module === "all" ? "Tous" : module.toUpperCase()} (RPC)`;
+        elStatus.innerHTML = `✅ ${rows.length} résultat(s) trouvé(s).`;
+        render(rows);
+
+      } catch(err){
+        console.error('Erreur:', err);
+        elStatus.innerHTML = `❌ Erreur: ${escapeHtml(err.message || String(err))}`;
+        elDebug.textContent = JSON.stringify(err, null, 2);
+        elDebug.style.display = "block";
+        elResults.innerHTML = "";
+        elEmpty.style.display = "block";
+      }
+    }
+
+    /* 📍 RECHERCHE GÉO (POSTGIS) — garde ton RPC existant */
+    async function geoSearch(){
+      if(!navigator.geolocation){
+        alert("❌ Géolocalisation non disponible sur cet appareil.");
+        return;
+      }
+
+      elStatus.innerHTML = `⏳ Localisation en cours...`;
+      elDebug.style.display = "none";
+
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+
+          const radiusKm = elRadiusKm ? parseFloat(elRadiusKm.value) : 10;
+          const module = elModule ? safeText(elModule.value).trim() : "resto";
+
+          try {
+            // ⚠️ Ici, ta RPC s'appelle search_pros_nearby et prend p_type.
+            // Chez toi, le vrai filtre est modules[].
+            // Pour l'instant on mappe: resto/loc/chauffeur => p_type (si ta fonction l'attend).
+            // Si ta fonction est déjà "type", on pourra la convertir en "module via any(modules)".
+            const pType = (module === "all") ? "resto" : module;
+
+            const { data, error } = await supabase.rpc('search_pros_nearby', {
+              p_type: pType,
+              p_lat: lat,
+              p_lng: lng,
+              p_radius_km: radiusKm,
+              p_limit: 40
+            });
+
+            if(error) throw error;
+
+            elInfo.textContent = `Mode: Géolocalisation (${radiusKm}km)`;
+            elStatus.innerHTML = `✅ ${data.length} résultat(s) trouvé(s) dans ${radiusKm}km.`;
+            render(data);
+
+          } catch(err){
+            console.error('Erreur géo:', err);
+            elStatus.innerHTML = `❌ Erreur géo: ${escapeHtml(err.message || String(err))}`;
+            elDebug.textContent = JSON.stringify(err, null, 2);
+            elDebug.style.display = "block";
+            elResults.innerHTML = "";
+            elEmpty.style.display = "block";
+          }
+        },
+        (err) => {
+          alert(`❌ Impossible de te localiser: ${err.message}`);
+          elStatus.innerHTML = `❌ Géolocalisation refusée.`;
+        },
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 5000 }
+      );
+    }
+
+    /* EVENTS */
+    elBtnSearch.addEventListener("click", () => {
+      setMode('text', document.getElementById('tabText'));
+      textSearch();
+    });
+
+    elBtnGeo.addEventListener("click", () => {
+      setMode('geo', document.getElementById('tabGeo'));
+    });
+
+    if(elBtnGeoRun){
+      elBtnGeoRun.addEventListener("click", () => {
+        setMode('geo', document.getElementById('tabGeo'));
+        geoSearch();
+      });
+    }
+
+    // Debounce pour recherche auto
+    let debounceTimer = null;
+    function debounceSearch(){
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        if(currentMode === 'text') textSearch();
+      }, 400);
+    }
+
+    elQ.addEventListener("input", debounceSearch);
+    elCity.addEventListener("input", debounceSearch);
+    [elModule, elMinRating, elMaxPrice, elSortBy, elPack].forEach(el => {
+      if(!el) return;
+      el.addEventListener("change", () => {
+        if(currentMode === 'text') textSearch();
+      });
+    });
+
+    // Enter = recherche
+    elQ.addEventListener("keydown", (e) => {
+      if(e.key === "Enter" && currentMode === 'text') textSearch();
+    });
+    elCity.addEventListener("keydown", (e) => {
+      if(e.key === "Enter" && currentMode === 'text') textSearch();
+    });
+
+    // Auto-focus
+    elQ.focus();
+
+    // Option: recherche initiale
+    // textSearch();
+  </script>
+
+</body>
+</html>
