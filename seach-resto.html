@@ -127,7 +127,6 @@
       margin-bottom:14px;
     }
 
-    /* 4 colonnes desktop (comme toi), module dans filters */
     .search-row{
       display:grid;
       grid-template-columns: 1.6fr .8fr auto auto;
@@ -158,7 +157,7 @@
 
     .filters{
       display:grid;
-      grid-template-columns:repeat(4, minmax(0,1fr));
+      grid-template-columns:repeat(5, minmax(0,1fr));
       gap:10px;
       margin-bottom:12px;
     }
@@ -382,7 +381,8 @@
   <div class="wrap">
 
     <header>
-      <a class="brand" href="./index.html">
+      <!-- ✅ corrigé : éviter ./index.html si ce fichier est dans un autre repo -->
+      <a class="brand" href="https://beauville.github.io/digiy-hub/">
         <div class="brand-logo">∞</div>
         <div>
           <div class="brand-title">DIGIY RESTO</div>
@@ -391,7 +391,7 @@
       </a>
 
       <div class="top-actions">
-        <a class="btn" href="./index.html">← HUB</a>
+        <a class="btn" href="https://beauville.github.io/digiy-hub/">← HUB</a>
         <a class="btn" href="https://digiylyfe.com/menus-pages">☰ MENU</a>
         <a class="btn btn-primary" href="https://beauville.github.io/mon-espace-digiy/">🔐 SE CONNECTER</a>
       </div>
@@ -399,8 +399,8 @@
 
     <div class="card">
       <div class="mode-tabs">
-        <button class="mode-tab active" id="tabText" onclick="setMode('text', this)">🔍 Recherche textuelle</button>
-        <button class="mode-tab" id="tabGeo" onclick="setMode('geo', this)">📍 Autour de moi</button>
+        <button class="mode-tab active" id="tabText" type="button">🔍 Recherche textuelle</button>
+        <button class="mode-tab" id="tabGeo" type="button">📍 Autour de moi</button>
       </div>
 
       <!-- MODE TEXTE -->
@@ -408,12 +408,11 @@
         <div class="search-row">
           <input id="q" placeholder='Ex: "fatou plateau" ou "thieboudienne dakar"' />
           <input id="city" placeholder="Ville : Dakar, Thiès..." />
-          <button class="btn btn-primary" id="btnSearch">Chercher →</button>
-          <button class="btn btn-geo" id="btnGeo">📍 Géo</button>
+          <button class="btn btn-primary" id="btnSearch" type="button">Chercher →</button>
+          <button class="btn btn-geo" id="btnGeo" type="button">📍 Géo</button>
         </div>
 
         <div class="filters">
-          <!-- ✅ MODULE (réel chez toi = modules[]) -->
           <select id="module">
             <option value="resto" selected>🍽️ RESTO</option>
             <option value="loc">🏠 LOC</option>
@@ -462,7 +461,7 @@
             <option value="15">Rayon : 15 km</option>
             <option value="25">Rayon : 25 km</option>
           </select>
-          <button class="btn btn-geo" id="btnGeoRun">📍 Lancer la recherche</button>
+          <button class="btn btn-geo" id="btnGeoRun" type="button">📍 Lancer la recherche</button>
         </div>
         <div class="hint">
           📍 On utilise ta position réelle (PostGIS) pour remonter les pros proches.
@@ -531,22 +530,19 @@
     const elTextMode = document.getElementById("textMode");
     const elGeoMode = document.getElementById("geoMode");
 
-    let currentMode = 'text';
+    const tabText = document.getElementById("tabText");
+    const tabGeo = document.getElementById("tabGeo");
 
-    function setMode(mode, el){
+    let currentMode = "text";
+    let isSearching = false;
+
+    function setMode(mode){
       currentMode = mode;
-
-      document.querySelectorAll('.mode-tab').forEach(tab => tab.classList.remove('active'));
-      if(el) el.classList.add('active');
-
-      elTextMode.style.display = (mode === 'text') ? 'block' : 'none';
-      elGeoMode.style.display  = (mode === 'geo')  ? 'block' : 'none';
-
-      if(mode === 'geo'){
-        geoSearch();
-      } else {
-        setTimeout(() => elQ && elQ.focus(), 50);
-      }
+      document.querySelectorAll(".mode-tab").forEach(tab => tab.classList.remove("active"));
+      (mode === "text" ? tabText : tabGeo).classList.add("active");
+      elTextMode.style.display = (mode === "text") ? "block" : "none";
+      elGeoMode.style.display  = (mode === "geo")  ? "block" : "none";
+      if(mode === "text") setTimeout(() => elQ && elQ.focus(), 50);
     }
 
     function safeText(v){
@@ -564,17 +560,20 @@
     }
 
     function formatPrice(range){
-      if(!range) return "";
-      return "€".repeat(Math.min(range, 4));
+      const n = Number(range || 0);
+      if(!n) return "";
+      return "€".repeat(Math.min(Math.max(Math.round(n), 1), 4));
     }
 
     function formatRating(rating){
-      if(!rating) return "";
-      return "⭐".repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? "½" : "");
+      const r = Number(rating || 0);
+      if(!r) return "";
+      return "⭐".repeat(Math.floor(r)) + (r % 1 >= 0.5 ? "½" : "");
     }
 
     function moduleBadgeText(currentModule, pack){
-      if(pack === "premium") return "⭐ PREMIUM";
+      const p = String(pack || "").toLowerCase();
+      if(p === "premium") return "⭐ PREMIUM";
       if(currentModule && currentModule !== "all"){
         if(currentModule === "resto") return "🍽️ RESTO";
         if(currentModule === "loc") return "🏠 LOC";
@@ -582,6 +581,54 @@
         return currentModule.toUpperCase();
       }
       return "PRO";
+    }
+
+    function setStatus(html){
+      elStatus.innerHTML = html;
+    }
+
+    function showDebug(obj){
+      elDebug.textContent = (typeof obj === "string") ? obj : JSON.stringify(obj, null, 2);
+      elDebug.style.display = "block";
+    }
+    function hideDebug(){
+      elDebug.style.display = "none";
+      elDebug.textContent = "";
+    }
+
+    function applyClientFilters(rows){
+      rows = Array.isArray(rows) ? rows : [];
+
+      const minR = elMinRating.value ? parseFloat(elMinRating.value) : null;
+      const maxP = elMaxPrice.value ? parseInt(elMaxPrice.value, 10) : null;
+      const pack = safeText(elPack.value).trim().toLowerCase();
+
+      let out = rows;
+
+      if(minR !== null){
+        out = out.filter(r => Number(r.rating || 0) >= minR);
+      }
+      if(maxP !== null){
+        out = out.filter(r => Number(r.price_range || 0) <= maxP);
+      }
+      if(pack){
+        out = out.filter(r => String(r.subscription_pack || "").toLowerCase() === pack);
+      }
+
+      // Tri
+      const sortBy = elSortBy.value || "ranking";
+      if(sortBy === "rating"){
+        out = out.sort((a,b) => (Number(b.rating||0) - Number(a.rating||0)));
+      } else if(sortBy === "price"){
+        out = out.sort((a,b) => (Number(a.price_range||999) - Number(b.price_range||999)));
+      } else if(sortBy === "new"){
+        out = out.sort((a,b) => safeText(b.created_at).localeCompare(safeText(a.created_at)));
+      } else {
+        // ranking (si la RPC donne rank), sinon fallback rating
+        out = out.sort((a,b) => (Number(b.rank||0) - Number(a.rank||0)) || (Number(b.rating||0) - Number(a.rating||0)));
+      }
+
+      return out;
     }
 
     function render(rows){
@@ -596,13 +643,13 @@
         const name = r.business_name || r.name || "Sans nom";
         const city = r.city || "";
         const quartier = r.quartier || "";
-        const rating = r.rating || 0;
-        const price = r.price_range || 0;
-        const pack = (r.subscription_pack || "").toLowerCase();
+        const rating = Number(r.rating || 0);
+        const price = Number(r.price_range || 0);
+        const pack = String(r.subscription_pack || "").toLowerCase();
         const desc = r.description || "";
-        const distance = r.distance_km !== undefined ? r.distance_km : null;
+        const distance = (r.distance_km !== undefined && r.distance_km !== null) ? Number(r.distance_km) : null;
 
-        const badge = pack === "premium" ? "badge badge-premium" : "badge";
+        const badgeClass = (pack === "premium") ? "badge badge-premium" : "badge";
         const badgeText = moduleBadgeText(currentModule, pack);
 
         const card = document.createElement("div");
@@ -610,17 +657,17 @@
         card.innerHTML = `
           <div class="item-top">
             <div class="name">${escapeHtml(name)}</div>
-            <div class="${badge}">${escapeHtml(badgeText).toUpperCase()}</div>
+            <div class="${badgeClass}">${escapeHtml(badgeText).toUpperCase()}</div>
           </div>
           <div class="meta">
             ${city ? `<span>📍 ${escapeHtml(city)}${quartier ? " • " + escapeHtml(quartier) : ""}</span>` : ""}
-            ${distance !== null ? `<span>🚶 ${escapeHtml(distance)} km</span>` : ""}
-            ${rating > 0 ? `<span>${formatRating(rating)} ${Number(rating).toFixed(1)}</span>` : ""}
-            ${price > 0 ? `<span>💰 ${formatPrice(price)}</span>` : ""}
+            ${distance !== null && !Number.isNaN(distance) ? `<span>🚶 ${escapeHtml(distance.toFixed(1))} km</span>` : ""}
+            ${rating > 0 ? `<span>${formatRating(rating)} ${escapeHtml(rating.toFixed(1))}</span>` : ""}
+            ${price > 0 ? `<span>💰 ${escapeHtml(formatPrice(price))}</span>` : ""}
           </div>
           <div class="desc">${escapeHtml(desc).slice(0, 120)}${safeText(desc).length > 120 ? "…" : ""}</div>
           <div class="foot">
-            <button class="cta">${currentModule === "resto" ? "Voir le resto →" : "Voir le pro →"}</button>
+            <button class="cta" type="button">${currentModule === "resto" ? "Voir le resto →" : "Voir le pro →"}</button>
             <div class="muted">Fiche détail</div>
           </div>
         `;
@@ -638,25 +685,26 @@
       });
     }
 
-    /* 🔍 RECHERCHE TEXTUELLE — via RPC (modules[] + full-text) */
+    /* 🔍 RECHERCHE TEXTUELLE — via RPC */
     async function textSearch(){
+      if(isSearching) return;
+      isSearching = true;
+
       const q = safeText(elQ.value).trim();
       const city = safeText(elCity.value).trim();
       const module = elModule ? safeText(elModule.value).trim() : "resto";
 
       if(q.length && q.length < 2){
-        elStatus.innerHTML = `⛔ Tape au moins <strong>2 lettres</strong> frérot.`;
+        setStatus(`⛔ Tape au moins <strong>2 lettres</strong> frérot.`);
+        isSearching = false;
         return;
       }
 
-      elStatus.innerHTML = `⏳ Recherche en cours...`;
-      elDebug.style.display = "none";
-
-      const sortBy = elSortBy.value || "ranking";
+      setStatus(`⏳ Recherche en cours...`);
+      hideDebug();
 
       try {
-        // 🔥 RPC universelle: filtre par modules[] côté DB
-        const { data, error } = await supabase.rpc('search_pros_universal', {
+        const { data, error } = await supabase.rpc("search_pros_universal", {
           q: q || null,
           p_module: (module === "all") ? null : module,
           p_city: city || null,
@@ -666,39 +714,36 @@
         if(error) throw error;
 
         let rows = Array.isArray(data) ? data : [];
-
-        // Tri basique (rank natif sinon)
-        if(sortBy === "rating"){
-          rows = rows.sort((a,b) => (b.rating||0) - (a.rating||0));
-        } else if(sortBy === "new"){
-          rows = rows.sort((a,b) => safeText(b.created_at).localeCompare(safeText(a.created_at)));
-        } else {
-          rows = rows.sort((a,b) => (b.rank||0) - (a.rank||0));
-        }
+        rows = applyClientFilters(rows);
 
         elInfo.textContent = `Mode: ${module === "all" ? "Tous" : module.toUpperCase()} (RPC)`;
-        elStatus.innerHTML = `✅ ${rows.length} résultat(s) trouvé(s).`;
+        setStatus(`✅ ${rows.length} résultat(s) trouvé(s).`);
         render(rows);
 
       } catch(err){
-        console.error('Erreur:', err);
-        elStatus.innerHTML = `❌ Erreur: ${escapeHtml(err.message || String(err))}`;
-        elDebug.textContent = JSON.stringify(err, null, 2);
-        elDebug.style.display = "block";
+        console.error("Erreur:", err);
+        setStatus(`❌ Erreur: ${escapeHtml(err.message || String(err))}`);
+        showDebug(err);
         elResults.innerHTML = "";
         elEmpty.style.display = "block";
+      } finally {
+        isSearching = false;
       }
     }
 
-    /* 📍 RECHERCHE GÉO (POSTGIS) — garde ton RPC existant */
+    /* 📍 RECHERCHE GÉO (POSTGIS) */
     async function geoSearch(){
+      if(isSearching) return;
+      isSearching = true;
+
       if(!navigator.geolocation){
         alert("❌ Géolocalisation non disponible sur cet appareil.");
+        isSearching = false;
         return;
       }
 
-      elStatus.innerHTML = `⏳ Localisation en cours...`;
-      elDebug.style.display = "none";
+      setStatus(`⏳ Localisation en cours...`);
+      hideDebug();
 
       navigator.geolocation.getCurrentPosition(
         async (pos) => {
@@ -709,92 +754,98 @@
           const module = elModule ? safeText(elModule.value).trim() : "resto";
 
           try {
-            // ⚠️ Ici, ta RPC s'appelle search_pros_nearby et prend p_type.
-            // Chez toi, le vrai filtre est modules[].
-            // Pour l'instant on mappe: resto/loc/chauffeur => p_type (si ta fonction l'attend).
-            // Si ta fonction est déjà "type", on pourra la convertir en "module via any(modules)".
+            // ⚠️ garde ta RPC actuelle
             const pType = (module === "all") ? "resto" : module;
 
-            const { data, error } = await supabase.rpc('search_pros_nearby', {
+            const { data, error } = await supabase.rpc("search_pros_nearby", {
               p_type: pType,
               p_lat: lat,
               p_lng: lng,
               p_radius_km: radiusKm,
               p_limit: 40
             });
-
             if(error) throw error;
 
+            let rows = Array.isArray(data) ? data : [];
+            rows = applyClientFilters(rows);
+
             elInfo.textContent = `Mode: Géolocalisation (${radiusKm}km)`;
-            elStatus.innerHTML = `✅ ${data.length} résultat(s) trouvé(s) dans ${radiusKm}km.`;
-            render(data);
+            setStatus(`✅ ${rows.length} résultat(s) trouvé(s) dans ${radiusKm}km.`);
+            render(rows);
 
           } catch(err){
-            console.error('Erreur géo:', err);
-            elStatus.innerHTML = `❌ Erreur géo: ${escapeHtml(err.message || String(err))}`;
-            elDebug.textContent = JSON.stringify(err, null, 2);
-            elDebug.style.display = "block";
+            console.error("Erreur géo:", err);
+            setStatus(`❌ Erreur géo: ${escapeHtml(err.message || String(err))}`);
+            showDebug(err);
             elResults.innerHTML = "";
             elEmpty.style.display = "block";
+          } finally {
+            isSearching = false;
           }
         },
         (err) => {
           alert(`❌ Impossible de te localiser: ${err.message}`);
-          elStatus.innerHTML = `❌ Géolocalisation refusée.`;
+          setStatus(`❌ Géolocalisation refusée.`);
+          isSearching = false;
         },
         { enableHighAccuracy: true, timeout: 12000, maximumAge: 5000 }
       );
     }
 
     /* EVENTS */
+    tabText.addEventListener("click", () => setMode("text"));
+    tabGeo.addEventListener("click", () => setMode("geo"));
+
     elBtnSearch.addEventListener("click", () => {
-      setMode('text', document.getElementById('tabText'));
+      setMode("text");
       textSearch();
     });
 
     elBtnGeo.addEventListener("click", () => {
-      setMode('geo', document.getElementById('tabGeo'));
+      // ✅ ici on ne lance PAS automatiquement la recherche (sinon double déclenchement)
+      setMode("geo");
     });
 
-    if(elBtnGeoRun){
-      elBtnGeoRun.addEventListener("click", () => {
-        setMode('geo', document.getElementById('tabGeo'));
-        geoSearch();
-      });
-    }
+    elBtnGeoRun.addEventListener("click", () => {
+      setMode("geo");
+      geoSearch();
+    });
 
-    // Debounce pour recherche auto
+    // Debounce (anti-mitraillage)
     let debounceTimer = null;
     function debounceSearch(){
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
-        if(currentMode === 'text') textSearch();
-      }, 400);
+        if(currentMode === "text") textSearch();
+      }, 450);
     }
 
     elQ.addEventListener("input", debounceSearch);
     elCity.addEventListener("input", debounceSearch);
+
     [elModule, elMinRating, elMaxPrice, elSortBy, elPack].forEach(el => {
       if(!el) return;
       el.addEventListener("change", () => {
-        if(currentMode === 'text') textSearch();
+        if(currentMode === "text") textSearch();
+        if(currentMode === "geo") {
+          // option: si tu veux que ça refiltre sans relancer la géo, ici on ne relance pas.
+          // Laisse comme ça pour éviter surprises.
+        }
       });
     });
 
-    // Enter = recherche
+    // Enter = recherche text
     elQ.addEventListener("keydown", (e) => {
-      if(e.key === "Enter" && currentMode === 'text') textSearch();
+      if(e.key === "Enter" && currentMode === "text") textSearch();
     });
     elCity.addEventListener("keydown", (e) => {
-      if(e.key === "Enter" && currentMode === 'text') textSearch();
+      if(e.key === "Enter" && currentMode === "text") textSearch();
     });
 
     // Auto-focus
     elQ.focus();
-
-    // Option: recherche initiale
-    // textSearch();
   </script>
 
 </body>
 </html>
+
