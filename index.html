@@ -367,6 +367,18 @@
       overflow:hidden;
       border:2px solid rgba(30,64,175,.78);
       background:#0b1220;
+      position:relative;
+      isolation:isolate;
+    }
+
+    .shop-photo::after{
+      content:"";
+      position:absolute;
+      inset:auto 0 0 0;
+      height:48%;
+      background:linear-gradient(to top,rgba(2,6,23,.86),rgba(2,6,23,0));
+      pointer-events:none;
+      z-index:1;
     }
 
     .shop-photo img{
@@ -375,6 +387,56 @@
       object-fit:cover;
       display:block;
       transform:scale(1.01);
+    }
+
+    .photo-chip{
+      position:absolute;
+      left:12px;
+      right:12px;
+      bottom:12px;
+      z-index:2;
+      display:inline-flex;
+      width:max-content;
+      max-width:calc(100% - 24px);
+      padding:7px 11px;
+      border-radius:999px;
+      border:1px solid rgba(250,204,21,.62);
+      background:rgba(2,6,23,.72);
+      color:#fde68a;
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.02em;
+      box-shadow:0 10px 24px rgba(0,0,0,.38);
+      backdrop-filter:blur(10px);
+    }
+
+
+    .shop-gallery{
+      display:grid;
+      grid-template-columns:1.2fr 1fr 1fr;
+      gap:8px;
+      margin-top:-4px;
+    }
+
+    .shop-thumb{
+      height:78px;
+      border-radius:15px;
+      overflow:hidden;
+      border:1px solid rgba(148,163,184,.30);
+      background:#0b1220;
+      position:relative;
+    }
+
+    .shop-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform:scale(1.02);
+    }
+
+    .shop-thumb:first-child{
+      border-color:rgba(250,204,21,.55);
     }
 
     .shop-body{
@@ -541,6 +603,8 @@
       .hero-tag{font-size:13px}
       .grid{ grid-template-columns:1fr; }
       .shop-photo{height:235px}
+      .shop-gallery{grid-template-columns:repeat(3,1fr);gap:7px}
+      .shop-thumb{height:86px;border-radius:14px}
       .shop-name{font-size:25px}
       .shop-desc{font-size:16.5px}
       .shop-actions{grid-template-columns:1fr}
@@ -634,7 +698,14 @@
       <section class="grid" aria-label="Restaurants partenaires DIGIY RESTO">
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="Le Grill Royal" src="https://images.unsplash.com/photo-1544025166-50a049405eb7?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <img alt="Le Grill Royal — grillades et poisson façon Petite Côte" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <span class="photo-chip">Mbour · braise · poisson · Petite Côte</span>
+          </div>
+
+          <div class="shop-gallery" aria-label="Photos restaurant">
+            <div class="shop-thumb"><img alt="Grillades feu de bois" src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Poulet grillé" src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Table barbecue conviviale" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
           </div>
 
           <div class="shop-body">
@@ -663,7 +734,14 @@
 
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="Pizzeria La Flambée" src="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <img alt="Pizzeria La Flambée — terrasse chaude de Saly" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <span class="photo-chip">Saly · terrasse · soir doux</span>
+          </div>
+
+          <div class="shop-gallery" aria-label="Photos restaurant">
+            <div class="shop-thumb"><img alt="Pizza artisanale" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Pizza au feu de bois" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Part de pizza chaude" src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
           </div>
 
           <div class="shop-body">
@@ -692,7 +770,14 @@
 
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="Fast-Food Le Gourmet" src="https://images.unsplash.com/photo-1572807505299-80862022e3c0?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <img alt="Fast-Food Le Gourmet — snack vivant de quartier" src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <span class="photo-chip">Quartier · rapide · familial</span>
+          </div>
+
+          <div class="shop-gallery" aria-label="Photos restaurant">
+            <div class="shop-thumb"><img alt="Burger gourmand" src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Burger et frites" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Tacos et snack rapide" src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
           </div>
 
           <div class="shop-body">
@@ -721,7 +806,14 @@
 
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="L&#x27;Oasis" src="https://images.unsplash.com/photo-1512621776951-a57143f7e7d1?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <img alt="L’Oasis — fraîcheur, jus et déjeuner tropical" src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <span class="photo-chip">Fraîcheur · jus · midi au soleil</span>
+          </div>
+
+          <div class="shop-gallery" aria-label="Photos restaurant">
+            <div class="shop-thumb"><img alt="Salade fraîche" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Légumes frais" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Jus frais et repas sain" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
           </div>
 
           <div class="shop-body">
@@ -750,7 +842,14 @@
 
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="Le Coin du Poisson" src="https://images.unsplash.com/photo-1534449830867-24876b5025d5?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <img alt="Le Coin du Poisson — pêche du jour de la côte" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <span class="photo-chip">Pêche du jour · côte · assiette mer</span>
+          </div>
+
+          <div class="shop-gallery" aria-label="Photos restaurant">
+            <div class="shop-thumb"><img alt="Poisson grillé" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Poisson frais cuisiné" src="https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Assiette de la mer" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
           </div>
 
           <div class="shop-body">
@@ -779,7 +878,14 @@
 
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="L&#x27;Harmonie" src="https://images.unsplash.com/photo-1547595304-45318d172e25?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <img alt="L’Harmonie — cuisine maison africaine généreuse" src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
+            <span class="photo-chip">Cuisine maison · riz · partage</span>
+          </div>
+
+          <div class="shop-gallery" aria-label="Photos restaurant">
+            <div class="shop-thumb"><img alt="Plat africain généreux" src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Riz et plat maison" src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
+            <div class="shop-thumb"><img alt="Cuisine familiale" src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
           </div>
 
           <div class="shop-body">
