@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>DIGIY RESTO — Galerie des restaurants partenaires</title>
+  <title>DIGIY RESTO — Architecture restaurant du terrain</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="DIGIY RESTO — Restaurants et Livraisons locales avec encaissement Wave direct, 0% commission.">
+  <meta name="description" content="DIGIY RESTO installe les restaurants locaux dans l’architecture DIGIY : fiche visible, WhatsApp direct, QR, paiement Wave direct au restaurateur et 0% commission sur les ventes.">
   <meta name="theme-color" content="#020617">
 
   <style>
@@ -16,9 +16,10 @@
       --accent-soft:#f97316;
       --accent-green:#22c55e;
       --ink:#f9fafb;
-      --muted:#cbd5f5;
-      --line:#1f2937;
-      --shadow-soft:0 20px 45px rgba(15,23,42,0.9);
+      --muted:#cbd5e1;
+      --soft:#e5e7eb;
+      --line:rgba(148,163,184,.32);
+      --shadow-soft:0 22px 50px rgba(15,23,42,.88);
     }
 
     *{
@@ -28,28 +29,30 @@
       font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif;
     }
 
+    html{scroll-behavior:smooth}
+
     body{
       min-height:100vh;
       background:
-        radial-gradient(circle at top,rgba(250,204,21,0.16),transparent 60%),
-        radial-gradient(circle at bottom,rgba(34,197,94,0.16),transparent 55%),
+        radial-gradient(circle at 14% 0%,rgba(250,204,21,.18),transparent 42%),
+        radial-gradient(circle at 86% 100%,rgba(34,197,94,.16),transparent 45%),
         var(--bg);
       color:var(--ink);
       display:flex;
       justify-content:center;
       padding:10px;
-      font-size:16px;
+      font-size:17px;
     }
 
     .app{
       width:100%;
-      max-width:1100px;
+      max-width:1120px;
       min-height:100vh;
-      background:linear-gradient(135deg,#020617 0%,#020818 50%,#020617 100%);
-      border-radius:24px;
-      border:1px solid rgba(148,163,184,0.25);
+      background:linear-gradient(135deg,#020617 0%,#020818 48%,#020617 100%);
+      border-radius:26px;
+      border:1px solid rgba(148,163,184,.24);
       box-shadow:var(--shadow-soft);
-      padding:16px 16px 22px;
+      padding:16px 16px 24px;
       display:flex;
       flex-direction:column;
       position:relative;
@@ -59,191 +62,310 @@
     .app::before{
       content:"";
       position:absolute;
-      inset:-40%;
+      inset:-35%;
       background:
-        radial-gradient(circle at 0% 0%,rgba(250,204,21,0.14),transparent 55%),
-        radial-gradient(circle at 100% 100%,rgba(34,197,94,0.14),transparent 45%);
-      opacity:0.8;
+        radial-gradient(circle at 0% 0%,rgba(250,204,21,.14),transparent 54%),
+        radial-gradient(circle at 100% 100%,rgba(34,197,94,.15),transparent 46%);
+      opacity:.9;
       pointer-events:none;
     }
 
+    header,
+    main,
+    footer{position:relative;z-index:2}
+
     header{
-      position:relative;
-      z-index:2;
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:10px;
-      margin-bottom:12px;
+      gap:12px;
+      margin-bottom:14px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:11px;
+      min-width:0;
     }
 
     .brand-logo{
-      width:42px;
-      height:42px;
-      border-radius:14px;
+      width:48px;
+      height:48px;
+      border-radius:16px;
       background:radial-gradient(circle at 30% 0%,#facc15,#f97316);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:24px;
-      box-shadow:0 12px 30px rgba(234,179,8,0.65);
+      font-size:26px;
+      box-shadow:0 12px 30px rgba(234,179,8,.55);
+      flex:none;
     }
 
     .brand-text-title{
-      font-size:20px;
-      font-weight:900;
-      letter-spacing:0.09em;
+      font-size:21px;
+      font-weight:950;
+      letter-spacing:.08em;
       text-transform:uppercase;
       color:var(--accent-green);
+      line-height:1.05;
     }
 
     .brand-text-sub{
       font-size:14px;
       color:var(--muted);
-      font-weight:600;
+      font-weight:700;
+      line-height:1.3;
     }
 
     .back-link{
-      font-size:13px;
+      font-size:14px;
       color:var(--muted);
       text-decoration:none;
-      background:rgba(15,23,42,0.9);
+      background:rgba(15,23,42,.88);
       border-radius:999px;
-      border:1px solid rgba(148,163,184,0.6);
-      padding:8px 14px;
+      border:1px solid rgba(148,163,184,.52);
+      padding:10px 14px;
       display:inline-flex;
       align-items:center;
-      gap:6px;
-      font-weight:700;
+      gap:7px;
+      font-weight:900;
       white-space:nowrap;
     }
 
-    .back-link:hover{
+    .back-link:hover,
+    .back-link:focus-visible{
       border-color:var(--accent);
       color:var(--accent);
+      outline:none;
     }
 
-    /* HERO */
     .hero{
-      background:radial-gradient(circle at top left,rgba(34,197,94,0.18),rgba(3,7,18,0.96));
-      border-radius:22px;
-      border:1px solid rgba(148,163,184,0.6);
-      padding:16px;
-      box-shadow:0 18px 44px rgba(15,23,42,0.95);
+      background:radial-gradient(circle at top left,rgba(34,197,94,.20),rgba(3,7,18,.96));
+      border-radius:24px;
+      border:1px solid rgba(148,163,184,.52);
+      padding:20px;
+      box-shadow:0 18px 44px rgba(15,23,42,.88);
+      display:grid;
+      grid-template-columns:minmax(0,1.45fr) minmax(280px,.85fr);
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .hero-copy{
       display:flex;
       flex-direction:column;
-      gap:8px;
+      gap:10px;
+      justify-content:center;
+    }
+
+    .hero-label{
+      width:max-content;
+      max-width:100%;
+      font-size:13px;
+      font-weight:950;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#111827;
+      background:linear-gradient(135deg,#facc15,#f97316);
+      padding:7px 11px;
+      border-radius:999px;
     }
 
     .hero-title{
-      font-size:26px;
-      font-weight:900;
-      color:var(--accent-green);
-      line-height:1.15;
+      font-size:clamp(30px,5vw,54px);
+      font-weight:950;
+      color:var(--ink);
+      line-height:1.02;
+      letter-spacing:-.04em;
     }
 
-    .hero-title span{ color:var(--accent); }
+    .hero-title span{
+      color:var(--accent-green);
+      display:block;
+    }
 
     .hero-sub{
-      font-size:16px;
-      color:#e5e7eb;
-      max-width:620px;
-      font-weight:500;
-      line-height:1.6;
+      font-size:18px;
+      color:#eef2ff;
+      max-width:720px;
+      font-weight:650;
+      line-height:1.58;
+    }
+
+    .hero-sub strong{ color:var(--accent); }
+
+    .hero-mantra{
+      margin-top:2px;
+      border-left:4px solid var(--accent);
+      padding:10px 12px;
+      background:rgba(250,204,21,.08);
+      border-radius:14px;
+      font-size:17px;
+      color:#fef9c3;
+      font-weight:900;
+      line-height:1.45;
     }
 
     .hero-tags{
       display:flex;
       flex-wrap:wrap;
-      gap:7px;
-      margin-top:4px;
+      gap:8px;
+      margin-top:2px;
     }
 
     .hero-tag{
-      font-size:13px;
-      padding:5px 11px;
+      font-size:14px;
+      padding:7px 12px;
       border-radius:999px;
-      border:1px solid rgba(148,163,184,0.7);
-      background:rgba(15,23,42,0.95);
+      border:1px solid rgba(148,163,184,.62);
+      background:rgba(15,23,42,.88);
       color:#e5e7eb;
-      font-weight:600;
+      font-weight:800;
     }
 
     .hero-tag strong{ color:var(--accent); }
 
-    /* CTA */
+    .audio-panel{
+      border-radius:22px;
+      border:1px solid rgba(250,204,21,.55);
+      background:
+        radial-gradient(circle at top,rgba(250,204,21,.13),transparent 52%),
+        rgba(15,23,42,.72);
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:12px;
+      min-height:100%;
+    }
+
+    .audio-panel h2{
+      font-size:19px;
+      color:var(--accent);
+      line-height:1.22;
+    }
+
+    .audio-panel p{
+      font-size:15px;
+      line-height:1.55;
+      color:#e5e7eb;
+      font-weight:650;
+    }
+
+    .audio-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:2px;
+    }
+
+    .audio-btn{
+      border:0;
+      border-radius:999px;
+      min-height:48px;
+      padding:11px 15px;
+      cursor:pointer;
+      font-size:15px;
+      font-weight:950;
+      touch-action:manipulation;
+    }
+
+    .audio-play{
+      flex:1;
+      color:#111827;
+      background:linear-gradient(135deg,#facc15,#f97316);
+      box-shadow:0 10px 22px rgba(250,204,21,.34);
+    }
+
+    .audio-stop{
+      color:#fecaca;
+      background:rgba(127,29,29,.32);
+      border:1px solid rgba(248,113,113,.44);
+    }
+
+    .guide{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .guide-card{
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:14px;
+      background:rgba(15,23,42,.74);
+      box-shadow:0 12px 26px rgba(15,23,42,.45);
+    }
+
+    .guide-card strong{
+      display:block;
+      color:var(--accent);
+      font-size:18px;
+      margin-bottom:6px;
+    }
+
+    .guide-card span{
+      color:#e5e7eb;
+      font-size:15px;
+      line-height:1.5;
+      font-weight:650;
+    }
+
     .cta-partner{
-      margin-top:14px;
+      margin-top:16px;
       display:flex;
       justify-content:center;
-      position:relative;
-      z-index:2;
     }
 
     .cta-btn{
       background:linear-gradient(135deg,#facc15,#f97316);
-      padding:14px 22px;
+      padding:15px 22px;
       border-radius:999px;
-      color:#111;
-      font-size:15px;
-      font-weight:900;
+      color:#111827;
+      font-size:16px;
+      font-weight:950;
       text-decoration:none;
-      box-shadow:0 8px 20px rgba(250,204,21,0.45);
-      border:1px solid rgba(250,204,21,0.65);
+      box-shadow:0 10px 24px rgba(250,204,21,.42);
+      border:1px solid rgba(250,204,21,.7);
       transition:transform .2s ease, box-shadow .2s ease;
+      text-align:center;
     }
 
-    .cta-btn:hover{
+    .cta-btn:hover,
+    .cta-btn:focus-visible{
       transform:translateY(-2px);
-      box-shadow:0 12px 26px rgba(250,204,21,0.65);
+      box-shadow:0 14px 30px rgba(250,204,21,.58);
+      outline:none;
     }
 
-    /* GRID */
     .grid{
       margin-top:18px;
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:16px;
-      position:relative;
-      z-index:2;
     }
 
-    @media(max-width:900px){
-      .grid{ grid-template-columns:repeat(2,1fr); }
-    }
-    @media(max-width:640px){
-      body{padding:0}
-      .app{ border-radius:0; border:none; box-shadow:none; padding:12px 12px 18px; }
-      .grid{ grid-template-columns:1fr; }
-      .brand-text-title{font-size:18px}
-      .hero-title{font-size:22px}
-    }
-
-    /* CARDS */
     .shop-card{
-      background:radial-gradient(circle at top,rgba(15,23,42,0.98),#020617);
+      background:radial-gradient(circle at top,rgba(15,23,42,.98),#020617);
       border-radius:24px;
-      border:1px solid rgba(30,64,175,0.7);
+      border:1px solid rgba(30,64,175,.66);
       padding:12px;
-      box-shadow:0 14px 34px rgba(15,23,42,0.95);
+      box-shadow:0 14px 34px rgba(15,23,42,.86);
       display:flex;
       flex-direction:column;
-      gap:10px;
+      gap:12px;
       position:relative;
       overflow:hidden;
+      min-height:100%;
     }
 
     .shop-photo{
-      height:220px;
-      border-radius:16px;
+      height:218px;
+      border-radius:18px;
       overflow:hidden;
-      border:2px solid rgba(30,64,175,0.85);
+      border:2px solid rgba(30,64,175,.78);
       background:#0b1220;
     }
 
@@ -252,53 +374,71 @@
       height:100%;
       object-fit:cover;
       display:block;
+      transform:scale(1.01);
+    }
+
+    .shop-body{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:1;
+    }
+
+    .shop-kicker{
+      color:#93c5fd;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:950;
     }
 
     .shop-name{
-      font-size:22px;
-      font-weight:900;
+      font-size:24px;
+      font-weight:950;
       color:var(--accent);
-      line-height:1.1;
+      line-height:1.08;
+      letter-spacing:-.02em;
     }
 
     .shop-type{
-      font-size:15px;
-      color:#e5e7eb;
-      font-weight:600;
+      font-size:16px;
+      color:#f8fafc;
+      font-weight:800;
     }
 
     .shop-badge{
       width:max-content;
-      padding:5px 9px;
-      font-size:12px;
+      max-width:100%;
+      padding:6px 10px;
+      font-size:13px;
       border-radius:999px;
-      border:1px solid rgba(34,197,94,0.9);
-      color:var(--accent-green);
-      background:rgba(15,23,42,0.98);
-      font-weight:700;
+      border:1px solid rgba(34,197,94,.86);
+      color:#bbf7d0;
+      background:rgba(6,78,59,.58);
+      font-weight:900;
       white-space:nowrap;
     }
 
     .shop-desc{
-      font-size:15px;
+      font-size:16px;
       color:#f3f4f6;
-      line-height:1.6;
-      font-weight:500;
+      line-height:1.58;
+      font-weight:620;
     }
 
     .shop-meta{
-      font-size:14px;
-      color:#e5e7eb;
-      font-weight:500;
+      font-size:15px;
+      color:#dbeafe;
+      font-weight:720;
+      line-height:1.45;
     }
 
-    /* Wave */
     .wave-block{
-      margin-top:10px;
-      border-radius:16px;
-      border:1px solid rgba(34,197,94,1);
-      background:rgba(6,78,59,0.98);
-      padding:10px 12px;
+      margin-top:auto;
+      border-radius:17px;
+      border:1px solid rgba(34,197,94,.95);
+      background:rgba(6,78,59,.86);
+      padding:11px 12px;
       display:flex;
       flex-direction:column;
       gap:4px;
@@ -306,72 +446,107 @@
 
     .wave-title{
       font-size:14px;
-      font-weight:800;
+      font-weight:950;
       color:#bbf7d0;
     }
 
     .wave-number{
-      font-size:22px;
-      font-weight:900;
+      font-size:23px;
+      font-weight:950;
       color:#ecfdf5;
-      letter-spacing:0.5px;
+      letter-spacing:.2px;
+      line-height:1.15;
     }
 
-    /* Actions */
+    .wave-note{
+      color:#d1fae5;
+      font-size:13px;
+      line-height:1.35;
+      font-weight:700;
+    }
+
     .shop-actions{
-      margin-top:10px;
-      display:flex;
+      display:grid;
+      grid-template-columns:1fr 1fr;
       gap:10px;
-      flex-wrap:wrap;
+      margin-top:auto;
     }
 
     .btn{
       border:none;
       border-radius:999px;
-      padding:10px 14px;
-      font-size:14px;
-      font-weight:900;
+      padding:12px 14px;
+      font-size:15px;
+      font-weight:950;
       cursor:pointer;
       display:flex;
       justify-content:center;
       align-items:center;
+      text-align:center;
       text-decoration:none;
-      transition:transform .18s ease, filter .18s ease;
-      flex:1;
-      min-height:44px;
+      min-height:48px;
       touch-action:manipulation;
       -webkit-tap-highlight-color:transparent;
       user-select:none;
     }
 
     .btn:active{transform:scale(.99)}
+
     .btn-pos{
       background:linear-gradient(135deg,#facc15,#f97316);
-      color:#111;
-      box-shadow:0 7px 18px rgba(250,204,21,0.55);
+      color:#111827;
+      box-shadow:0 7px 18px rgba(250,204,21,.45);
     }
 
     .btn-wa{
-      background:rgba(22,163,74,0.2);
+      background:rgba(22,163,74,.20);
       color:#bbf7d0;
-      border:1px solid rgba(34,197,94,0.85);
+      border:1px solid rgba(34,197,94,.82);
     }
 
-    /* Footer */
     footer{
-      margin-top:20px;
-      font-size:12px;
+      margin-top:22px;
+      font-size:14px;
       color:var(--muted);
-      font-weight:600;
+      font-weight:700;
       display:flex;
       justify-content:space-between;
       flex-wrap:wrap;
-      gap:6px;
-      position:relative;
-      z-index:2;
+      gap:8px;
+      line-height:1.45;
+      border-top:1px solid rgba(148,163,184,.22);
+      padding-top:14px;
     }
 
-    footer span{ color:var(--accent); font-weight:800; }
+    footer span{ color:var(--accent); font-weight:950; }
+
+    @media(max-width:940px){
+      .hero{grid-template-columns:1fr}
+      .grid{ grid-template-columns:repeat(2,1fr); }
+      .guide{ grid-template-columns:1fr; }
+    }
+
+    @media(max-width:640px){
+      body{padding:0;font-size:17px}
+      .app{ border-radius:0; border:none; box-shadow:none; padding:12px 12px 18px; }
+      header{align-items:flex-start}
+      .brand-logo{width:44px;height:44px}
+      .brand-text-title{font-size:19px}
+      .brand-text-sub{font-size:13px}
+      .back-link{font-size:13px;padding:9px 11px}
+      .hero{padding:16px;border-radius:22px}
+      .hero-title{font-size:34px}
+      .hero-sub{font-size:17px}
+      .hero-mantra{font-size:16px}
+      .hero-tag{font-size:13px}
+      .grid{ grid-template-columns:1fr; }
+      .shop-photo{height:235px}
+      .shop-name{font-size:25px}
+      .shop-desc{font-size:16.5px}
+      .shop-actions{grid-template-columns:1fr}
+      .cta-btn{width:100%;font-size:15.5px}
+      footer{font-size:13.5px}
+    }
   </style>
 </head>
 
@@ -379,300 +554,321 @@
   <div class="app">
     <header>
       <div class="brand">
-        <div class="brand-logo">🍽️</div>
+        <div class="brand-logo" aria-hidden="true">🍽️</div>
         <div>
           <div class="brand-text-title">DIGIY RESTO</div>
-          <div class="brand-text-sub">Galerie des restaurants partenaires</div>
+          <div class="brand-text-sub">Architecture restaurant du terrain</div>
         </div>
       </div>
 
-      <!-- ✅ corrigé : retour HUB (pas "index.html" qui peut être dans un autre dossier) -->
       <a href="https://beauville.github.io/digiy-hub/" class="back-link">
-        <span>←</span> Retour DIGIY HUB
+        <span aria-hidden="true">←</span> HUB DIGIY
       </a>
     </header>
 
     <main>
       <section class="hero">
-        <div class="hero-title">
-          Restaurants partenaires <span>DIGIY RESTO</span>
+        <div class="hero-copy">
+          <div class="hero-label">Restaurants visibles · paiements directs</div>
+
+          <h1 class="hero-title">
+            Le restaurant garde son client.
+            <span>DIGIY lui met le business dans la main.</span>
+          </h1>
+
+          <p class="hero-sub">
+            Une fiche claire, un menu mobile, un contact <strong>WhatsApp direct</strong>,
+            un paiement <strong>Wave au restaurateur</strong> et une présence partageable par lien ou QR.
+            DIGIY équipe le terrain, sans capturer la relation.
+          </p>
+
+          <div class="hero-mantra">
+            Wave a mis l’argent dans la main. DIGIY met le business dans la main.
+          </div>
+
+          <div class="hero-tags">
+            <div class="hero-tag"><strong>0% commission</strong> sur la vente</div>
+            <div class="hero-tag">Client → restaurant directement</div>
+            <div class="hero-tag">QR · WhatsApp · Wave</div>
+            <div class="hero-tag">Fiche visible et partageable</div>
+          </div>
         </div>
 
-        <div class="hero-sub">
-          Commande et encaissement <strong>Wave direct</strong> du client au restaurateur.
-          DIGIY ne touche pas l’argent : <strong>0% commission</strong> sur tes ventes.
-        </div>
+        <aside class="audio-panel" aria-label="Écouter la promesse DIGIY RESTO">
+          <div>
+            <h2>🎧 Écouter la promesse</h2>
+            <p>
+              Le texte reste visible, mais l’audio met le client à l’aise.
+              Sur téléphone, il comprend vite : il regarde, clique, contacte, puis paie le restaurant.
+            </p>
+          </div>
 
-        <div class="hero-tags">
-          <div class="hero-tag"><strong>0% commission</strong> — paiement direct</div>
-          <div class="hero-tag">Livraison & à emporter</div>
-          <div class="hero-tag">Restaurants locaux mis en avant</div>
-          <div class="hero-tag">Menus optimisés mobile</div>
+          <div class="audio-actions">
+            <button class="audio-btn audio-play" type="button" id="playPromise">Écouter</button>
+            <button class="audio-btn audio-stop" type="button" id="stopPromise">Stop</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="guide" aria-label="Comment fonctionne DIGIY RESTO">
+        <div class="guide-card">
+          <strong>1 · Je vois</strong>
+          <span>Le client découvre le restaurant, les plats, l’horaire, le téléphone et la fiche propre.</span>
+        </div>
+        <div class="guide-card">
+          <strong>2 · Je contacte</strong>
+          <span>WhatsApp ouvre le dialogue humain. Pas de mur froid entre le client et le restaurateur.</span>
+        </div>
+        <div class="guide-card">
+          <strong>3 · Je paie direct</strong>
+          <span>Wave va au pro. La vente reste au restaurant. DIGIY reste l’architecture qui éclaire.</span>
         </div>
       </section>
 
       <section class="cta-partner">
-        <a
-          href="https://beauville.github.io/inscription-digiy/?module=resto"
-          class="cta-btn"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          🍽️ Devenir Restaurant Partenaire DIGIY • 0% commission
+        <a href="https://beauville.github.io/inscription-digiy/?module=resto" class="cta-btn" target="_blank" rel="noopener noreferrer">
+          🍽️ Installer mon restaurant dans l’architecture DIGIY
         </a>
       </section>
 
-      <section class="grid">
-        <!-- RESTO 1 -->
+      <section class="grid" aria-label="Restaurants partenaires DIGIY RESTO">
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="Le Grill Royal"
-              src="https://images.unsplash.com/photo-1544025166-50a049405eb7?auto=format&fit=crop&w=1200&q=80">
+            <img alt="Le Grill Royal" src="https://images.unsplash.com/photo-1544025166-50a049405eb7?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
           </div>
 
-          <div class="shop-name">Le Grill Royal</div>
-          <div class="shop-type">Barbecue • Mbour</div>
+          <div class="shop-body">
+            <div class="shop-kicker">Restaurant partenaire</div>
+            <h2 class="shop-name">Le Grill Royal</h2>
+            <div class="shop-type">Barbecue • Mbour</div>
 
-          <div class="shop-badge">0% com DIGIY</div>
+            <div class="shop-badge">Paiement direct</div>
 
-          <p class="shop-desc">
-            Viandes braisées, poulet Yassa, grillades feu de bois. Ambiance conviviale.
-          </p>
+            <p class="shop-desc">Viandes braisées, poulet yassa, grillades feu de bois. Une fiche claire pour commander sans intermédiaire.</p>
 
-          <div class="shop-meta">
-            Ouvert 18h–23h • Sur place, emporter, livraison.
-          </div>
+            <div class="shop-meta">Ouvert 18h–23h • Sur place, à emporter, livraison.</div>
 
-          <div class="wave-block">
-            <div class="wave-title">Paiement Wave direct</div>
-            <div class="wave-number">+221 77 555 11 22</div>
+            <div class="wave-block">
+              <div class="wave-title">Paiement Wave direct au restaurant</div>
+              <div class="wave-number">+221 77 555 11 22</div>
+              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+            </div>
           </div>
 
           <div class="shop-actions">
-            <a class="btn btn-pos"
-              href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Commander</a>
-
-            <button class="btn btn-wa" type="button"
-              onclick="openWa('+221 77 555 11 22','Bonjour, je souhaite commander au Grill Royal (DIGIY RESTO).');"
-            >💬 WhatsApp</button>
+            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
+            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 555 11 22" data-msg="Bonjour, je souhaite commander au Grill Royal depuis DIGIY RESTO.">💬 WhatsApp</button>
           </div>
         </article>
 
-        <!-- RESTO 2 -->
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="Pizzeria La Flambée"
-              src="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?auto=format&fit=crop&w=1200&q=80">
+            <img alt="Pizzeria La Flambée" src="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
           </div>
 
-          <div class="shop-name">Pizzeria La Flambée</div>
-          <div class="shop-type">Pizzas au feu de bois • Saly</div>
+          <div class="shop-body">
+            <div class="shop-kicker">Restaurant partenaire</div>
+            <h2 class="shop-name">Pizzeria La Flambée</h2>
+            <div class="shop-type">Pizzas au feu de bois • Saly</div>
 
-          <div class="shop-badge">Livraison rapide</div>
+            <div class="shop-badge">Commande simple</div>
 
-          <p class="shop-desc">
-            Pizzas artisanales, pâte croustillante, ingrédients frais.
-          </p>
+            <p class="shop-desc">Pizzas artisanales, pâte croustillante, ingrédients frais. Le client voit, clique, contacte et paie le restaurant.</p>
 
-          <div class="shop-meta">
-            Ouvert 12h–22h • Livraison gratuite dès 5000 XOF.
-          </div>
+            <div class="shop-meta">Ouvert 12h–22h • Livraison gratuite dès 5 000 FCFA.</div>
 
-          <div class="wave-block">
-            <div class="wave-title">Paiement Wave direct</div>
-            <div class="wave-number">+221 77 888 33 44</div>
+            <div class="wave-block">
+              <div class="wave-title">Paiement Wave direct au restaurant</div>
+              <div class="wave-number">+221 77 888 33 44</div>
+              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+            </div>
           </div>
 
           <div class="shop-actions">
-            <a class="btn btn-pos"
-              href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Commander</a>
-
-            <button class="btn btn-wa" type="button"
-              onclick="openWa('+221 77 888 33 44','Bonjour, je souhaite commander à La Flambée (DIGIY RESTO).');"
-            >💬 WhatsApp</button>
+            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
+            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 888 33 44" data-msg="Bonjour, je souhaite commander à La Flambée depuis DIGIY RESTO.">💬 WhatsApp</button>
           </div>
         </article>
 
-        <!-- RESTO 3 -->
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="Fast-Food Le Gourmet"
-              src="https://images.unsplash.com/photo-1572807505299-80862022e3c0?auto=format&fit=crop&w=1200&q=80">
+            <img alt="Fast-Food Le Gourmet" src="https://images.unsplash.com/photo-1572807505299-80862022e3c0?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
           </div>
 
-          <div class="shop-name">Fast-Food Le Gourmet</div>
-          <div class="shop-type">Burgers • Tacos • Thiès</div>
+          <div class="shop-body">
+            <div class="shop-kicker">Restaurant partenaire</div>
+            <h2 class="shop-name">Fast-Food Le Gourmet</h2>
+            <div class="shop-type">Burgers • Tacos • Thiès</div>
 
-          <div class="shop-badge">Populaire</div>
+            <div class="shop-badge">Visible sur mobile</div>
 
-          <p class="shop-desc">
-            Burgers gourmets, tacos revisités, service rapide.
-          </p>
+            <p class="shop-desc">Burgers gourmets, tacos revisités, service rapide. Une présence propre qui donne confiance avant l’appel.</p>
 
-          <div class="shop-meta">
-            Ouvert 11h–23h • Menu étudiant.
-          </div>
+            <div class="shop-meta">Ouvert 11h–23h • Menu étudiant.</div>
 
-          <div class="wave-block">
-            <div class="wave-title">Paiement Wave direct</div>
-            <div class="wave-number">+221 77 333 99 88</div>
+            <div class="wave-block">
+              <div class="wave-title">Paiement Wave direct au restaurant</div>
+              <div class="wave-number">+221 77 333 99 88</div>
+              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+            </div>
           </div>
 
           <div class="shop-actions">
-            <a class="btn btn-pos"
-              href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Commander</a>
-
-            <button class="btn btn-wa" type="button"
-              onclick="openWa('+221 77 333 99 88','Bonjour, je souhaite commander au Gourmet (DIGIY RESTO).');"
-            >💬 WhatsApp</button>
+            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
+            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 333 99 88" data-msg="Bonjour, je souhaite commander au Gourmet depuis DIGIY RESTO.">💬 WhatsApp</button>
           </div>
         </article>
 
-        <!-- RESTO 4 -->
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="L'Oasis"
-              src="https://images.unsplash.com/photo-1512621776951-a57143f7e7d1?auto=format&fit=crop&w=1200&q=80">
+            <img alt="L&#x27;Oasis" src="https://images.unsplash.com/photo-1512621776951-a57143f7e7d1?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
           </div>
 
-          <div class="shop-name">L'Oasis</div>
-          <div class="shop-type">Végétarien • Dakar</div>
+          <div class="shop-body">
+            <div class="shop-kicker">Restaurant partenaire</div>
+            <h2 class="shop-name">L’Oasis</h2>
+            <div class="shop-type">Végétarien • Dakar</div>
 
-          <div class="shop-badge">Healthy</div>
+            <div class="shop-badge">Fiche claire</div>
 
-          <p class="shop-desc">
-            Cuisine végétarienne, plats équilibrés, jus frais.
-          </p>
+            <p class="shop-desc">Cuisine végétarienne, plats équilibrés, jus frais. La fiche garde le contact humain au centre.</p>
 
-          <div class="shop-meta">
-            Ouvert 10h–17h • Déjeuner uniquement.
-          </div>
+            <div class="shop-meta">Ouvert 10h–17h • Déjeuner uniquement.</div>
 
-          <div class="wave-block">
-            <div class="wave-title">Paiement Wave direct</div>
-            <div class="wave-number">+221 77 222 77 11</div>
+            <div class="wave-block">
+              <div class="wave-title">Paiement Wave direct au restaurant</div>
+              <div class="wave-number">+221 77 222 77 11</div>
+              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+            </div>
           </div>
 
           <div class="shop-actions">
-            <a class="btn btn-pos"
-              href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Commander</a>
-
-            <button class="btn btn-wa" type="button"
-              onclick="openWa('+221 77 222 77 11','Bonjour, je souhaite commander à L\'Oasis (DIGIY RESTO).');"
-            >💬 WhatsApp</button>
+            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
+            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 222 77 11" data-msg="Bonjour, je souhaite commander à L’Oasis depuis DIGIY RESTO.">💬 WhatsApp</button>
           </div>
         </article>
 
-        <!-- RESTO 5 -->
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="Le Coin du Poisson"
-              src="https://images.unsplash.com/photo-1534449830867-24876b5025d5?auto=format&fit=crop&w=1200&q=80">
+            <img alt="Le Coin du Poisson" src="https://images.unsplash.com/photo-1534449830867-24876b5025d5?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
           </div>
 
-          <div class="shop-name">Le Coin du Poisson</div>
-          <div class="shop-type">Poissons • Côte</div>
+          <div class="shop-body">
+            <div class="shop-kicker">Restaurant partenaire</div>
+            <h2 class="shop-name">Le Coin du Poisson</h2>
+            <div class="shop-type">Poissons • Côte</div>
 
-          <div class="shop-badge">Pêche du jour</div>
+            <div class="shop-badge">Pêche du jour</div>
 
-          <p class="shop-desc">
-            Poisson frais du matin, grillé ou frit.
-          </p>
+            <p class="shop-desc">Poisson frais du matin, grillé ou frit. Le client arrive directement vers le bon contact.</p>
 
-          <div class="shop-meta">
-            Ouvert 12h–15h & 19h–22h.
-          </div>
+            <div class="shop-meta">Ouvert 12h–15h &amp; 19h–22h.</div>
 
-          <div class="wave-block">
-            <div class="wave-title">Paiement Wave direct</div>
-            <div class="wave-number">+221 77 666 44 33</div>
+            <div class="wave-block">
+              <div class="wave-title">Paiement Wave direct au restaurant</div>
+              <div class="wave-number">+221 77 666 44 33</div>
+              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+            </div>
           </div>
 
           <div class="shop-actions">
-            <a class="btn btn-pos"
-              href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Commander</a>
-
-            <button class="btn btn-wa" type="button"
-              onclick="openWa('+221 77 666 44 33','Bonjour, je souhaite commander au Coin du Poisson (DIGIY RESTO).');"
-            >💬 WhatsApp</button>
+            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
+            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 666 44 33" data-msg="Bonjour, je souhaite commander au Coin du Poisson depuis DIGIY RESTO.">💬 WhatsApp</button>
           </div>
         </article>
 
-        <!-- RESTO 6 -->
         <article class="shop-card">
           <div class="shop-photo">
-            <img alt="L'Harmonie"
-              src="https://images.unsplash.com/photo-1547595304-45318d172e25?auto=format&fit=crop&w=1200&q=80">
+            <img alt="L&#x27;Harmonie" src="https://images.unsplash.com/photo-1547595304-45318d172e25?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
           </div>
 
-          <div class="shop-name">L'Harmonie</div>
-          <div class="shop-type">Cuisine africaine</div>
+          <div class="shop-body">
+            <div class="shop-kicker">Restaurant partenaire</div>
+            <h2 class="shop-name">L’Harmonie</h2>
+            <div class="shop-type">Cuisine africaine</div>
 
-          <div class="shop-badge">Authentique</div>
+            <div class="shop-badge">Cuisine maison</div>
 
-          <p class="shop-desc">
-            Mafé, Yassa, Thiéboudienne — cuisine maison, généreuse.
-          </p>
+            <p class="shop-desc">Mafé, yassa, thiéboudienne — cuisine généreuse, visible, joignable et partageable.</p>
 
-          <div class="shop-meta">
-            Service continu 11h–21h.
-          </div>
+            <div class="shop-meta">Service continu 11h–21h.</div>
 
-          <div class="wave-block">
-            <div class="wave-title">Paiement Wave direct</div>
-            <div class="wave-number">+221 77 444 00 55</div>
+            <div class="wave-block">
+              <div class="wave-title">Paiement Wave direct au restaurant</div>
+              <div class="wave-number">+221 77 444 00 55</div>
+              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+            </div>
           </div>
 
           <div class="shop-actions">
-            <a class="btn btn-pos"
-              href="https://beauville.github.io/Caisse-officielle-ASTOU/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Commander</a>
-
-            <button class="btn btn-wa" type="button"
-              onclick="openWa('+221 77 444 00 55','Bonjour, je souhaite commander à L\'Harmonie (DIGIY RESTO).');"
-            >💬 WhatsApp</button>
+            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
+            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 444 00 55" data-msg="Bonjour, je souhaite commander à L’Harmonie depuis DIGIY RESTO.">💬 WhatsApp</button>
           </div>
         </article>
       </section>
     </main>
 
     <footer>
-      <div>DIGIY RESTO • <span>Super App DIGIYLYFE</span> — Sénégal → Afrique</div>
-      <div>0% commission • Paiement direct Wave • Galerie évolutive</div>
+      <div>DIGIY RESTO • <span>Supa-Apps DIGIYLYFE</span> — Sénégal → Afrique</div>
+      <div>Paiement direct • QR partageable • Fiche restaurant • Relation client protégée</div>
     </footer>
   </div>
 
   <script>
-    /* =========================
-       WhatsApp helper (robuste)
-       - enlève espaces / tirets
-       - garde seulement les chiffres
-    ========================= */
-    function openWa(phone, message){
-      const txt = encodeURIComponent(message || "");
-      const digits = String(phone || "").replace(/\D/g, ""); // seulement chiffres
-      const url = "https://wa.me/" + digits + (txt ? "?text=" + txt : "");
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
+    (function(){
+      "use strict";
+
+      const promiseText = "Bienvenue dans DIGIY RESTO. Ici, le restaurant reste maître de son nom, de son client, de son argent et de sa relation. Wave a mis l’argent dans la main. DIGIY met le business dans la main. Le client regarde la fiche, commande ou écrit sur Ouatsap, puis paie directement le restaurateur avec Ouève. Zéro pour cent de commission DIGIY sur la vente. Une présence claire, un Q R partageable, et une architecture simple pour avancer.";
+
+      function speakDigiy(text){
+        if (!("speechSynthesis" in window)) {
+          alert("La lecture audio n’est pas disponible sur ce navigateur.");
+          return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "fr-FR";
+        utterance.rate = 0.92;
+        utterance.pitch = 1;
+
+        const voices = window.speechSynthesis.getVoices();
+        const frVoice = voices.find(v => /fr/i.test(v.lang || ""));
+        if (frVoice) utterance.voice = frVoice;
+
+        window.speechSynthesis.speak(utterance);
+      }
+
+      function stopAudio(){
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      }
+
+      function openWa(phone, message){
+        const txt = encodeURIComponent(message || "");
+        const digits = String(phone || "").replace(/\D/g, "");
+        if (!digits) return;
+        const url = "https://wa.me/" + digits + (txt ? "?text=" + txt : "");
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      document.getElementById("playPromise")?.addEventListener("click", function(){
+        speakDigiy(promiseText);
+      });
+
+      document.getElementById("stopPromise")?.addEventListener("click", stopAudio);
+
+      document.querySelectorAll(".js-wa").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          openWa(btn.dataset.phone, btn.dataset.msg);
+        });
+      });
+
+      window.addEventListener("pagehide", stopAudio);
+    })();
   </script>
   <script defer src="https://apps.digiylyfe.com/assets/digiy-audio.js"></script>
 </body>
 </html>
+
 
