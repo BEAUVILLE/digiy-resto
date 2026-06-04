@@ -1,26 +1,25 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>DIGIY RESTO — Architecture restaurant du terrain</title>
-  <meta name="digiy-version" content="resto-plus-clair-20260604">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="DIGIY RESTO installe les restaurants locaux dans l’architecture DIGIY : fiche visible, WhatsApp direct, QR, paiement Wave direct au restaurateur et 0% commission sur les ventes.">
-  <meta name="theme-color" content="#fff8ea">
-
-  <style>
+<meta charset="utf-8"/>
+<title>DIGIY RESTO — Architecture restaurant du terrain</title>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="DIGIY RESTO installe les restaurants locaux dans l’architecture DIGIY : fiche visible, WhatsApp direct, QR, paiement Wave direct au restaurateur et 0% commission sur les ventes." name="description"/>
+<meta content="#020617" name="theme-color"/>
+<style>
     :root{
-      --bg:#fff8ea;
-      --bg-soft:#f3fbec;
-      --card:#fffdf6;
-      --accent:#d99216;
-      --accent-soft:#f6b24a;
-      --accent-green:#168143;
-      --ink:#123c2d;
-      --muted:#5d7167;
-      --soft:#365247;
-      --line:rgba(18,60,45,.13);
-      --shadow-soft:0 18px 46px rgba(18,60,45,.10);
+      --bg:#020617;
+      --bg-soft:#020818;
+      --card:#030712;
+      --accent:#facc15;
+      --accent-soft:#f97316;
+      --accent-green:#22c55e;
+      --ink:#f9fafb;
+      --muted:#cbd5e1;
+      --soft:#e5e7eb;
+      --line:rgba(148,163,184,.32);
+      --shadow-soft:0 22px 50px rgba(15,23,42,.88);
     }
 
     *{
@@ -35,9 +34,9 @@
     body{
       min-height:100vh;
       background:
-        radial-gradient(circle at 14% 0%,rgba(246,178,74,.22),transparent 42%),
-        radial-gradient(circle at 86% 100%,rgba(22,129,67,.12),transparent 45%),
-        linear-gradient(180deg,#fff8ea,#f3fbec);
+        radial-gradient(circle at 14% 0%,rgba(250,204,21,.18),transparent 42%),
+        radial-gradient(circle at 86% 100%,rgba(34,197,94,.16),transparent 45%),
+        var(--bg);
       color:var(--ink);
       display:flex;
       justify-content:center;
@@ -49,9 +48,9 @@
       width:100%;
       max-width:1120px;
       min-height:100vh;
-      background:linear-gradient(135deg,#fffdf6 0%,#fff8ea 48%,#f3fbec 100%);
+      background:linear-gradient(135deg,#020617 0%,#020818 48%,#020617 100%);
       border-radius:26px;
-      border:1px solid rgba(18,60,45,.12);
+      border:1px solid rgba(148,163,184,.24);
       box-shadow:var(--shadow-soft);
       padding:16px 16px 24px;
       display:flex;
@@ -65,8 +64,8 @@
       position:absolute;
       inset:-35%;
       background:
-        radial-gradient(circle at 0% 0%,rgba(246,178,74,.16),transparent 54%),
-        radial-gradient(circle at 100% 100%,rgba(22,129,67,.10),transparent 46%);
+        radial-gradient(circle at 0% 0%,rgba(250,204,21,.14),transparent 54%),
+        radial-gradient(circle at 100% 100%,rgba(34,197,94,.15),transparent 46%);
       opacity:.9;
       pointer-events:none;
     }
@@ -94,12 +93,12 @@
       width:48px;
       height:48px;
       border-radius:16px;
-      background:radial-gradient(circle at 30% 0%,#fff2bf,#f6b24a);
+      background:radial-gradient(circle at 30% 0%,#facc15,#f97316);
       display:flex;
       align-items:center;
       justify-content:center;
       font-size:26px;
-      box-shadow:0 10px 24px rgba(217,146,22,.18);
+      box-shadow:0 12px 30px rgba(234,179,8,.55);
       flex:none;
     }
 
@@ -123,9 +122,9 @@
       font-size:14px;
       color:var(--muted);
       text-decoration:none;
-      background:rgba(255,255,255,.74);
+      background:rgba(15,23,42,.88);
       border-radius:999px;
-      border:1px solid rgba(18,60,45,.14);
+      border:1px solid rgba(148,163,184,.52);
       padding:10px 14px;
       display:inline-flex;
       align-items:center;
@@ -142,11 +141,11 @@
     }
 
     .hero{
-      background:radial-gradient(circle at top left,rgba(22,129,67,.12),rgba(255,253,246,.96));
+      background:radial-gradient(circle at top left,rgba(34,197,94,.20),rgba(3,7,18,.96));
       border-radius:24px;
-      border:1px solid rgba(18,60,45,.14);
+      border:1px solid rgba(148,163,184,.52);
       padding:20px;
-      box-shadow:0 16px 38px rgba(18,60,45,.10);
+      box-shadow:0 18px 44px rgba(15,23,42,.88);
       display:grid;
       grid-template-columns:minmax(0,1.45fr) minmax(280px,.85fr);
       gap:18px;
@@ -167,8 +166,8 @@
       font-weight:950;
       letter-spacing:.08em;
       text-transform:uppercase;
-      color:#123c2d;
-      background:linear-gradient(135deg,#fff2bf,#f6b24a);
+      color:#111827;
+      background:linear-gradient(135deg,#facc15,#f97316);
       padding:7px 11px;
       border-radius:999px;
     }
@@ -188,7 +187,7 @@
 
     .hero-sub{
       font-size:18px;
-      color:#365247;
+      color:#eef2ff;
       max-width:720px;
       font-weight:650;
       line-height:1.58;
@@ -200,10 +199,10 @@
       margin-top:2px;
       border-left:4px solid var(--accent);
       padding:10px 12px;
-      background:rgba(246,178,74,.13);
+      background:rgba(250,204,21,.08);
       border-radius:14px;
       font-size:17px;
-      color:#6b4b08;
+      color:#fef9c3;
       font-weight:900;
       line-height:1.45;
     }
@@ -219,9 +218,9 @@
       font-size:14px;
       padding:7px 12px;
       border-radius:999px;
-      border:1px solid rgba(18,60,45,.13);
-      background:rgba(255,255,255,.74);
-      color:#365247;
+      border:1px solid rgba(148,163,184,.62);
+      background:rgba(15,23,42,.88);
+      color:#e5e7eb;
       font-weight:800;
     }
 
@@ -229,10 +228,10 @@
 
     .audio-panel{
       border-radius:22px;
-      border:1px solid rgba(217,146,22,.25);
+      border:1px solid rgba(250,204,21,.55);
       background:
-        radial-gradient(circle at top,rgba(246,178,74,.14),transparent 52%),
-        rgba(255,255,255,.74);
+        radial-gradient(circle at top,rgba(250,204,21,.13),transparent 52%),
+        rgba(15,23,42,.72);
       padding:16px;
       display:flex;
       flex-direction:column;
@@ -250,7 +249,7 @@
     .audio-panel p{
       font-size:15px;
       line-height:1.55;
-      color:#365247;
+      color:#e5e7eb;
       font-weight:650;
     }
 
@@ -274,15 +273,15 @@
 
     .audio-play{
       flex:1;
-      color:#123c2d;
-      background:linear-gradient(135deg,#fff2bf,#f6b24a);
-      box-shadow:0 10px 22px rgba(217,146,22,.16);
+      color:#111827;
+      background:linear-gradient(135deg,#facc15,#f97316);
+      box-shadow:0 10px 22px rgba(250,204,21,.34);
     }
 
     .audio-stop{
-      color:#8a1f1f;
-      background:rgba(255,226,221,.72);
-      border:1px solid rgba(180,35,42,.18);
+      color:#fecaca;
+      background:rgba(127,29,29,.32);
+      border:1px solid rgba(248,113,113,.44);
     }
 
     .guide{
@@ -296,8 +295,8 @@
       border:1px solid var(--line);
       border-radius:20px;
       padding:14px;
-      background:rgba(255,255,255,.78);
-      box-shadow:0 12px 26px rgba(18,60,45,.07);
+      background:rgba(15,23,42,.74);
+      box-shadow:0 12px 26px rgba(15,23,42,.45);
     }
 
     .guide-card strong{
@@ -308,7 +307,7 @@
     }
 
     .guide-card span{
-      color:#365247;
+      color:#e5e7eb;
       font-size:15px;
       line-height:1.5;
       font-weight:650;
@@ -321,15 +320,15 @@
     }
 
     .cta-btn{
-      background:linear-gradient(135deg,#fff2bf,#f6b24a);
+      background:linear-gradient(135deg,#facc15,#f97316);
       padding:15px 22px;
       border-radius:999px;
-      color:#123c2d;
+      color:#111827;
       font-size:16px;
       font-weight:950;
       text-decoration:none;
-      box-shadow:0 10px 24px rgba(217,146,22,.18);
-      border:1px solid rgba(217,146,22,.32);
+      box-shadow:0 10px 24px rgba(250,204,21,.42);
+      border:1px solid rgba(250,204,21,.7);
       transition:transform .2s ease, box-shadow .2s ease;
       text-align:center;
     }
@@ -337,7 +336,7 @@
     .cta-btn:hover,
     .cta-btn:focus-visible{
       transform:translateY(-2px);
-      box-shadow:0 14px 30px rgba(217,146,22,.24);
+      box-shadow:0 14px 30px rgba(250,204,21,.58);
       outline:none;
     }
 
@@ -349,11 +348,11 @@
     }
 
     .shop-card{
-      background:radial-gradient(circle at top,rgba(255,255,255,.96),#fff8ea);
+      background:radial-gradient(circle at top,rgba(15,23,42,.98),#020617);
       border-radius:24px;
-      border:1px solid rgba(18,60,45,.12);
+      border:1px solid rgba(30,64,175,.66);
       padding:12px;
-      box-shadow:0 14px 34px rgba(18,60,45,.09);
+      box-shadow:0 14px 34px rgba(15,23,42,.86);
       display:flex;
       flex-direction:column;
       gap:12px;
@@ -366,8 +365,8 @@
       height:218px;
       border-radius:18px;
       overflow:hidden;
-      border:2px solid rgba(217,146,22,.18);
-      background:#fff8ea;
+      border:2px solid rgba(30,64,175,.78);
+      background:#0b1220;
       position:relative;
       isolation:isolate;
     }
@@ -377,7 +376,7 @@
       position:absolute;
       inset:auto 0 0 0;
       height:48%;
-      background:linear-gradient(to top,rgba(18,60,45,.38),rgba(18,60,45,0));
+      background:linear-gradient(to top,rgba(2,6,23,.86),rgba(2,6,23,0));
       pointer-events:none;
       z-index:1;
     }
@@ -401,13 +400,13 @@
       max-width:calc(100% - 24px);
       padding:7px 11px;
       border-radius:999px;
-      border:1px solid rgba(217,146,22,.28);
-      background:rgba(255,253,246,.82);
-      color:#6b4b08;
+      border:1px solid rgba(250,204,21,.62);
+      background:rgba(2,6,23,.72);
+      color:#fde68a;
       font-size:12px;
       font-weight:950;
       letter-spacing:.02em;
-      box-shadow:0 8px 18px rgba(18,60,45,.10);
+      box-shadow:0 10px 24px rgba(0,0,0,.38);
       backdrop-filter:blur(10px);
     }
 
@@ -423,8 +422,8 @@
       height:78px;
       border-radius:15px;
       overflow:hidden;
-      border:1px solid rgba(18,60,45,.12);
-      background:#fff8ea;
+      border:1px solid rgba(148,163,184,.30);
+      background:#0b1220;
       position:relative;
     }
 
@@ -437,7 +436,7 @@
     }
 
     .shop-thumb:first-child{
-      border-color:rgba(217,146,22,.30);
+      border-color:rgba(250,204,21,.55);
     }
 
     .shop-body{
@@ -448,7 +447,7 @@
     }
 
     .shop-kicker{
-      color:#168143;
+      color:#93c5fd;
       font-size:12px;
       text-transform:uppercase;
       letter-spacing:.08em;
@@ -465,7 +464,7 @@
 
     .shop-type{
       font-size:16px;
-      color:#123c2d;
+      color:#f8fafc;
       font-weight:800;
     }
 
@@ -475,23 +474,23 @@
       padding:6px 10px;
       font-size:13px;
       border-radius:999px;
-      border:1px solid rgba(22,129,67,.22);
-      color:#126b3d;
-      background:rgba(22,129,67,.09);
+      border:1px solid rgba(34,197,94,.86);
+      color:#bbf7d0;
+      background:rgba(6,78,59,.58);
       font-weight:900;
       white-space:nowrap;
     }
 
     .shop-desc{
       font-size:16px;
-      color:#365247;
+      color:#f3f4f6;
       line-height:1.58;
       font-weight:620;
     }
 
     .shop-meta{
       font-size:15px;
-      color:#5d7167;
+      color:#dbeafe;
       font-weight:720;
       line-height:1.45;
     }
@@ -499,8 +498,8 @@
     .wave-block{
       margin-top:auto;
       border-radius:17px;
-      border:1px solid rgba(22,129,67,.22);
-      background:rgba(22,129,67,.08);
+      border:1px solid rgba(34,197,94,.95);
+      background:rgba(6,78,59,.86);
       padding:11px 12px;
       display:flex;
       flex-direction:column;
@@ -510,19 +509,19 @@
     .wave-title{
       font-size:14px;
       font-weight:950;
-      color:#126b3d;
+      color:#bbf7d0;
     }
 
     .wave-number{
       font-size:23px;
       font-weight:950;
-      color:#123c2d;
+      color:#ecfdf5;
       letter-spacing:.2px;
       line-height:1.15;
     }
 
     .wave-note{
-      color:#5d7167;
+      color:#d1fae5;
       font-size:13px;
       line-height:1.35;
       font-weight:700;
@@ -556,15 +555,15 @@
     .btn:active{transform:scale(.99)}
 
     .btn-pos{
-      background:linear-gradient(135deg,#fff2bf,#f6b24a);
-      color:#123c2d;
-      box-shadow:0 7px 18px rgba(217,146,22,.16);
+      background:linear-gradient(135deg,#facc15,#f97316);
+      color:#111827;
+      box-shadow:0 7px 18px rgba(250,204,21,.45);
     }
 
     .btn-wa{
-      background:rgba(22,129,67,.08);
-      color:#126b3d;
-      border:1px solid rgba(22,129,67,.22);
+      background:rgba(22,163,74,.20);
+      color:#bbf7d0;
+      border:1px solid rgba(34,197,94,.82);
     }
 
     footer{
@@ -577,7 +576,7 @@
       flex-wrap:wrap;
       gap:8px;
       line-height:1.45;
-      border-top:1px solid rgba(18,60,45,.12);
+      border-top:1px solid rgba(148,163,184,.22);
       padding-top:14px;
     }
 
@@ -613,315 +612,254 @@
       footer{font-size:13.5px}
     }
   </style>
-</head>
-
+<meta content="resto-boutons-commander-whatsapp-20260604" name="digiy-version"/></head>
 <body>
-  <div class="app">
-    <header>
-      <div class="brand">
-        <div class="brand-logo" aria-hidden="true">🍽️</div>
-        <div>
-          <div class="brand-text-title">DIGIY RESTO</div>
-          <div class="brand-text-sub">Architecture restaurant du terrain</div>
-        </div>
-      </div>
-
-      <a href="https://beauville.github.io/digiy-hub/" class="back-link">
-        <span aria-hidden="true">←</span> HUB DIGIY
+<div class="app">
+<header>
+<div class="brand">
+<div aria-hidden="true" class="brand-logo">🍽️</div>
+<div>
+<div class="brand-text-title">DIGIY RESTO</div>
+<div class="brand-text-sub">Architecture restaurant du terrain</div>
+</div>
+</div>
+<a class="back-link" href="https://beauville.github.io/digiy-hub/">
+<span aria-hidden="true">←</span> HUB DIGIY
       </a>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <div class="hero-label">Restaurants visibles · paiements directs</div>
-
-          <h1 class="hero-title">
+</header>
+<main>
+<section class="hero">
+<div class="hero-copy">
+<div class="hero-label">Restaurants visibles · paiements directs</div>
+<h1 class="hero-title">
             Le restaurant garde son client.
             <span>DIGIY lui met le business dans la main.</span>
-          </h1>
-
-          <p class="hero-sub">
+</h1>
+<p class="hero-sub">
             Une fiche claire, un menu mobile, un contact <strong>WhatsApp direct</strong>,
             un paiement <strong>Wave au restaurateur</strong> et une présence partageable par lien ou QR.
             DIGIY équipe le terrain, sans capturer la relation.
           </p>
-
-          <div class="hero-mantra">
+<div class="hero-mantra">
             Wave a mis l’argent dans la main. DIGIY met le business dans la main.
           </div>
-
-          <div class="hero-tags">
-            <div class="hero-tag"><strong>0% commission</strong> sur la vente</div>
-            <div class="hero-tag">Client → restaurant directement</div>
-            <div class="hero-tag">QR · WhatsApp · Wave</div>
-            <div class="hero-tag">Fiche visible et partageable</div>
-          </div>
-        </div>
-
-        <aside class="audio-panel" aria-label="Écouter la promesse DIGIY RESTO">
-          <div>
-            <h2>🎧 Écouter la promesse</h2>
-            <p>
+<div class="hero-tags">
+<div class="hero-tag"><strong>0% commission</strong> sur la vente</div>
+<div class="hero-tag">Client → restaurant directement</div>
+<div class="hero-tag">QR · WhatsApp · Wave</div>
+<div class="hero-tag">Fiche visible et partageable</div>
+</div>
+</div>
+<aside aria-label="Écouter la promesse DIGIY RESTO" class="audio-panel">
+<div>
+<h2>🎧 Écouter la promesse</h2>
+<p>
               Le texte reste visible, mais l’audio met le client à l’aise.
               Sur téléphone, il comprend vite : il regarde, clique, contacte, puis paie le restaurant.
             </p>
-          </div>
-
-          <div class="audio-actions">
-            <button class="audio-btn audio-play" type="button" id="playPromise">Écouter</button>
-            <button class="audio-btn audio-stop" type="button" id="stopPromise">Stop</button>
-          </div>
-        </aside>
-      </section>
-
-      <section class="guide" aria-label="Comment fonctionne DIGIY RESTO">
-        <div class="guide-card">
-          <strong>1 · Je vois</strong>
-          <span>Le client découvre le restaurant, les plats, l’horaire, le téléphone et la fiche propre.</span>
-        </div>
-        <div class="guide-card">
-          <strong>2 · Je contacte</strong>
-          <span>WhatsApp ouvre le dialogue humain. Pas de mur froid entre le client et le restaurateur.</span>
-        </div>
-        <div class="guide-card">
-          <strong>3 · Je paie direct</strong>
-          <span>Wave va au pro. La vente reste au restaurant. DIGIY reste l’architecture qui éclaire.</span>
-        </div>
-      </section>
-
-      <section class="cta-partner">
-        <a href="https://resto.digiylyfe.com/inscription.html" class="cta-btn" target="_blank" rel="noopener noreferrer">
+</div>
+<div class="audio-actions">
+<button class="audio-btn audio-play" id="playPromise" type="button">Écouter</button>
+<button class="audio-btn audio-stop" id="stopPromise" type="button">Stop</button>
+</div>
+</aside>
+</section>
+<section aria-label="Comment fonctionne DIGIY RESTO" class="guide">
+<div class="guide-card">
+<strong>1 · Je vois</strong>
+<span>Le client découvre le restaurant, les plats, l’horaire, le téléphone et la fiche propre.</span>
+</div>
+<div class="guide-card">
+<strong>2 · Je contacte</strong>
+<span>WhatsApp ouvre le dialogue humain. Pas de mur froid entre le client et le restaurateur.</span>
+</div>
+<div class="guide-card">
+<strong>3 · Je paie direct</strong>
+<span>Wave va au pro. La vente reste au restaurant. DIGIY reste l’architecture qui éclaire.</span>
+</div>
+</section>
+<section class="cta-partner">
+<a class="cta-btn" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">
           🍽️ Installer mon restaurant dans l’architecture DIGIY
         </a>
-      </section>
-
-      <section class="grid" aria-label="Restaurants partenaires DIGIY RESTO">
-        <article class="shop-card">
-          <div class="shop-photo">
-            <img alt="Le Grill Royal — grillades et poisson façon Petite Côte" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
-            <span class="photo-chip">Mbour · braise · poisson · Petite Côte</span>
-          </div>
-
-          <div class="shop-gallery" aria-label="Photos restaurant">
-            <div class="shop-thumb"><img alt="Grillades feu de bois" src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Poulet grillé" src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Table barbecue conviviale" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-          </div>
-
-          <div class="shop-body">
-            <div class="shop-kicker">Restaurant partenaire</div>
-            <h2 class="shop-name">Le Grill Royal</h2>
-            <div class="shop-type">Barbecue • Mbour</div>
-
-            <div class="shop-badge">Paiement direct</div>
-
-            <p class="shop-desc">Viandes braisées, poulet yassa, grillades feu de bois. Une fiche claire pour commander sans intermédiaire.</p>
-
-            <div class="shop-meta">Ouvert 18h–23h • Sur place, à emporter, livraison.</div>
-
-            <div class="wave-block">
-              <div class="wave-title">Paiement Wave direct au restaurant</div>
-              <div class="wave-number">+221 77 555 11 22</div>
-              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
-            </div>
-          </div>
-
-          <div class="shop-actions">
-            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
-            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 555 11 22" data-msg="Bonjour, je souhaite commander au Grill Royal depuis DIGIY RESTO.">💬 WhatsApp</button>
-          </div>
-        </article>
-
-        <article class="shop-card">
-          <div class="shop-photo">
-            <img alt="Pizzeria La Flambée — terrasse chaude de Saly" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
-            <span class="photo-chip">Saly · terrasse · soir doux</span>
-          </div>
-
-          <div class="shop-gallery" aria-label="Photos restaurant">
-            <div class="shop-thumb"><img alt="Pizza artisanale" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Pizza au feu de bois" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Part de pizza chaude" src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-          </div>
-
-          <div class="shop-body">
-            <div class="shop-kicker">Restaurant partenaire</div>
-            <h2 class="shop-name">Pizzeria La Flambée</h2>
-            <div class="shop-type">Pizzas au feu de bois • Saly</div>
-
-            <div class="shop-badge">Commande simple</div>
-
-            <p class="shop-desc">Pizzas artisanales, pâte croustillante, ingrédients frais. Le client voit, clique, contacte et paie le restaurant.</p>
-
-            <div class="shop-meta">Ouvert 12h–22h • Livraison gratuite dès 5 000 FCFA.</div>
-
-            <div class="wave-block">
-              <div class="wave-title">Paiement Wave direct au restaurant</div>
-              <div class="wave-number">+221 77 888 33 44</div>
-              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
-            </div>
-          </div>
-
-          <div class="shop-actions">
-            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
-            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 888 33 44" data-msg="Bonjour, je souhaite commander à La Flambée depuis DIGIY RESTO.">💬 WhatsApp</button>
-          </div>
-        </article>
-
-        <article class="shop-card">
-          <div class="shop-photo">
-            <img alt="Fast-Food Le Gourmet — snack vivant de quartier" src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
-            <span class="photo-chip">Quartier · rapide · familial</span>
-          </div>
-
-          <div class="shop-gallery" aria-label="Photos restaurant">
-            <div class="shop-thumb"><img alt="Burger gourmand" src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Burger et frites" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Tacos et snack rapide" src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-          </div>
-
-          <div class="shop-body">
-            <div class="shop-kicker">Restaurant partenaire</div>
-            <h2 class="shop-name">Fast-Food Le Gourmet</h2>
-            <div class="shop-type">Burgers • Tacos • Thiès</div>
-
-            <div class="shop-badge">Visible sur mobile</div>
-
-            <p class="shop-desc">Burgers gourmets, tacos revisités, service rapide. Une présence propre qui donne confiance avant l’appel.</p>
-
-            <div class="shop-meta">Ouvert 11h–23h • Menu étudiant.</div>
-
-            <div class="wave-block">
-              <div class="wave-title">Paiement Wave direct au restaurant</div>
-              <div class="wave-number">+221 77 333 99 88</div>
-              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
-            </div>
-          </div>
-
-          <div class="shop-actions">
-            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
-            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 333 99 88" data-msg="Bonjour, je souhaite commander au Gourmet depuis DIGIY RESTO.">💬 WhatsApp</button>
-          </div>
-        </article>
-
-        <article class="shop-card">
-          <div class="shop-photo">
-            <img alt="L’Oasis — fraîcheur, jus et déjeuner tropical" src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
-            <span class="photo-chip">Fraîcheur · jus · midi au soleil</span>
-          </div>
-
-          <div class="shop-gallery" aria-label="Photos restaurant">
-            <div class="shop-thumb"><img alt="Salade fraîche" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Légumes frais" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Jus frais et repas sain" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-          </div>
-
-          <div class="shop-body">
-            <div class="shop-kicker">Restaurant partenaire</div>
-            <h2 class="shop-name">L’Oasis</h2>
-            <div class="shop-type">Végétarien • Dakar</div>
-
-            <div class="shop-badge">Fiche claire</div>
-
-            <p class="shop-desc">Cuisine végétarienne, plats équilibrés, jus frais. La fiche garde le contact humain au centre.</p>
-
-            <div class="shop-meta">Ouvert 10h–17h • Déjeuner uniquement.</div>
-
-            <div class="wave-block">
-              <div class="wave-title">Paiement Wave direct au restaurant</div>
-              <div class="wave-number">+221 77 222 77 11</div>
-              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
-            </div>
-          </div>
-
-          <div class="shop-actions">
-            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
-            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 222 77 11" data-msg="Bonjour, je souhaite commander à L’Oasis depuis DIGIY RESTO.">💬 WhatsApp</button>
-          </div>
-        </article>
-
-        <article class="shop-card">
-          <div class="shop-photo">
-            <img alt="Le Coin du Poisson — pêche du jour de la côte" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
-            <span class="photo-chip">Pêche du jour · côte · assiette mer</span>
-          </div>
-
-          <div class="shop-gallery" aria-label="Photos restaurant">
-            <div class="shop-thumb"><img alt="Poisson grillé" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Poisson frais cuisiné" src="https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Assiette de la mer" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-          </div>
-
-          <div class="shop-body">
-            <div class="shop-kicker">Restaurant partenaire</div>
-            <h2 class="shop-name">Le Coin du Poisson</h2>
-            <div class="shop-type">Poissons • Côte</div>
-
-            <div class="shop-badge">Pêche du jour</div>
-
-            <p class="shop-desc">Poisson frais du matin, grillé ou frit. Le client arrive directement vers le bon contact.</p>
-
-            <div class="shop-meta">Ouvert 12h–15h &amp; 19h–22h.</div>
-
-            <div class="wave-block">
-              <div class="wave-title">Paiement Wave direct au restaurant</div>
-              <div class="wave-number">+221 77 666 44 33</div>
-              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
-            </div>
-          </div>
-
-          <div class="shop-actions">
-            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
-            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 666 44 33" data-msg="Bonjour, je souhaite commander au Coin du Poisson depuis DIGIY RESTO.">💬 WhatsApp</button>
-          </div>
-        </article>
-
-        <article class="shop-card">
-          <div class="shop-photo">
-            <img alt="L’Harmonie — cuisine maison africaine généreuse" src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" loading="lazy">
-            <span class="photo-chip">Cuisine maison · riz · partage</span>
-          </div>
-
-          <div class="shop-gallery" aria-label="Photos restaurant">
-            <div class="shop-thumb"><img alt="Plat africain généreux" src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Riz et plat maison" src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-            <div class="shop-thumb"><img alt="Cuisine familiale" src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&fit=crop&w=520&q=80" loading="lazy"></div>
-          </div>
-
-          <div class="shop-body">
-            <div class="shop-kicker">Restaurant partenaire</div>
-            <h2 class="shop-name">L’Harmonie</h2>
-            <div class="shop-type">Cuisine africaine</div>
-
-            <div class="shop-badge">Cuisine maison</div>
-
-            <p class="shop-desc">Mafé, yassa, thiéboudienne — cuisine généreuse, visible, joignable et partageable.</p>
-
-            <div class="shop-meta">Service continu 11h–21h.</div>
-
-            <div class="wave-block">
-              <div class="wave-title">Paiement Wave direct au restaurant</div>
-              <div class="wave-number">+221 77 444 00 55</div>
-              <div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
-            </div>
-          </div>
-
-          <div class="shop-actions">
-            <a class="btn btn-pos" href="https://beauville.github.io/Caisse-officielle-ASTOU/" target="_blank" rel="noopener noreferrer">🍽️ Voir / commander</a>
-            <button class="btn btn-wa js-wa" type="button" data-phone="+221 77 444 00 55" data-msg="Bonjour, je souhaite commander à L’Harmonie depuis DIGIY RESTO.">💬 WhatsApp</button>
-          </div>
-        </article>
-      </section>
-    </main>
-
-    <footer>
-      <div>DIGIY RESTO • <span>Supa-Apps DIGIYLYFE</span> — Sénégal → Afrique</div>
-      <div>Paiement direct • QR partageable • Fiche restaurant • Relation client protégée</div>
-    </footer>
-  </div>
-
-  <script>
+</section>
+<section aria-label="Restaurants partenaires DIGIY RESTO" class="grid">
+<article class="shop-card">
+<div class="shop-photo">
+<img alt="Le Grill Royal — grillades et poisson façon Petite Côte" loading="lazy" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="photo-chip">Mbour · braise · poisson · Petite Côte</span>
+</div>
+<div aria-label="Photos restaurant" class="shop-gallery">
+<div class="shop-thumb"><img alt="Grillades feu de bois" loading="lazy" src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Poulet grillé" loading="lazy" src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Table barbecue conviviale" loading="lazy" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+</div>
+<div class="shop-body">
+<div class="shop-kicker">Restaurant partenaire</div>
+<h2 class="shop-name">Le Grill Royal</h2>
+<div class="shop-type">Barbecue • Mbour</div>
+<div class="shop-badge">Paiement direct</div>
+<p class="shop-desc">Viandes braisées, poulet yassa, grillades feu de bois. Une fiche claire pour commander sans intermédiaire.</p>
+<div class="shop-meta">Ouvert 18h–23h • Sur place, à emporter, livraison.</div>
+<div class="wave-block">
+<div class="wave-title">Paiement Wave direct au restaurant</div>
+<div class="wave-number">+221 77 555 11 22</div>
+<div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+</div>
+</div>
+<div class="shop-actions">
+<a class="btn btn-pos" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20viens%20de%20DIGIY%20RESTO.%20Je%20souhaite%20voir%20/%20commander%20aupr%C3%A8s%20de%20Le%20Grill%20Royal." rel="noopener noreferrer" target="_blank">🍽️ Voir / commander</a>
+<button class="btn btn-wa js-wa" data-msg="Bonjour, je souhaite commander au Grill Royal depuis DIGIY RESTO." data-phone="+221 77 555 11 22" type="button">💬 WhatsApp</button>
+</div>
+</article>
+<article class="shop-card">
+<div class="shop-photo">
+<img alt="Pizzeria La Flambée — terrasse chaude de Saly" loading="lazy" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="photo-chip">Saly · terrasse · soir doux</span>
+</div>
+<div aria-label="Photos restaurant" class="shop-gallery">
+<div class="shop-thumb"><img alt="Pizza artisanale" loading="lazy" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Pizza au feu de bois" loading="lazy" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Part de pizza chaude" loading="lazy" src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+</div>
+<div class="shop-body">
+<div class="shop-kicker">Restaurant partenaire</div>
+<h2 class="shop-name">Pizzeria La Flambée</h2>
+<div class="shop-type">Pizzas au feu de bois • Saly</div>
+<div class="shop-badge">Commande simple</div>
+<p class="shop-desc">Pizzas artisanales, pâte croustillante, ingrédients frais. Le client voit, clique, contacte et paie le restaurant.</p>
+<div class="shop-meta">Ouvert 12h–22h • Livraison gratuite dès 5 000 FCFA.</div>
+<div class="wave-block">
+<div class="wave-title">Paiement Wave direct au restaurant</div>
+<div class="wave-number">+221 77 888 33 44</div>
+<div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+</div>
+</div>
+<div class="shop-actions">
+<a class="btn btn-pos" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20viens%20de%20DIGIY%20RESTO.%20Je%20souhaite%20voir%20/%20commander%20aupr%C3%A8s%20de%20Pizzeria%20La%20Flamb%C3%A9e." rel="noopener noreferrer" target="_blank">🍽️ Voir / commander</a>
+<button class="btn btn-wa js-wa" data-msg="Bonjour, je souhaite commander à La Flambée depuis DIGIY RESTO." data-phone="+221 77 888 33 44" type="button">💬 WhatsApp</button>
+</div>
+</article>
+<article class="shop-card">
+<div class="shop-photo">
+<img alt="Fast-Food Le Gourmet — snack vivant de quartier" loading="lazy" src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="photo-chip">Quartier · rapide · familial</span>
+</div>
+<div aria-label="Photos restaurant" class="shop-gallery">
+<div class="shop-thumb"><img alt="Burger gourmand" loading="lazy" src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Burger et frites" loading="lazy" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Tacos et snack rapide" loading="lazy" src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+</div>
+<div class="shop-body">
+<div class="shop-kicker">Restaurant partenaire</div>
+<h2 class="shop-name">Fast-Food Le Gourmet</h2>
+<div class="shop-type">Burgers • Tacos • Thiès</div>
+<div class="shop-badge">Visible sur mobile</div>
+<p class="shop-desc">Burgers gourmets, tacos revisités, service rapide. Une présence propre qui donne confiance avant l’appel.</p>
+<div class="shop-meta">Ouvert 11h–23h • Menu étudiant.</div>
+<div class="wave-block">
+<div class="wave-title">Paiement Wave direct au restaurant</div>
+<div class="wave-number">+221 77 333 99 88</div>
+<div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+</div>
+</div>
+<div class="shop-actions">
+<a class="btn btn-pos" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20viens%20de%20DIGIY%20RESTO.%20Je%20souhaite%20voir%20/%20commander%20aupr%C3%A8s%20de%20Fast-Food%20Le%20Gourmet." rel="noopener noreferrer" target="_blank">🍽️ Voir / commander</a>
+<button class="btn btn-wa js-wa" data-msg="Bonjour, je souhaite commander au Gourmet depuis DIGIY RESTO." data-phone="+221 77 333 99 88" type="button">💬 WhatsApp</button>
+</div>
+</article>
+<article class="shop-card">
+<div class="shop-photo">
+<img alt="L’Oasis — fraîcheur, jus et déjeuner tropical" loading="lazy" src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="photo-chip">Fraîcheur · jus · midi au soleil</span>
+</div>
+<div aria-label="Photos restaurant" class="shop-gallery">
+<div class="shop-thumb"><img alt="Salade fraîche" loading="lazy" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Légumes frais" loading="lazy" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Jus frais et repas sain" loading="lazy" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+</div>
+<div class="shop-body">
+<div class="shop-kicker">Restaurant partenaire</div>
+<h2 class="shop-name">L’Oasis</h2>
+<div class="shop-type">Végétarien • Dakar</div>
+<div class="shop-badge">Fiche claire</div>
+<p class="shop-desc">Cuisine végétarienne, plats équilibrés, jus frais. La fiche garde le contact humain au centre.</p>
+<div class="shop-meta">Ouvert 10h–17h • Déjeuner uniquement.</div>
+<div class="wave-block">
+<div class="wave-title">Paiement Wave direct au restaurant</div>
+<div class="wave-number">+221 77 222 77 11</div>
+<div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+</div>
+</div>
+<div class="shop-actions">
+<a class="btn btn-pos" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20viens%20de%20DIGIY%20RESTO.%20Je%20souhaite%20voir%20/%20commander%20aupr%C3%A8s%20de%20L%E2%80%99Oasis." rel="noopener noreferrer" target="_blank">🍽️ Voir / commander</a>
+<button class="btn btn-wa js-wa" data-msg="Bonjour, je souhaite commander à L’Oasis depuis DIGIY RESTO." data-phone="+221 77 222 77 11" type="button">💬 WhatsApp</button>
+</div>
+</article>
+<article class="shop-card">
+<div class="shop-photo">
+<img alt="Le Coin du Poisson — pêche du jour de la côte" loading="lazy" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="photo-chip">Pêche du jour · côte · assiette mer</span>
+</div>
+<div aria-label="Photos restaurant" class="shop-gallery">
+<div class="shop-thumb"><img alt="Poisson grillé" loading="lazy" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Poisson frais cuisiné" loading="lazy" src="https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Assiette de la mer" loading="lazy" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+</div>
+<div class="shop-body">
+<div class="shop-kicker">Restaurant partenaire</div>
+<h2 class="shop-name">Le Coin du Poisson</h2>
+<div class="shop-type">Poissons • Côte</div>
+<div class="shop-badge">Pêche du jour</div>
+<p class="shop-desc">Poisson frais du matin, grillé ou frit. Le client arrive directement vers le bon contact.</p>
+<div class="shop-meta">Ouvert 12h–15h &amp; 19h–22h.</div>
+<div class="wave-block">
+<div class="wave-title">Paiement Wave direct au restaurant</div>
+<div class="wave-number">+221 77 666 44 33</div>
+<div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+</div>
+</div>
+<div class="shop-actions">
+<a class="btn btn-pos" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20viens%20de%20DIGIY%20RESTO.%20Je%20souhaite%20voir%20/%20commander%20aupr%C3%A8s%20de%20Le%20Coin%20du%20Poisson." rel="noopener noreferrer" target="_blank">🍽️ Voir / commander</a>
+<button class="btn btn-wa js-wa" data-msg="Bonjour, je souhaite commander au Coin du Poisson depuis DIGIY RESTO." data-phone="+221 77 666 44 33" type="button">💬 WhatsApp</button>
+</div>
+</article>
+<article class="shop-card">
+<div class="shop-photo">
+<img alt="L’Harmonie — cuisine maison africaine généreuse" loading="lazy" src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="photo-chip">Cuisine maison · riz · partage</span>
+</div>
+<div aria-label="Photos restaurant" class="shop-gallery">
+<div class="shop-thumb"><img alt="Plat africain généreux" loading="lazy" src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Riz et plat maison" loading="lazy" src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+<div class="shop-thumb"><img alt="Cuisine familiale" loading="lazy" src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
+</div>
+<div class="shop-body">
+<div class="shop-kicker">Restaurant partenaire</div>
+<h2 class="shop-name">L’Harmonie</h2>
+<div class="shop-type">Cuisine africaine</div>
+<div class="shop-badge">Cuisine maison</div>
+<p class="shop-desc">Mafé, yassa, thiéboudienne — cuisine généreuse, visible, joignable et partageable.</p>
+<div class="shop-meta">Service continu 11h–21h.</div>
+<div class="wave-block">
+<div class="wave-title">Paiement Wave direct au restaurant</div>
+<div class="wave-number">+221 77 444 00 55</div>
+<div class="wave-note">Le client paie le pro. DIGIY ne prend pas la vente.</div>
+</div>
+</div>
+<div class="shop-actions">
+<a class="btn btn-pos" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20viens%20de%20DIGIY%20RESTO.%20Je%20souhaite%20voir%20/%20commander%20aupr%C3%A8s%20de%20L%E2%80%99Harmonie." rel="noopener noreferrer" target="_blank">🍽️ Voir / commander</a>
+<button class="btn btn-wa js-wa" data-msg="Bonjour, je souhaite commander à L’Harmonie depuis DIGIY RESTO." data-phone="+221 77 444 00 55" type="button">💬 WhatsApp</button>
+</div>
+</article>
+</section>
+</main>
+<footer>
+<div>DIGIY RESTO • <span>Supa-Apps DIGIYLYFE</span> — Sénégal → Afrique</div>
+<div>Paiement direct • QR partageable • Fiche restaurant • Relation client protégée</div>
+</footer>
+</div>
+<script>
     (function(){
       "use strict";
 
@@ -974,7 +912,7 @@
       window.addEventListener("pagehide", stopAudio);
     })();
   </script>
-  <script defer src="https://apps.digiylyfe.com/assets/digiy-audio.js"></script>
+<script defer="" src="https://apps.digiylyfe.com/assets/digiy-audio.js"></script>
 </body>
 </html>
 
