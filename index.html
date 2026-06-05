@@ -226,7 +226,7 @@
 
     .hero-tag strong{ color:var(--accent); }
 
-    .audio-panel{
+    .summary-panel{
       border-radius:22px;
       border:1px solid rgba(250,204,21,.55);
       background:
@@ -235,50 +235,108 @@
       padding:16px;
       display:flex;
       flex-direction:column;
-      justify-content:space-between;
+      justify-content:center;
       gap:12px;
       min-height:100%;
     }
 
-    .audio-panel h2{
+    .summary-panel h2{
       font-size:19px;
       color:var(--accent);
       line-height:1.22;
     }
 
-    .audio-panel p{
+    .summary-panel p,
+    .summary-panel li{
       font-size:15px;
       line-height:1.55;
       color:#e5e7eb;
       font-weight:650;
     }
 
-    .audio-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:2px;
+    .summary-box{
+      border:1px solid rgba(148,163,184,.42);
+      border-radius:18px;
+      background:rgba(2,6,23,.44);
+      overflow:hidden;
     }
 
-    .audio-btn{
+    .summary-box summary{
+      list-style:none;
+      cursor:pointer;
+      min-height:50px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      color:#111827;
+      background:linear-gradient(135deg,#facc15,#f97316);
+      font-size:15px;
+      font-weight:950;
+      user-select:none;
+      touch-action:manipulation;
+    }
+
+    .summary-box summary::-webkit-details-marker{display:none}
+
+    .summary-box summary::after{
+      content:"+";
+      width:24px;
+      height:24px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(17,24,39,.14);
+      font-size:19px;
+      line-height:1;
+      flex:none;
+    }
+
+    .summary-box[open] summary::after{content:"−"}
+
+    .summary-content{
+      padding:13px 14px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+    }
+
+    .summary-content ul{
+      padding-left:18px;
+      display:grid;
+      gap:5px;
+    }
+
+    .summary-content strong{color:var(--accent)}
+
+    .summary-audio-actions{
+      display:flex;
+      gap:9px;
+      flex-wrap:wrap;
+      margin-top:4px;
+    }
+
+    .summary-audio-btn{
       border:0;
       border-radius:999px;
-      min-height:48px;
-      padding:11px 15px;
+      min-height:44px;
+      padding:10px 14px;
       cursor:pointer;
-      font-size:15px;
+      font-size:14px;
       font-weight:950;
       touch-action:manipulation;
     }
 
-    .audio-play{
+    .summary-audio-play{
       flex:1;
       color:#111827;
       background:linear-gradient(135deg,#facc15,#f97316);
-      box-shadow:0 10px 22px rgba(250,204,21,.34);
+      box-shadow:0 8px 18px rgba(250,204,21,.30);
     }
 
-    .audio-stop{
+    .summary-audio-stop{
       color:#fecaca;
       background:rgba(127,29,29,.32);
       border:1px solid rgba(248,113,113,.44);
@@ -612,7 +670,7 @@
       footer{font-size:13.5px}
     }
   </style>
-<meta content="resto-boutons-commander-whatsapp-20260604" name="digiy-version"/></head>
+<meta content="resto-resume-cache-lecteur-court-20260605" name="digiy-version"/></head>
 <body>
 <div class="app">
 <header>
@@ -651,17 +709,28 @@
 <div class="hero-tag">Téléphone · WhatsApp · SMS</div>
 </div>
 </div>
-<aside aria-label="Écouter la promesse Digiy RESTO" class="audio-panel">
-<div>
-<h2>🎧 Écouter la promesse</h2>
+<aside aria-label="Résumé Digiy RESTO" class="summary-panel">
+<h2>📌 Résumé rapide</h2>
 <p>
-              Une voix courte explique la valeur du module public : visibilité, photos, carte, QR, contact direct et inscription guidée.
+              Résumé fermé par défaut, avec un petit lecteur court pour écouter seulement l’essentiel sans alourdir la vitrine.
             </p>
+<details class="summary-box">
+<summary>Lire le résumé court</summary>
+<div class="summary-content">
+<p>
+                Digiy RESTO donne au restaurant une fiche publique claire : photos, carte, horaires, contact direct, QR partageable et demandes clients simples.
+              </p>
+<ul>
+<li><strong>Deux exemples :</strong> restaurant local ou pizzeria terrasse.</li>
+<li>La fiche d’inscription est fluide pour activer sa présence dans l’architecture des métiers de la Supa-Apps.</li>
+<li>Le client voit, appelle ou écrit ; le pro garde la main et confirme lui-même.</li>
+</ul>
+<div class="summary-audio-actions" aria-label="Lecteur du résumé court">
+<button class="summary-audio-btn summary-audio-play" id="playSummary" type="button">🎧 Écouter ce résumé</button>
+<button class="summary-audio-btn summary-audio-stop" id="stopSummary" type="button">Stop</button>
 </div>
-<div class="audio-actions">
-<button class="audio-btn audio-play" id="playPromise" type="button">Écouter</button>
-<button class="audio-btn audio-stop" id="stopPromise" type="button">Stop</button>
 </div>
+</details>
 </aside>
 </section>
 
@@ -868,13 +937,14 @@
 <div>Page publique • Photos • Carte • QR partageable • Contact direct</div>
 </footer>
 </div>
+
 <script>
     (function(){
       "use strict";
 
-      const promiseText = "Bienvenue dans diji RESTO. Ce module public aide ton restaurant à être visible, simplement. La page montre tes photos, ta carte, tes horaires, ton contact, ton Q R, et des modèles de vitrines à prendre. Le client peut appeler, écrire sur Ouatsap, envoyer un S M S, ou demander une table. Le restaurant garde la main, vérifie, et confirme lui-même. Pour démarrer, écris au plus deux cent vingt et un, soixante dix sept, cent trente quatre, vingt huit, quatre vingt neuf. Je t’oriente, vers l’inscription, et vers l’abonnement adapté.";
+      const summaryText = "Bienvenue dans diji RESTO. Ce résumé est court. Le restaurant reçoit une fiche publique claire avec photos, carte, horaires, contact direct et Q R partageable. Deux exemples suffisent : restaurant local, ou pizzeria terrasse. La fiche d’inscription est fluide pour activer sa présence dans l’architecture des métiers de la Supa-Apps. Le client voit, appelle ou écrit, et le professionnel garde la main pour confirmer lui-même.";
 
-      function speakDigiy(text){
+      function speakSummary(){
         if (!("speechSynthesis" in window)) {
           alert("La lecture audio n’est pas disponible sur ce navigateur.");
           return;
@@ -882,48 +952,39 @@
 
         window.speechSynthesis.cancel();
 
-        const utterance = new SpeechSynthesisUtterance(text);
+        const utterance = new SpeechSynthesisUtterance(summaryText);
         utterance.lang = "fr-FR";
-        utterance.rate = 0.82;
+        utterance.rate = 0.86;
         utterance.pitch = 1;
 
         const voices = window.speechSynthesis.getVoices();
-        const frVoice = voices.find(v => /fr/i.test(v.lang || ""));
+        const frVoice = voices.find(function(v){ return /fr/i.test(v.lang || ""); });
         if (frVoice) utterance.voice = frVoice;
 
         window.speechSynthesis.speak(utterance);
       }
 
-      function stopAudio(){
+      function stopSummary(){
         if ("speechSynthesis" in window) window.speechSynthesis.cancel();
       }
 
-      function openWa(phone, message){
-        const txt = encodeURIComponent(message || "");
-        const digits = String(phone || "").replace(/\D/g, "");
-        if (!digits) return;
-        const url = "https://wa.me/" + digits + (txt ? "?text=" + txt : "");
-        window.open(url, "_blank", "noopener,noreferrer");
-      }
-
-      document.getElementById("playPromise")?.addEventListener("click", function(){
-        speakDigiy(promiseText);
-      });
-
-      document.getElementById("stopPromise")?.addEventListener("click", stopAudio);
-
-      document.querySelectorAll(".js-wa").forEach(function(btn){
-        btn.addEventListener("click", function(){
-          openWa(btn.dataset.phone, btn.dataset.msg);
-        });
-      });
-
-      window.addEventListener("pagehide", stopAudio);
+      document.getElementById("playSummary")?.addEventListener("click", speakSummary);
+      document.getElementById("stopSummary")?.addEventListener("click", stopSummary);
+      window.addEventListener("pagehide", stopSummary);
     })();
   </script>
-<script defer="" src="https://apps.digiylyfe.com/assets/digiy-audio.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 
