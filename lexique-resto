@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DIGIY RESTO · Lexique Wolof</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#f2f2ef;
+  font-family:'Outfit',sans-serif;
+  padding-bottom:2.5rem;
+}
+.header{
+  background:#b84a0a;
+  color:#fff;
+  padding:1.4rem 1.2rem 1.2rem;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.header-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.emoji{font-size:34px;line-height:1;}
+.module-name{
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:-0.02em;
+  line-height:1;
+}
+.module-sub{
+  font-size:14px;
+  opacity:0.82;
+  margin-top:4px;
+  font-weight:400;
+}
+.badge{
+  margin-left:auto;
+  background:#F6C453;
+  color:#1a0a00;
+  font-size:11px;
+  font-weight:900;
+  padding:5px 11px;
+  border-radius:30px;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.cards{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:14px 12px;
+}
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:18px 18px 16px;
+  border-left:5px solid #b84a0a;
+}
+.situation{
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:#b84a0a;
+  margin-bottom:10px;
+}
+.fr{
+  font-size:17px;
+  font-weight:400;
+  color:#222;
+  margin-bottom:10px;
+  line-height:1.4;
+}
+.wo{
+  font-size:22px;
+  font-weight:900;
+  color:#b84a0a;
+  line-height:1.35;
+}
+.footer{
+  margin:0 12px;
+  padding:14px 18px;
+  background:#b84a0a;
+  border-radius:16px;
+  color:rgba(255,255,255,0.85);
+  font-size:13px;
+  text-align:center;
+  line-height:1.7;
+}
+.footer strong{color:#fff;font-weight:900;}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-row">
+    <span class="emoji">🍽️</span>
+    <div>
+      <div class="module-name">DIGIY RESTO</div>
+      <div class="module-sub">Restaurant · Table · Service</div>
+    </div>
+    <span class="badge">🇸🇳 Wolof</span>
+  </div>
+</div>
+<div class="cards">
+  <div class="card">
+    <div class="situation">Accueil table</div>
+    <div class="fr">🇫🇷 Bienvenue, par ici</div>
+    <div class="wo">🇸🇳 Dalal ak jàmm, ñëw fii</div>
+  </div>
+  <div class="card">
+    <div class="situation">Menu</div>
+    <div class="fr">🇫🇷 Voici notre menu du jour</div>
+    <div class="wo">🇸🇳 Fii la bés bi menu bi</div>
+  </div>
+  <div class="card">
+    <div class="situation">Commande</div>
+    <div class="fr">🇫🇷 Qu'est-ce que vous prenez ?</div>
+    <div class="wo">🇸🇳 Loo bëgg lekk ?</div>
+  </div>
+  <div class="card">
+    <div class="situation">Plat du jour</div>
+    <div class="fr">🇫🇷 Le plat du jour c'est le thiéboudienne</div>
+    <div class="wo">🇸🇳 Bés bi, ceeb bu jën la</div>
+  </div>
+  <div class="card">
+    <div class="situation">Attente</div>
+    <div class="fr">🇫🇷 Votre plat arrive dans 10 minutes</div>
+    <div class="wo">🇸🇳 Lekk bi ñëw na ci 10 minuti</div>
+  </div>
+  <div class="card">
+    <div class="situation">Boisson</div>
+    <div class="fr">🇫🇷 Qu'est-ce que vous buvez ?</div>
+    <div class="wo">🇸🇳 Loo bëgg naan ?</div>
+  </div>
+  <div class="card">
+    <div class="situation">Addition</div>
+    <div class="fr">🇫🇷 Je vous apporte l'addition</div>
+    <div class="wo">🇸🇳 Dinaa la jebi addition bi</div>
+  </div>
+  <div class="card">
+    <div class="situation">Paiement</div>
+    <div class="fr">🇫🇷 Wave ou cash ?</div>
+    <div class="wo">🇸🇳 Wave la wala cash ?</div>
+  </div>
+  <div class="card">
+    <div class="situation">Complet</div>
+    <div class="fr">🇫🇷 Le restaurant est complet ce soir</div>
+    <div class="wo">🇸🇳 Guddi bi, restaurant bi suur na</div>
+  </div>
+  <div class="card">
+    <div class="situation">Réservation ?</div>
+    <div class="fr">🇫🇷 Vous avez une réservation ?</div>
+    <div class="wo">🇸🇳 Am nga yégël ?</div>
+  </div>
+  <div class="card">
+    <div class="situation">Merci</div>
+    <div class="fr">🇫🇷 Merci, revenez nous voir</div>
+    <div class="wo">🇸🇳 Jërejëf, ñëw ci kanam</div>
+  </div>
+  <div class="card">
+    <div class="situation">Emporter</div>
+    <div class="fr">🇫🇷 C'est pour emporter ?</div>
+    <div class="wo">🇸🇳 Bëgg nga yóbbu dem ?</div>
+  </div>
+</div>
+<div class="footer">
+  <strong>DIGIYLYFE · RESTO</strong><br>
+  0% commission · Contact direct · Pierre par pierre 🦅♾️
+</div>
+</body>
+</html>
