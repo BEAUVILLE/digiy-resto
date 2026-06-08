@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#f5ecd8" />
-  <meta name="digiy-version" content="resto-inscription-clair-note-paiement-accueil-20260604" />
+  <meta name="digiy-version" content="resto-inscription-info-pro-paiement-20260608" />
   <title>Inscription RESTO — DIGIYLYFE</title>
 
   <style>
@@ -354,6 +354,80 @@
       font-weight: 950;
     }
 
+
+    .identityBox {
+      margin-top: 12px;
+      border: 1px solid rgba(21,95,67,.18);
+      border-radius: 18px;
+      background: rgba(21,95,67,.07);
+      padding: 12px;
+    }
+
+    .identityBox h3 {
+      margin: 0 0 6px;
+      color: var(--green2);
+      font-size: 21px;
+      line-height: 1.12;
+    }
+
+    .identityBox p {
+      margin: 0 0 12px;
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 850;
+    }
+
+    .identityGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .identityField label {
+      display: block;
+      margin: 0 0 6px;
+      color: #7a4d00;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-weight: 1000;
+    }
+
+    .identityField input {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 16px;
+      border: 1px solid rgba(83,58,26,.20);
+      background: #fffaf0;
+      color: var(--ink);
+      padding: 11px 12px;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 900;
+      outline: none;
+    }
+
+    .identityField input:focus {
+      border-color: rgba(250,204,21,.90);
+      box-shadow: 0 0 0 3px rgba(250,204,21,.16);
+    }
+
+    .identityMini {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .identityMini small {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 850;
+    }
+
     .noteBox label {
       display: block;
       color: var(--green2);
@@ -453,7 +527,8 @@
         grid-template-columns: 1fr;
       }
 
-      .actions {
+      .actions,
+      .identityGrid {
         grid-template-columns: 1fr;
       }
 
@@ -573,6 +648,39 @@
           </div>
         </div>
 
+
+        <div class="identityBox" id="identityBox">
+          <h3>Infos restaurant</h3>
+          <p>Ces informations servent à identifier le paiement dans WhatsApp / SMS. La fiche complète se construit ensuite dans l’espace RESTO.</p>
+
+          <div class="identityGrid">
+            <div class="identityField">
+              <label for="restoOwner">Nom / responsable</label>
+              <input id="restoOwner" autocomplete="name" placeholder="Ex : Mamadou Diop" />
+            </div>
+
+            <div class="identityField">
+              <label for="restoPhone">Téléphone / WhatsApp</label>
+              <input id="restoPhone" autocomplete="tel" inputmode="tel" placeholder="Ex : +221 77 000 00 00" />
+            </div>
+
+            <div class="identityField">
+              <label for="restoZone">Zone / ville</label>
+              <input id="restoZone" autocomplete="address-level2" placeholder="Ex : Saly, Mbour, Dakar" />
+            </div>
+
+            <div class="identityField">
+              <label for="restoName">Nom du restaurant</label>
+              <input id="restoName" autocomplete="organization" placeholder="Ex : Restaurant Le Baobab" />
+            </div>
+          </div>
+
+          <div class="identityMini">
+            <button class="btn clear" id="btnClearIdentity" type="button">🧹 Effacer mes infos</button>
+            <small>Le téléphone retient seulement ces infos utiles au paiement.</small>
+          </div>
+        </div>
+
         <div class="payment">
           <div class="paymentTitle">💳 Paiement Wave</div>
 
@@ -596,7 +704,7 @@
           <label for="paymentNote">📝 Note / preuve paiement</label>
           <textarea
             id="paymentNote"
-            placeholder="Ex : Paiement Wave envoyé pour RESTO + Boost Local — 20 000 FCFA — Restaurant Le Baobab — tél +221 77 000 00 00."></textarea>
+            placeholder="Ex : Paiement Wave envoyé pour RESTO + Boost Local — 20 000 FCFA — preuve envoyée / référence Wave."></textarea>
         </div>
 
         <div class="dateBox" id="dateBox">Date de demande : —</div>
@@ -724,6 +832,62 @@
 
       const $ = id => document.getElementById(id);
       const summary = $("summary");
+      const IDENTITY_KEY = "digiy_resto_payment_identity_v1";
+      const IDENTITY_FIELDS = ["restoOwner", "restoPhone", "restoZone", "restoName"];
+
+      function readIdentityStore() {
+        try {
+          return JSON.parse(localStorage.getItem(IDENTITY_KEY) || "{}");
+        } catch (_) {
+          return {};
+        }
+      }
+
+      function saveIdentity() {
+        const data = readIdentityStore();
+
+        IDENTITY_FIELDS.forEach(id => {
+          const el = $(id);
+          if (el) data[id] = (el.value || "").trim();
+        });
+
+        data.updated_at = new Date().toISOString();
+
+        try {
+          localStorage.setItem(IDENTITY_KEY, JSON.stringify(data));
+        } catch (_) {}
+      }
+
+      function restoreIdentity() {
+        const data = readIdentityStore();
+
+        IDENTITY_FIELDS.forEach(id => {
+          const el = $(id);
+          if (el && data[id] && !el.value) el.value = data[id];
+        });
+      }
+
+      function clearIdentity() {
+        IDENTITY_FIELDS.forEach(id => {
+          const el = $(id);
+          if (el) el.value = "";
+        });
+
+        try {
+          localStorage.removeItem(IDENTITY_KEY);
+        } catch (_) {}
+
+        update(false);
+      }
+
+      function identityText() {
+        return [
+          "Nom / responsable : " + (($("restoOwner")?.value || "").trim() || "à compléter"),
+          "Téléphone / WhatsApp : " + (($("restoPhone")?.value || "").trim() || "à compléter"),
+          "Zone / ville : " + (($("restoZone")?.value || "").trim() || "à compléter"),
+          "Restaurant : " + (($("restoName")?.value || "").trim() || "à compléter")
+        ].join("\n");
+      }
 
       function money(n) {
         return new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
@@ -764,6 +928,9 @@
 
 Date de demande : ${requestDate()}
 
+Infos restaurant :
+${identityText()}
+
 Choix :
 ${lines()}
 
@@ -785,6 +952,9 @@ Je souhaite préparer / renforcer ma fiche restaurant : carte, photos, horaires,
         return `Bonjour JB, voici la preuve de paiement Wave pour DIGIY RESTO.
 
 Date de demande : ${requestDate()}
+
+Infos restaurant :
+${identityText()}
 
 ${WAVE_LABEL}
 Montant : ${money(sub)}
@@ -877,6 +1047,24 @@ Je joins la capture / preuve de paiement à ce message.`;
         }
       }
 
+      restoreIdentity();
+
+      IDENTITY_FIELDS.forEach(id => {
+        const el = $(id);
+        if (!el) return;
+        el.addEventListener("input", () => {
+          saveIdentity();
+          update(false);
+        });
+        el.addEventListener("change", () => {
+          saveIdentity();
+          update(false);
+        });
+      });
+
+      const clearIdentityBtn = $("btnClearIdentity");
+      if (clearIdentityBtn) clearIdentityBtn.addEventListener("click", clearIdentity);
+
       $("paymentNote").addEventListener("input", () => update(false));
 
       $("btnSms").onclick = () => {
@@ -917,4 +1105,6 @@ Je joins la capture / preuve de paiement à ce message.`;
   </script>
 </body>
 </html>
+
+
 
