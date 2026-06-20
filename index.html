@@ -669,113 +669,122 @@
       .cta-btn{width:100%;font-size:15.5px}
       footer{font-size:13.5px}
     }
-  </style>
-<meta content="resto-resume-cache-lecteur-court-20260605" name="digiy-version"/></head>
+  
+
+    /* DIGIY RESTO — switch FR / EN */
+    .digiy-lang-switch{
+      display:inline-flex;
+      gap:6px;
+      padding:4px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.42);
+      background:rgba(15,23,42,.72);
+      align-items:center;
+    }
+    .digiy-lang-switch button{
+      border:0;
+      border-radius:999px;
+      min-height:38px;
+      padding:0 13px;
+      cursor:pointer;
+      font-size:13px;
+      font-weight:950;
+      color:#f9fafb;
+      background:transparent;
+      font-family:inherit;
+    }
+    .digiy-lang-switch button.active{
+      background:linear-gradient(135deg,#facc15,#f97316);
+      color:#111827;
+      box-shadow:0 8px 18px rgba(250,204,21,.22);
+    }
+    @media(max-width:640px){
+      .digiy-lang-switch{width:100%; justify-content:center; margin-top:6px;}
+      .digiy-lang-switch button{flex:1;}
+    }
+</style>
+<meta content="resto-resume-cache-lecteur-court-20260605" name="digiy-version"/><meta content="resto-fr-en-switch-20260620" name="digiy-version"/></head>
 <body>
 <div class="app">
 <header>
 <div class="brand">
 <div aria-hidden="true" class="brand-logo">🍽️</div>
 <div>
-<div class="brand-text-title">Digiy RESTO</div>
-<div class="brand-text-sub">Architecture restaurant du terrain</div>
+<div class="brand-text-title" data-i18n="brand_title">Digiy RESTO</div>
+<div class="brand-text-sub" data-i18n="brand_sub">Architecture restaurant du terrain</div>
 </div>
 </div>
-<a class="back-link" href="https://digiy-hub.digiylyfe.com/">
-<span aria-hidden="true">←</span> HUB Digiy
-      </a>
-<a class="back-link" href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607">
-<span aria-hidden="true">🇸🇳</span> Wolof RESTO
-      </a>
-</header>
+<a class="back-link" data-i18n="header_hub" href="https://digiy-hub.digiylyfe.com/"><span aria-hidden="true">←</span> HUB Digiy</a>
+<a class="back-link" data-i18n="header_wolof" href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607"><span aria-hidden="true">🇸🇳</span> Wolof RESTO</a>
+<div aria-label="Changer la langue" class="digiy-lang-switch" id="digiyLangSwitch"><button class="active" id="lang-fr" type="button">FR</button><button id="lang-en" type="button">EN</button></div></header>
 <main>
 <section class="hero">
 <div class="hero-copy">
-<div class="hero-label">Module public RESTO · vitrine avec modèles</div>
-<h1 class="hero-title">
-            Ton restaurant devient visible.
-            <span>Le client te contacte directement.</span>
-</h1>
-<p class="hero-sub">
-            Une page publique pour présenter ton restaurant, tes photos, ta carte, ton contact et ton QR.
+<div class="hero-label" data-i18n="hero_label">Module public RESTO · vitrine avec modèles</div>
+<h1 class="hero-title" data-i18n="hero_title">Ton restaurant devient visible.
+            <span>Le client te contacte directement.</span></h1>
+<p class="hero-sub" data-i18n="hero_sub">Une page publique pour présenter ton restaurant, tes photos, ta carte, ton contact et ton QR.
             Le client peut demander une réservation par téléphone, WhatsApp ou SMS.
-            Pour démarrer, écris-moi au <strong>+221 77 134 28 89</strong>, je t’oriente simplement.
-          </p>
-<div class="hero-mantra">
-            L’abonnement apporte au pro : visibilité, dépôt photos, carte du resto, QR partageable,
-            lien à diffuser, et demandes clients plus faciles à recevoir.
-          </div>
+            Pour démarrer, écris-moi au <strong>+221 77 134 28 89</strong>, je t’oriente simplement.</p>
+<div class="hero-mantra" data-i18n="hero_mantra">L’abonnement apporte au pro : visibilité, dépôt photos, carte du resto, QR partageable,
+            lien à diffuser, et demandes clients plus faciles à recevoir.</div>
 <div class="hero-tags">
-<div class="hero-tag">Page publique claire</div>
-<div class="hero-tag">Photos · carte · horaires</div>
-<div class="hero-tag">QR partageable</div>
-<div class="hero-tag">Téléphone · WhatsApp · SMS</div>
-<a class="hero-tag" href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607">🇸🇳 Lexique Wolof RESTO</a>
+<div class="hero-tag" data-i18n="hero_tag_1">Page publique claire</div>
+<div class="hero-tag" data-i18n="hero_tag_2">Photos · carte · horaires</div>
+<div class="hero-tag" data-i18n="hero_tag_3">QR partageable</div>
+<div class="hero-tag" data-i18n="hero_tag_4">Téléphone · WhatsApp · SMS</div>
+<a class="hero-tag" data-i18n="hero_tag_5" href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607">🇸🇳 Lexique Wolof RESTO</a>
 </div>
 </div>
 <aside aria-label="Résumé Digiy RESTO" class="summary-panel">
-<h2>📌 Résumé rapide</h2>
-<p>
-              Résumé fermé par défaut, avec un petit lecteur court pour écouter seulement l’essentiel sans alourdir la vitrine.
-            </p>
+<h2 data-i18n="summary_title">📌 Résumé rapide</h2>
+<p data-i18n="summary_intro">Résumé fermé par défaut, avec un petit lecteur court pour écouter seulement l’essentiel sans alourdir la vitrine.</p>
 <details class="summary-box">
-<summary>Lire le résumé court</summary>
+<summary data-i18n="summary_open">Lire le résumé court</summary>
 <div class="summary-content">
-<p>
-                Digiy RESTO donne au restaurant une fiche publique claire : photos, carte, horaires, contact direct, QR partageable et demandes clients simples.
-              </p>
+<p data-i18n="summary_p">Digiy RESTO donne au restaurant une fiche publique claire : photos, carte, horaires, contact direct, QR partageable et demandes clients simples.</p>
 <ul>
-<li><strong>Deux exemples :</strong> restaurant local ou pizzeria terrasse.</li>
-<li>La fiche d’inscription est fluide pour activer sa présence dans l’architecture des métiers de la Supa-Apps.</li>
-<li>Le client voit, appelle ou écrit ; le pro garde la main et confirme lui-même.</li>
-<li><strong>Bonus terrain :</strong> un lexique Wolof RESTO aide à accueillir, prendre commande, annoncer l’addition et parler paiement.</li>
+<li data-i18n="summary_li_1"><strong>Deux exemples :</strong> restaurant local ou pizzeria terrasse.</li>
+<li data-i18n="summary_li_2">La fiche d’inscription est fluide pour activer sa présence dans l’architecture des métiers de la Supa-Apps.</li>
+<li data-i18n="summary_li_3">Le client voit, appelle ou écrit ; le pro garde la main et confirme lui-même.</li>
+<li data-i18n="summary_li_4"><strong>Bonus terrain :</strong> un lexique Wolof RESTO aide à accueillir, prendre commande, annoncer l’addition et parler paiement.</li>
 </ul>
-<div class="summary-audio-actions" aria-label="Lecteur du résumé court">
-<button class="summary-audio-btn summary-audio-play" id="playSummary" type="button">🎧 Écouter ce résumé</button>
-<button class="summary-audio-btn summary-audio-stop" id="stopSummary" type="button">Stop</button>
+<div aria-label="Lecteur du résumé court" class="summary-audio-actions">
+<button class="summary-audio-btn summary-audio-play" data-i18n="summary_play" id="playSummary" type="button">🎧 Écouter ce résumé</button>
+<button class="summary-audio-btn summary-audio-stop" data-i18n="summary_stop" id="stopSummary" type="button">Stop</button>
 </div>
 </div>
 </details>
 </aside>
 </section>
-
 <section aria-label="Ce que l’abonnement RESTO apporte au pro" class="guide">
 <div class="guide-card">
-<strong>1 · Visibilité</strong>
-<span>Ton restaurant a une page publique claire, lisible sur téléphone, avec nom, zone, horaires et contact direct.</span>
+<strong data-i18n="guide_1_title">1 · Visibilité</strong>
+<span data-i18n="guide_1_text">Ton restaurant a une page publique claire, lisible sur téléphone, avec nom, zone, horaires et contact direct.</span>
 </div>
 <div class="guide-card">
-<strong>2 · Photos, carte et QR</strong>
-<span>Tu présentes tes plats, ta carte, ton ambiance, puis tu partages ton QR sur WhatsApp, réseaux sociaux ou affiche.</span>
+<strong data-i18n="guide_2_title">2 · Photos, carte et QR</strong>
+<span data-i18n="guide_2_text">Tu présentes tes plats, ta carte, ton ambiance, puis tu partages ton QR sur WhatsApp, réseaux sociaux ou affiche.</span>
 </div>
 <div class="guide-card">
-<strong>3 · Demande client simple</strong>
-<span>Le client appelle, écrit, ou demande une table. Le restaurant garde la main et confirme lui-même.</span>
+<strong data-i18n="guide_3_title">3 · Demande client simple</strong>
+<span data-i18n="guide_3_text">Le client appelle, écrit, ou demande une table. Le restaurant garde la main et confirme lui-même.</span>
 </div>
 </section>
-
 <section class="cta-partner">
-<a class="cta-btn" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20comprendre%20Digiy%20RESTO%20pour%20mon%20restaurant." rel="noopener noreferrer" target="_blank">
-          📲 Me parler sur WhatsApp · +221 77 134 28 89
-        </a>
+<a class="cta-btn" data-href-en="https://wa.me/221771342889?text=Hello%2C%20I%20want%20to%20understand%20Digiy%20RESTO%20for%20my%20restaurant." data-href-fr="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20comprendre%20Digiy%20RESTO%20pour%20mon%20restaurant." data-i18n="cta_1" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20comprendre%20Digiy%20RESTO%20pour%20mon%20restaurant." rel="noopener noreferrer" target="_blank">📲 Me parler sur WhatsApp · +221 77 134 28 89</a>
 </section>
 <section class="cta-partner">
-<a class="cta-btn" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">
-          🍽️ Ouvrir l’inscription RESTO
-        </a>
+<a class="cta-btn" data-i18n="cta_2" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Ouvrir l’inscription RESTO</a>
 </section>
 <section class="cta-partner">
-<a class="cta-btn" href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607" rel="noopener noreferrer" target="_blank">
-          🇸🇳 Ouvrir le lexique Wolof RESTO
-        </a>
+<a class="cta-btn" data-i18n="cta_3" href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607" rel="noopener noreferrer" target="_blank">🇸🇳 Ouvrir le lexique Wolof RESTO</a>
 </section>
-
 <section aria-label="Modèles photo RESTO à prendre" class="grid">
-
 <article class="shop-card">
 <div class="shop-photo">
 <img alt="Modèle restaurant local — poisson et braise" loading="lazy" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
-<span class="photo-chip">Modèle · restaurant local · Petite Côte</span>
+<span class="photo-chip" data-i18n="card_1_chip">Modèle · restaurant local · Petite Côte</span>
 </div>
 <div aria-label="Photos modèle restaurant local" class="shop-gallery">
 <div class="shop-thumb"><img alt="Grillades feu de bois" loading="lazy" src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
@@ -783,27 +792,26 @@
 <div class="shop-thumb"><img alt="Table barbecue conviviale" loading="lazy" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
 </div>
 <div class="shop-body">
-<div class="shop-kicker">Modèle à prendre</div>
-<h2 class="shop-name">Restaurant local</h2>
-<div class="shop-type">Photos · carte · horaires</div>
-<div class="shop-badge">Vitrine simple</div>
-<p class="shop-desc">Le client voit le lieu, les plats, les horaires, le contact direct et le QR. Idéal pour un restaurant de quartier.</p>
+<div class="shop-kicker" data-i18n="card_1_kicker">Modèle à prendre</div>
+<h2 class="shop-name" data-i18n="card_1_name">Restaurant local</h2>
+<div class="shop-type" data-i18n="card_1_type">Photos · carte · horaires</div>
+<div class="shop-badge" data-i18n="card_1_badge">Vitrine simple</div>
+<p class="shop-desc" data-i18n="card_1_desc">Le client voit le lieu, les plats, les horaires, le contact direct et le QR. Idéal pour un restaurant de quartier.</p>
 <div class="wave-block">
-<div class="wave-title">À poser dans la vitrine</div>
-<div class="wave-number">Nom · zone · spécialités</div>
-<div class="wave-note">Photos, carte courte, téléphone, WhatsApp, QR partageable.</div>
+<div class="wave-title" data-i18n="card_1_wave_title">À poser dans la vitrine</div>
+<div class="wave-number" data-i18n="card_1_wave_number">Nom · zone · spécialités</div>
+<div class="wave-note" data-i18n="card_1_wave_note">Photos, carte courte, téléphone, WhatsApp, QR partageable.</div>
 </div>
 </div>
 <div class="shop-actions">
-<a class="btn btn-pos" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
-<a class="btn btn-wa" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20local%20sur%20Digiy." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
+<a class="btn btn-pos" data-i18n="card_1_action1" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
+<a class="btn btn-wa" data-href-en="https://wa.me/221771342889?text=Hello%2C%20I%20want%20a%20local%20RESTO%20model%20on%20Digiy." data-href-fr="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20local%20sur%20Digiy." data-i18n="card_1_action2" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20local%20sur%20Digiy." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
 </div>
 </article>
-
 <article class="shop-card">
 <div class="shop-photo">
 <img alt="Modèle pizzeria ou restaurant terrasse" loading="lazy" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
-<span class="photo-chip">Modèle · terrasse · pizza · soir</span>
+<span class="photo-chip" data-i18n="card_2_chip">Modèle · terrasse · pizza · soir</span>
 </div>
 <div aria-label="Photos modèle pizzeria" class="shop-gallery">
 <div class="shop-thumb"><img alt="Pizza artisanale" loading="lazy" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
@@ -811,27 +819,26 @@
 <div class="shop-thumb"><img alt="Part de pizza chaude" loading="lazy" src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
 </div>
 <div class="shop-body">
-<div class="shop-kicker">Modèle à prendre</div>
-<h2 class="shop-name">Pizzeria · terrasse</h2>
-<div class="shop-type">Carte courte · réservation</div>
-<div class="shop-badge">Ambiance visible</div>
-<p class="shop-desc">Parfait pour montrer la terrasse, les plats forts, les horaires et recevoir une demande simple de table.</p>
+<div class="shop-kicker" data-i18n="card_2_kicker">Modèle à prendre</div>
+<h2 class="shop-name" data-i18n="card_2_name">Pizzeria · terrasse</h2>
+<div class="shop-type" data-i18n="card_2_type">Carte courte · réservation</div>
+<div class="shop-badge" data-i18n="card_2_badge">Ambiance visible</div>
+<p class="shop-desc" data-i18n="card_2_desc">Parfait pour montrer la terrasse, les plats forts, les horaires et recevoir une demande simple de table.</p>
 <div class="wave-block">
-<div class="wave-title">À poser dans la vitrine</div>
-<div class="wave-number">Photos · carte · QR</div>
-<div class="wave-note">Un lien partageable sur réseaux, WhatsApp et affiche papier.</div>
+<div class="wave-title" data-i18n="card_2_wave_title">À poser dans la vitrine</div>
+<div class="wave-number" data-i18n="card_2_wave_number">Photos · carte · QR</div>
+<div class="wave-note" data-i18n="card_2_wave_note">Un lien partageable sur réseaux, WhatsApp et affiche papier.</div>
 </div>
 </div>
 <div class="shop-actions">
-<a class="btn btn-pos" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
-<a class="btn btn-wa" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20pizzeria%20ou%20terrasse." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
+<a class="btn btn-pos" data-i18n="card_2_action1" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
+<a class="btn btn-wa" data-href-en="https://wa.me/221771342889?text=Hello%2C%20I%20want%20a%20RESTO%20model%20for%20a%20pizzeria%20or%20terrace." data-href-fr="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20pizzeria%20ou%20terrasse." data-i18n="card_2_action2" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20pizzeria%20ou%20terrasse." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
 </div>
 </article>
-
 <article class="shop-card">
 <div class="shop-photo">
 <img alt="Modèle snack ou fast-food" loading="lazy" src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
-<span class="photo-chip">Modèle · snack · rapide · familial</span>
+<span class="photo-chip" data-i18n="card_3_chip">Modèle · snack · rapide · familial</span>
 </div>
 <div aria-label="Photos modèle fast-food" class="shop-gallery">
 <div class="shop-thumb"><img alt="Burger gourmand" loading="lazy" src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
@@ -839,27 +846,26 @@
 <div class="shop-thumb"><img alt="Tacos et snack rapide" loading="lazy" src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
 </div>
 <div class="shop-body">
-<div class="shop-kicker">Modèle à prendre</div>
-<h2 class="shop-name">Snack · fast-food</h2>
-<div class="shop-type">Menu rapide · commande</div>
-<div class="shop-badge">Lisible sur téléphone</div>
-<p class="shop-desc">Le client comprend vite le menu, puis écrit ou appelle. Pas besoin d’un long site compliqué.</p>
+<div class="shop-kicker" data-i18n="card_3_kicker">Modèle à prendre</div>
+<h2 class="shop-name" data-i18n="card_3_name">Snack · fast-food</h2>
+<div class="shop-type" data-i18n="card_3_type">Menu rapide · commande</div>
+<div class="shop-badge" data-i18n="card_3_badge">Lisible sur téléphone</div>
+<p class="shop-desc" data-i18n="card_3_desc">Le client comprend vite le menu, puis écrit ou appelle. Pas besoin d’un long site compliqué.</p>
 <div class="wave-block">
-<div class="wave-title">À poser dans la vitrine</div>
-<div class="wave-number">Menu · prix · contact</div>
-<div class="wave-note">Une carte claire, des photos propres, et un bouton WhatsApp.</div>
+<div class="wave-title" data-i18n="card_3_wave_title">À poser dans la vitrine</div>
+<div class="wave-number" data-i18n="card_3_wave_number">Menu · prix · contact</div>
+<div class="wave-note" data-i18n="card_3_wave_note">Une carte claire, des photos propres, et un bouton WhatsApp.</div>
 </div>
 </div>
 <div class="shop-actions">
-<a class="btn btn-pos" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
-<a class="btn btn-wa" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20snack%20ou%20fast-food." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
+<a class="btn btn-pos" data-i18n="card_3_action1" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
+<a class="btn btn-wa" data-href-en="https://wa.me/221771342889?text=Hello%2C%20I%20want%20a%20RESTO%20model%20for%20a%20snack%20or%20fast-food." data-href-fr="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20snack%20ou%20fast-food." data-i18n="card_3_action2" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20snack%20ou%20fast-food." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
 </div>
 </article>
-
 <article class="shop-card">
 <div class="shop-photo">
 <img alt="Modèle cuisine fraîche et jus" loading="lazy" src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
-<span class="photo-chip">Modèle · fraîcheur · jus · midi</span>
+<span class="photo-chip" data-i18n="card_4_chip">Modèle · fraîcheur · jus · midi</span>
 </div>
 <div aria-label="Photos modèle cuisine fraîche" class="shop-gallery">
 <div class="shop-thumb"><img alt="Salade fraîche" loading="lazy" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
@@ -867,27 +873,26 @@
 <div class="shop-thumb"><img alt="Jus frais et repas sain" loading="lazy" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
 </div>
 <div class="shop-body">
-<div class="shop-kicker">Modèle à prendre</div>
-<h2 class="shop-name">Cuisine fraîche</h2>
-<div class="shop-type">Jus · déjeuner · santé</div>
-<div class="shop-badge">Fiche rassurante</div>
-<p class="shop-desc">Pour montrer une cuisine propre, fraîche, lisible, avec photos, horaires, contact et demande directe.</p>
+<div class="shop-kicker" data-i18n="card_4_kicker">Modèle à prendre</div>
+<h2 class="shop-name" data-i18n="card_4_name">Cuisine fraîche</h2>
+<div class="shop-type" data-i18n="card_4_type">Jus · déjeuner · santé</div>
+<div class="shop-badge" data-i18n="card_4_badge">Fiche rassurante</div>
+<p class="shop-desc" data-i18n="card_4_desc">Pour montrer une cuisine propre, fraîche, lisible, avec photos, horaires, contact et demande directe.</p>
 <div class="wave-block">
-<div class="wave-title">À poser dans la vitrine</div>
-<div class="wave-number">Ambiance · plats · contact</div>
-<div class="wave-note">La page donne confiance avant l’appel ou le message.</div>
+<div class="wave-title" data-i18n="card_4_wave_title">À poser dans la vitrine</div>
+<div class="wave-number" data-i18n="card_4_wave_number">Ambiance · plats · contact</div>
+<div class="wave-note" data-i18n="card_4_wave_note">La page donne confiance avant l’appel ou le message.</div>
 </div>
 </div>
 <div class="shop-actions">
-<a class="btn btn-pos" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
-<a class="btn btn-wa" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20cuisine%20fraîche." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
+<a class="btn btn-pos" data-i18n="card_4_action1" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
+<a class="btn btn-wa" data-href-en="https://wa.me/221771342889?text=Hello%2C%20I%20want%20a%20RESTO%20model%20for%20fresh%20cooking." data-href-fr="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20cuisine%20fraîche." data-i18n="card_4_action2" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20cuisine%20fraîche." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
 </div>
 </article>
-
 <article class="shop-card">
 <div class="shop-photo">
 <img alt="Modèle poisson et grillade" loading="lazy" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
-<span class="photo-chip">Modèle · poisson · côte · grillade</span>
+<span class="photo-chip" data-i18n="card_5_chip">Modèle · poisson · côte · grillade</span>
 </div>
 <div aria-label="Photos modèle poisson" class="shop-gallery">
 <div class="shop-thumb"><img alt="Poisson grillé" loading="lazy" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
@@ -895,27 +900,26 @@
 <div class="shop-thumb"><img alt="Assiette de la mer" loading="lazy" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
 </div>
 <div class="shop-body">
-<div class="shop-kicker">Modèle à prendre</div>
-<h2 class="shop-name">Poisson · grillade</h2>
-<div class="shop-type">Spécialité · réservation</div>
-<div class="shop-badge">QR à partager</div>
-<p class="shop-desc">Idéal pour poisson, braise, dibiterie, fruits de mer ou restaurant de spécialité.</p>
+<div class="shop-kicker" data-i18n="card_5_kicker">Modèle à prendre</div>
+<h2 class="shop-name" data-i18n="card_5_name">Poisson · grillade</h2>
+<div class="shop-type" data-i18n="card_5_type">Spécialité · réservation</div>
+<div class="shop-badge" data-i18n="card_5_badge">QR à partager</div>
+<p class="shop-desc" data-i18n="card_5_desc">Idéal pour poisson, braise, dibiterie, fruits de mer ou restaurant de spécialité.</p>
 <div class="wave-block">
-<div class="wave-title">À poser dans la vitrine</div>
-<div class="wave-number">Spécialité · horaires · QR</div>
-<div class="wave-note">Le client voit, comprend, puis contacte directement.</div>
+<div class="wave-title" data-i18n="card_5_wave_title">À poser dans la vitrine</div>
+<div class="wave-number" data-i18n="card_5_wave_number">Spécialité · horaires · QR</div>
+<div class="wave-note" data-i18n="card_5_wave_note">Le client voit, comprend, puis contacte directement.</div>
 </div>
 </div>
 <div class="shop-actions">
-<a class="btn btn-pos" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
-<a class="btn btn-wa" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20poisson%20ou%20grillade." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
+<a class="btn btn-pos" data-i18n="card_5_action1" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
+<a class="btn btn-wa" data-href-en="https://wa.me/221771342889?text=Hello%2C%20I%20want%20a%20RESTO%20model%20for%20fish%20or%20grill." data-href-fr="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20poisson%20ou%20grillade." data-i18n="card_5_action2" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20poisson%20ou%20grillade." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
 </div>
 </article>
-
 <article class="shop-card">
 <div class="shop-photo">
 <img alt="Modèle cuisine maison africaine" loading="lazy" src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
-<span class="photo-chip">Modèle · cuisine maison · partage</span>
+<span class="photo-chip" data-i18n="card_6_chip">Modèle · cuisine maison · partage</span>
 </div>
 <div aria-label="Photos modèle cuisine maison" class="shop-gallery">
 <div class="shop-thumb"><img alt="Plat africain généreux" loading="lazy" src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
@@ -923,31 +927,29 @@
 <div class="shop-thumb"><img alt="Cuisine familiale" loading="lazy" src="https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&amp;fit=crop&amp;w=520&amp;q=80"/></div>
 </div>
 <div class="shop-body">
-<div class="shop-kicker">Modèle à prendre</div>
-<h2 class="shop-name">Cuisine maison</h2>
-<div class="shop-type">Plat du jour · confiance</div>
-<div class="shop-badge">Contact humain</div>
-<p class="shop-desc">Pour plats du jour, cuisine familiale, commandes à l’avance ou petits services traiteur.</p>
+<div class="shop-kicker" data-i18n="card_6_kicker">Modèle à prendre</div>
+<h2 class="shop-name" data-i18n="card_6_name">Cuisine maison</h2>
+<div class="shop-type" data-i18n="card_6_type">Plat du jour · confiance</div>
+<div class="shop-badge" data-i18n="card_6_badge">Contact humain</div>
+<p class="shop-desc" data-i18n="card_6_desc">Pour plats du jour, cuisine familiale, commandes à l’avance ou petits services traiteur.</p>
 <div class="wave-block">
-<div class="wave-title">À poser dans la vitrine</div>
-<div class="wave-number">Photos · jour · quantité</div>
-<div class="wave-note">Le client demande, le pro confirme lui-même par appel, WhatsApp ou SMS.</div>
+<div class="wave-title" data-i18n="card_6_wave_title">À poser dans la vitrine</div>
+<div class="wave-number" data-i18n="card_6_wave_number">Photos · jour · quantité</div>
+<div class="wave-note" data-i18n="card_6_wave_note">Le client demande, le pro confirme lui-même par appel, WhatsApp ou SMS.</div>
 </div>
 </div>
 <div class="shop-actions">
-<a class="btn btn-pos" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
-<a class="btn btn-wa" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20cuisine%20maison." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
+<a class="btn btn-pos" data-i18n="card_6_action1" href="https://resto.digiylyfe.com/inscription.html" rel="noopener noreferrer" target="_blank">🍽️ Inscription</a>
+<a class="btn btn-wa" data-href-en="https://wa.me/221771342889?text=Hello%2C%20I%20want%20a%20RESTO%20model%20for%20home%20cooking." data-href-fr="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20cuisine%20maison." data-i18n="card_6_action2" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20un%20modèle%20RESTO%20cuisine%20maison." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a>
 </div>
 </article>
-
 </section>
 </main>
 <footer>
-<div>Digiy RESTO • <span>Module public restaurant</span> — Sénégal → Afrique</div>
-<div>Page publique • Photos • Carte • QR partageable • Contact direct • <a href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607" rel="noopener noreferrer">Lexique Wolof</a></div>
+<div data-i18n="footer_left">Digiy RESTO • <span>Module public restaurant</span> — Sénégal → Afrique</div>
+<div data-i18n="footer_right">Page publique • Photos • Carte • QR partageable • Contact direct • <a href="https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607" rel="noopener noreferrer">Lexique Wolof</a></div>
 </footer>
 </div>
-
 <script>
     (function(){
       "use strict";
@@ -983,7 +985,104 @@
       window.addEventListener("pagehide", stopSummary);
     })();
   </script>
-</body>
+<script>
+(function(){
+  "use strict";
+
+  const I18N = {"fr": {"brand_title": "Digiy RESTO", "brand_sub": "Architecture restaurant du terrain", "header_hub": "<span aria-hidden=\"true\">←</span> HUB Digiy", "header_wolof": "<span aria-hidden=\"true\">🇸🇳</span> Wolof RESTO", "hero_label": "Module public RESTO · vitrine avec modèles", "hero_title": "Ton restaurant devient visible.\n            <span>Le client te contacte directement.</span>", "hero_sub": "Une page publique pour présenter ton restaurant, tes photos, ta carte, ton contact et ton QR.\n            Le client peut demander une réservation par téléphone, WhatsApp ou SMS.\n            Pour démarrer, écris-moi au <strong>+221 77 134 28 89</strong>, je t’oriente simplement.", "hero_mantra": "L’abonnement apporte au pro : visibilité, dépôt photos, carte du resto, QR partageable,\n            lien à diffuser, et demandes clients plus faciles à recevoir.", "hero_tag_1": "Page publique claire", "hero_tag_2": "Photos · carte · horaires", "hero_tag_3": "QR partageable", "hero_tag_4": "Téléphone · WhatsApp · SMS", "hero_tag_5": "🇸🇳 Lexique Wolof RESTO", "summary_title": "📌 Résumé rapide", "summary_intro": "Résumé fermé par défaut, avec un petit lecteur court pour écouter seulement l’essentiel sans alourdir la vitrine.", "summary_open": "Lire le résumé court", "summary_p": "Digiy RESTO donne au restaurant une fiche publique claire : photos, carte, horaires, contact direct, QR partageable et demandes clients simples.", "summary_li_1": "<strong>Deux exemples :</strong> restaurant local ou pizzeria terrasse.", "summary_li_2": "La fiche d’inscription est fluide pour activer sa présence dans l’architecture des métiers de la Supa-Apps.", "summary_li_3": "Le client voit, appelle ou écrit ; le pro garde la main et confirme lui-même.", "summary_li_4": "<strong>Bonus terrain :</strong> un lexique Wolof RESTO aide à accueillir, prendre commande, annoncer l’addition et parler paiement.", "summary_play": "🎧 Écouter ce résumé", "summary_stop": "Stop", "guide_1_title": "1 · Visibilité", "guide_1_text": "Ton restaurant a une page publique claire, lisible sur téléphone, avec nom, zone, horaires et contact direct.", "guide_2_title": "2 · Photos, carte et QR", "guide_2_text": "Tu présentes tes plats, ta carte, ton ambiance, puis tu partages ton QR sur WhatsApp, réseaux sociaux ou affiche.", "guide_3_title": "3 · Demande client simple", "guide_3_text": "Le client appelle, écrit, ou demande une table. Le restaurant garde la main et confirme lui-même.", "cta_1": "📲 Me parler sur WhatsApp · +221 77 134 28 89", "cta_2": "🍽️ Ouvrir l’inscription RESTO", "cta_3": "🇸🇳 Ouvrir le lexique Wolof RESTO", "card_1_chip": "Modèle · restaurant local · Petite Côte", "card_1_kicker": "Modèle à prendre", "card_1_name": "Restaurant local", "card_1_type": "Photos · carte · horaires", "card_1_badge": "Vitrine simple", "card_1_desc": "Le client voit le lieu, les plats, les horaires, le contact direct et le QR. Idéal pour un restaurant de quartier.", "card_1_wave_title": "À poser dans la vitrine", "card_1_wave_number": "Nom · zone · spécialités", "card_1_wave_note": "Photos, carte courte, téléphone, WhatsApp, QR partageable.", "card_1_action1": "🍽️ Inscription", "card_1_action2": "💬 WhatsApp", "card_2_chip": "Modèle · terrasse · pizza · soir", "card_2_kicker": "Modèle à prendre", "card_2_name": "Pizzeria · terrasse", "card_2_type": "Carte courte · réservation", "card_2_badge": "Ambiance visible", "card_2_desc": "Parfait pour montrer la terrasse, les plats forts, les horaires et recevoir une demande simple de table.", "card_2_wave_title": "À poser dans la vitrine", "card_2_wave_number": "Photos · carte · QR", "card_2_wave_note": "Un lien partageable sur réseaux, WhatsApp et affiche papier.", "card_2_action1": "🍽️ Inscription", "card_2_action2": "💬 WhatsApp", "card_3_chip": "Modèle · snack · rapide · familial", "card_3_kicker": "Modèle à prendre", "card_3_name": "Snack · fast-food", "card_3_type": "Menu rapide · commande", "card_3_badge": "Lisible sur téléphone", "card_3_desc": "Le client comprend vite le menu, puis écrit ou appelle. Pas besoin d’un long site compliqué.", "card_3_wave_title": "À poser dans la vitrine", "card_3_wave_number": "Menu · prix · contact", "card_3_wave_note": "Une carte claire, des photos propres, et un bouton WhatsApp.", "card_3_action1": "🍽️ Inscription", "card_3_action2": "💬 WhatsApp", "card_4_chip": "Modèle · fraîcheur · jus · midi", "card_4_kicker": "Modèle à prendre", "card_4_name": "Cuisine fraîche", "card_4_type": "Jus · déjeuner · santé", "card_4_badge": "Fiche rassurante", "card_4_desc": "Pour montrer une cuisine propre, fraîche, lisible, avec photos, horaires, contact et demande directe.", "card_4_wave_title": "À poser dans la vitrine", "card_4_wave_number": "Ambiance · plats · contact", "card_4_wave_note": "La page donne confiance avant l’appel ou le message.", "card_4_action1": "🍽️ Inscription", "card_4_action2": "💬 WhatsApp", "card_5_chip": "Modèle · poisson · côte · grillade", "card_5_kicker": "Modèle à prendre", "card_5_name": "Poisson · grillade", "card_5_type": "Spécialité · réservation", "card_5_badge": "QR à partager", "card_5_desc": "Idéal pour poisson, braise, dibiterie, fruits de mer ou restaurant de spécialité.", "card_5_wave_title": "À poser dans la vitrine", "card_5_wave_number": "Spécialité · horaires · QR", "card_5_wave_note": "Le client voit, comprend, puis contacte directement.", "card_5_action1": "🍽️ Inscription", "card_5_action2": "💬 WhatsApp", "card_6_chip": "Modèle · cuisine maison · partage", "card_6_kicker": "Modèle à prendre", "card_6_name": "Cuisine maison", "card_6_type": "Plat du jour · confiance", "card_6_badge": "Contact humain", "card_6_desc": "Pour plats du jour, cuisine familiale, commandes à l’avance ou petits services traiteur.", "card_6_wave_title": "À poser dans la vitrine", "card_6_wave_number": "Photos · jour · quantité", "card_6_wave_note": "Le client demande, le pro confirme lui-même par appel, WhatsApp ou SMS.", "card_6_action1": "🍽️ Inscription", "card_6_action2": "💬 WhatsApp", "footer_left": "Digiy RESTO • <span>Module public restaurant</span> — Sénégal → Afrique", "footer_right": "Page publique • Photos • Carte • QR partageable • Contact direct • <a href=\"https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607\" rel=\"noopener noreferrer\">Lexique Wolof</a>"}, "en": {"brand_title": "Digiy RESTO", "brand_sub": "Field restaurant architecture", "header_hub": "<span aria-hidden=\"true\">←</span> Digiy HUB", "header_wolof": "<span aria-hidden=\"true\">🇸🇳</span> Wolof RESTO", "hero_label": "Public RESTO module · showcase with models", "hero_title": "Your restaurant becomes visible.<span>The client contacts you directly.</span>", "hero_sub": "A public page to present your restaurant, photos, menu, contact and QR. The client can request a booking by phone, WhatsApp or SMS. To get started, write to me at <strong>+221 77 134 28 89</strong>; I will guide you simply.", "hero_mantra": "The subscription gives the professional: visibility, photo upload, restaurant menu, shareable QR, a link to share, and easier client requests.", "hero_tag_1": "Clear public page", "hero_tag_2": "Photos · menu · opening hours", "hero_tag_3": "Shareable QR", "hero_tag_4": "Phone · WhatsApp · SMS", "hero_tag_5": "🇸🇳 Wolof RESTO glossary", "summary_title": "📌 Quick summary", "summary_intro": "Summary closed by default, with a short reader to hear only the essentials without weighing down the showcase.", "summary_open": "Read the short summary", "summary_p": "Digiy RESTO gives the restaurant a clear public card: photos, menu, opening hours, direct contact, shareable QR and simple client requests.", "summary_li_1": "<strong>Two examples:</strong> local restaurant or terrace pizzeria.", "summary_li_2": "The registration page is smooth to activate its presence inside the Supa-Apps business architecture.", "summary_li_3": "The client sees, calls or writes; the professional keeps control and confirms personally.", "summary_li_4": "<strong>Field bonus:</strong> a Wolof RESTO glossary helps with welcoming, taking orders, announcing the bill and talking about payment.", "summary_play": "🎧 Listen to this summary", "summary_stop": "Stop", "guide_1_title": "1 · Visibility", "guide_1_text": "Your restaurant has a clear public page, readable on mobile, with name, area, opening hours and direct contact.", "guide_2_title": "2 · Photos, menu and QR", "guide_2_text": "You present your dishes, menu and atmosphere, then share your QR on WhatsApp, social media or a printed sign.", "guide_3_title": "3 · Simple client request", "guide_3_text": "The client calls, writes or requests a table. The restaurant keeps control and confirms personally.", "cta_1": "📲 Talk to me on WhatsApp · +221 77 134 28 89", "cta_2": "🍽️ Open RESTO registration", "cta_3": "🇸🇳 Open the Wolof RESTO glossary", "card_1_chip": "Model · local restaurant · Petite Côte", "card_1_kicker": "Model to use", "card_1_name": "Local restaurant", "card_1_type": "Photos · menu · opening hours", "card_1_badge": "Simple showcase", "card_1_desc": "The client sees the place, dishes, opening hours, direct contact and QR. Ideal for a neighborhood restaurant.", "card_1_wave_title": "To place in the showcase", "card_1_wave_number": "Name · area · specialties", "card_1_wave_note": "Photos, short menu, phone, WhatsApp, shareable QR.", "card_1_action1": "🍽️ Registration", "card_1_action2": "💬 WhatsApp", "card_2_chip": "Model · terrace · pizza · evening", "card_2_kicker": "Model to use", "card_2_name": "Pizzeria · terrace", "card_2_type": "Short menu · booking", "card_2_badge": "Visible atmosphere", "card_2_desc": "Perfect to show the terrace, main dishes, opening hours and receive a simple table request.", "card_2_wave_title": "To place in the showcase", "card_2_wave_number": "Photos · menu · QR", "card_2_wave_note": "A shareable link for social media, WhatsApp and printed posters.", "card_2_action1": "🍽️ Registration", "card_2_action2": "💬 WhatsApp", "card_3_chip": "Model · snack · fast · family", "card_3_kicker": "Model to use", "card_3_name": "Snack · fast-food", "card_3_type": "Quick menu · order", "card_3_badge": "Readable on mobile", "card_3_desc": "The client quickly understands the menu, then writes or calls. No need for a long complicated website.", "card_3_wave_title": "To place in the showcase", "card_3_wave_number": "Menu · prices · contact", "card_3_wave_note": "A clear menu, clean photos and a WhatsApp button.", "card_3_action1": "🍽️ Registration", "card_3_action2": "💬 WhatsApp", "card_4_chip": "Model · freshness · juice · lunch", "card_4_kicker": "Model to use", "card_4_name": "Fresh cooking", "card_4_type": "Juice · lunch · healthy", "card_4_badge": "Trust-building card", "card_4_desc": "To show clean, fresh and readable cooking, with photos, opening hours, contact and direct request.", "card_4_wave_title": "To place in the showcase", "card_4_wave_number": "Atmosphere · dishes · contact", "card_4_wave_note": "The page builds trust before the call or message.", "card_4_action1": "🍽️ Registration", "card_4_action2": "💬 WhatsApp", "card_5_chip": "Model · fish · coast · grill", "card_5_kicker": "Model to use", "card_5_name": "Fish · grill", "card_5_type": "Specialty · booking", "card_5_badge": "QR to share", "card_5_desc": "Ideal for fish, grill, dibiterie, seafood or specialty restaurant.", "card_5_wave_title": "To place in the showcase", "card_5_wave_number": "Specialty · opening hours · QR", "card_5_wave_note": "The client sees, understands, then contacts directly.", "card_5_action1": "🍽️ Registration", "card_5_action2": "💬 WhatsApp", "card_6_chip": "Model · home cooking · sharing", "card_6_kicker": "Model to use", "card_6_name": "Home cooking", "card_6_type": "Dish of the day · trust", "card_6_badge": "Human contact", "card_6_desc": "For daily dishes, family cooking, advance orders or small catering services.", "card_6_wave_title": "To place in the showcase", "card_6_wave_number": "Photos · day · quantity", "card_6_wave_note": "The client asks, the professional confirms personally by call, WhatsApp or SMS.", "card_6_action1": "🍽️ Registration", "card_6_action2": "💬 WhatsApp", "footer_left": "Digiy RESTO • <span>Public restaurant module</span> — Senegal → Africa", "footer_right": "Public page • Photos • Menu • Shareable QR • Direct contact • <a href=\"https://resto.digiylyfe.com/lexique-resto.html?v=lexique-resto-v2-mobile-20260607\" rel=\"noopener noreferrer\">Wolof glossary</a>"}};
+  const TITLE = { fr: "Digiy RESTO — Architecture restaurant du terrain", en: "Digiy RESTO — Field restaurant architecture" };
+  const META = { fr: "Digiy RESTO installe les restaurants locaux dans l’architecture Digiy : fiche visible, WhatsApp direct, QR, paiement Wave direct au restaurateur et 0% commission sur les ventes.", en: "Digiy RESTO brings local restaurants into the Digiy architecture: visible public card, direct WhatsApp, QR, direct Wave payment to the restaurant owner and 0% commission on sales." };
+
+  const SUMMARY_AUDIO = {
+    fr: "Bienvenue dans diji RESTO. Ce résumé est court. Le restaurant reçoit une fiche publique claire avec photos, carte, horaires, contact direct et Q R partageable. Deux exemples suffisent : restaurant local, ou pizzeria terrasse. La fiche d’inscription est fluide pour activer sa présence dans l’architecture des métiers de la Supa-Apps. Le client voit, appelle ou écrit, et le professionnel garde la main pour confirmer lui-même. Le lexique Wolof RESTO aide aussi à accueillir, prendre commande, parler addition et paiement.",
+    en: "Welcome to diji RESTO. This summary is short. The restaurant receives a clear public card with photos, menu, opening hours, direct contact and a shareable Q R code. Two examples are enough: a local restaurant or a terrace pizzeria. The registration page is simple to activate the restaurant inside the Supa-Apps business architecture. The client sees, calls or writes, and the professional keeps control to confirm personally. The Wolof RESTO glossary also helps with welcoming, taking orders, the bill and payment."
+  };
+
+  let CURRENT_LANG = "fr";
+
+  function html(el, value){
+    if(!el) return;
+    el.innerHTML = value;
+  }
+
+  function applyLang(lang, updateUrl){
+    CURRENT_LANG = (lang === "en") ? "en" : "fr";
+    document.documentElement.lang = CURRENT_LANG;
+
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      const key = el.getAttribute("data-i18n");
+      const value = I18N[CURRENT_LANG] && I18N[CURRENT_LANG][key];
+      if(value != null) html(el, value);
+    });
+
+    document.title = TITLE[CURRENT_LANG];
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if(metaDesc) metaDesc.setAttribute("content", META[CURRENT_LANG]);
+
+    document.querySelectorAll("[data-href-fr][data-href-en]").forEach(function(a){
+      a.href = a.getAttribute(CURRENT_LANG === "en" ? "data-href-en" : "data-href-fr");
+    });
+
+    document.getElementById("lang-fr")?.classList.toggle("active", CURRENT_LANG === "fr");
+    document.getElementById("lang-en")?.classList.toggle("active", CURRENT_LANG === "en");
+
+    window.DIGIY_RESTO_LANG = CURRENT_LANG;
+
+    if(updateUrl){
+      try{
+        const u = new URL(location.href);
+        if(CURRENT_LANG === "fr") u.searchParams.delete("lang");
+        else u.searchParams.set("lang","en");
+        history.replaceState({}, "", u.pathname + u.search + u.hash);
+      }catch(_){}
+    }
+  }
+
+  function speakSummaryLang(e){
+    if(e){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+    if (!("speechSynthesis" in window)) {
+      alert(CURRENT_LANG === "en" ? "Audio playback is not available on this browser." : "La lecture audio n’est pas disponible sur ce navigateur.");
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(SUMMARY_AUDIO[CURRENT_LANG] || SUMMARY_AUDIO.fr);
+    utterance.lang = CURRENT_LANG === "en" ? "en-US" : "fr-FR";
+    utterance.rate = CURRENT_LANG === "en" ? 0.88 : 0.86;
+    utterance.pitch = 1;
+
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find(function(v){
+      return CURRENT_LANG === "en" ? /^en/i.test(v.lang || "") : /^fr/i.test(v.lang || "");
+    });
+    if (voice) utterance.voice = voice;
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function stopSummaryLang(e){
+    if(e){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  }
+
+  document.getElementById("lang-fr")?.addEventListener("click", function(){ applyLang("fr", true); });
+  document.getElementById("lang-en")?.addEventListener("click", function(){ applyLang("en", true); });
+
+  document.getElementById("playSummary")?.addEventListener("click", speakSummaryLang, true);
+  document.getElementById("stopSummary")?.addEventListener("click", stopSummaryLang, true);
+  window.addEventListener("pagehide", stopSummaryLang, true);
+
+  const urlLang = (new URLSearchParams(location.search).get("lang") || "").toLowerCase();
+  applyLang(urlLang === "en" ? "en" : "fr", false);
+})();
+</script></body>
 </html>
 
 
