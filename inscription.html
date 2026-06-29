@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#f5ecd8" />
-  <meta name="digiy-version" content="resto-inscription-info-pro-paiement-20260608" />
-  <title>Inscription RESTO — DIGIYLYFE</title>
+  <meta name="digiy-version" content="resto-inscription-france-senegal-sendwave-grille-pays-20260629" />
+  <title>Inscription RESTO — France · Sénégal · DIGIYLYFE</title>
 
   <style>
     :root {
@@ -552,6 +552,73 @@
         border-radius: 18px;
       }
     }
+
+    .countryBox {
+      margin: 14px 0;
+      border: 1px solid rgba(21,95,67,.22);
+      border-radius: 20px;
+      padding: 13px;
+      background: rgba(21,95,67,.065);
+      display: grid;
+      gap: 10px;
+    }
+
+    .countryTitle {
+      color: var(--green2);
+      font-size: 18px;
+      font-weight: 1000;
+      line-height: 1.15;
+    }
+
+    .countryGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .countryBtn {
+      min-height: 58px;
+      border-radius: 18px;
+      border: 1px solid rgba(83,58,26,.20);
+      background: #fffaf0;
+      color: var(--green);
+      display: grid;
+      gap: 2px;
+      padding: 10px 12px;
+      text-align: left;
+      box-shadow: 0 8px 18px rgba(77,52,22,.07);
+    }
+
+    .countryBtn strong {
+      color: var(--green2);
+      font-size: 16px;
+      font-weight: 1000;
+    }
+
+    .countryBtn span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .countryBtn.active {
+      border-color: rgba(250,204,21,.86);
+      background: rgba(250,204,21,.24);
+      box-shadow: 0 12px 24px rgba(250,204,21,.15);
+    }
+
+    .countryNote {
+      border-radius: 16px;
+      border: 1px dashed rgba(21,95,67,.26);
+      background: rgba(255,255,255,.55);
+      color: var(--green);
+      padding: 10px;
+      font-size: 13px;
+      line-height: 1.38;
+      font-weight: 950;
+    }
+
   </style>
 </head>
 
@@ -585,8 +652,8 @@
 
       <div>
         <div class="waveHero">
-          <small>Paiement Wave</small>
-          <strong>Wave : JB BEAUVILLE · +221 77 134 28 89</strong>
+          <small>Paiement Wave / Sendwave</small>
+          <strong>JB BEAUVILLE · +221 77 134 28 89</strong>
         </div>
 
         <p>
@@ -595,7 +662,7 @@
         </p>
 
         <div class="smallNote">
-          Base RESTO public : <strong>15 000 FCFA · 26 €</strong>. Pas de commission sur les ventes.
+          Base RESTO public : <strong>Sénégal 15 000 FCFA · France 26 €</strong>. Grille pays, pas conversion au taux de change.
         </div>
       </div>
     </section>
@@ -604,6 +671,23 @@
       <section class="card">
         <h2>Tarifs RESTO</h2>
         <p>Clique un ou plusieurs choix. Si tu te trompes, efface.</p>
+
+        <div class="countryBox" aria-label="Choix pays RESTO">
+          <div class="countryTitle">🌍 Choisir le pays de règlement</div>
+          <div class="countryGrid">
+            <button class="countryBtn active" type="button" data-country="senegal">
+              <strong>🇸🇳 Sénégal</strong>
+              <span>Tarifs FCFA · Wave direct</span>
+            </button>
+            <button class="countryBtn" type="button" data-country="france">
+              <strong>🇫🇷 France</strong>
+              <span>Tarifs EUR · Sendwave vers Wave Sénégal</span>
+            </button>
+          </div>
+          <div class="countryNote" id="countryNote">
+            Les tarifs France et Sénégal sont une grille pays : pas une conversion au taux de change.
+          </div>
+        </div>
 
         <div class="section">🍽️ Inscription RESTO public</div>
         <div class="prices" id="baseOptions"></div>
@@ -733,7 +817,8 @@
       "use strict";
 
       const TEL = "221771342889";
-      const WAVE_LABEL = "Wave : JB BEAUVILLE · +221 77 134 28 89";
+      const WAVE_LABEL = "Wave Sénégal : JB BEAUVILLE · +221 77 134 28 89";
+      const SENDWAVE_LABEL = "Sendwave France → Wave Sénégal : JB BEAUVILLE · +221 77 134 28 89";
 
       const PLANS = [
         {
@@ -741,7 +826,7 @@
           cat: "base",
           name: "RESTO public",
           fcfa: 15000,
-          amount: "15 000 FCFA · 26 €",
+          eur: 26,
           desc: "Fiche restaurant validée DIGIY : présentation, carte, photos, WhatsApp, QR / lien partageable.",
           bonus: [
             "Fiche restaurant publique après validation",
@@ -756,7 +841,7 @@
           cat: "boost",
           name: "Boost Local",
           fcfa: 5000,
-          amount: "5 000 FCFA",
+          eur: null,
           desc: "Petit projecteur local pour renforcer la visibilité.",
           bonus: ["Boost local RESTO"]
         },
@@ -765,7 +850,7 @@
           cat: "boost",
           name: "Boost Standard",
           fcfa: 10000,
-          amount: "10 000 FCFA",
+          eur: null,
           desc: "Mise en avant plus forte sur la période choisie.",
           bonus: ["Visibilité renforcée RESTO"]
         },
@@ -774,7 +859,7 @@
           cat: "boost",
           name: "Boost Premium",
           fcfa: 20000,
-          amount: "20 000 FCFA",
+          eur: null,
           desc: "Visibilité maximale pour pousser le restaurant.",
           bonus: ["Priorité visibilité RESTO"]
         },
@@ -783,7 +868,7 @@
           cat: "reseau",
           name: "RÉSEAU abonné — 7 jours",
           fcfa: 15000,
-          amount: "15 000 FCFA",
+          eur: 28,
           desc: "Pour restaurant déjà abonné / validé DIGIY.",
           bonus: ["Réservé abonnés", "Visibilité réseau 7 jours"]
         },
@@ -792,7 +877,7 @@
           cat: "reseau",
           name: "RÉSEAU abonné — 15 jours",
           fcfa: 25000,
-          amount: "25 000 FCFA",
+          eur: 45,
           desc: "Visibilité réseau plus longue pour un restaurant validé.",
           bonus: ["Réservé abonnés", "Visibilité réseau 15 jours"]
         },
@@ -801,7 +886,7 @@
           cat: "reseau",
           name: "RÉSEAU abonné — 1 mois",
           fcfa: 45000,
-          amount: "45 000 FCFA",
+          eur: 75,
           desc: "Présence réseau sur un mois pour restaurant validé.",
           bonus: ["Réservé abonnés", "Visibilité réseau 1 mois"]
         },
@@ -810,7 +895,7 @@
           cat: "reseau",
           name: "Mise en classe FIRST — non-abonné",
           fcfa: 150000,
-          amount: "150 000 FCFA · 1 mois",
+          eur: 260,
           desc: "Qualification, fiche/vitrine premium, QR, lien, messages prêts, visibilité qualifiée.",
           bonus: ["Réservé non-abonnés", "Fiche premium", "QR et lien", "Visibilité qualifiée 1 mois"]
         }
@@ -825,42 +910,35 @@
         "Réservations simples côté pro",
         "Validation humaine DIGIY",
         "0% commission sur les ventes",
-        "Paiement Wave direct avec preuve WhatsApp"
+        "Paiement direct avec preuve WhatsApp"
       ];
 
       let selected = new Set();
+      let country = "senegal";
 
       const $ = id => document.getElementById(id);
       const summary = $("summary");
       const IDENTITY_KEY = "digiy_resto_payment_identity_v1";
+      const COUNTRY_KEY = "digiy_resto_payment_country_v1";
       const IDENTITY_FIELDS = ["restoOwner", "restoPhone", "restoZone", "restoName"];
 
       function readIdentityStore() {
-        try {
-          return JSON.parse(localStorage.getItem(IDENTITY_KEY) || "{}");
-        } catch (_) {
-          return {};
-        }
+        try { return JSON.parse(localStorage.getItem(IDENTITY_KEY) || "{}"); }
+        catch (_) { return {}; }
       }
 
       function saveIdentity() {
         const data = readIdentityStore();
-
         IDENTITY_FIELDS.forEach(id => {
           const el = $(id);
           if (el) data[id] = (el.value || "").trim();
         });
-
         data.updated_at = new Date().toISOString();
-
-        try {
-          localStorage.setItem(IDENTITY_KEY, JSON.stringify(data));
-        } catch (_) {}
+        try { localStorage.setItem(IDENTITY_KEY, JSON.stringify(data)); } catch (_) {}
       }
 
       function restoreIdentity() {
         const data = readIdentityStore();
-
         IDENTITY_FIELDS.forEach(id => {
           const el = $(id);
           if (el && data[id] && !el.value) el.value = data[id];
@@ -868,15 +946,8 @@
       }
 
       function clearIdentity() {
-        IDENTITY_FIELDS.forEach(id => {
-          const el = $(id);
-          if (el) el.value = "";
-        });
-
-        try {
-          localStorage.removeItem(IDENTITY_KEY);
-        } catch (_) {}
-
+        IDENTITY_FIELDS.forEach(id => { const el = $(id); if (el) el.value = ""; });
+        try { localStorage.removeItem(IDENTITY_KEY); } catch (_) {}
         update(false);
       }
 
@@ -889,44 +960,56 @@
         ].join("\n");
       }
 
-      function money(n) {
-        return new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
+      function moneyFcfa(n) {
+        return new Intl.NumberFormat("fr-FR").format(Number(n) || 0) + " FCFA";
+      }
+
+      function moneyEur(n) {
+        return new Intl.NumberFormat("fr-FR").format(Number(n) || 0) + " €";
+      }
+
+      function planAmount(p) {
+        if (country === "france") {
+          return typeof p.eur === "number" ? moneyEur(p.eur) : "Tarif France à valider";
+        }
+        return moneyFcfa(p.fcfa);
       }
 
       function requestDate() {
-        return new Date().toLocaleString("fr-FR", {
-          dateStyle: "full",
-          timeStyle: "short"
-        });
+        return new Date().toLocaleString("fr-FR", { dateStyle: "full", timeStyle: "short" });
       }
 
-      function chosen() {
-        return PLANS.filter(p => selected.has(p.code));
+      function chosen() { return PLANS.filter(p => selected.has(p.code)); }
+
+      function totals() {
+        const items = chosen();
+        if (country === "france") {
+          const eur = items.reduce((s, p) => s + (typeof p.eur === "number" ? p.eur : 0), 0);
+          const pending = items.some(p => typeof p.eur !== "number");
+          return { label: pending ? (eur ? moneyEur(eur) + " + tarif à valider" : "Tarif France à valider") : moneyEur(eur), value: eur, pending };
+        }
+        const fcfa = items.reduce((s, p) => s + p.fcfa, 0);
+        return { label: moneyFcfa(fcfa), value: fcfa, pending: false };
       }
 
-      function total() {
-        return chosen().reduce((s, p) => s + p.fcfa, 0);
-      }
+      function paymentNote() { return ($("paymentNote")?.value || "").trim(); }
 
-      function paymentNote() {
-        return ($("paymentNote")?.value || "").trim();
-      }
+      function paymentLabel() { return country === "france" ? SENDWAVE_LABEL : WAVE_LABEL; }
+
+      function countryLabel() { return country === "france" ? "France · Sendwave vers Wave Sénégal" : "Sénégal · Wave direct"; }
 
       function lines() {
         const items = chosen();
-
-        return items
-          .map(p => `- ${p.code} · ${p.name} · ${money(p.fcfa)}`)
-          .join("\n") || "Aucun choix sélectionné";
+        return items.map(p => `- ${p.code} · ${p.name} · ${planAmount(p)}`).join("\n") || "Aucun choix sélectionné";
       }
 
       function msg() {
-        const sub = total();
+        const t = totals();
         const note = paymentNote() || "à compléter";
-
         return `Bonjour JB, je veux avancer avec DIGIY RESTO.
 
 Date de demande : ${requestDate()}
+Pays / règlement : ${countryLabel()}
 
 Infos restaurant :
 ${identityText()}
@@ -934,30 +1017,30 @@ ${identityText()}
 Choix :
 ${lines()}
 
-Sous-total : ${money(sub)}
-Ajustement / remise : 0 FCFA
-Total : ${money(sub)}
+Total : ${t.label}
 
-Paiement Wave : ${WAVE_LABEL}
+Règlement : ${paymentLabel()}
 
 Note / preuve : ${note}
+
+Important : les tarifs France et Sénégal sont une grille pays, pas une conversion au taux de change.
 
 Je souhaite préparer / renforcer ma fiche restaurant : carte, photos, horaires, WhatsApp, adresse et visibilité.`;
       }
 
       function proofMsg() {
-        const sub = total();
+        const t = totals();
         const note = paymentNote() || "à compléter";
-
-        return `Bonjour JB, voici la preuve de paiement Wave pour DIGIY RESTO.
+        return `Bonjour JB, voici la preuve de paiement pour DIGIY RESTO.
 
 Date de demande : ${requestDate()}
+Pays / règlement : ${countryLabel()}
 
 Infos restaurant :
 ${identityText()}
 
-${WAVE_LABEL}
-Montant : ${money(sub)}
+${paymentLabel()}
+Montant : ${t.label}
 
 Choix :
 ${lines()}
@@ -967,34 +1050,47 @@ Note / preuve : ${note}
 Je joins la capture / preuve de paiement à ce message.`;
       }
 
+      function setCountry(next, updateUrl) {
+        country = next === "france" ? "france" : "senegal";
+        document.querySelectorAll("[data-country]").forEach(btn => {
+          btn.classList.toggle("active", btn.getAttribute("data-country") === country);
+        });
+
+        const note = $("countryNote");
+        if (note) {
+          note.innerHTML = country === "france"
+            ? "🇫🇷 France : règlement en euros par <strong>Sendwave</strong> vers le <strong>Wave Sénégal JB BEAUVILLE · +221 77 134 28 89</strong>. Grille pays, pas taux de change."
+            : "🇸🇳 Sénégal : règlement en FCFA par <strong>Wave direct</strong> vers <strong>JB BEAUVILLE · +221 77 134 28 89</strong>.";
+        }
+
+        try {
+          localStorage.setItem(COUNTRY_KEY, country);
+          if (updateUrl) {
+            const u = new URL(location.href);
+            u.searchParams.set("pays", country);
+            history.replaceState({}, "", u.pathname + u.search + u.hash);
+          }
+        } catch (_) {}
+
+        update(false);
+      }
+
       function render() {
         ["base", "boost", "reseau"].forEach(cat => {
-          const target =
-            cat === "base"
-              ? "baseOptions"
-              : cat === "boost"
-                ? "boostOptions"
-                : "reseauOptions";
-
-          $(target).innerHTML = PLANS
-            .filter(p => p.cat === cat)
-            .map(p => `
+          const target = cat === "base" ? "baseOptions" : cat === "boost" ? "boostOptions" : "reseauOptions";
+          $(target).innerHTML = PLANS.filter(p => p.cat === cat).map(p => `
               <button class="option ${selected.has(p.code) ? "active" : ""}" data-code="${p.code}" type="button">
                 <span class="code ${cat !== "base" ? "extra" : ""}">${p.code}</span>
                 <b>${p.name}</b>
-                <span class="amount">${p.amount}</span>
+                <span class="amount">${planAmount(p)}</span>
                 <span>${p.desc}</span>
               </button>
-            `)
-            .join("");
+            `).join("");
         });
 
         document.querySelectorAll(".option").forEach(btn => {
           btn.onclick = () => {
-            selected.has(btn.dataset.code)
-              ? selected.delete(btn.dataset.code)
-              : selected.add(btn.dataset.code);
-
+            selected.has(btn.dataset.code) ? selected.delete(btn.dataset.code) : selected.add(btn.dataset.code);
             update(true);
           };
         });
@@ -1002,34 +1098,36 @@ Je joins la capture / preuve de paiement à ce message.`;
 
       function update(scroll) {
         render();
-
         const items = chosen();
-        const sub = total();
+        const t = totals();
 
         $("selectedBox").innerHTML = items.length
-          ? `<strong>${items.length} choix sélectionné${items.length > 1 ? "s" : ""}</strong><br>Ajoute ou retire en recliquant.`
+          ? `<strong>${items.length} choix sélectionné${items.length > 1 ? "s" : ""}</strong><br>${countryLabel()}`
           : `<strong>Aucun choix sélectionné</strong><br>Rien n’est précoché.`;
 
         $("choiceList").innerHTML = items.length
-          ? items
-              .map(p => `
+          ? items.map(p => `
                 <div class="line">
                   <span>${p.code} · ${p.name}</span>
-                  <b>${money(p.fcfa)}</b>
+                  <b>${planAmount(p)}</b>
                 </div>
-              `)
-              .join("")
-          : `
-              <div class="line">
-                <span>Aucun choix</span>
-                <b>0 FCFA</b>
-              </div>
-            `;
+              `).join("")
+          : `<div class="line"><span>Aucun choix</span><b>0</b></div>`;
 
-        $("subtotalText").textContent = money(sub);
-        $("totalText").textContent = money(sub);
-        $("payTotal").textContent = money(sub);
+        $("subtotalText").textContent = t.label;
+        $("totalText").textContent = t.label;
+        $("payTotal").textContent = t.label;
         $("dateBox").textContent = "Date de demande : " + requestDate();
+
+        const paymentTitle = document.querySelector(".paymentTitle");
+        if (paymentTitle) paymentTitle.textContent = country === "france" ? "💳 Paiement Sendwave → Wave Sénégal" : "💳 Paiement Wave";
+
+        const proof = document.querySelector(".payment .proof");
+        if (proof) {
+          proof.textContent = country === "france"
+            ? "Depuis la France, règle par Sendwave vers le Wave Sénégal de JB BEAUVILLE, puis envoie la preuve par WhatsApp."
+            : "Après paiement Wave, envoie la capture ou la preuve par WhatsApp. DIGIY vérifie puis accompagne l’ouverture / visibilité RESTO.";
+        }
 
         $("benefits").innerHTML = (items.length ? [...COMMON, ...items.flatMap(p => p.bonus)] : [])
           .slice(0, 26)
@@ -1040,10 +1138,7 @@ Je joins la capture / preuve de paiement à ce message.`;
         $("btnProof").href = "https://wa.me/" + TEL + "?text=" + encodeURIComponent(proofMsg());
 
         if (scroll && matchMedia("(max-width:850px)").matches) {
-          summary.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
+          summary.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }
 
@@ -1052,14 +1147,12 @@ Je joins la capture / preuve de paiement à ce message.`;
       IDENTITY_FIELDS.forEach(id => {
         const el = $(id);
         if (!el) return;
-        el.addEventListener("input", () => {
-          saveIdentity();
-          update(false);
-        });
-        el.addEventListener("change", () => {
-          saveIdentity();
-          update(false);
-        });
+        el.addEventListener("input", () => { saveIdentity(); update(false); });
+        el.addEventListener("change", () => { saveIdentity(); update(false); });
+      });
+
+      document.querySelectorAll("[data-country]").forEach(btn => {
+        btn.addEventListener("click", () => setCountry(btn.getAttribute("data-country"), true));
       });
 
       const clearIdentityBtn = $("btnClearIdentity");
@@ -1075,24 +1168,22 @@ Je joins la capture / preuve de paiement à ce message.`;
       };
 
       $("btnCopyWave").onclick = () => {
-        navigator.clipboard && navigator.clipboard.writeText(WAVE_LABEL).then(() => {
-          $("btnCopyWave").textContent = "✅ Wave copié";
-          setTimeout(() => $("btnCopyWave").textContent = "📋 Copier Wave", 1600);
+        navigator.clipboard && navigator.clipboard.writeText(paymentLabel()).then(() => {
+          $("btnCopyWave").textContent = "✅ Paiement copié";
+          setTimeout(() => $("btnCopyWave").textContent = "📋 Copier paiement", 1600);
         });
       };
 
-      $("btnClear").onclick = () => {
-        selected.clear();
-        update(true);
-      };
+      $("btnClear").onclick = () => { selected.clear(); update(true); };
+      $("btnFloating").onclick = () => { summary.scrollIntoView({ behavior: "smooth", block: "start" }); };
 
-      $("btnFloating").onclick = () => {
-        summary.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      };
+      let initialCountry = "senegal";
+      try {
+        const params = new URLSearchParams(location.search);
+        initialCountry = params.get("pays") || params.get("country") || localStorage.getItem(COUNTRY_KEY) || "senegal";
+      } catch (_) {}
 
+      setCountry(initialCountry, false);
       update(false);
     })();
   </script>
@@ -1105,6 +1196,10 @@ Je joins la capture / preuve de paiement à ce message.`;
   </script>
 </body>
 </html>
+
+
+
+
 
 
 
