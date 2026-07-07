@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#f5ecd8" />
-  <meta name="digiy-version" content="resto-inscription-france-senegal-sendwave-grille-pays-20260629" />
-  <title>Inscription RESTO — France · Sénégal · DIGIYLYFE</title>
+  <meta name="digiy-version" content="resto-demande-sans-engagement-activation-payante-sendwave-20260707" />
+  <title>Demande RESTO — Activation restaurant · France · Sénégal · DIGIYLYFE</title>
 
   <style>
     :root {
@@ -528,7 +528,8 @@
       }
 
       .actions,
-      .identityGrid {
+      .identityGrid,
+      .restoDoctrineList {
         grid-template-columns: 1fr;
       }
 
@@ -619,13 +620,93 @@
       font-weight: 950;
     }
 
+
+    .gold-emphasis{
+      border-color:rgba(250,204,21,.82)!important;
+      background:linear-gradient(135deg,rgba(250,204,21,.34),rgba(245,158,11,.16))!important;
+      color:#7a4d00!important;
+      box-shadow:0 12px 28px rgba(250,204,21,.15)!important;
+    }
+
+    .restoDoctrine{
+      margin-bottom:14px;
+      border:2px solid rgba(250,204,21,.55);
+      border-radius:24px;
+      background:
+        radial-gradient(circle at top right,rgba(250,204,21,.24),transparent 38%),
+        linear-gradient(145deg,rgba(255,255,255,.72),rgba(255,247,223,.86));
+      box-shadow:var(--shadow);
+      padding:18px;
+      display:grid;
+      gap:12px;
+    }
+
+    .restoDoctrineTag{
+      display:inline-flex;
+      width:max-content;
+      max-width:100%;
+      align-items:center;
+      min-height:34px;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid rgba(21,95,67,.22);
+      background:rgba(21,95,67,.08);
+      color:var(--green);
+      font-size:12px;
+      font-weight:1000;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .restoDoctrine h2{
+      margin:0;
+      color:var(--green2);
+      font-size:clamp(28px,4.8vw,46px);
+      line-height:1;
+      letter-spacing:-.04em;
+      font-weight:1000;
+    }
+
+    .restoDoctrine p{
+      margin:0;
+      color:#405041;
+      line-height:1.62;
+      font-weight:900;
+    }
+
+    .restoDoctrineList{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:9px;
+    }
+
+    .restoDoctrineList span{
+      border:1px solid rgba(83,58,26,.18);
+      background:rgba(255,255,255,.70);
+      border-radius:17px;
+      padding:11px;
+      color:var(--ink);
+      font-size:13px;
+      line-height:1.35;
+      font-weight:1000;
+    }
+
+    .restoDoctrineQuote{
+      border-left:4px solid var(--gold2);
+      background:rgba(250,204,21,.12);
+      border-radius:16px;
+      padding:12px 14px;
+      color:#7a4d00!important;
+      font-weight:1000!important;
+    }
+
   </style>
 </head>
 
 <body>
   <div class="app">
     <header class="top">
-      <a class="brand" href="./index.html">🍽️ DIGIY RESTO · inscription</a>
+      <a class="brand" href="./index.html">🍽️ DIGIY RESTO · demande</a>
 
       <nav class="nav">
         <a href="./index.html">← RESTO public</a>
@@ -635,10 +716,11 @@
 
     <section class="hero">
       <div>
-        <h1>Inscrire mon restaurant.</h1>
+        <h1>Demander RESTO pour mon restaurant.</h1>
         <p class="lead">
-          DIGIY RESTO installe le restaurant sur le web : fiche visible, carte, photos, WhatsApp,
-          QR, lien partageable et contact direct. Le restaurant garde son client, son argent et sa relation.
+          DIGIY RESTO prépare une demande claire pour installer le restaurant sur le web :
+          fiche visible, carte, photos, WhatsApp, QR, lien partageable et contact direct.
+          La demande initiale est sans engagement ; l’activation RESTO devient payante seulement si le restaurant valide son choix.
         </p>
 
         <div class="pills">
@@ -657,20 +739,41 @@
         </div>
 
         <p>
-          Choix cumulables : inscription RESTO, BOOST visibilité, RÉSEAU abonné ou FIRST non-abonné.
+          Choix cumulables : activation RESTO, BOOST visibilité, RÉSEAU abonné ou FIRST non-abonné.
           Après paiement, le restaurant envoie la preuve sur WhatsApp.
         </p>
 
         <div class="smallNote">
-          Base RESTO public : <strong>Sénégal 15 000 FCFA · France 26 €</strong>. Grille pays, pas conversion au taux de change.
+          Base activation RESTO public : <strong>Sénégal 15 000 FCFA · France 26 €</strong>. Demande sans engagement. Grille pays, pas conversion au taux de change.
         </div>
       </div>
     </section>
 
+    <section class="restoDoctrine" aria-label="Doctrine commerciale RESTO">
+      <span class="restoDoctrineTag">Demande RESTO sans engagement · Activation RESTO payante · 0% commission</span>
+      <h2>Le client demande. Le restaurant confirme et garde la main.</h2>
+      <p>
+        DIGIY RESTO ouvre une porte claire pour les restaurants, snacks, pizzerias, terrasses,
+        cuisines maison et services traiteur. DIGIY ne prend aucune commission sur la réservation,
+        la vente ou le paiement. La demande initiale / orientation est sans engagement :
+        le paiement concerne seulement l’activation RESTO, une fiche publique, une carte, des photos,
+        un QR, une mise en valeur, un BOOST ou un pack visibilité.
+      </p>
+      <div class="restoDoctrineList">
+        <span>✅ Demande initiale sans engagement</span>
+        <span>🍽️ Activation RESTO payante</span>
+        <span>🤝 Paiement direct au restaurant</span>
+        <span class="gold-emphasis">🇫🇷 France / diaspora : Sendwave possible</span>
+      </div>
+      <p class="restoDoctrineQuote">
+        DIGIY RESTO organise la route entre le client et le restaurant — sans détour, sans commission, sans dépossession.
+      </p>
+    </section>
+
     <main class="grid">
       <section class="card">
-        <h2>Tarifs RESTO</h2>
-        <p>Clique un ou plusieurs choix. Si tu te trompes, efface.</p>
+        <h2>Activation RESTO</h2>
+        <p>Clique un ou plusieurs choix seulement si tu veux activer RESTO. Rien n’est précoché. Si tu te trompes, efface.</p>
 
         <div class="countryBox" aria-label="Choix pays RESTO">
           <div class="countryTitle">🌍 Choisir le pays de règlement</div>
@@ -679,7 +782,7 @@
               <strong>🇸🇳 Sénégal</strong>
               <span>Tarifs FCFA · Wave direct</span>
             </button>
-            <button class="countryBtn" type="button" data-country="france">
+            <button class="countryBtn gold-emphasis" type="button" data-country="france">
               <strong>🇫🇷 France</strong>
               <span>Tarifs EUR · Sendwave vers Wave Sénégal</span>
             </button>
@@ -689,7 +792,7 @@
           </div>
         </div>
 
-        <div class="section">🍽️ Inscription RESTO public</div>
+        <div class="section">🍽️ Activation RESTO public</div>
         <div class="prices" id="baseOptions"></div>
 
         <div class="section">✨ BOOST visibilité</div>
@@ -706,7 +809,7 @@
       </section>
 
       <aside class="card summary" id="summary">
-        <h2>Ce que l’inscription m’apporte</h2>
+        <h2>Ce que mon activation RESTO m’apporte</h2>
 
         <div class="selected" id="selectedBox">
           <strong>Aucun choix sélectionné</strong><br>
@@ -735,7 +838,7 @@
 
         <div class="identityBox" id="identityBox">
           <h3>Infos restaurant</h3>
-          <p>Ces informations servent à identifier le paiement dans WhatsApp / SMS. La fiche complète se construit ensuite dans l’espace RESTO.</p>
+          <p>Ces informations servent à identifier la demande RESTO dans WhatsApp / SMS. La demande initiale est sans engagement ; la fiche complète s’active ensuite dans l’espace RESTO selon le choix validé.</p>
 
           <div class="identityGrid">
             <div class="identityField">
@@ -780,7 +883,7 @@
 
           <div class="proof">
             Après paiement Wave, envoie la capture ou la preuve par WhatsApp.
-            DIGIY vérifie puis accompagne l’ouverture / visibilité RESTO.
+            DIGIY vérifie puis accompagne l’activation de la présence / visibilité RESTO.
           </div>
         </div>
 
@@ -802,7 +905,7 @@
         </div>
 
         <div class="actions">
-          <button class="btn" id="btnCopyWave" type="button">📋 Copier Wave</button>
+          <button class="btn" id="btnCopyWave" type="button">📋 Copier paiement</button>
           <a class="btn gold" id="btnProof">📸 Envoyer preuve</a>
           <a class="btn gold" href="https://pro-resto.digiylyfe.com/">🔐 Espace pro</a>
         </div>
@@ -907,9 +1010,9 @@
         "Carte restaurant avec prix / photo / lien",
         "Photos en URL pour Supabase / publication",
         "Messages clients prêts côté pro",
-        "Réservations simples côté pro",
+        "Demandes clients simples côté pro",
         "Validation humaine DIGIY",
-        "0% commission sur les ventes",
+        "0% commission sur les ventes, réservations et paiements",
         "Paiement direct avec preuve WhatsApp"
       ];
 
@@ -1010,6 +1113,8 @@
 
 Date de demande : ${requestDate()}
 Pays / règlement : ${countryLabel()}
+Demande initiale : sans engagement avant activation RESTO
+Doctrine : 0% commission sur la réservation, la vente ou le paiement
 
 Infos restaurant :
 ${identityText()}
@@ -1024,6 +1129,7 @@ Règlement : ${paymentLabel()}
 Note / preuve : ${note}
 
 Important : les tarifs France et Sénégal sont une grille pays, pas une conversion au taux de change.
+Important : DIGIY RESTO prend 0% commission. Le paiement concerne l’activation choisie.
 
 Je souhaite préparer / renforcer ma fiche restaurant : carte, photos, horaires, WhatsApp, adresse et visibilité.`;
       }
@@ -1035,6 +1141,8 @@ Je souhaite préparer / renforcer ma fiche restaurant : carte, photos, horaires,
 
 Date de demande : ${requestDate()}
 Pays / règlement : ${countryLabel()}
+Demande initiale : sans engagement avant activation RESTO
+Doctrine : 0% commission sur la réservation, la vente ou le paiement
 
 Infos restaurant :
 ${identityText()}
@@ -1059,8 +1167,8 @@ Je joins la capture / preuve de paiement à ce message.`;
         const note = $("countryNote");
         if (note) {
           note.innerHTML = country === "france"
-            ? "🇫🇷 France : règlement en euros par <strong>Sendwave</strong> vers le <strong>Wave Sénégal JB BEAUVILLE · +221 77 134 28 89</strong>. Grille pays, pas taux de change."
-            : "🇸🇳 Sénégal : règlement en FCFA par <strong>Wave direct</strong> vers <strong>JB BEAUVILLE · +221 77 134 28 89</strong>.";
+            ? "🇫🇷 France : règlement en euros par <strong>Sendwave</strong> vers le <strong>Wave Sénégal JB BEAUVILLE · +221 77 134 28 89</strong>. Demande sans engagement, activation RESTO payante. Grille pays, pas taux de change."
+            : "🇸🇳 Sénégal : règlement en FCFA par <strong>Wave direct</strong> vers <strong>JB BEAUVILLE · +221 77 134 28 89</strong>. Demande sans engagement, activation RESTO payante.";
         }
 
         try {
@@ -1103,7 +1211,7 @@ Je joins la capture / preuve de paiement à ce message.`;
 
         $("selectedBox").innerHTML = items.length
           ? `<strong>${items.length} choix sélectionné${items.length > 1 ? "s" : ""}</strong><br>${countryLabel()}`
-          : `<strong>Aucun choix sélectionné</strong><br>Rien n’est précoché.`;
+          : `<strong>Aucun choix sélectionné</strong><br>Demande sans engagement. Rien n’est précoché.`;
 
         $("choiceList").innerHTML = items.length
           ? items.map(p => `
@@ -1125,8 +1233,8 @@ Je joins la capture / preuve de paiement à ce message.`;
         const proof = document.querySelector(".payment .proof");
         if (proof) {
           proof.textContent = country === "france"
-            ? "Depuis la France, règle par Sendwave vers le Wave Sénégal de JB BEAUVILLE, puis envoie la preuve par WhatsApp."
-            : "Après paiement Wave, envoie la capture ou la preuve par WhatsApp. DIGIY vérifie puis accompagne l’ouverture / visibilité RESTO.";
+            ? "Depuis la France, règle par Sendwave vers le Wave Sénégal de JB BEAUVILLE, puis envoie la preuve par WhatsApp. Activation RESTO payante après demande sans engagement."
+            : "Après paiement Wave, envoie la capture ou la preuve par WhatsApp. DIGIY vérifie puis accompagne l’activation de la présence / visibilité RESTO.";
         }
 
         $("benefits").innerHTML = (items.length ? [...COMMON, ...items.flatMap(p => p.bonus)] : [])
@@ -1196,6 +1304,14 @@ Je joins la capture / preuve de paiement à ce message.`;
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 
