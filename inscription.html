@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#f5ecd8" />
-  <meta name="digiy-version" content="resto-visibilite-19900-fiche-moteur-8000-20260723" />
-  <title>Demande RESTO — Activation restaurant · France · Sénégal · DIGIYLYFE</title>
+  <meta name="digiy-version" content="resto-direct-sms-coordonnees-obligatoires-en-haut-20260724" />
+  <title>Demande RESTO — Coordonnées d’abord · SMS direct</title>
 
   <style>
     :root {
@@ -420,6 +420,54 @@
       box-shadow: 0 0 0 3px rgba(250,204,21,.16);
     }
 
+    .identityBox.identityFirst {
+      margin: 14px 0 18px;
+      border-width: 2px;
+      background:
+        radial-gradient(circle at top right, rgba(250,204,21,.20), transparent 42%),
+        rgba(21,95,67,.07);
+    }
+
+    .requiredMark {
+      color: #b91c1c;
+      font-weight: 1000;
+    }
+
+    .sendBlocked {
+      opacity: .48 !important;
+      filter: grayscale(.28);
+      cursor: not-allowed !important;
+    }
+
+    .smsDirectHelp {
+      margin: 10px 0 0;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(21,95,67,.22);
+      background: rgba(21,95,67,.07);
+      color: var(--green);
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .formWarning {
+      display: none;
+      margin-top: 10px;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(185,28,28,.30);
+      background: rgba(254,226,226,.88);
+      color: #991b1b;
+      line-height: 1.45;
+      font-weight: 950;
+    }
+
+    .formWarning.show {
+      display: block;
+    }
+
     .identityMini {
       display: flex;
       gap: 8px;
@@ -788,6 +836,46 @@
         <h2>Présence RESTO</h2>
         <p>Choisis la Présence MON RESTO. Ajoute la fiche détaillée et le moteur RESTO uniquement si tu en as besoin.</p>
 
+        <div class="identityBox identityFirst" id="identityBox">
+          <h3>1 · Vos coordonnées</h3>
+          <p>
+            Renseignez d’abord ces informations. Aucun SMS, WhatsApp ou envoi de preuve
+            ne peut partir sans elles. Les champs marqués <span class="requiredMark">*</span> sont obligatoires.
+          </p>
+
+          <div class="identityGrid">
+            <div class="identityField">
+              <label for="restoOwner">Nom / responsable <span class="requiredMark">*</span></label>
+              <input id="restoOwner" name="restoOwner" autocomplete="name"
+                     placeholder="Ex : Mamadou Diop" required />
+            </div>
+
+            <div class="identityField">
+              <label for="restoPhone">Téléphone / WhatsApp <span class="requiredMark">*</span></label>
+              <input id="restoPhone" name="restoPhone" type="tel" autocomplete="tel" inputmode="tel"
+                     placeholder="Ex : +221 77 000 00 00" required minlength="8" />
+            </div>
+
+            <div class="identityField">
+              <label for="restoZone">Zone / ville <span class="requiredMark">*</span></label>
+              <input id="restoZone" name="restoZone" autocomplete="address-level2"
+                     placeholder="Ex : Saly, Mbour, Dakar" required />
+            </div>
+
+            <div class="identityField">
+              <label for="restoName">Nom du restaurant <span class="requiredMark">*</span></label>
+              <input id="restoName" name="restoName" autocomplete="organization"
+                     placeholder="Ex : Restaurant Le Baobab" required />
+            </div>
+          </div>
+
+          <div class="identityMini">
+            <button class="btn clear" id="btnClearIdentity" type="button">🧹 Effacer mes coordonnées</button>
+            <small>Ces informations servent à identifier la demande et le paiement.</small>
+          </div>
+        </div>
+
+        <div class="section">2 · PAYS ET FORMULE RESTO</div>
         <div class="countryBox" aria-label="Choix pays RESTO">
           <div class="countryTitle">🌍 Choisir le pays de règlement</div>
           <div class="countryGrid">
@@ -806,10 +894,10 @@
           </div>
         </div>
 
-        <div class="section">1 · PRÉSENCE MON RESTO — CARTE DE VISIBILITÉ</div>
+        <div class="section">3 · PRÉSENCE MON RESTO — CARTE DE VISIBILITÉ</div>
         <div class="prices" id="baseOptions"></div>
 
-        <div class="section">2 · FICHE RESTAURANT DÉTAILLÉE + MOTEUR RESTO — FACULTATIF</div>
+        <div class="section">4 · FICHE RESTAURANT DÉTAILLÉE + MOTEUR RESTO — FACULTATIF</div>
         <div class="prices" id="metierOptions"></div>
 
         <div class="section">✨ BOOST visibilité</div>
@@ -854,38 +942,6 @@
         </div>
 
 
-        <div class="identityBox" id="identityBox">
-          <h3>Infos restaurant</h3>
-          <p>Ces informations servent à identifier la demande et le paiement. La fiche restaurant détaillée se construit uniquement lorsque l'option RESTO à +8 000 FCFA / +15 € est choisie.</p>
-
-          <div class="identityGrid">
-            <div class="identityField">
-              <label for="restoOwner">Nom / responsable</label>
-              <input id="restoOwner" autocomplete="name" placeholder="Ex : Mamadou Diop" />
-            </div>
-
-            <div class="identityField">
-              <label for="restoPhone">Téléphone / WhatsApp</label>
-              <input id="restoPhone" autocomplete="tel" inputmode="tel" placeholder="Ex : +221 77 000 00 00" />
-            </div>
-
-            <div class="identityField">
-              <label for="restoZone">Zone / ville</label>
-              <input id="restoZone" autocomplete="address-level2" placeholder="Ex : Saly, Mbour, Dakar" />
-            </div>
-
-            <div class="identityField">
-              <label for="restoName">Nom du restaurant</label>
-              <input id="restoName" autocomplete="organization" placeholder="Ex : Restaurant Le Baobab" />
-            </div>
-          </div>
-
-          <div class="identityMini">
-            <button class="btn clear" id="btnClearIdentity" type="button">🧹 Effacer mes infos</button>
-            <small>Le téléphone retient seulement ces infos utiles au paiement.</small>
-          </div>
-        </div>
-
         <div class="payment">
           <div class="paymentTitle">💳 Paiement Wave</div>
 
@@ -918,12 +974,19 @@
 
         <div class="actions">
           <a class="btn green" id="btnWa">💬 WhatsApp</a>
-          <button class="btn" id="btnSms" type="button">📱 SMS</button>
+          <button class="btn gold" id="btnSms" type="button">📱 Ouvrir mon SMS déjà rempli</button>
           <button class="btn clear" id="btnClear" type="button">🧹 Effacer</button>
         </div>
 
+        <div class="smsDirectHelp">
+          Sur téléphone, aucun copier-coller : Messages s’ouvre avec le numéro DIGIY
+          et une demande RESTO courte déjà remplie. Il reste seulement à appuyer sur Envoyer.
+        </div>
+
+        <div class="formWarning" id="formWarning" role="alert" aria-live="assertive"></div>
+
         <div class="actions">
-          <button class="btn" id="btnCopyWave" type="button">📋 Copier paiement</button>
+          <button class="btn" id="btnCopyWave" type="button">Autre solution : copier paiement</button>
           <a class="btn gold" id="btnProof">📸 Envoyer preuve</a>
           <a class="btn gold" href="https://pro-resto.digiylyfe.com/">🔐 Espace pro</a>
         </div>
@@ -1053,6 +1116,12 @@
       const summary = $("summary");
       const IDENTITY_KEY = "digiy_resto_payment_identity_v1";
       const COUNTRY_KEY = "digiy_resto_payment_country_v1";
+      const IS_IOS_OR_IPADOS =
+        /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const MOBILE_DEVICE =
+        /Android|Windows Phone|Mobile/i.test(navigator.userAgent) ||
+        IS_IOS_OR_IPADOS;
       const IDENTITY_FIELDS = ["restoOwner", "restoPhone", "restoZone", "restoName"];
 
       function readIdentityStore() {
@@ -1134,6 +1203,100 @@
       function lines() {
         const items = chosen();
         return items.map(p => `- ${p.code} · ${p.name} · ${planAmount(p)}`).join("\n") || "Aucun choix sélectionné";
+      }
+
+      function requiredIdentityFields() {
+        return IDENTITY_FIELDS.map(id => $(id)).filter(Boolean);
+      }
+
+      function hasValidRestoChoice() {
+        return selected.has("RESTO") || selected.has("FIRST");
+      }
+
+      function showFormWarning(message) {
+        const warning = $("formWarning");
+        if (!warning) return;
+        warning.textContent = message || "";
+        warning.classList.toggle("show", Boolean(message));
+      }
+
+      function validateBeforeSend(showMessage) {
+        const invalidField = requiredIdentityFields().find(
+          field => !String(field.value || "").trim() || !field.checkValidity()
+        );
+
+        if (invalidField) {
+          if (showMessage) {
+            showFormWarning("⚠️ Renseigne d’abord le responsable, le téléphone, la ville et le nom du restaurant.");
+            invalidField.focus({ preventScroll: true });
+            invalidField.scrollIntoView({ behavior: "smooth", block: "center" });
+            invalidField.reportValidity();
+          }
+          return false;
+        }
+
+        if (!hasValidRestoChoice()) {
+          if (showMessage) {
+            showFormWarning("⚠️ Choisis la Présence RESTO ou FIRST avant d’envoyer.");
+            $("baseOptions")?.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          return false;
+        }
+
+        if (totals().pending) {
+          if (showMessage) {
+            showFormWarning("⚠️ Un tarif France sélectionné reste à confirmer avant l’envoi.");
+          }
+          return false;
+        }
+
+        showFormWarning("");
+        return true;
+      }
+
+      function updateSendState() {
+        const ready =
+          requiredIdentityFields().every(
+            field => String(field.value || "").trim() && field.checkValidity()
+          ) &&
+          hasValidRestoChoice() &&
+          !totals().pending;
+
+        ["btnWa", "btnSms", "btnProof"].forEach(id => {
+          const el = $(id);
+          if (!el) return;
+          el.classList.toggle("sendBlocked", !ready);
+          el.setAttribute("aria-disabled", String(!ready));
+        });
+      }
+
+      function shortText(value, maxLength) {
+        const clean = String(value || "").replace(/\s+/g, " ").trim();
+        return clean.length > maxLength ? clean.slice(0, maxLength - 1) + "…" : clean;
+      }
+
+      function smsMsg() {
+        const t = totals();
+        const codes = chosen().map(p => p.code).join(" + ") || "Aucun choix";
+
+        return [
+          "DEMANDE DIGIY RESTO",
+          "Pays: " + (country === "france" ? "France" : "Senegal"),
+          "Choix: " + codes,
+          "Total: " + t.label,
+          "Nom/responsable: " + shortText($("restoOwner")?.value, 55),
+          "Telephone candidat: " + shortText($("restoPhone")?.value, 28),
+          "Zone/ville: " + shortText($("restoZone")?.value, 45),
+          "Restaurant: " + shortText($("restoName")?.value, 75),
+          paymentNote() ? "Note: " + shortText(paymentNote(), 130) : "",
+          "Je demande a etre recontacte pour valider mon activation RESTO.",
+          "0% commission DIGIY."
+        ].filter(Boolean).join("\n");
+      }
+
+      function buildSmsHref(message) {
+        const separator = IS_IOS_OR_IPADOS ? "&" : "?";
+        return "sms:+" + TEL + separator + "body=" + encodeURIComponent(message);
       }
 
       function msg() {
@@ -1339,6 +1502,7 @@ Je joins la capture / preuve de paiement à ce message.`;
 
         $("btnWa").href = "https://wa.me/" + TEL + "?text=" + encodeURIComponent(msg());
         $("btnProof").href = "https://wa.me/" + TEL + "?text=" + encodeURIComponent(proofMsg());
+        updateSendState();
 
         if (scroll && matchMedia("(max-width:850px)").matches) {
           summary.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1363,21 +1527,36 @@ Je joins la capture / preuve de paiement à ce message.`;
 
       $("paymentNote").addEventListener("input", () => update(false));
 
-      $("btnSms").onclick = () => {
-        navigator.clipboard && navigator.clipboard.writeText(msg()).then(() => {
-          $("btnSms").textContent = "✅ Message copié";
-          setTimeout(() => $("btnSms").textContent = "📱 SMS", 1600);
-        });
+      $("btnSms").onclick = event => {
+        event.preventDefault();
+        if (!validateBeforeSend(true)) return;
+        window.location.href = buildSmsHref(smsMsg());
       };
+
+      $("btnWa").addEventListener("click", event => {
+        if (!validateBeforeSend(true)) event.preventDefault();
+      });
+
+      $("btnProof").addEventListener("click", event => {
+        if (!validateBeforeSend(true)) event.preventDefault();
+      });
+
+      $("btnCopyWave").hidden = MOBILE_DEVICE;
 
       $("btnCopyWave").onclick = () => {
         navigator.clipboard && navigator.clipboard.writeText(paymentLabel()).then(() => {
           $("btnCopyWave").textContent = "✅ Paiement copié";
-          setTimeout(() => $("btnCopyWave").textContent = "📋 Copier paiement", 1600);
+          setTimeout(() => $("btnCopyWave").textContent = "Autre solution : copier paiement", 1600);
         });
       };
 
-      $("btnClear").onclick = () => { selected.clear(); if ($("paymentNote")) $("paymentNote").value = ""; update(true); };
+      $("btnClear").onclick = () => {
+        selected.clear();
+        if ($("paymentNote")) $("paymentNote").value = "";
+        clearIdentity();
+        showFormWarning("");
+        update(true);
+      };
       $("btnFloating").onclick = () => { summary.scrollIntoView({ behavior: "smooth", block: "start" }); };
 
       let initialCountry = "senegal";
@@ -1399,6 +1578,125 @@ Je joins la capture / preuve de paiement à ce message.`;
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
