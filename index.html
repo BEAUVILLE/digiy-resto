@@ -1,165 +1,166 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#020617">
-<title>DIGIY RESTO — Restaurants visibles · contact direct · 0% commission</title>
-<meta name="description" content="DIGIY RESTO présente les restaurants actifs et ouvre leur fiche directe. Paiement direct au restaurateur, contact direct et 0% commission DIGIY.">
-<style>
-:root{
-  --bg:#020617;
-  --card:#07101f;
-  --card2:#0b1526;
-  --ink:#f8fafc;
-  --muted:#cbd5e1;
-  --gold:#facc15;
-  --orange:#f97316;
-  --green:#22c55e;
-  --line:rgba(148,163,184,.26);
-  --shadow:0 20px 52px rgba(0,0,0,.38);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 12% -8%,rgba(250,204,21,.16),transparent 40%),
-    radial-gradient(circle at 100% 100%,rgba(34,197,94,.13),transparent 44%),
-    var(--bg);
-  color:var(--ink);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-a{color:inherit;text-decoration:none}
-button{font:inherit}
-.wrap{width:min(980px,calc(100% - 24px));margin:auto}
-.top{
-  position:sticky;top:0;z-index:20;
-  background:rgba(2,6,23,.92);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  backdrop-filter:blur(14px);
-}
-.topin{
-  min-height:66px;display:flex;align-items:center;justify-content:space-between;
-  gap:12px;padding:9px 0;
-}
-.brand{display:flex;align-items:center;gap:10px;min-width:0}
-.logo{
-  width:44px;height:44px;border-radius:15px;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--gold),var(--orange));
-  color:#111827;font-size:23px;box-shadow:0 10px 26px rgba(250,204,21,.24);
-}
-.brand b{display:block;color:var(--green);letter-spacing:.08em;font-size:15px}
-.brand span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-.lang{display:flex;gap:5px;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.05)}
-.lang button{
-  min-height:34px;border:0;border-radius:999px;padding:0 11px;
-  background:transparent;color:var(--ink);font-weight:900;cursor:pointer;
-}
-.lang button.active{background:linear-gradient(135deg,var(--gold),var(--orange));color:#111827}
-.hero{padding:18px 0 12px}
-.hero-card{
-  border:1px solid var(--line);border-radius:28px;padding:20px;
-  background:
-    radial-gradient(circle at top right,rgba(34,197,94,.15),transparent 34%),
-    linear-gradient(135deg,#07101f,#030712);
-  box-shadow:var(--shadow);
-}
-.kicker{
-  display:inline-flex;padding:7px 11px;border-radius:999px;
-  background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.38);
-  color:#fde68a;font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em;
-}
-h1{margin:12px 0 9px;font-size:clamp(34px,7vw,62px);line-height:.95;letter-spacing:-.05em}
-h1 span{display:block;color:var(--green)}
-.lead{margin:0;color:var(--muted);font-size:16px;line-height:1.58;max-width:760px;font-weight:700}
-.pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.pill{
-  padding:8px 11px;border-radius:999px;border:1px solid var(--line);
-  background:rgba(255,255,255,.05);color:#e5e7eb;font-size:12px;font-weight:900;
-}
-.featured{padding:8px 0 14px}
-.featured-card{
-  display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden;
-  border:2px solid rgba(250,204,21,.48);border-radius:28px;
-  background:linear-gradient(135deg,rgba(250,204,21,.11),rgba(34,197,94,.08));
-  box-shadow:var(--shadow);
-}
-.featured-copy{padding:22px}
-.real-badge{
-  display:inline-flex;align-items:center;min-height:32px;padding:0 11px;border-radius:999px;
-  background:rgba(34,197,94,.14);border:1px solid rgba(34,197,94,.38);
-  color:#bbf7d0;font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.05em;
-}
-.featured h2{margin:11px 0 7px;font-size:clamp(27px,5vw,44px);line-height:1}
-.featured p{margin:0;color:var(--muted);line-height:1.55;font-weight:700}
-.featured-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
-.btn{
-  min-height:48px;padding:0 16px;border-radius:999px;border:1px solid var(--line);
-  display:inline-flex;align-items:center;justify-content:center;font-weight:1000;text-align:center;
-}
-.btn-main{background:linear-gradient(135deg,var(--gold),var(--orange));color:#111827;border:0}
-.btn-soft{background:rgba(255,255,255,.06);color:#fff}
-.featured-visual{
-  min-height:270px;background:
-    linear-gradient(180deg,rgba(2,6,23,.08),rgba(2,6,23,.72)),
-    url("https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=82") center/cover;
-  position:relative;
-}
-.featured-visual span{
-  position:absolute;left:16px;right:16px;bottom:16px;padding:11px 13px;border-radius:16px;
-  background:rgba(2,6,23,.72);border:1px solid rgba(255,255,255,.16);
-  color:#fff;font-weight:900;backdrop-filter:blur(8px);
-}
-.info{padding:8px 0 22px}
-.info details{
-  border:1px solid var(--line);border-radius:24px;overflow:hidden;
-  background:rgba(7,16,31,.88);box-shadow:0 14px 36px rgba(0,0,0,.26);
-}
-.info summary{
-  list-style:none;cursor:pointer;min-height:62px;padding:15px 18px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  color:#111827;background:linear-gradient(135deg,var(--gold),var(--orange));
-  font-size:16px;font-weight:1000;
-}
-.info summary::-webkit-details-marker{display:none}
-.info summary::after{
-  content:"+";width:28px;height:28px;border-radius:999px;display:grid;place-items:center;
-  background:rgba(17,24,39,.14);font-size:21px;
-}
-.info details[open] summary::after{content:"−"}
-.info-body{padding:18px}
-.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.info-card{
-  border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.04);
-}
-.info-card b{display:block;color:#fde68a;margin-bottom:6px}
-.info-card span{display:block;color:var(--muted);font-size:13px;line-height:1.48;font-weight:700}
-.section-title{margin:22px 0 10px;font-size:22px}
-.models{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.model{
-  overflow:hidden;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.04);
-}
-.model img{width:100%;height:145px;object-fit:cover;display:block}
-.model-body{padding:13px}
-.model-label{
-  display:inline-flex;padding:6px 9px;border-radius:999px;background:rgba(250,204,21,.11);
-  border:1px solid rgba(250,204,21,.28);color:#fde68a;font-size:11px;font-weight:1000;
-  text-transform:uppercase;
-}
-.model h3{margin:9px 0 5px;font-size:18px}
-.model p{margin:0;color:var(--muted);font-size:13px;line-height:1.48;font-weight:700}
-.links{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
-footer{padding:18px 0 28px;color:var(--muted);font-size:12px;text-align:center;font-weight:700}
-@media(max-width:760px){
-  .featured-card{grid-template-columns:1fr}
-  .featured-visual{min-height:210px;order:-1}
-  .info-grid,.models{grid-template-columns:1fr}
-  .featured-actions,.links{display:grid}
-  .btn{width:100%}
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#020617">
+  <title>DIGIY RESTO — Restaurants visibles · contact direct · 0% commission</title>
+  <meta name="description" content="DIGIY RESTO présente les restaurants actifs et ouvre leur fiche directe. Paiement direct au restaurateur, contact direct et 0% commission DIGIY.">
+  <style>
+    :root{
+      --bg:#020617;
+      --card:#07101f;
+      --ink:#f8fafc;
+      --muted:#cbd5e1;
+      --gold:#facc15;
+      --orange:#f97316;
+      --green:#22c55e;
+      --line:rgba(148,163,184,.26);
+      --shadow:0 20px 52px rgba(0,0,0,.38);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 12% -8%,rgba(250,204,21,.16),transparent 40%),
+        radial-gradient(circle at 100% 100%,rgba(34,197,94,.13),transparent 44%),
+        var(--bg);
+      color:var(--ink);
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .wrap{width:min(980px,calc(100% - 24px));margin:auto}
+    .top{
+      position:sticky;top:0;z-index:20;
+      background:rgba(2,6,23,.92);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(14px);
+    }
+    .topin{
+      min-height:66px;display:flex;align-items:center;justify-content:space-between;
+      gap:12px;padding:9px 0;
+    }
+    .brand{display:flex;align-items:center;gap:10px;min-width:0}
+    .logo{
+      width:44px;height:44px;border-radius:15px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--gold),var(--orange));
+      color:#111827;font-size:23px;box-shadow:0 10px 26px rgba(250,204,21,.24);
+    }
+    .brand b{display:block;color:var(--green);letter-spacing:.08em;font-size:15px}
+    .brand span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+    .lang{display:flex;gap:5px;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.05)}
+    .lang button{
+      min-height:34px;border:0;border-radius:999px;padding:0 11px;
+      background:transparent;color:var(--ink);font-weight:900;cursor:pointer;
+    }
+    .lang button.active{background:linear-gradient(135deg,var(--gold),var(--orange));color:#111827}
+    .hero{padding:18px 0 12px}
+    .hero-card{
+      border:1px solid var(--line);border-radius:28px;padding:20px;
+      background:
+        radial-gradient(circle at top right,rgba(34,197,94,.15),transparent 34%),
+        linear-gradient(135deg,#07101f,#030712);
+      box-shadow:var(--shadow);
+    }
+    .kicker{
+      display:inline-flex;padding:7px 11px;border-radius:999px;
+      background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.38);
+      color:#fde68a;font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em;
+    }
+    h1{margin:12px 0 9px;font-size:clamp(34px,7vw,62px);line-height:.95;letter-spacing:-.05em}
+    h1 span{display:block;color:var(--green)}
+    .lead{margin:0;color:var(--muted);font-size:16px;line-height:1.58;max-width:760px;font-weight:700}
+    .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .pill{
+      padding:8px 11px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.05);color:#e5e7eb;font-size:12px;font-weight:900;
+    }
+    .featured{padding:8px 0 14px}
+    .featured-card{
+      display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden;
+      border:2px solid rgba(250,204,21,.48);border-radius:28px;
+      background:linear-gradient(135deg,rgba(250,204,21,.11),rgba(34,197,94,.08));
+      box-shadow:var(--shadow);
+    }
+    .featured-copy{padding:22px}
+    .real-badge{
+      display:inline-flex;align-items:center;min-height:32px;padding:0 11px;border-radius:999px;
+      background:rgba(34,197,94,.14);border:1px solid rgba(34,197,94,.38);
+      color:#bbf7d0;font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.05em;
+    }
+    .featured h2{margin:11px 0 7px;font-size:clamp(27px,5vw,44px);line-height:1}
+    .featured p{margin:0;color:var(--muted);line-height:1.55;font-weight:700}
+    .featured-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+    .btn{
+      min-height:48px;padding:0 16px;border-radius:999px;border:1px solid var(--line);
+      display:inline-flex;align-items:center;justify-content:center;font-weight:1000;text-align:center;
+    }
+    .btn-main{background:linear-gradient(135deg,var(--gold),var(--orange));color:#111827;border:0}
+    .btn-soft{background:rgba(255,255,255,.06);color:#fff}
+    .featured-visual{
+      min-height:270px;background:
+        linear-gradient(180deg,rgba(2,6,23,.08),rgba(2,6,23,.72)),
+        url("https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=82") center/cover;
+      position:relative;
+    }
+    .featured-visual span{
+      position:absolute;left:16px;right:16px;bottom:16px;padding:11px 13px;border-radius:16px;
+      background:rgba(2,6,23,.72);border:1px solid rgba(255,255,255,.16);
+      color:#fff;font-weight:900;backdrop-filter:blur(8px);
+    }
+    .info{padding:8px 0 22px}
+    .info details{
+      border:1px solid var(--line);border-radius:24px;overflow:hidden;
+      background:rgba(7,16,31,.88);box-shadow:0 14px 36px rgba(0,0,0,.26);
+    }
+    .info summary{
+      list-style:none;cursor:pointer;min-height:62px;padding:15px 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      color:#111827;background:linear-gradient(135deg,var(--gold),var(--orange));
+      font-size:16px;font-weight:1000;
+    }
+    .info summary::-webkit-details-marker{display:none}
+    .info summary::after{
+      content:"+";width:28px;height:28px;border-radius:999px;display:grid;place-items:center;
+      background:rgba(17,24,39,.14);font-size:21px;
+    }
+    .info details[open] summary::after{content:"−"}
+    .info-body{padding:18px}
+    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .info-card{
+      border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.04);
+    }
+    .info-card b{display:block;color:#fde68a;margin-bottom:6px}
+    .info-card span{display:block;color:var(--muted);font-size:13px;line-height:1.48;font-weight:700}
+    .section-title{margin:22px 0 10px;font-size:22px;font-weight:1000}
+    .models{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .model{
+      overflow:hidden;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.04);
+    }
+    .model img{width:100%;height:145px;object-fit:cover;display:block}
+    .model-body{padding:13px}
+    .model-label{
+      display:inline-flex;padding:6px 9px;border-radius:999px;background:rgba(250,204,21,.11);
+      border:1px solid rgba(250,204,21,.28);color:#fde68a;font-size:11px;font-weight:1000;
+      text-transform:uppercase;
+    }
+    .model h3{margin:9px 0 5px;font-size:18px}
+    .model p{margin:0;color:var(--muted);font-size:13px;line-height:1.48;font-weight:700}
+    .model-actions{margin-top:10px;display:flex;gap:6px}
+    .model-actions .btn{min-height:38px;padding:0 12px;font-size:13px;flex:1}
+    .links{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+    footer{padding:18px 0 28px;color:var(--muted);font-size:12px;text-align:center;font-weight:700}
+    @media(max-width:760px){
+      .featured-card{grid-template-columns:1fr}
+      .featured-visual{min-height:210px;order:-1}
+      .info-grid,.models{grid-template-columns:1fr}
+      .featured-actions,.links{display:grid}
+      .btn{width:100%}
+    }
+  </style>
 </head>
 <body>
 <header class="top">
@@ -189,7 +190,8 @@ footer{padding:18px 0 28px;color:var(--muted);font-size:12px;text-align:center;f
     </div>
   </section>
 
-  <section class="featured" aria-label="Restaurant publié">
+  <!-- ===== RESTAURANTS PUBLIÉS ===== -->
+  <section class="featured" aria-label="Restaurants publiés">
     <article class="featured-card">
       <div class="featured-copy">
         <span class="real-badge" data-i18n="realBadge">Restaurant réellement publié</span>
@@ -206,6 +208,7 @@ footer{padding:18px 0 28px;color:var(--muted);font-size:12px;text-align:center;f
     </article>
   </section>
 
+  <!-- ===== DOCTRINE & MODÈLES ===== -->
   <section class="info">
     <details>
       <summary data-i18n="discover">☰ Découvrir DIGIY RESTO</summary>
@@ -216,19 +219,45 @@ footer{padding:18px 0 28px;color:var(--muted);font-size:12px;text-align:center;f
           <div class="info-card"><b data-i18n="info3t">💳 Argent au restaurateur</b><span data-i18n="info3x">DIGIY ne prend aucune commission sur la réservation, la vente ou le paiement.</span></div>
         </div>
 
-        <h2 class="section-title" data-i18n="modelsTitle">Modèles de vitrines — exemples uniquement</h2>
+        <h2 class="section-title" data-i18n="modelsTitle">📸 Modèles de vitrines — exemples à prendre</h2>
+        <p style="color:var(--muted);font-size:14px;line-height:1.5;font-weight:700;margin-top:-6px;margin-bottom:12px;" data-i18n="modelsSub">Ces formats montrent ce que chaque restaurant peut adapter à sa propre activité.</p>
+
         <div class="models">
           <article class="model">
             <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80" alt="Modèle restaurant local" loading="lazy">
-            <div class="model-body"><span class="model-label" data-i18n="example">Exemple</span><h3 data-i18n="m1t">Restaurant local</h3><p data-i18n="m1x">Photos, carte courte, horaires et contact direct.</p></div>
+            <div class="model-body">
+              <span class="model-label" data-i18n="example">Exemple</span>
+              <h3 data-i18n="m1t">Restaurant local</h3>
+              <p data-i18n="m1x">Photos, carte courte, horaires et contact direct.</p>
+              <div class="model-actions">
+                <a class="btn btn-main" href="https://resto.digiylyfe.com/inscription.html" data-i18n="signupShort">🍽️ Demander</a>
+                <a class="btn btn-soft" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20ce%20mod%C3%A8le%20RESTO" target="_blank" rel="noopener">💬 Exemple</a>
+              </div>
+            </div>
           </article>
           <article class="model">
             <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Modèle pizzeria terrasse" loading="lazy">
-            <div class="model-body"><span class="model-label" data-i18n="example">Exemple</span><h3 data-i18n="m2t">Pizzeria · terrasse</h3><p data-i18n="m2x">Ambiance, plats forts, horaires et demande de table.</p></div>
+            <div class="model-body">
+              <span class="model-label" data-i18n="example">Exemple</span>
+              <h3 data-i18n="m2t">Pizzeria · terrasse</h3>
+              <p data-i18n="m2x">Ambiance, plats forts, horaires et demande de table.</p>
+              <div class="model-actions">
+                <a class="btn btn-main" href="https://resto.digiylyfe.com/inscription.html" data-i18n="signupShort">🍽️ Demander</a>
+                <a class="btn btn-soft" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20ce%20mod%C3%A8le%20RESTO" target="_blank" rel="noopener">💬 Exemple</a>
+              </div>
+            </div>
           </article>
           <article class="model">
             <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=800&q=80" alt="Modèle cuisine fraîche" loading="lazy">
-            <div class="model-body"><span class="model-label" data-i18n="example">Exemple</span><h3 data-i18n="m3t">Cuisine fraîche</h3><p data-i18n="m3x">Photos propres, plats, horaires et contact humain.</p></div>
+            <div class="model-body">
+              <span class="model-label" data-i18n="example">Exemple</span>
+              <h3 data-i18n="m3t">Cuisine fraîche</h3>
+              <p data-i18n="m3x">Photos propres, plats, horaires et contact humain.</p>
+              <div class="model-actions">
+                <a class="btn btn-main" href="https://resto.digiylyfe.com/inscription.html" data-i18n="signupShort">🍽️ Demander</a>
+                <a class="btn btn-soft" href="https://wa.me/221771342889?text=Bonjour%2C%20je%20veux%20ce%20mod%C3%A8le%20RESTO" target="_blank" rel="noopener">💬 Exemple</a>
+              </div>
+            </div>
           </article>
         </div>
 
@@ -263,10 +292,13 @@ footer{padding:18px 0 28px;color:var(--muted);font-size:12px;text-align:center;f
       info1t:"🍽️ Une fiche par restaurant", info1x:"Chaque établissement garde ses propres photos, sa carte, ses horaires et ses moyens de contact.",
       info2t:"🤝 Relation directe", info2x:"Le client contacte le restaurant. Le professionnel confirme lui-même la réservation ou la commande.",
       info3t:"💳 Argent au restaurateur", info3x:"DIGIY ne prend aucune commission sur la réservation, la vente ou le paiement.",
-      modelsTitle:"Modèles de vitrines — exemples uniquement", example:"Exemple",
+      modelsTitle:"📸 Modèles de vitrines — exemples à prendre",
+      modelsSub:"Ces formats montrent ce que chaque restaurant peut adapter à sa propre activité.",
+      example:"Exemple",
       m1t:"Restaurant local", m1x:"Photos, carte courte, horaires et contact direct.",
       m2t:"Pizzeria · terrasse", m2x:"Ambiance, plats forts, horaires et demande de table.",
       m3t:"Cuisine fraîche", m3x:"Photos propres, plats, horaires et contact humain.",
+      signupShort:"🍽️ Demander",
       signup:"🍽️ Inscrire un restaurant", waSn:"WhatsApp Sénégal", waFr:"WhatsApp France", wolof:"🇸🇳 Lexique Wolof RESTO",
       footer:"DIGIY RESTO · restaurants publiés · contact direct · paiement direct · 0% commission."
     },
@@ -284,10 +316,13 @@ footer{padding:18px 0 28px;color:var(--muted);font-size:12px;text-align:center;f
       info1t:"🍽️ One profile per restaurant", info1x:"Each establishment keeps its own photos, menu, opening hours and contact methods.",
       info2t:"🤝 Direct relationship", info2x:"The client contacts the restaurant. The professional confirms the booking or order.",
       info3t:"💳 Money goes to the restaurant", info3x:"DIGIY takes no commission on bookings, sales or payments.",
-      modelsTitle:"Showcase models — examples only", example:"Example",
+      modelsTitle:"📸 Showcase models — examples to use",
+      modelsSub:"These formats show what each restaurant can adapt to its own activity.",
+      example:"Example",
       m1t:"Local restaurant", m1x:"Photos, short menu, opening hours and direct contact.",
       m2t:"Pizzeria · terrace", m2x:"Atmosphere, signature dishes, opening hours and table requests.",
       m3t:"Fresh cooking", m3x:"Clean photos, dishes, opening hours and human contact.",
+      signupShort:"🍽️ Request",
       signup:"🍽️ Register a restaurant", waSn:"WhatsApp Senegal", waFr:"WhatsApp France", wolof:"🇸🇳 Wolof RESTO glossary",
       footer:"DIGIY RESTO · published restaurants · direct contact · direct payment · 0% commission."
     }
