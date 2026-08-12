@@ -1,4 +1,4 @@
-/* DIGIY RESTO — adaptateur PT local, moteur 7 langues conservé */
+/* DIGIY RESTO — adhésion visible 28 000 · build 20260812 */
 (function(){
 'use strict';
 if(window.__DIGIY_RESTO_PT_LOCAL__)return;window.__DIGIY_RESTO_PT_LOCAL__=true;
