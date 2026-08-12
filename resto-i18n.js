@@ -18,7 +18,7 @@ function currentLang(){
 function routeTarifs(){
  var lang=currentLang();
  document.querySelectorAll('[data-signup]').forEach(function(a){
-  a.href='https://digiylyfe.com/tarifs-adherents-1.html?lang='+encodeURIComponent(lang);
+  a.href='https://digiylyfe.com/tarifs-adherents.html?lang='+encodeURIComponent(lang);
  });
 }
 function wa(a,msg){if(!a||!msg)return;try{var u=new URL(a.href,location.href);u.searchParams.set('text',msg);a.href=u.toString();}catch(e){}}
