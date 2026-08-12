@@ -6,6 +6,21 @@ var PT={"title":"DIGIY RESTO — Restaurantes visíveis · contacto direto · 0%
 var requested=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase();
 try{if(!requested)requested=(localStorage.getItem('digiy-resto-lang')||'').slice(0,2).toLowerCase();}catch(e){}
 var ptActive=requested==='pt';
+function currentLang(){
+ try{
+  var q=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase();
+  if(/^(fr|en|es|pt|de|it|nl|ar)$/.test(q))return q;
+  var s=(localStorage.getItem('digiy-resto-lang')||localStorage.getItem('digiy-lang')||'').slice(0,2).toLowerCase();
+  if(/^(fr|en|es|pt|de|it|nl|ar)$/.test(s))return s;
+ }catch(e){}
+ return ptActive?'pt':'fr';
+}
+function routeTarifs(){
+ var lang=currentLang();
+ document.querySelectorAll('[data-signup]').forEach(function(a){
+  a.href='https://digiylyfe.com/tarifs-adherents-1.html?lang='+encodeURIComponent(lang);
+ });
+}
 function wa(a,msg){if(!a||!msg)return;try{var u=new URL(a.href,location.href);u.searchParams.set('text',msg);a.href=u.toString();}catch(e){}}
 function inject(){
  var bar=document.querySelector('[data-language-bar]'); if(!bar)return;
@@ -21,6 +36,7 @@ function applyPt(update){
  document.querySelectorAll('[data-i18n-html]').forEach(function(el){var k=el.getAttribute('data-i18n-html');if(PT[k]!=null)el.innerHTML=PT[k];});
  document.querySelectorAll('[data-resto-lang]').forEach(function(b){var on=b.getAttribute('data-resto-lang')==='pt';b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false');});
  document.querySelectorAll('[data-signup]').forEach(function(a){a.title=PT.formNote;a.setAttribute('aria-label',a.textContent+' — '+PT.formNote);});
+ routeTarifs();
  document.querySelectorAll('[data-wa="model"]').forEach(function(a){wa(a,PT.modelMessage);});
  document.querySelectorAll('[data-wa="activate"]').forEach(function(a){wa(a,PT.activateMessage);});
  try{localStorage.setItem('digiy-resto-lang','pt');localStorage.setItem('digiy-lang','pt');}catch(e){}
@@ -28,7 +44,8 @@ function applyPt(update){
 }
 function boot(){
  inject();
- document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-resto-lang]');if(!b)return;var l=b.getAttribute('data-resto-lang');if(l==='pt'){e.preventDefault();e.stopImmediatePropagation();applyPt(true);}else{ptActive=false;try{localStorage.setItem('digiy-lang',l);}catch(_){}}},true);
+ routeTarifs();
+ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-resto-lang]');if(!b)return;var l=b.getAttribute('data-resto-lang');if(l==='pt'){e.preventDefault();e.stopImmediatePropagation();applyPt(true);}else{ptActive=false;try{localStorage.setItem('digiy-lang',l);}catch(_){}setTimeout(routeTarifs,0);}},true);
  if(ptActive)setTimeout(function(){applyPt(true);},0);
 }
 var s=document.createElement('script');s.src='./resto-i18n-7.js?v=20260811-pt-local';s.onload=function(){document.readyState==='loading'?document.addEventListener('DOMContentLoaded',boot,{once:true}):boot();};(document.head||document.documentElement).appendChild(s);
