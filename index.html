@@ -1,111 +1,192 @@
 <!doctype html>
-<html lang="fr" dir="ltr">
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#020617">
-  <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://resto.digiylyfe.com/">
-  <title>DIGIY RESTO — Restaurants visibles · contact direct · 0% commission</title>
-  <meta name="description" content="DIGIY RESTO présente les restaurants actifs et ouvre leur fiche directe. Paiement direct au restaurateur, contact direct et 0% commission DIGIY.">
-  <style>
-    :root{--bg:#020617;--card:#07101f;--ink:#f8fafc;--muted:#cbd5e1;--gold:#facc15;--orange:#f97316;--green:#22c55e;--line:rgba(148,163,184,.26);--shadow:0 20px 52px rgba(0,0,0,.38)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(circle at 12% -8%,rgba(250,204,21,.16),transparent 40%),radial-gradient(circle at 100% 100%,rgba(34,197,94,.13),transparent 44%),var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}.wrap{width:min(980px,calc(100% - 24px));margin:auto}
-    .top{position:sticky;top:0;z-index:20;background:rgba(2,6,23,.94);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(14px)}.topin{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:10px;min-width:0}.logo{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold),var(--orange));color:#111827;font-size:23px;box-shadow:0 10px 26px rgba(250,204,21,.24)}.brand b{display:block;color:var(--green);letter-spacing:.08em;font-size:15px}.brand span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-    .lang{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;padding:4px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.05);min-width:min(100%,520px)}.lang button{min-width:0;min-height:36px;border:0;border-radius:12px;padding:0 7px;background:transparent;color:var(--ink);font-size:11px;font-weight:950;cursor:pointer;white-space:nowrap}.lang button.active{background:linear-gradient(135deg,var(--gold),var(--orange));color:#111827}.hero{padding:18px 0 12px}.hero-card{border:1px solid var(--line);border-radius:28px;padding:20px;background:radial-gradient(circle at top right,rgba(34,197,94,.15),transparent 34%),linear-gradient(135deg,#07101f,#030712);box-shadow:var(--shadow)}.kicker{display:inline-flex;padding:7px 11px;border-radius:999px;background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.38);color:#fde68a;font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.06em}h1{margin:12px 0 9px;font-size:clamp(34px,7vw,62px);line-height:.95;letter-spacing:-.05em}h1 span{display:block;color:var(--green)}.lead{margin:0;color:var(--muted);font-size:16px;line-height:1.58;max-width:760px;font-weight:700}.pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.pill{padding:8px 11px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#e5e7eb;font-size:12px;font-weight:900}
-    .featured{padding:8px 0 14px}.featured-card{display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden;border:2px solid rgba(250,204,21,.48);border-radius:28px;background:linear-gradient(135deg,rgba(250,204,21,.11),rgba(34,197,94,.08));box-shadow:var(--shadow)}.featured-copy{padding:22px}.real-badge{display:inline-flex;align-items:center;min-height:32px;padding:0 11px;border-radius:999px;background:rgba(34,197,94,.14);border:1px solid rgba(34,197,94,.38);color:#bbf7d0;font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.05em}.featured h2{margin:11px 0 7px;font-size:clamp(27px,5vw,44px);line-height:1}.featured p{margin:0;color:var(--muted);line-height:1.55;font-weight:700}.featured-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.btn{min-height:48px;padding:0 16px;border-radius:999px;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-weight:1000;text-align:center}.btn-main{background:linear-gradient(135deg,var(--gold),var(--orange));color:#111827;border:0}.btn-soft{background:rgba(255,255,255,.06);color:#fff}.featured-visual{min-height:270px;background:linear-gradient(180deg,rgba(2,6,23,.08),rgba(2,6,23,.72)),url("https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=82") center/cover;position:relative}.featured-visual span{position:absolute;left:16px;right:16px;bottom:16px;padding:11px 13px;border-radius:16px;background:rgba(2,6,23,.72);border:1px solid rgba(255,255,255,.16);color:#fff;font-weight:900;backdrop-filter:blur(8px)}
-    .info{padding:8px 0 22px}.info details{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:rgba(7,16,31,.88);box-shadow:0 14px 36px rgba(0,0,0,.26)}.info summary{list-style:none;cursor:pointer;min-height:62px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#111827;background:linear-gradient(135deg,var(--gold),var(--orange));font-size:16px;font-weight:1000}.info summary::-webkit-details-marker{display:none}.info summary::after{content:"+";width:28px;height:28px;border-radius:999px;display:grid;place-items:center;background:rgba(17,24,39,.14);font-size:21px}.info details[open] summary::after{content:"−"}.info-body{padding:18px}.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.info-card{border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.04)}.info-card b{display:block;color:#fde68a;margin-bottom:6px}.info-card span{display:block;color:var(--muted);font-size:13px;line-height:1.48;font-weight:700}.section-title{margin:22px 0 10px;font-size:22px;font-weight:1000}.models{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.model{overflow:hidden;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.04)}.model img{width:100%;height:145px;object-fit:cover;display:block}.model-body{padding:13px}.model-label{display:inline-flex;padding:6px 9px;border-radius:999px;background:rgba(250,204,21,.11);border:1px solid rgba(250,204,21,.28);color:#fde68a;font-size:11px;font-weight:1000;text-transform:uppercase}.model h3{margin:9px 0 5px;font-size:18px}.model p{margin:0;color:var(--muted);font-size:13px;line-height:1.48;font-weight:700}.model-actions{margin-top:10px;display:flex;gap:6px}.model-actions .btn{min-height:40px;padding:0 12px;font-size:13px;flex:1}.links{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}footer{padding:18px 0 28px;color:var(--muted);font-size:12px;text-align:center;font-weight:700}html[dir="rtl"] body{text-align:right}html[dir="rtl"] .featured-visual span{direction:rtl}
-    @media(max-width:760px){.topin{align-items:flex-start}.brand{width:100%}.lang{width:100%;grid-template-columns:repeat(4,minmax(0,1fr));min-width:0}.featured-card{grid-template-columns:1fr}.featured-visual{min-height:210px;order:-1}.info-grid,.models{grid-template-columns:1fr}.featured-actions,.links{display:grid}.btn{width:100%}}
-  </style>
-  <script src="./resto-i18n.js?v=20260730-resto7a" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DIGIY RESTO · Standard DIGIYLYFE V2 · 2 fiches · Atelier</title>
+<style>
+:root{--green:#073f32;--green2:#0d634b;--gold:#d8ad46;--cream:#f6f1e5;--paper:#fffefa;--ink:#173b31;--muted:#6e8179;--line:#dfe8e2}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--cream);color:var(--ink)}
+header{background:var(--green);color:#fff;border-bottom:4px solid var(--gold);padding:16px 14px}
+.wrap{max-width:980px;margin:auto}
+.headtop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.brandmark{font-size:26px} .brand{font-weight:950;font-size:22px} .sub{font-size:11px;color:#eadfae;margin-top:3px}
+.zero{border:1px solid var(--gold);border-radius:999px;padding:7px 10px;color:#f2d77e;font-size:10px;font-weight:900;text-align:center;white-space:nowrap}
+.nav,.langs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.nav a,.langs button{border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:999px;padding:6px 9px;font-size:9px;font-weight:850;text-decoration:none;cursor:pointer}
+.langs button{background:#fffefa;color:var(--green);border-color:#e1e8e4} .langs button.active{background:var(--gold);border-color:var(--gold)}
+.join{margin-top:10px;display:flex;justify-content:space-between;gap:10px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(216,173,70,.55);border-radius:13px;padding:9px 10px}
+.join div{display:flex;flex-direction:column;gap:2px} .join strong{font-size:11px} .join span{font-size:9px;color:#e8e2ca}
+.join a{background:var(--gold);color:var(--green);text-decoration:none;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:950;text-align:center}
+main{max-width:980px;margin:auto;padding:16px 8px 40px}
+.section{display:flex;align-items:center;gap:9px;margin-bottom:9px} .section .ico{width:38px;height:38px;background:#e4efe8;border-radius:50%;display:grid;place-items:center}
+.section h1{font-size:18px;margin:0} .section p{font-size:10px;color:var(--muted);margin:2px 0 0}
+.doctrine{background:#fff8df;border:1px solid #ead28a;border-left:4px solid var(--gold);border-radius:11px;padding:9px 10px;font-size:9px;line-height:1.35;color:#5e5124;margin-bottom:10px}
+.doctrine strong{display:block;color:var(--green);font-size:10px;margin-bottom:3px}
+.listing{display:grid;grid-template-columns:34% 66%;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:10px 0;box-shadow:0 7px 18px rgba(7,63,50,.07)}
+.visual{position:relative;display:block;min-height:390px;background:#dce5df;overflow:hidden} .visual img{width:100%;height:100%;object-fit:cover;display:block}
+.visual-hint{position:absolute;bottom:7px;left:6px;right:6px;background:rgba(7,63,50,.9);color:#fff;border-radius:999px;padding:6px 5px;text-align:center;font-size:8px;font-weight:900}
+.info{padding:10px 9px} .eyebrow{color:var(--gold);font-size:7px;font-weight:950;letter-spacing:.7px;margin:0 0 3px}
+.name-row{display:block} h2{font-size:17px;margin:0;color:var(--green);line-height:1.05} .activity{font-size:9px;color:var(--muted);margin:3px 0}
+.area{display:inline-block;background:#e8f1eb;border-radius:999px;padding:4px 6px;font-size:8px;font-weight:850}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin:7px 0 5px} .chip{font-size:7.5px;background:#eef4f0;border:1px solid #dfe8e2;border-radius:999px;padding:4px 5px;font-weight:750}
+.desc,.rule{font-size:8.5px;line-height:1.3;color:var(--muted);margin:5px 0} .rule{border-left:2px solid var(--gold);padding-left:6px}
+.direct{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:7px 0;margin:7px 0;display:grid;gap:3px}
+.direct div{display:grid;grid-template-columns:1.05fr .95fr;gap:4px;font-size:8px} .direct strong{color:var(--green);font-size:8.5px}
+.qrrow{display:flex;gap:7px;align-items:center;background:#edf5ef;border-radius:9px;padding:7px} .qr{width:54px;height:54px;background:white;padding:2px;border-radius:5px}
+.qrrow div{display:flex;flex-direction:column;gap:3px} .qrrow strong{font-size:8.5px} .qrrow span{font-size:7.5px;color:var(--muted);line-height:1.2}
+.actions{display:grid;grid-template-columns:1fr;gap:5px;margin-top:7px} .btn{text-decoration:none;border-radius:999px;padding:8px 7px;text-align:center;font-size:9px;font-weight:950}
+.primary{background:var(--green);color:#fff} .secondary{border:1px solid var(--green2);color:var(--green2);background:#fff} .whatsapp{border:1px solid #1d8b57;color:#1d8b57;background:#fff}
+footer{text-align:center;color:var(--muted);font-size:8px;padding:18px 5px}
+html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-right:2px solid var(--gold);padding-left:0;padding-right:6px}
+@media(min-width:651px){
+  main{padding:22px 14px 50px} .listing{grid-template-columns:34% 66%;border-radius:20px} .visual{min-height:440px} .info{padding:18px}
+  h2{font-size:25px} .activity{font-size:13px} .area{font-size:11px} .chip{font-size:11px;padding:6px 9px}
+  .desc,.rule{font-size:12px} .direct{grid-template-columns:repeat(3,1fr);gap:7px;padding:12px 0;margin:13px 0} .direct div{display:flex;flex-direction:column;text-align:center;font-size:10px}
+  .direct strong{font-size:11px} .qr{width:74px;height:74px} .qrrow strong{font-size:12px} .qrrow span{font-size:11px}
+  .actions{grid-template-columns:repeat(2,1fr);gap:8px} .btn{font-size:11px;padding:10px}
+  .doctrine{font-size:11px;padding:11px 12px} .section h1{font-size:22px} .section p{font-size:13px}
+}
+@media(max-width:380px){.listing{grid-template-columns:32% 68%} .visual{min-height:370px} .info{padding:8px 7px} h2{font-size:16px} .chip{font-size:7px;padding:3px 4px} .qr{width:48px;height:48px}}
+</style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap topin">
-    <a class="brand" href="https://digiylyfe.com/">
-      <div class="logo">🍽️</div>
-      <div><b>DIGIY RESTO</b><span data-i18n="brandSub">Restaurants visibles · contact direct</span></div>
-    </a>
-    <nav class="lang" data-language-bar aria-label="Choisir la langue">
-      <button type="button" data-resto-lang="fr" class="active" aria-pressed="true">🇫🇷 FR</button>
-      <button type="button" data-resto-lang="en" aria-pressed="false">🇬🇧 EN</button>
-      <button type="button" data-resto-lang="es" aria-pressed="false">🇪🇸 ES</button>
-      <button type="button" data-resto-lang="de" aria-pressed="false">🇩🇪 DE</button>
-      <button type="button" data-resto-lang="it" aria-pressed="false">🇮🇹 IT</button>
-      <button type="button" data-resto-lang="nl" aria-pressed="false">🇳🇱 NL</button>
-      <button type="button" data-resto-lang="ar" aria-pressed="false">🌙 AR</button>
-    </nav>
+<header>
+<div class="wrap">
+  <div class="headtop">
+    <div><div class="brandmark">🍽️</div><div class="brand">DIGIY RESTO</div><div class="sub">Adhérents · restaurants · contact direct</div></div>
+    <div class="zero">0 % COMMISSION<br>DIGIYLYFE</div>
   </div>
+  <div class="nav">
+    <a href="https://digiylyfe.com/?lang=fr" target="_blank">🌍 DIGIYLYFE</a>
+    <a href="https://resto.digiylyfe.com/" target="_blank">🍽️ DIGIY RESTO</a>
+  </div>
+  <div class="langs" id="langs">
+    <button data-lang="fr" class="active">🇫🇷 FR</button><button data-lang="en">🇬🇧 EN</button><button data-lang="es">🇪🇸 ES</button><button data-lang="pt">🇵🇹 PT</button>
+    <button data-lang="de">🇩🇪 DE</button><button data-lang="it">🇮🇹 IT</button><button data-lang="nl">🇳🇱 NL</button><button data-lang="ar">🇸🇦 AR</button>
+  </div>
+  <div class="join">
+    <div><strong data-i18n="joinq">Vous avez un restaurant ?</strong><span data-i18n="jointext">Rejoignez DIGIYLYFE comme adhérent RESTO et préparez votre carte de visite numérique.</span></div>
+    <a href="https://digiylyfe.com/tarifs-adherents.html" target="_blank" data-i18n="join">DEMANDE D’ADHÉSION · 28 000 FCFA / mois</a>
+  </div>
+</div>
 </header>
+<main>
+  <section class="section"><div class="ico">🛍️</div><div><h1 data-i18n="title">DIGIY RESTO · ADHÉRENTS</h1><p data-i18n="subtitle">Restaurants · Contact direct · Paiement direct</p></div></section>
+  <div class="doctrine"><strong>🛡️ <span data-i18n="role">RÔLE DE DIGIYLYFE</span></strong><span data-i18n="doctrine">DIGIYLYFE publie la présence numérique de ses adhérents. Chaque restaurateur reste seul responsable de son établissement, de sa cuisine, de ses menus, de ses prix, de ses horaires, de ses obligations professionnelles et administratives, de ses réservations et de la prestation fournie à ses clients. DIGIYLYFE ne réalise pas la restauration et ne perçoit pas le paiement des repas.</span></div>
+  
+    
+    
+    <article class="listing">
+      <a class="visual" href="fiche-le-malraux.html" aria-label="Voir la fiche Le Malraux">
+        <img src="https://malraux-entre2.digiylyfe.com/photos/malraux-salle.jpg" alt="Le Malraux · Sarlat">
+        <span class="visual-hint">↗ <span data-i18n="fiche">VOIR LA FICHE</span></span>
+      </a>
+      <div class="info">
+        <p class="eyebrow" data-i18n="tag">ADHÉRENT DIGIYLYFE</p>
+        <div class="name-row">
+          <div>
+            <h2>LE MALRAUX</h2>
+            <p class="activity">Restaurant traditionnel · Gastronomie périgourdine</p>
+          </div>
+          <span class="area">📍 Sarlat-la-Canéda</span>
+        </div>
 
-<main class="wrap">
-  <section class="hero">
-    <div class="hero-card">
-      <span class="kicker" data-i18n="kicker">Vitrine des restaurants DIGIY</span>
-      <h1 data-i18n-html="heroTitle">Découvre un restaurant. <span>Entre directement dans sa fiche.</span></h1>
-      <p class="lead" data-i18n="heroLead">DIGIY RESTO présente les restaurants réellement publiés. La carte, les horaires, les réservations et les contacts restent dans la fiche de chaque établissement.</p>
-      <div class="pill-row">
-        <span class="pill" data-i18n="pill1">Paiement direct</span>
-        <span class="pill" data-i18n="pill2">0% commission DIGIY</span>
-        <span class="pill" data-i18n="pill3">Le restaurant confirme</span>
-      </div>
-    </div>
-  </section>
+        <div class="chips">
+          <span class="chip">Cuisine périgourdine</span>
+          <span class="chip">Foie gras maison</span>
+          <span class="chip">Confit de canard</span>
+          <span class="chip">Terrasse</span>
+        </div>
 
-  <section class="featured" aria-label="Restaurants publiés">
-    <article class="featured-card">
-      <div class="featured-copy">
-        <span class="real-badge" data-i18n="realBadge">Restaurant réellement publié</span>
-        <h2>🇫🇷 Malraux & Entre2</h2>
-        <p data-i18n="sarlatText">Sarlat-la-Canéda · Périgord. Ouvre la fiche pour découvrir l’établissement, consulter ses informations et utiliser ses contacts directs.</p>
-        <div class="featured-actions">
-          <a class="btn btn-main" href="https://malraux-entre2.digiylyfe.com/" target="_blank" rel="noopener noreferrer" data-i18n="openProfile">Voir la fiche du restaurant →</a>
-          <a class="btn btn-soft" href="https://digiylyfe.com/" data-i18n="backDigiy">Retour DIGIYLYFE</a>
+        <p class="desc">Restaurant traditionnel au cœur de Sarlat-la-Canéda, cuisine périgourdine et produits du terroir.</p>
+        <p class="rule">Menus, horaires, disponibilité et réservation : accord direct avec Le Malraux, sous sa responsabilité.</p>
+
+        <div class="direct">
+          <div><strong data-i18n="contact">Contact direct</strong><span>+33 6 42 16 06 57</span></div>
+          <div><strong data-i18n="payment">Paiement direct</strong><span>au restaurant</span></div>
+          <div><strong>0 %</strong><span data-i18n="commission">commission DIGIYLYFE</span></div>
+        </div>
+
+        <div class="qrrow">
+          <img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAAB10lEQVR4nO2YMW4bQQxF35gLuKRuRN8gRzJ8s9FRfIAA3DIAhZ9iRk4K26kCszChQhKbh7/kJ7lDfBi3h49z8J38d/IcY4yD6+0CXDkHMMYY46kjLSGJ8/k4xwEHACYpG2p7AINYP36NADh/cF7sZ0Pat+QVF/5SPvHZAeizpE/LK8QYT7dLB6B34wC0yzV4HVYcBS7OhrQoASzj7w8AUQ1pVyQQJlmG7b/UkTZDCzLBJy5LTBPvSYtllAsCF65yKbGe2mrev6gI01SGMrpqG6YpySSTtshg2bTLIEyzFiFRLuvbZeCzCEssKSgXrqYOllgGPsunNJVI05LqWrcF5VMZ5dvKymfLun2A66PmY3K78Pg6Fjnnc30d0CchzT+uRQDlMvXUdtksLEl9FlEEPpt2mSY+lzOYpIzVa02nw54L0xLlsl/U1xOQZrmkZQuzfPlYT9qQJuwuU7LHRFNtY88v7qvjmsJNtWVt4KYNfLeIlrT7dgjbnLG8t6nfJqznTqz9FsIa77fSfXjdt6++t0PGuh/L57p0ltot6/YteT3OZ3sdnE/jQgFnz7d2KwIowF9Wrx1fDfRuvNXt2mT2/bhqoyMt7Hc1mGa5gHWn96Md32/y/1vyN4hCpUOb+tCDAAAAAElFTkSuQmCC" alt="QR Le Malraux">
+          <div>
+            <strong>QR · LE MALRAUX</strong>
+            <span>Scannez pour ouvrir sa présence DIGIYLYFE.</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="fiche-le-malraux.html" data-i18n="fiche">VOIR LA FICHE</a>
+          <a class="btn secondary" href="https://malraux-entre2.digiylyfe.com/" target="_blank" rel="noopener" data-i18n="site">VOIR LE SITE</a>
+          <a class="btn whatsapp" href="tel:+33642160657">📞 APPELER</a>
         </div>
       </div>
-      <div class="featured-visual" aria-hidden="true"><span data-i18n="sarlatVisual">Porte réelle · Sarlat · Malraux & Entre2</span></div>
     </article>
-  </section>
 
-  <section class="info">
-    <details>
-      <summary data-i18n="discover">☰ Découvrir DIGIY RESTO</summary>
-      <div class="info-body">
-        <div class="info-grid">
-          <div class="info-card"><b data-i18n="info1t">🍽️ Une fiche par restaurant</b><span data-i18n="info1x">Chaque établissement garde ses propres photos, sa carte, ses horaires et ses moyens de contact.</span></div>
-          <div class="info-card"><b data-i18n="info2t">🤝 Relation directe</b><span data-i18n="info2x">Le client contacte le restaurant. Le professionnel confirme lui-même la réservation ou la commande.</span></div>
-          <div class="info-card"><b data-i18n="info3t">💳 Argent au restaurateur</b><span data-i18n="info3x">DIGIY ne prend aucune commission sur la réservation, la vente ou le paiement.</span></div>
+    <article class="listing">
+      <a class="visual" href="fiche-lentre2.html" aria-label="Voir la fiche L’Entre 2">
+        <img src="https://malraux-entre2.digiylyfe.com/photos/entre2-terrasse.jpg" alt="L’Entre 2 · Sarlat">
+        <span class="visual-hint">↗ <span data-i18n="fiche">VOIR LA FICHE</span></span>
+      </a>
+      <div class="info">
+        <p class="eyebrow" data-i18n="tag">ADHÉRENT DIGIYLYFE</p>
+        <div class="name-row">
+          <div>
+            <h2>L’ENTRE 2</h2>
+            <p class="activity">Brasserie · Pizzeria · Terrasse cathédrale</p>
+          </div>
+          <span class="area">📍 Sarlat-la-Canéda</span>
         </div>
 
-        <h2 class="section-title" data-i18n="modelsTitle">📸 Modèles de vitrines — exemples à prendre</h2>
-        <p style="color:var(--muted);font-size:14px;line-height:1.5;font-weight:700;margin-top:-6px;margin-bottom:12px" data-i18n="modelsSub">Ces formats montrent ce que chaque restaurant peut adapter à sa propre activité.</p>
-
-        <div class="models">
-          <article class="model">
-            <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80" alt="Restaurant local" loading="lazy">
-            <div class="model-body"><span class="model-label" data-i18n="example">Exemple</span><h3 data-i18n="m1t">Restaurant local</h3><p data-i18n="m1x">Photos, carte courte, horaires et contact direct.</p><div class="model-actions"><a class="btn btn-main" href="./inscription.html?lang=fr" data-signup data-i18n="signupShort">🍽️ Demander</a><a class="btn btn-soft" href="https://wa.me/221771342889" data-wa="model" target="_blank" rel="noopener" data-i18n="waExample">💬 Exemple</a></div></div>
-          </article>
-          <article class="model">
-            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Pizzeria terrasse" loading="lazy">
-            <div class="model-body"><span class="model-label" data-i18n="example">Exemple</span><h3 data-i18n="m2t">Pizzeria · terrasse</h3><p data-i18n="m2x">Ambiance, plats forts, horaires et demande de table.</p><div class="model-actions"><a class="btn btn-main" href="./inscription.html?lang=fr" data-signup data-i18n="signupShort">🍽️ Demander</a><a class="btn btn-soft" href="https://wa.me/221771342889" data-wa="model" target="_blank" rel="noopener" data-i18n="waExample">💬 Exemple</a></div></div>
-          </article>
-          <article class="model">
-            <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=800&q=80" alt="Cuisine fraîche" loading="lazy">
-            <div class="model-body"><span class="model-label" data-i18n="example">Exemple</span><h3 data-i18n="m3t">Cuisine fraîche</h3><p data-i18n="m3x">Photos propres, plats, horaires et contact humain.</p><div class="model-actions"><a class="btn btn-main" href="./inscription.html?lang=fr" data-signup data-i18n="signupShort">🍽️ Demander</a><a class="btn btn-soft" href="https://wa.me/221771342889" data-wa="model" target="_blank" rel="noopener" data-i18n="waExample">💬 Exemple</a></div></div>
-          </article>
+        <div class="chips">
+          <span class="chip">Brasserie</span>
+          <span class="chip">Pizzeria</span>
+          <span class="chip">Pizzas artisanales</span>
+          <span class="chip">Terrasse cathédrale</span>
         </div>
 
-        <div class="links">
-          <a class="btn btn-main" href="./inscription.html?lang=fr" data-signup target="_blank" rel="noopener noreferrer" data-i18n="signup">🍽️ Inscrire un restaurant</a>
-          <a class="btn btn-soft" href="https://wa.me/221771342889" data-wa="activate" target="_blank" rel="noopener noreferrer" data-i18n="waSn">WhatsApp Sénégal</a>
-          <a class="btn btn-soft" href="https://wa.me/33638329423" data-wa="activate" target="_blank" rel="noopener noreferrer" data-i18n="waFr">WhatsApp France</a>
-          <a class="btn btn-soft" href="./lexique-resto.html" target="_blank" rel="noopener noreferrer" data-i18n="wolof">🇸🇳 Lexique Wolof RESTO</a>
+        <p class="desc">Brasserie et pizzeria face à la cathédrale Saint-Sacerdos de Sarlat-la-Canéda.</p>
+        <p class="rule">Menus, horaires, disponibilité et réservation : accord direct avec L’Entre 2, sous sa responsabilité.</p>
+
+        <div class="direct">
+          <div><strong data-i18n="contact">Contact direct</strong><span>+33 6 73 27 44 27</span></div>
+          <div><strong data-i18n="payment">Paiement direct</strong><span>au restaurant</span></div>
+          <div><strong>0 %</strong><span data-i18n="commission">commission DIGIYLYFE</span></div>
+        </div>
+
+        <div class="qrrow">
+          <img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeAQAAAAB6HIMaAAABwUlEQVR4nO2YQWocQQxF30QDXsqQAymQA+RIwTfTHCUHMGj2Mj+Lqp4xOMarYC1cFE13afOoVn390km8O16+vR+Dr+BHQVQAJkmyivbE135HT6QNSabE1Z62P6UaSgthBewXVVhhE2lvwcBTemri7DkB6F/jfHuzPyeIC/RjfSLQh7SCM5f+Lrj87MtDg4vrQNpDEypeT2CoJqxRmGTrfO0lTaStAEx5TNleGUrbIImDHBeeIxUMVeCyCikhpFTFWpxIq1xPU7arPVeNGLq3SitM2QekKVX0TE2oUIUKiPZsol0mDVWwLbDRLkDKtds9M29rT2ADF0t1J9IepWEdtyakbGKsY7wR3lNirN4qTYknnrDqL01MzYT931W0y2qtMLU6CM9VzkxLu9BgTVh3sYZ12VlZMfaUHTbm0IdisN6GSX2UiVWFd2kbSYvLClymXBfepWMTae93h7SCwzkM1duC1aupYBvIsLH+djVniva9t01orL/dvZrAtdL15nDm0b4KXk/tT+fr6fSICq4/Phvo7bj3avB6uf6250d7/nXyfNDA/u29x7hETPs51dUUwPJd7bkMOa6ReXv66uT/t+BfENC7kq2aaZkAAAAASUVORK5CYII=" alt="QR L’Entre 2">
+          <div>
+            <strong>QR · L’ENTRE 2</strong>
+            <span>Scannez pour ouvrir sa présence DIGIYLYFE.</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="fiche-lentre2.html" data-i18n="fiche">VOIR LA FICHE</a>
+          <a class="btn secondary" href="https://malraux-entre2.digiylyfe.com/" target="_blank" rel="noopener" data-i18n="site">VOIR LE SITE</a>
+          <a class="btn whatsapp" href="tel:+33673274427">📞 APPELER</a>
         </div>
       </div>
-    </details>
-  </section>
-</main>
+    </article>
 
-<footer class="wrap" data-i18n="footer">DIGIY RESTO · restaurants publiés · contact direct · paiement direct · 0% commission.</footer>
+  <footer data-i18n="footer">MAQUETTE ATELIER RESTO V2 · 2 RESTAURANTS = 2 FICHES · MÊME MOULE STANDARD · MOBILE-FIRST · 8 LANGUES · ADHÉSION 28 000 · Aucun logiciel public · Aucun push.</footer>
+</main>
+<script>
+const T = {"fr": {"tag": "ADHÉRENT DIGIYLYFE", "title": "DIGIY RESTO · ADHÉRENTS", "subtitle": "Restaurants · Contact direct · Paiement direct", "joinq": "Vous avez un restaurant ?", "join": "DEMANDE D’ADHÉSION · 28 000 FCFA / mois", "jointext": "Rejoignez DIGIYLYFE comme adhérent RESTO et préparez votre carte de visite numérique.", "role": "RÔLE DE DIGIYLYFE", "doctrine": "DIGIYLYFE publie la présence numérique de ses adhérents. Chaque restaurateur reste seul responsable de son établissement, de sa cuisine, de ses menus, de ses prix, de ses horaires, de ses obligations professionnelles et administratives, de ses réservations et de la prestation fournie à ses clients. DIGIYLYFE ne réalise pas la restauration et ne perçoit pas le paiement des repas.", "contact": "Contact direct", "payment": "Paiement direct", "merchant": "au commerçant", "commission": "commission DIGIYLYFE", "availability": "Produits, disponibilité, prix et conditions : accord direct avec le commerçant, sous sa responsabilité.", "qr": "Scannez pour ouvrir et conserver sa présence DIGIYLYFE.", "card": "VOIR LA CARTE", "fiche": "VOIR LA FICHE", "site": "VOIR LE SITE", "wa": "WhatsApp direct", "footer": "MAQUETTE ATELIER RESTO V2 · 2 RESTAURANTS = 2 FICHES · MÊME MOULE STANDARD · MOBILE-FIRST · 8 LANGUES · ADHÉSION 28 000 · Aucun logiciel public · Aucun push."}, "en": {"tag": "DIGIYLYFE MEMBER", "title": "DIGIY RESTO · MEMBERS", "subtitle": "Restaurants · Direct contact · Direct payment", "joinq": "Do you run a restaurant?", "join": "MEMBERSHIP REQUEST · 28,000 FCFA / month", "jointext": "Join DIGIYLYFE as a RESTO member and prepare your digital business card.", "role": "ROLE OF DIGIYLYFE", "doctrine": "DIGIYLYFE publishes the digital presence of its members. Each restaurant remains solely responsible for its establishment, food, menus, prices, opening hours, professional and administrative obligations, reservations and service to customers. DIGIYLYFE does not provide restaurant services and does not collect meal payments.", "contact": "Direct contact", "payment": "Direct payment", "merchant": "to merchant", "commission": "DIGIYLYFE commission", "availability": "Products, availability, prices and conditions: agreed directly with the merchant, under their responsibility.", "qr": "Scan to open and save their DIGIYLYFE presence.", "card": "VIEW CARD", "fiche": "VIEW PROFILE", "site": "VIEW SITE", "wa": "Direct WhatsApp", "footer": "WORKSHOP MOCKUP · MOBILE-FIRST · 8 LANGUAGES · MEMBERS · No public software · No push."}, "es": {"tag": "MIEMBRO DIGIYLYFE", "title": "DIGIY RESTO · MIEMBROS", "subtitle": "Restaurantes · Contacto directo · Pago directo", "joinq": "¿Tienes un restaurante?", "join": "SOLICITUD DE ADHESIÓN · 28 000 FCFA / mes", "jointext": "Únete a DIGIYLYFE como miembro y prepara tu tarjeta de visita digital.", "role": "PAPEL DE DIGIYLYFE", "doctrine": "DIGIYLYFE publica la presencia digital de sus miembros. Cada comerciante es el único responsable de su actividad, productos, precios, obligaciones, stock, ventas, entregas y compromisos con sus clientes. DIGIYLYFE no vende en su nombre ni cobra sus ventas.", "contact": "Contacto directo", "payment": "Pago directo", "merchant": "al comerciante", "commission": "comisión DIGIYLYFE", "availability": "Productos, disponibilidad, precios y condiciones: acuerdo directo con el comerciante, bajo su responsabilidad.", "qr": "Escanea para abrir y guardar su presencia DIGIYLYFE.", "card": "VER TARJETA", "fiche": "VER FICHA", "site": "VER SITIO", "wa": "WhatsApp directo", "footer": "MAQUETA DE TALLER · MOBILE-FIRST · 8 IDIOMAS · MIEMBROS · Sin software público · Sin push."}, "pt": {"tag": "MEMBRO DIGIYLYFE", "title": "DIGIY RESTO · MEMBROS", "subtitle": "Restaurantes · Contacto direto · Pagamento direto", "joinq": "Tem um restaurante?", "join": "PEDIDO DE ADESÃO · 28 000 FCFA / mês", "jointext": "Junte-se à DIGIYLYFE como membro e prepare o seu cartão de visita digital.", "role": "PAPEL DA DIGIYLYFE", "doctrine": "A DIGIYLYFE publica a presença digital dos seus membros. Cada comerciante é o único responsável pela sua atividade, produtos, preços, obrigações, stock, vendas, entregas e compromissos com os clientes. A DIGIYLYFE não vende em seu nome nem recebe o pagamento das suas vendas.", "contact": "Contacto direto", "payment": "Pagamento direto", "merchant": "ao comerciante", "commission": "comissão DIGIYLYFE", "availability": "Produtos, disponibilidade, preços e condições: acordo direto com o comerciante, sob a sua responsabilidade.", "qr": "Digitalize para abrir e guardar a presença DIGIYLYFE.", "card": "VER CARTÃO", "fiche": "VER FICHA", "site": "VER SITE", "wa": "WhatsApp direto", "footer": "MAQUETE DE OFICINA · MOBILE-FIRST · 8 IDIOMAS · MEMBROS · Sem software público · Sem push."}, "de": {"tag": "DIGIYLYFE MITGLIED", "title": "DIGIY RESTO · MITGLIEDER", "subtitle": "Restaurants · Direkter Kontakt · Direkte Zahlung", "joinq": "Sie haben ein Restaurant?", "join": "MITGLIEDSCHAFT ANFRAGEN · 28.000 FCFA / Monat", "jointext": "Werden Sie DIGIYLYFE-Mitglied und erstellen Sie Ihre digitale Visitenkarte.", "role": "ROLLE VON DIGIYLYFE", "doctrine": "DIGIYLYFE veröffentlicht die digitale Präsenz seiner Mitglieder. Jeder Händler ist allein verantwortlich für Tätigkeit, Produkte, Preise, Pflichten, Bestand, Verkäufe, Lieferungen und Zusagen gegenüber Kunden. DIGIYLYFE verkauft nicht in seinem Namen und nimmt keine Zahlungen für seine Verkäufe entgegen.", "contact": "Direkter Kontakt", "payment": "Direkte Zahlung", "merchant": "an den Händler", "commission": "DIGIYLYFE Provision", "availability": "Produkte, Verfügbarkeit, Preise und Bedingungen: direkte Vereinbarung mit dem Händler in dessen Verantwortung.", "qr": "Scannen, um die DIGIYLYFE-Präsenz zu öffnen und zu speichern.", "card": "KARTE ANSEHEN", "fiche": "PROFIL ANSEHEN", "site": "WEBSITE", "wa": "WhatsApp direkt", "footer": "WERKSTATT-MOCKUP · MOBILE-FIRST · 8 SPRACHEN · MITGLIEDER · Keine öffentliche Software · Kein Push."}, "it": {"tag": "ADERENTE DIGIYLYFE", "title": "DIGIY RESTO · ADERENTI", "subtitle": "Ristoranti · Contatto diretto · Pagamento diretto", "joinq": "Hai un ristorante?", "join": "RICHIESTA DI ADESIONE · 28 000 FCFA / mese", "jointext": "Entra in DIGIYLYFE come aderente e prepara il tuo biglietto da visita digitale.", "role": "RUOLO DI DIGIYLYFE", "doctrine": "DIGIYLYFE pubblica la presenza digitale dei suoi aderenti. Ogni commerciante resta l'unico responsabile della propria attività, prodotti, prezzi, obblighi, scorte, vendite, consegne e impegni verso i clienti. DIGIYLYFE non vende al suo posto e non incassa i pagamenti delle sue vendite.", "contact": "Contatto diretto", "payment": "Pagamento diretto", "merchant": "al commerciante", "commission": "commissione DIGIYLYFE", "availability": "Prodotti, disponibilità, prezzi e condizioni: accordo diretto con il commerciante, sotto la sua responsabilità.", "qr": "Scansiona per aprire e salvare la presenza DIGIYLYFE.", "card": "VEDI BIGLIETTO", "fiche": "VEDI SCHEDA", "site": "VEDI SITO", "wa": "WhatsApp diretto", "footer": "MOCKUP OFFICINA · MOBILE-FIRST · 8 LINGUE · ADERENTI · Nessun software pubblico · Nessun push."}, "nl": {"tag": "DIGIYLYFE LID", "title": "DIGIY RESTO · LEDEN", "subtitle": "Restaurants · Direct contact · Direct betalen", "joinq": "Heb je een restaurant?", "join": "LIDMAATSCHAP AANVRAGEN · 28.000 FCFA / maand", "jointext": "Word lid van DIGIYLYFE en maak je digitale visitekaart klaar.", "role": "ROL VAN DIGIYLYFE", "doctrine": "DIGIYLYFE publiceert de digitale aanwezigheid van zijn leden. Elke handelaar blijft zelf verantwoordelijk voor zijn activiteit, producten, prijzen, verplichtingen, voorraad, verkoop, leveringen en afspraken met klanten. DIGIYLYFE verkoopt niet namens hem en ontvangt geen betalingen voor zijn verkopen.", "contact": "Direct contact", "payment": "Direct betalen", "merchant": "aan handelaar", "commission": "DIGIYLYFE commissie", "availability": "Producten, beschikbaarheid, prijzen en voorwaarden: rechtstreeks afgesproken met de handelaar, onder diens verantwoordelijkheid.", "qr": "Scan om de DIGIYLYFE-pagina te openen en te bewaren.", "card": "BEKIJK KAART", "fiche": "BEKIJK FICHE", "site": "BEKIJK SITE", "wa": "WhatsApp direct", "footer": "WERKPLAATS MOCKUP · MOBILE-FIRST · 8 TALEN · LEDEN · Geen publieke software · Geen push."}, "ar": {"tag": "عضو DIGIYLYFE", "title": "DIGIY RESTO · الأعضاء", "subtitle": "مطاعم · تواصل مباشر · دفع مباشر", "joinq": "هل لديك مطعم؟", "join": "طلب العضوية · 28,000 فرنك CFA / شهر", "jointext": "انضم إلى DIGIYLYFE كعضو وجهّز بطاقة عملك الرقمية.", "role": "دور DIGIYLYFE", "doctrine": "تنشر DIGIYLYFE الحضور الرقمي لأعضائها. يبقى كل تاجر مسؤولاً وحده عن نشاطه ومنتجاته وأسعاره والتزاماته ومخزونه ومبيعاته وتسليماته وتعهداته تجاه العملاء. لا تبيع DIGIYLYFE نيابة عنه ولا تستلم مدفوعات مبيعاته.", "contact": "تواصل مباشر", "payment": "دفع مباشر", "merchant": "للتاجر", "commission": "عمولة DIGIYLYFE", "availability": "المنتجات والتوفر والأسعار والشروط: اتفاق مباشر مع التاجر وتحت مسؤوليته.", "qr": "امسح الرمز لفتح وحفظ حضور DIGIYLYFE.", "card": "عرض البطاقة", "fiche": "عرض الصفحة", "site": "عرض الموقع", "wa": "واتساب مباشر", "footer": "نموذج ورشة · للهاتف أولاً · 8 لغات · أعضاء · بدون برنامج عام · بدون نشر."}};
+function setLang(lang){
+  if(!T[lang]) lang='fr';
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.dataset.i18n; if(T[lang][k]) el.textContent=T[lang][k];
+  });
+  document.querySelectorAll('#langs button').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  const u=new URL(location.href); u.searchParams.set('lang',lang); history.replaceState(null,'',u);
+}
+document.querySelectorAll('#langs button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+setLang(new URLSearchParams(location.search).get('lang')||'fr');
+</script>
 </body>
 </html>
