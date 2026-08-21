@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>DIGIY RESTO · Standard DIGIYLYFE V2 · 2 fiches · Atelier</title>
+<meta name="theme-color" content="#073f32">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="DIGIY RESTO">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="https://digiylyfe.com/icon-192.png?v=20260713">
 <style>
 :root{--green:#073f32;--green2:#0d634b;--gold:#d8ad46;--cream:#f6f1e5;--paper:#fffefa;--ink:#173b31;--muted:#6e8179;--line:#dfe8e2}
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--cream);color:var(--ink)}
@@ -78,7 +84,7 @@ html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-r
     
     
     <article class="listing">
-      <a class="visual" href="fiche-le-malraux.html" aria-label="Voir la fiche Le Malraux">
+      <a class="visual" href="https://malraux-entre2.digiylyfe.com/" target="_blank" rel="noopener" aria-label="Voir la fiche Le Malraux">
         <img src="https://malraux-entre2.digiylyfe.com/photos/malraux-salle.jpg" alt="Le Malraux · Sarlat">
         <span class="visual-hint">↗ <span data-i18n="fiche">VOIR LA FICHE</span></span>
       </a>
@@ -117,7 +123,7 @@ html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-r
         </div>
 
         <div class="actions">
-          <a class="btn primary" href="fiche-le-malraux.html" data-i18n="fiche">VOIR LA FICHE</a>
+          <a class="btn primary" href="https://malraux-entre2.digiylyfe.com/" target="_blank" rel="noopener" data-i18n="fiche">VOIR LA FICHE</a>
           <a class="btn secondary" href="https://malraux-entre2.digiylyfe.com/" target="_blank" rel="noopener" data-i18n="site">VOIR LE SITE</a>
           <a class="btn whatsapp" href="tel:+33642160657">📞 APPELER</a>
         </div>
@@ -187,6 +193,13 @@ function setLang(lang){
 }
 document.querySelectorAll('#langs button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
 setLang(new URLSearchParams(location.search).get('lang')||'fr');
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
