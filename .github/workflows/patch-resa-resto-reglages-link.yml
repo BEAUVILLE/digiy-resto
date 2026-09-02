@@ -1,0 +1,37 @@
+name: Raccorder réglages RESA RESTO
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/patch-resa-resto-reglages-link.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Ajouter le lien réglages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('resa-resto/gestion.html')
+          s=p.read_text()
+          old='<a class="back" href="./index.html">← Vue client</a></header>'
+          new='<div style="display:flex;gap:7px;flex-wrap:wrap"><a class="back" href="./reglages.html">⚙️ Réglages facultatifs</a><a class="back" href="./index.html">← Vue client</a></div></header>'
+          if 'href="./reglages.html"' not in s:
+              if old not in s:
+                  raise SystemExit('Point de raccord introuvable')
+              s=s.replace(old,new,1)
+              p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "DIGIY LYFE"
+          git config user.email "baptistejb24@gmail.com"
+          git add resa-resto/gestion.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Raccorder les réglages facultatifs RESA RESTO"
+          git push
