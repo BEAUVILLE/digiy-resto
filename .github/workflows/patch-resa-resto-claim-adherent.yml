@@ -1,0 +1,36 @@
+name: Sécuriser la prise en main adhérent RESA
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/patch-resa-resto-claim-adherent.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Autoriser la première prise en main par email vérifié
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for name,var in [('resa-resto/gestion.html','SITE_SLUG'),('resa-resto/reglages.html','SLUG')]:
+              p=Path(name); s=p.read_text()
+              s=s.replace('options:{shouldCreateUser:false}','options:{shouldCreateUser:true}')
+              needle='async function enter(session){if(!session)return showLogin();'
+              claim=f"await db.rpc('digiy_resa_resto_claim_site_by_email_v1',{{p_slug:{var}}});"
+              if needle in s and claim not in s:
+                  s=s.replace(needle,needle+claim,1)
+              p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "DIGIY LYFE"
+          git config user.email "baptistejb24@gmail.com"
+          git add resa-resto/gestion.html resa-resto/reglages.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Sécuriser la prise en main adhérent RESA"
+          git push
