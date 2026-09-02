@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Ajouter le lien réglages
+      - name: Clarifier les réglages facultatifs
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -21,11 +21,12 @@ jobs:
           s=p.read_text()
           old='<a class="back" href="./index.html">← Vue client</a></header>'
           new='<div style="display:flex;gap:7px;flex-wrap:wrap"><a class="back" href="./reglages.html">⚙️ Réglages facultatifs</a><a class="back" href="./index.html">← Vue client</a></div></header>'
-          if 'href="./reglages.html"' not in s:
-              if old not in s:
-                  raise SystemExit('Point de raccord introuvable')
+          if 'href="./reglages.html"' not in s and old in s:
               s=s.replace(old,new,1)
-              p.write_text(s)
+          s=s.replace('<div class="rule"><strong>Règles actives</strong><br>Table garantie <b>15 minutes</b> après l’heure réservée. Au 1er service, la libération avant le 2e service ne s’applique que si cette table est réellement réservée ensuite.</div>','<div class="rule"><strong>Règles du restaurant</strong><br>Réservation garantie <b>15 minutes</b> après l’heure choisie. Plan détaillé de tables et organisation en 2 services : <b>facultatifs</b> via ⚙️ Réglages.</div>')
+          s=s.replace('<p class="hint">L’adhérent peut modifier ces horaires.</p>','<p class="hint">Horaires modifiables. L’organisation en 2 services est facultative.</p>')
+          s=s.replace('<p class="hint">Chaque grand carré représente un secteur réel du restaurant.</p>','<p class="hint">Structure indicative · facultative. Chaque grand carré peut représenter un secteur réel du restaurant.</p>')
+          p.write_text(s)
           PY
       - name: Commit
         run: |
@@ -33,5 +34,5 @@ jobs:
           git config user.email "baptistejb24@gmail.com"
           git add resa-resto/gestion.html
           git diff --cached --quiet && exit 0
-          git commit -m "Raccorder les réglages facultatifs RESA RESTO"
+          git commit -m "Clarifier les options facultatives RESA RESTO"
           git push
