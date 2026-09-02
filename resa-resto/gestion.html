@@ -16,10 +16,11 @@
 </section></div>
 <script>
 (()=>{'use strict';
-const URL='https://wesqmwjjtsefyjnluosj.supabase.co',KEY='sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3',SITE_SLUG='modele-resa-resto-sarlat',db=supabase.createClient(URL,KEY,{auth:{persistSession:true,detectSessionInUrl:true}}),$=id=>document.getElementById(id);let site=null,zones=[],tables=[],services=[],bookings=[];
+const URL='https://wesqmwjjtsefyjnluosj.supabase.co',KEY='sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3',SITE_SLUG=(new URLSearchParams(location.search).get('site')||'modele-resa-resto-sarlat'),db=supabase.createClient(URL,KEY,{auth:{persistSession:true,detectSessionInUrl:true}}),$=id=>document.getElementById(id);let site=null,zones=[],tables=[],services=[],bookings=[];
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const slugify=s=>String(s||'zone').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||('zone-'+Date.now());
 const msg=(id,t,b=false)=>{$(id).textContent=t||'';$(id).classList.toggle('error',b)};
+const carrySite=()=>document.querySelectorAll('a[href="./reglages.html"],a[href="./index.html"]').forEach(a=>a.href=a.getAttribute('href')+'?site='+encodeURIComponent(SITE_SLUG));carrySite();
 function showLogin(){ $('manager').classList.add('hidden');$('login').classList.remove('hidden') }
 function showManager(email){$('login').classList.add('hidden');$('manager').classList.remove('hidden');$('who').textContent='Connecté : '+email}
 async function enter(session){if(!session)return showLogin();let{data,error}=await db.from('digiy_resa_resto_sites').select('*').eq('slug',SITE_SLUG).maybeSingle();if(error||!data){await db.auth.signOut();showLogin();return msg('loginstatus','⚠️ Ce compte n’est pas autorisé pour ce modèle RESA RESTO.',true)}site=data;$('siteName').textContent='🍽️ '+site.display_name;showManager(session.user.email||'adhérent');await loadAll()}
