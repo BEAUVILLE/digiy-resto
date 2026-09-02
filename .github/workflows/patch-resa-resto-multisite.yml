@@ -1,0 +1,63 @@
+name: Préparer RESA RESTO multi restaurant
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/patch-resa-resto-multisite.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Rendre les portes RESA multi restaurant
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          # Client
+          p=Path('resa-resto/index.html')
+          s=p.read_text()
+          old="SITE='modele-resa-resto-sarlat'"
+          new="SITE=(new URLSearchParams(location.search).get('site')||'modele-resa-resto-sarlat')"
+          if old in s:
+              s=s.replace(old,new,1)
+          p.write_text(s)
+
+          # Gestion
+          p=Path('resa-resto/gestion.html')
+          s=p.read_text()
+          old="SITE_SLUG='modele-resa-resto-sarlat'"
+          new="SITE_SLUG=(new URLSearchParams(location.search).get('site')||'modele-resa-resto-sarlat')"
+          if old in s:
+              s=s.replace(old,new,1)
+          marker="const msg=(id,t,b=false)=>{$(id).textContent=t||'';$(id).classList.toggle('error',b)};"
+          inject=marker+"\nconst carrySite=()=>document.querySelectorAll('a[href=\"./reglages.html\"],a[href=\"./index.html\"]').forEach(a=>a.href=a.getAttribute('href')+'?site='+encodeURIComponent(SITE_SLUG));carrySite();"
+          if marker in s and 'const carrySite=' not in s:
+              s=s.replace(marker,inject,1)
+          p.write_text(s)
+
+          # Réglages
+          p=Path('resa-resto/reglages.html')
+          s=p.read_text()
+          old="SLUG='modele-resa-resto-sarlat'"
+          new="SLUG=(new URLSearchParams(location.search).get('site')||'modele-resa-resto-sarlat')"
+          if old in s:
+              s=s.replace(old,new,1)
+          marker="let site=null;const D=[[1,'Lun'],[2,'Mar'],[3,'Mer'],[4,'Jeu'],[5,'Ven'],[6,'Sam'],[7,'Dim']];"
+          inject="let site=null;document.querySelectorAll('a[href=\"./gestion.html\"],a[href=\"./index.html\"]').forEach(a=>a.href=a.getAttribute('href')+'?site='+encodeURIComponent(SLUG));const D=[[1,'Lun'],[2,'Mar'],[3,'Mer'],[4,'Jeu'],[5,'Ven'],[6,'Sam'],[7,'Dim']];"
+          if marker in s and "encodeURIComponent(SLUG)" not in s:
+              s=s.replace(marker,inject,1)
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "DIGIY LYFE"
+          git config user.email "baptistejb24@gmail.com"
+          git add resa-resto/index.html resa-resto/gestion.html resa-resto/reglages.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Rendre RESA RESTO multi restaurant"
+          git push
