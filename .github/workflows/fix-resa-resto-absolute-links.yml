@@ -1,0 +1,43 @@
+name: Corriger les liens absolus RESA RESTO
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-resa-resto-absolute-links.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Corriger Vue client et Réglages pour usage local ou public
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('resa-resto/gestion.html')
+          s=p.read_text()
+          old='<a class="back" href="./reglages.html">⚙️ Réglages facultatifs</a><a class="back" href="./index.html">← Vue client</a>'
+          new='<a class="back" id="settingsLink" href="https://resto.digiylyfe.com/resa-resto/reglages.html">⚙️ Réglages facultatifs</a><a class="back" id="clientLink" href="https://resto.digiylyfe.com/resa-resto/index.html">← Vue client</a>'
+          if old not in s:
+              raise SystemExit('Bloc de liens attendu introuvable')
+          s=s.replace(old,new,1)
+          oldjs='const carrySite=()=>document.querySelectorAll(\'a[href="./reglages.html"],a[href="./index.html"]\').forEach(a=>a.href=a.getAttribute(\'href\')+\'?site=\'+encodeURIComponent(SITE_SLUG));carrySite();'
+          newjs="const carrySite=()=>{$('settingsLink').href='https://resto.digiylyfe.com/resa-resto/reglages.html?site='+encodeURIComponent(SITE_SLUG);$('clientLink').href='https://resto.digiylyfe.com/resa-resto/index.html?site='+encodeURIComponent(SITE_SLUG)};carrySite();"
+          if oldjs not in s:
+              raise SystemExit('carrySite attendu introuvable')
+          s=s.replace(oldjs,newjs,1)
+          p.write_text(s)
+      - name: Vérifier
+        shell: bash
+        run: |
+          grep -F 'https://resto.digiylyfe.com/resa-resto/index.html?site=' resa-resto/gestion.html
+          grep -F 'https://resto.digiylyfe.com/resa-resto/reglages.html?site=' resa-resto/gestion.html
+      - name: Commit
+        shell: bash
+        run: |
+          git config user.name 'DIGIY LYFE'
+          git config user.email 'baptistejb24@gmail.com'
+          git add resa-resto/gestion.html
+          git commit -m 'Fixer les liens absolus Vue client RESA RESTO'
+          git push
