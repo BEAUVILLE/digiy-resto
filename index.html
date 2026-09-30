@@ -61,10 +61,14 @@ html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-r
 (function(){
   try{
     var h=location.hash||'';
+    var q=location.search||'';
     var pending=localStorage.getItem('digiy_resa_owner_site')||'';
-    if(pending && /(?:access_token|refresh_token|error_description)=/.test(h)){
+    var authReturn=/(?:access_token|refresh_token|error_description)=/.test(h) || /(?:[?&](?:code|token_hash|error|error_code)=)/.test(q);
+    if(pending && authReturn){
       localStorage.removeItem('digiy_resa_owner_site');
-      location.replace('/resa-resto/gestion.html?site='+encodeURIComponent(pending)+h);
+      var sep='?site='+encodeURIComponent(pending);
+      var extra=q ? '&'+q.replace(/^\?/,'') : '';
+      location.replace('/resa-resto/gestion.html'+sep+extra+h);
     }
   }catch(_){}
 })();
