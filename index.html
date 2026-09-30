@@ -57,6 +57,18 @@ html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-r
 </style>
 </head>
 <body>
+<script>
+(function(){
+  try{
+    var h=location.hash||'';
+    var pending=localStorage.getItem('digiy_resa_owner_site')||'';
+    if(pending && /(?:access_token|refresh_token|error_description)=/.test(h)){
+      localStorage.removeItem('digiy_resa_owner_site');
+      location.replace('/resa-resto/gestion.html?site='+encodeURIComponent(pending)+h);
+    }
+  }catch(_){}
+})();
+</script>
 <header>
 <div class="wrap">
   <div class="headtop">
