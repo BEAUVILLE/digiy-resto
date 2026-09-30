@@ -10,6 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="DIGIY RESTO">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="https://digiylyfe.com/icon-192.png?v=20260713">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--green:#073f32;--green2:#0d634b;--gold:#d8ad46;--cream:#f6f1e5;--paper:#fffefa;--ink:#173b31;--muted:#6e8179;--line:#dfe8e2}
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--cream);color:var(--ink)}
@@ -58,18 +59,33 @@ html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-r
 </head>
 <body>
 <script>
-(function(){
+(async function(){
   try{
-    var h=location.hash||'';
-    var q=location.search||'';
-    var pending=localStorage.getItem('digiy_resa_owner_site')||'';
-    var authReturn=/(?:access_token|refresh_token|error_description)=/.test(h) || /(?:[?&](?:code|token_hash|error|error_code)=)/.test(q);
-    if(pending && authReturn){
-      localStorage.removeItem('digiy_resa_owner_site');
-      var sep='?site='+encodeURIComponent(pending);
-      var extra=q ? '&'+q.replace(/^\?/,'') : '';
-      location.replace('/resa-resto/gestion.html'+sep+extra+h);
-    }
+    var pending='';
+    try{pending=localStorage.getItem('digiy_resa_owner_site')||''}catch(_){}
+    var target=pending||'test-resa-resto-saly';
+    var authReturn=/(?:access_token|refresh_token|error_description)=/.test(location.hash||'') || /(?:[?&](?:code|token_hash|error|error_code)=)/.test(location.search||'');
+    if(!authReturn && !pending)return;
+
+    var db=window.supabase.createClient(
+      'https://wesqmwjjtsefyjnluosj.supabase.co',
+      'sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3',
+      {auth:{persistSession:true,detectSessionInUrl:true}}
+    );
+
+    var tries=0;
+    var route=async function(){
+      tries++;
+      var res=await db.auth.getSession();
+      if(res.data&&res.data.session){
+        try{localStorage.removeItem('digiy_resa_owner_site')}catch(_){}
+        location.replace('/resa-resto/gestion.html?site='+encodeURIComponent(target));
+        return true;
+      }
+      if(tries<8){setTimeout(route,250);return false;}
+      return false;
+    };
+    await route();
   }catch(_){}
 })();
 </script>
