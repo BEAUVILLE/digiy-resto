@@ -230,6 +230,52 @@ function setLang(lang){
 }
 document.querySelectorAll('#langs button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
 setLang(new URLSearchParams(location.search).get('lang')||'fr');
+
+function updateRestoMachineMetadata(){
+  const restaurants=[...document.querySelectorAll('article.listing')].map(card=>{
+    const name=(card.querySelector('h2')?.textContent||'').trim();
+    const description=(card.querySelector('.desc')?.textContent||'').trim();
+    const area=(card.querySelector('.area')?.textContent||'').replace(/^📍\s*/,'').trim();
+    const image=card.querySelector('.visual img')?.src||undefined;
+    const profile=card.querySelector('.actions .primary')?.href||card.querySelector('.visual')?.href||undefined;
+    const phoneLink=card.querySelector('a[href^="tel:"]')?.getAttribute('href')||'';
+    const telephone=phoneLink.replace(/^tel:/,'')||undefined;
+    const cuisines=[...card.querySelectorAll('.chips .chip')].map(el=>el.textContent.trim()).filter(Boolean);
+    if(!name) return null;
+    return {
+      "@type":"Restaurant",
+      "name":name,
+      "description":description||undefined,
+      "url":profile,
+      "image":image,
+      "telephone":telephone,
+      "address":area?{"@type":"PostalAddress","addressLocality":area}:undefined,
+      "servesCuisine":cuisines.length?cuisines:undefined
+    };
+  }).filter(Boolean);
+
+  const schema={
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"CollectionPage",
+        "@id":"https://resto.digiylyfe.com/",
+        "name":"DIGIY RESTO — Restaurants · Contact direct",
+        "url":"https://resto.digiylyfe.com/"
+      },
+      ...restaurants
+    ]
+  };
+  let jsonLd=document.getElementById('digiy-resto-schema');
+  if(!jsonLd){
+    jsonLd=document.createElement('script');
+    jsonLd.type='application/ld+json';
+    jsonLd.id='digiy-resto-schema';
+    document.head.appendChild(jsonLd);
+  }
+  jsonLd.textContent=JSON.stringify(schema);
+}
+updateRestoMachineMetadata();
 </script>
 <script>
 if ('serviceWorker' in navigator) {
