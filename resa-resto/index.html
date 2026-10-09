@@ -16,6 +16,55 @@ function renderSlots(rows){availability=Array.isArray(rows)?rows:[];const grid=$
 async function loadAvailability(){const day=$('day').value,zone=$('zone').value,guests=Number($('guests').value||0);if(!day||!zone||!guests)return renderSlots([]);if((settings.closed_weekdays||[]).includes(isoDow(day))){renderSlots([]);$('slotsMeta').textContent='Restaurant fermé ce jour.';return findNextAvailable();}$('slotsMeta').textContent='Vérification des créneaux…';const{data,error}=await db.rpc('digiy_resa_resto_public_availability_v1',{p_slug:SITE,p_booking_date:day,p_guests:guests,p_zone_slug:zone});if(error){renderSlots([]);$('slotsMeta').textContent='Créneaux indisponibles pour le moment.';return}renderSlots(data||[]);if(!(data||[]).some(r=>r.available))findNextAvailable();}
 async function findNextAvailable(){const start=new Date($('day').value+'T12:00:00'),zone=$('zone').value,guests=Number($('guests').value||0),box=$('nextSlot');for(let i=1;i<=7;i++){const d=new Date(start);d.setDate(d.getDate()+i);const ds=d.toISOString().slice(0,10);if((settings.closed_weekdays||[]).includes(isoDow(ds)))continue;const{data,error}=await db.rpc('digiy_resa_resto_public_availability_v1',{p_slug:SITE,p_booking_date:ds,p_guests:guests,p_zone_slug:zone});if(!error){const first=(data||[]).find(r=>r.available);if(first){box.textContent='Prochain créneau disponible : '+ds+' à '+String(first.slot_time).slice(0,5)+' · '+(first.service_label||'');box.classList.remove('hidden');return;}}}box.textContent='Aucun créneau disponible trouvé sur les 7 prochains jours pour cette zone.';box.classList.remove('hidden');}
 function renderRules(){let closed=settings.closed_weekdays||[];$('closedInfo').textContent=closed.length?'Jours de fermeture habituels : '+closed.map(n=>N[n]).join(', ')+'.':'Aucun jour de fermeture hebdomadaire déclaré.';let t=`<strong>Règle de réservation</strong><br>Votre réservation est conservée <b>${settings.no_show_grace_minutes||15} minutes</b> après l’heure choisie. Passé ce délai, elle peut être réattribuée.`;if(settings.table_plan_enabled)t+='<br>Le restaurant utilise un plan détaillé de tables.';else t+='<br>Le restaurant travaille en mode simple : confirmation selon la capacité disponible de la zone.';if(settings.fixed_services_enabled&&settings.table_plan_enabled)t+='<br>Si la même table est réservée au service suivant, la rotation peut s’appliquer.';else t+='<br>Aucune obligation automatique de rotation entre deux services n’est imposée.';$('rule').innerHTML=t}
-async function load(){let [zr,sr]=await Promise.all([db.rpc('digiy_resa_resto_public_zones_v1',{p_slug:SITE}),db.rpc('digiy_resa_resto_public_settings_v1',{p_slug:SITE})]);if(zr.error){$('zone').innerHTML='<option>Indisponible</option>'}else $('zone').innerHTML=(zr.data||[]).map(z=>`<option value="${z.zone_slug}">${z.zone_name} · ${z.max_covers} couverts max</option>`).join('')||'<option>Aucune zone</option>';if(!sr.error&&sr.data&&sr.data[0])settings=sr.data[0];renderRules();await loadAvailability()}
-['day','guests','zone'].forEach(id=>$(id).addEventListener('change',loadAvailability));$('book').onclick=async()=>{let dow=isoDow($('day').value);$('success').classList.add('hidden');$('status').classList.remove('error');if((settings.closed_weekdays||[]).includes(dow)){$('status').classList.add('error');$('status').textContent='⚠️ Le restaurant est fermé ce jour. Choisissez une autre date.';return}if(!$('time').value){$('status').classList.add('error');$('status').textContent='⚠️ Choisissez d’abord un créneau disponible.';return}let payload={p_slug:SITE,p_booking_date:$('day').value,p_booking_time:$('time').value,p_guests:Number($('guests').value),p_zone_slug:$('zone').value,p_customer_name:$('name').value.trim(),p_customer_phone:$('phone').value.trim()};$('status').textContent='Vérification des disponibilités…';let{data,error}=await db.rpc('digiy_resa_resto_public_book_v1',payload);if(error){$('status').classList.add('error');$('status').textContent='⚠️ '+error.message+'. Essayez une autre date, une autre zone ou une autre heure.';return}$('status').textContent='';let d=typeof data==='string'?JSON.parse(data):data;let allocation=d.table_plan_enabled&&d.tables&&d.tables.length?`<br>${d.zone} · table${d.tables.length>1?'s':''} ${d.tables.join(' + ')}`:`<br>${d.zone} · réservation confirmée selon la capacité disponible`;$('success').innerHTML=`✅ <strong>Réservation confirmée.</strong><br>${payload.p_guests} personne${payload.p_guests>1?'s':''} · ${$('day').value} · ${$('time').value}${allocation}<br><br>Votre réservation est garantie ${d.no_show_grace_minutes} minutes après l’heure choisie.${d.rotation_rule?'<br>'+d.rotation_rule:''}`;$('success').classList.remove('hidden')};load();})();
+
+/* Public RESTO V1 safety: never interpret labels or booking metadata as HTML. */
+function renderPublicZones(rows,unavailable){
+  const select=$('zone');
+  select.replaceChildren();
+  const options=Array.isArray(rows)?rows:[];
+  if(unavailable||!options.length){
+    const option=document.createElement('option');
+    option.value='';
+    option.textContent=unavailable?'Indisponible':'Aucune zone';
+    option.disabled=true;
+    select.appendChild(option);
+    return;
+  }
+  for(const zone of options){
+    const option=document.createElement('option');
+    option.value=String(zone.zone_slug??'');
+    option.textContent=String(zone.zone_name??'')+' · '+String(zone.max_covers??'')+' couverts max';
+    select.appendChild(option);
+  }
+}
+function renderPublicConfirmation(details,payload){
+  const box=$('success');
+  const data=details&&typeof details==='object'?details:{};
+  const strong=document.createElement('strong');
+  strong.textContent='Réservation confirmée.';
+  const br=()=>document.createElement('br');
+  const tables=Array.isArray(data.tables)?data.tables:[];
+  const zone=String(data.zone??'');
+  const allocated=data.table_plan_enabled&&tables.length?
+    zone+' · table'+(tables.length>1?'s':'')+' '+tables.map(x=>String(x)).join(' + '):
+    zone+' · réservation confirmée selon la capacité disponible';
+  const guests=Number(payload.p_guests);
+  box.replaceChildren();
+  box.append('✅ ',strong,br(),
+    String(guests)+' personne'+(guests>1?'s':'')+' · '+String(payload.p_booking_date)+' · '+String(payload.p_booking_time),
+    br(),allocated,br(),br(),
+    'Votre réservation est garantie '+String(data.no_show_grace_minutes??15)+' minutes après l’heure choisie.');
+  if(data.rotation_rule)box.append(br(),String(data.rotation_rule));
+}
+async function load(){
+  let [zr,sr]=await Promise.all([
+    db.rpc('digiy_resa_resto_public_zones_v1',{p_slug:SITE}),
+    db.rpc('digiy_resa_resto_public_settings_v1',{p_slug:SITE})
+  ]);
+  renderPublicZones(zr.data,Boolean(zr.error));
+  if(!sr.error&&sr.data&&sr.data[0])settings=sr.data[0];
+  renderRules();
+  await loadAvailability();
+}
+['day','guests','zone'].forEach(id=>$(id).addEventListener('change',loadAvailability));$('book').onclick=async()=>{let dow=isoDow($('day').value);$('success').classList.add('hidden');$('status').classList.remove('error');if((settings.closed_weekdays||[]).includes(dow)){$('status').classList.add('error');$('status').textContent='⚠️ Le restaurant est fermé ce jour. Choisissez une autre date.';return}if(!$('time').value){$('status').classList.add('error');$('status').textContent='⚠️ Choisissez d’abord un créneau disponible.';return}let payload={p_slug:SITE,p_booking_date:$('day').value,p_booking_time:$('time').value,p_guests:Number($('guests').value),p_zone_slug:$('zone').value,p_customer_name:$('name').value.trim(),p_customer_phone:$('phone').value.trim()};$('status').textContent='Vérification des disponibilités…';let{data,error}=await db.rpc('digiy_resa_resto_public_book_v1',payload);if(error){$('status').classList.add('error');$('status').textContent='⚠️ '+error.message+'. Essayez une autre date, une autre zone ou une autre heure.';return}$('status').textContent='';let d=typeof data==='string'?JSON.parse(data):data;renderPublicConfirmation(d,payload);$('success').classList.remove('hidden')};load();})();
 </script></body></html>
