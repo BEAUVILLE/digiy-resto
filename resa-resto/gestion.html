@@ -27,7 +27,17 @@ const URL='https://wesqmwjjtsefyjnluosj.supabase.co',KEY='sb_publishable_tGHItRg
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const slugify=s=>String(s||'zone').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||('zone-'+Date.now());
 const msg=(id,t,b=false)=>{$(id).textContent=t||'';$(id).classList.toggle('error',b)};
-const carrySite=()=>{$('settingsLink').href='https://resto.digiylyfe.com/resa-resto/reglages.html?site='+encodeURIComponent(SITE_SLUG);$('clientLink').href='https://resto.digiylyfe.com/resa-resto/index.html?site='+encodeURIComponent(SITE_SLUG);$('maCarteLink').href='./ma-carte.html?site='+encodeURIComponent(SITE_SLUG)};carrySite();const isSaly=SITE_SLUG==='test-resa-resto-saly';$('testEnvLabel').textContent=isSaly?'ENVIRONNEMENT TEST · SALY':'ENVIRONNEMENT TEST · SARLAT';$('ownerHeaderTitle').textContent=isSaly?'🍽️ TEST RESA RESTO · SALY':'🍽️ TEST RESA RESTO · SARLAT';
+const carrySite=()=>{$('settingsLink').href='https://resto.digiylyfe.com/resa-resto/reglages.html?site='+encodeURIComponent(SITE_SLUG);$('clientLink').href='https://resto.digiylyfe.com/resa-resto/index.html?site='+encodeURIComponent(SITE_SLUG);$('maCarteLink').href='./ma-carte.html?site='+encodeURIComponent(SITE_SLUG)};
+carrySite();
+const restaurantNames={
+  'test-resa-resto-saly':['ENVIRONNEMENT TEST · SALY','🍽️ TEST RESA RESTO · SALY'],
+  'modele-resa-resto-sarlat':['ENVIRONNEMENT TEST · SARLAT','🍽️ TEST RESA RESTO · SARLAT'],
+  'entre2-sarlat':['GESTION PROPRIÉTAIRE · SARLAT','🍽️ L’ENTRE 2 · SARLAT'],
+  'le-malraux-sarlat':['GESTION PROPRIÉTAIRE · SARLAT','🍽️ LE MALRAUX · SARLAT']
+};
+const displayRestaurant=restaurantNames[SITE_SLUG]||['RESTAURANT NON RECONNU','🍽️ RESA RESTO'];
+$('testEnvLabel').textContent=displayRestaurant[0];
+$('ownerHeaderTitle').textContent=displayRestaurant[1];
 function showLogin(){ $('manager').classList.add('hidden');$('login').classList.remove('hidden') }
 function showManager(email){$('login').classList.add('hidden');$('manager').classList.remove('hidden');$('who').textContent='Connecté : '+email}
 async function enter(session){if(!session)return showLogin();await db.rpc('digiy_resa_resto_claim_site_by_email_v1',{p_slug:SITE_SLUG});let{data,error}=await db.from('digiy_resa_resto_sites').select('*').eq('slug',SITE_SLUG).maybeSingle();if(error||!data){await db.auth.signOut();showLogin();return msg('loginstatus','⚠️ Ce compte n’est pas autorisé pour ce modèle RESA RESTO.',true)}site=data;$('siteName').textContent='🍽️ '+site.display_name;showManager(session.user.email||'adhérent');await loadAll()}
