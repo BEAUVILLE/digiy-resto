@@ -13,9 +13,11 @@ const access=fs.readFileSync(path.join(root,'resa-resto/acces-proprietaire.html'
 const script=html.slice(html.lastIndexOf('<script>')+8,html.lastIndexOf('</script>'));
 assert.ok(script.includes('async function init()'));
 
-function element(){return {href:'',src:'',hidden:false,textContent:''}}
+function element(){return {href:'',src:'',hidden:false,textContent:'',attributes:{},events:{},
+ addEventListener(k,fn){this.events[k]=fn},setAttribute(k,v){this.attributes[k]=v}}}
 async function simulate(slug,userId,ownerId){
- const ids=['back','loginLink','loading','allowed','previewWrapper','denialText','denied','restaurantTitle','menuPrototype'];
+ const ids=['back','loginLink','loading','allowed','previewWrapper','denialText','denied','restaurantTitle',
+ 'menuPrototype','cartePrototype','weeklyMode','regularMode'];
  const nodes=Object.fromEntries(ids.map(id=>[id,element()]));
  nodes.denied.hidden=true;nodes.allowed.hidden=true;nodes.previewWrapper.hidden=true;
  const events=[];
@@ -63,6 +65,13 @@ test('confirmed owner can open only a local mock preview without publication',as
  assert.equal(r.nodes.previewWrapper.hidden,false);
  assert.match(r.nodes.restaurantTitle.textContent,/Restaurant fictif/);
  assert.equal(r.nodes.menuPrototype.src,'../prototypes/resto-v35-ma-semaine.html?timezone=Africa%2FDakar');
+ assert.equal(r.nodes.cartePrototype.src,'../prototypes/resto-v35-plats-salades.html?timezone=Africa%2FDakar');
+ r.nodes.regularMode.events.click();
+ assert.equal(r.nodes.menuPrototype.hidden,true);
+ assert.equal(r.nodes.cartePrototype.hidden,false);
+ r.nodes.weeklyMode.events.click();
+ assert.equal(r.nodes.menuPrototype.hidden,false);
+ assert.equal(r.nodes.cartePrototype.hidden,true);
  assert.ok(!/\.insert\(|\.update\(|\.delete\(|\.rpc\(/.test(script));
 });
 test('missing or unknown site never silently defaults to TEST SALY',async()=>{
