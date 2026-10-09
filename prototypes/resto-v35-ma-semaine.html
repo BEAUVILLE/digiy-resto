@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#073f32">
+<title>DIGIY RESTO V35A — Ma semaine (maquette non connectée)</title>
+<style>
+:root{font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:#153a30;background:#f4f1e9;--forest:#073f32;--gold:#d7ac46;--border:#d8e3da}
+*{box-sizing:border-box}body{margin:0}
+a{color:inherit}button,input,textarea,select{font:inherit}
+header{background:var(--forest);color:white;padding:22px max(14px,calc((100vw - 1000px)/2));}
+header h1{margin:3px 0 2px;font-size:clamp(27px,5vw,40px);line-height:1.1}
+header p{margin:0;color:#dbecdf;font-size:14px}
+.wrap{max-width:1000px;margin:0 auto;padding:19px 14px 64px}
+.guard{border-left:5px solid var(--gold);padding:13px 17px;background:#fff4d7;border-radius:12px;font-size:14px;margin-bottom:16px}
+.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.panel{background:white;padding:clamp(15px,3vw,25px);border-radius:20px;border:1px solid var(--border);box-shadow:0 7px 21px #073f3210;margin-bottom:16px;min-width:0}
+h2{font-size:21px;margin:0 0 12px;color:var(--forest)}
+h3{font-size:17px;margin:0 0 8px}
+label{display:block;font-weight:800;font-size:13px;margin-bottom:6px}
+input:not([type=file]),textarea,select{display:block;width:100%;min-height:45px;border:1px solid #b6c9bf;border-radius:11px;padding:10px;background:#fff;color:#153a30}
+textarea{min-height:78px;resize:vertical}
+.field{margin:12px 0}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:14px 0}
+.day{cursor:pointer;background:#f3f7f3;border:1px solid #cbd9d0;border-radius:11px;min-height:59px;padding:8px 3px;font-size:11px;color:var(--forest);font-weight:700}
+.day strong{display:block;font-size:16px}
+.day[aria-pressed=true]{background:var(--forest);color:#fff;border-color:var(--forest)}
+.muted{color:#647b70;font-size:13px}
+button.cta,.action{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;border:0;min-height:46px;padding:10px 17px;font-weight:900;cursor:pointer}
+button.cta{color:#fff;background:var(--forest)}.action{background:#f5e7bd;color:var(--forest);border:1px solid var(--gold)}
+button:disabled{opacity:.46;cursor:not-allowed}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.row>*{flex:1}
+.card{border:1px solid #dce8df;padding:12px;border-radius:13px;margin:9px 0;background:#fcfdf9;display:flex;gap:11px;align-items:center}
+.card img,.preview-card img{width:96px;height:82px;object-fit:cover;border-radius:9px;background:#dce9df;flex-shrink:0}
+.card strong{font-size:15px}.card p{font-size:12px;margin:3px 0;color:#55685d}.card .smallbtn{border:1px solid #bfcec1;background:white;border-radius:8px;cursor:pointer;padding:5px 8px;font-weight:850;color:var(--forest)}
+.photo{border:1px dashed #abc0ad;border-radius:12px;padding:9px;background:#f7faf7}
+.photo input{font-size:12px;max-width:100%}.photo img{max-width:160px;max-height:120px;border-radius:8px;display:block;margin-top:9px;object-fit:cover}
+.preview-card{border:1px solid #dce8df;border-radius:14px;padding:12px;display:flex;gap:10px;margin:10px 0;background:#fff}
+.preview-card strong{display:block}.preview-card p{margin:3px 0;font-size:13px}
+.preview-day{border-top:2px solid #d7ac46;margin-top:17px;padding-top:11px}
+.badge{font-size:12px;background:#fff4d7;border-radius:999px;padding:5px 9px;font-weight:850}
+.publish{border-top:1px solid var(--border);padding-top:16px;margin-top:16px}
+footer{color:#65776d;font-size:12px;text-align:center}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.week{gap:3px}.day{min-height:55px;padding:5px 1px;font-size:10px}.day strong{font-size:14px}}
+</style>
+<script src="../src/resto-v35-weekly-core.js" defer></script>
+<script src="./resto-v35-ma-semaine.js" defer></script>
+</head>
+<body>
+<header><strong>🍽️ DIGIY RESTO · V35A</strong><h1>Ma semaine, mes plats</h1><p>Du lundi au dimanche · photos · contact direct · 0 % commission</p></header>
+<main class="wrap">
+<div class="guard" role="status"><strong>MAQUETTE DE PRÉPARATION — NON CONNECTÉE</strong> : rien n’est enregistré, transmis ou publié. Les photos restent temporairement dans ce navigateur. Fermer l’onglet efface cette préparation. Cette page n’est pas un espace propriétaire authentifié.</div>
+<div class="layout">
+<section aria-label="Préparer ma semaine">
+<div class="panel">
+<h2>1. Choisir ma semaine</h2>
+<div class="row">
+<div><label for="weekDate">Semaine contenant le</label><input id="weekDate" type="date" required></div>
+<div><label for="timezone">Fuseau de démonstration</label><select id="timezone"><option value="Europe/Paris">France · Europe/Paris</option><option value="Africa/Dakar">Sénégal · Africa/Dakar</option></select></div>
+</div>
+<div class="week" id="week" role="group" aria-label="Jours de la semaine"></div>
+<p class="muted" id="selection"></p>
+</div>
+<div class="panel">
+<h2>2. Décrire un plat du jour</h2>
+<form id="dishForm">
+<div class="row"><div><label for="service">Service</label><select id="service"><option value="lunch">Midi</option><option value="dinner">Soir</option></select></div>
+<div><label for="price">Prix annoncé en euros (facultatif)</label><input id="price" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" placeholder="ex. 16.50"></div></div>
+<div class="field"><label for="dishName">Nom du plat</label><input id="dishName" maxlength="120" required autocomplete="off" placeholder="Ex. Suggestion du chef (votre vrai plat)"></div>
+<div class="field"><label for="dishDescription">Courte description</label><textarea id="dishDescription" maxlength="500" placeholder="Ingrédients et présentation"></textarea></div>
+<div class="photo"><label for="dishPhoto">Photo réelle du plat (facultatif)</label><input id="dishPhoto" type="file" accept="image/jpeg,image/png,image/webp,image/avif"><span class="muted">JPG, PNG, WebP ou AVIF · 4 Mo maximum · aperçu local uniquement</span><img id="photoPreview" alt="Aperçu temporaire de la photo" hidden></div>
+<div class="field"><button class="cta" type="submit">+ AJOUTER AU BROUILLON</button></div>
+</form>
+<p id="formStatus" class="muted" role="status" aria-live="polite"></p>
+<h3>Mes plats pour ce jour</h3>
+<div id="dayDishes" aria-live="polite"></div>
+</div>
+</section>
+<section aria-label="Prévisualisation client">
+<div class="panel">
+<h2>3. Aperçu côté clientèle</h2>
+<p class="muted">Ce rendu ne sera visible par aucun client. Les données ne sont pas conservées.</p>
+<div class="row"><button id="previewBtn" class="action" type="button">👁 PRÉVISUALISER LA SEMAINE</button><button id="clearBtn" class="action" type="button">EFFACER LE BROUILLON</button></div>
+<div id="publicPreview" aria-live="polite"></div>
+<div class="publish"><span class="badge">Publication verrouillée</span><p class="muted">Il manque encore le rattachement propriétaire, la sauvegarde sécurisée, l’hébergement validé des photos et la publication des seuls menus approuvés.</p><button type="button" class="cta" disabled aria-describedby="publishWarning">PUBLIER SUR MA FICHE</button><p class="muted" id="publishWarning">Désactivé pour éviter toute fausse annonce.</p></div>
+</div>
+</section>
+</div>
+<footer>Prototype RESTO V35A · Sans commande, sans paiement, sans serveur · DIGIYLYFE</footer>
+</main>
+</body>
+</html>
