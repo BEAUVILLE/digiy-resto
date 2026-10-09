@@ -62,7 +62,7 @@ test('Owner page keeps original verified site authorization before loading both 
  assert.match(owner,/site\.owner_id!==user\.id/);
  assert.match(owner,/allowedSlugs\.has\(slug\)/);
  assert.match(owner,/cartePrototype/);
- assert.match(owner,/resto-v35-plats-salades\.html\?timezone=/);
+ assert.match(owner,/resto-v35-plats-salades-apercu-valide\.html\?timezone=/);
  assert.match(owner,/weeklyMode/);
  assert.match(owner,/regularMode/);
  assert.match(manager,/id="maCarteLink"/);
