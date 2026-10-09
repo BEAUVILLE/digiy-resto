@@ -10,7 +10,7 @@ BEGIN
  INSERT INTO public.digiy_resa_resto_zones(site_id,slug,name,max_covers)
  SELECT id,'main','Synthetic timed zone',100 FROM public.digiy_resa_resto_sites WHERE slug='v32-clock-fake';
  INSERT INTO public.digiy_resa_resto_service_windows(site_id,booking_from,booking_to,label)
- SELECT id,'00:00','23:59','All-day synthetic slots'
+ SELECT id,'00:00','23:00','Daytime synthetic slots'
  FROM public.digiy_resa_resto_sites WHERE slug='v32-clock-fake';
  FOREACH zone_name IN ARRAY ARRAY[
    'Africa/Dakar','Europe/Paris','America/New_York','Asia/Tokyo'
