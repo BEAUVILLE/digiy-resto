@@ -34,6 +34,25 @@ h1{font-size:clamp(34px,6vw,56px);line-height:1.08;color:var(--green);margin:10p
 .notice{margin-top:23px;padding:14px 16px;border-left:4px solid var(--gold);background:#fff9e9;border-radius:12px;font-size:13px}
 .footer{text-align:center;font-size:12px;color:#63766a;padding:0 18px 30px}
 @media(max-width:600px){.cover{aspect-ratio:4/3}.contacts{grid-template-columns:1fr}.top .wrap{padding:13px 0}.back{font-size:11px}}
+
+/* Aperçu sans commande : intentionnellement isolé de la réservation RÉSA RESTO. */
+html{scroll-behavior:smooth}
+.takeaway-demo{margin-top:26px;padding:clamp(16px,3vw,26px);background:#fffefa;border:2px solid #dbc17f;border-radius:20px}
+.takeaway-demo h2{color:var(--green);font-size:clamp(20px,4vw,27px);margin:0 0 12px}
+.takeaway-demo .notice{margin:9px 0 14px}
+.takeaway-demo .small{font-size:13px;color:var(--muted)}
+.takeaway-demo .info{background:#edf5ef;padding:12px;border-radius:12px;font-size:13px;margin-top:14px}
+.takeaway-demo .product{border-top:1px solid #d9e4dc;padding:12px 0;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.takeaway-demo .product h3{font-size:15px;color:var(--green);margin:0}
+.takeaway-demo .product .desc{font-size:12px;color:var(--muted)}
+.takeaway-demo .counter{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.takeaway-demo .counter button{width:38px;height:38px;border:1px solid #a4bcae;background:white;color:var(--green);border-radius:999px;font-size:20px;cursor:pointer}
+.takeaway-demo .counter button:disabled{opacity:.4;cursor:not-allowed}
+.takeaway-demo .counter output{min-width:22px;text-align:center;font-weight:850}
+.takeaway-demo .sum{display:flex;justify-content:space-between;gap:14px;align-items:center;border-top:2px solid var(--green);padding-top:15px;font-size:18px;font-weight:900}
+.takeaway-btn{background:#fff9d9;color:var(--green);border:2px solid #d8ad46}
+@media(max-width:600px){.takeaway-demo .product{align-items:flex-start}.takeaway-demo .product>div:first-child{min-width:0;flex:1}}
+
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"L’Entre 2","image":"https://malraux-entre2.digiylyfe.com/photos/entre2-terrasse.jpg","address":{"@type":"PostalAddress","streetAddress":"21 Rue Albéric Cahuet","addressLocality":"Sarlat-la-Canéda","postalCode":"24200","addressCountry":"FR"},"telephone":"+33673274427","url":"https://resto.digiylyfe.com/fiche-lentre2.html","sameAs":"https://malraux-entre2.digiylyfe.com/"}</script>
 </head>
@@ -52,12 +71,24 @@ h1{font-size:clamp(34px,6vw,56px);line-height:1.08;color:var(--green);margin:10p
 <div class="actions">
 <a class="btn call" href="tel:+33673274427">📞 APPELER L’ENTRE 2</a>
 <a class="btn site" href="https://malraux-entre2.digiylyfe.com/" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir le site et la carte de L’Entre 2">↗ VOIR LE SITE &amp; LA CARTE</a>
+<a class="btn takeaway-btn" href="#emporter">🍕 VOIR L’APERÇU À EMPORTER</a>
 <a class="btn list" href="./index.html">🍽️ TOUS LES RESTAURANTS</a>
 </div>
 <div class="notice">Réservation et paiement directement auprès du restaurant. DIGIYLYFE ne collecte aucun paiement et ne prélève aucune commission. Pour les menus, les prix et les horaires actuels, consultez le site du restaurant ou appelez-le.</div>
+<section class="takeaway-demo" id="emporter" aria-labelledby="takeaway-title">
+
+<h2 id="takeaway-title">🍕 À emporter — aperçu L’Entre 2</h2>
+<p class="notice"><strong>DÉMONSTRATION NON ACTIVE.</strong> Les pizzas ci-dessous figurent sur la carte publique du restaurant. <strong>Le restaurant n’a pas validé leur vente à emporter, leurs prix de retrait, les horaires ni les commandes DIGIYLYFE.</strong> Aucun message ne sera envoyé.</p>
+<p class="small">Modifiez les quantités pour voir comment un client pourrait préparer sa sélection. Prix affichés sur la carte publique consultée le 9 octobre 2026, sous réserve de confirmation.</p>
+<div id="products" aria-label="Simulation de sélection de pizzas"></div>
+<div class="sum"><span>Total de démonstration</span><output id="total" aria-live="polite">0,00 €</output></div>
+<p class="info">Le vrai parcours prévoira une heure de retrait choisie dans les plages validées et une <strong>demande directe au restaurateur</strong>, jamais une commande automatiquement acceptée. Paiement direct · 0 % commission.</p>
+<p class="small">Source des intitulés et prix : <a href="https://restaurant-entre2malraux.fr/" target="_blank" rel="noopener noreferrer">carte publique L’Entre 2 ↗</a>. Cette simulation ne transmet aucune information, n’enregistre aucune commande et ne contacte aucun service externe.</p>
+</section>
 </div>
 </article>
 </main>
 <footer class="footer">DIGIY RESTO · Votre activité, votre territoire, votre contact direct · 0 % commission</footer>
+<script src="./resto-v34-entre2-preview.js" defer></script>
 </body>
 </html>
