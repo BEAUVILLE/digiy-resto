@@ -6,6 +6,9 @@ on:
       - 'resa-resto/takeaway-*.js'
       - 'tests/resto-v34-takeaway.test.cjs'
       - 'tests/resto-v34-browser.test.cjs'
+      - 'tests/resto-v34-pilot-preflight.test.cjs'
+      - 'scripts/resto-v34-pilot-preflight.cjs'
+      - 'docs/RESTO_V34_PILOTE_VALIDATION_MENU.md'
       - 'docs/RESTO_V34_A_EMPORTER_CONTRAT.md'
       - '.github/workflows/resto-v34-takeaway.yml'
   workflow_dispatch:
@@ -24,12 +27,13 @@ jobs:
         with:
           node-version: '22'
       - name: Run standalone direct-order tests (no Supabase secrets)
-        run: node --test tests/resto-v34-takeaway.test.cjs
+        run: node --test tests/resto-v34-takeaway.test.cjs tests/resto-v34-pilot-preflight.test.cjs
       - name: Check JavaScript syntax
         run: |
           node --check resa-resto/takeaway-core.js
           node --check resa-resto/takeaway-catalog.js
           node --check resa-resto/takeaway-page.js
+          node --check scripts/resto-v34-pilot-preflight.cjs
   browser-smoke:
     name: RESTO V34 Chromium pilot simulation (local-only)
     runs-on: ubuntu-latest
