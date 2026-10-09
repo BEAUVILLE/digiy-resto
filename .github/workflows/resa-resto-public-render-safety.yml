@@ -1,0 +1,28 @@
+name: RESTO public booking render safety
+on:
+  pull_request:
+    paths:
+      - 'resa-resto/index.html'
+      - 'tests/resa-resto-public-render-safe.test.cjs'
+      - '.github/workflows/resa-resto-public-render-safety.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'resa-resto/index.html'
+      - 'tests/resa-resto-public-render-safe.test.cjs'
+      - '.github/workflows/resa-resto-public-render-safety.yml'
+permissions:
+  contents: read
+jobs:
+  public-render-safe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test zone labels, booking confirmation and hostile mock responses
+        run: node --test tests/resa-resto-public-render-safe.test.cjs
