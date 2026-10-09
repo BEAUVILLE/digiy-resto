@@ -5,6 +5,7 @@ on:
       - 'resa-resto/a-emporter.html'
       - 'resa-resto/takeaway-*.js'
       - 'tests/resto-v34-takeaway.test.cjs'
+      - 'tests/resto-v34-browser.test.cjs'
       - 'docs/RESTO_V34_A_EMPORTER_CONTRAT.md'
       - '.github/workflows/resto-v34-takeaway.yml'
   workflow_dispatch:
@@ -29,3 +30,20 @@ jobs:
           node --check resa-resto/takeaway-core.js
           node --check resa-resto/takeaway-catalog.js
           node --check resa-resto/takeaway-page.js
+  browser-smoke:
+    name: RESTO V34 Chromium pilot simulation (local-only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Playwright Chromium (test only)
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Test locked live catalog and fictitious browser order locally
+        run: node --test tests/resto-v34-browser.test.cjs
