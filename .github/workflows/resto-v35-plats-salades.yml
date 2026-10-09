@@ -7,6 +7,7 @@ on:
       - "resa-resto/ma-carte.html"
       - "resa-resto/gestion.html"
       - "tests/resto-v35-plats-salades.test.cjs"
+      - "tests/resto-v35-apercu-valide.test.cjs"
       - ".github/workflows/resto-v35-plats-salades.yml"
   workflow_dispatch:
 
@@ -26,5 +27,6 @@ jobs:
         run: |
           node --check prototypes/resto-v35-plats-salades.js
           node --check tests/resto-v35-plats-salades.test.cjs
+          node --check tests/resto-v35-apercu-valide.test.cjs
       - name: Tests Plats & Salades
-        run: node --test tests/resto-v35-plats-salades.test.cjs
+        run: node --test tests/resto-v35-plats-salades.test.cjs tests/resto-v35-apercu-valide.test.cjs
