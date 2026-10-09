@@ -52,7 +52,7 @@ function freezeClock(page){
 test('RESTO V34 real browser: locked until verified menu; synthetic-only happy path',async t=>{
   const {server,url}=await serverStart();
   t.after(()=>new Promise(resolve=>server.close(resolve)));
-  const browser=await chromium.launch({headless:true});
+  const browser=await chromium.launch({headless:true,...(process.env.RESTO_CHROME_PATH?{executablePath:process.env.RESTO_CHROME_PATH}:{} )});
   t.after(()=>browser.close());
 
   await t.test('unconfigured page stays off with no menu or contact action',async()=>{
