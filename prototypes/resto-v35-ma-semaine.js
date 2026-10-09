@@ -148,6 +148,14 @@
    });
    output.appendChild(element('p','Contenu en brouillon : ni réservation, ni commande, ni paiement.','muted'));
  }
+ // Suggested territory comes only from the verified parent page, not authorization.
+ if(window.location&&typeof URLSearchParams!=='undefined'){
+   const requested=new URLSearchParams(window.location.search).get('timezone');
+   if(requested==='Europe/Paris'||requested==='Africa/Dakar'){
+     $('timezone').value=requested;
+     $('currency').value=requested==='Africa/Dakar'?'XOF':'EUR';
+   }
+ }
  $('weekDate').value=today();
  selectedDate=today();
  updateWeek();renderDay();
