@@ -17,6 +17,12 @@ L'état de configuration **RÉSA RESTO** ne prouve ni l'ouverture/fermeture des 
 
 Les informations ci-dessus proviennent uniquement des quatre colonnes de configuration métier `slug`, `display_name`, `timezone`, `is_active`; aucune commande client, coordonnées privées, preuve d'identité ou paiement n'a été consulté.
 
+## Présélection en attente de l'accord du restaurateur
+
+Une présélection de **sept pizzas et leurs prix publiquement affichés** a été documentée à partir du site `restaurant-entre2malraux.fr` dans `docs/RESTO_V34_ENTRE2_PROPOSITION_CARTE_SOURCE.md` (relevé le 9 octobre 2026).
+
+**Cette présélection ne constitue pas une carte à emporter validée.** Aucun produit, prix, contact ni horaire n'a été ajouté au catalogue public. Le restaurant doit décider si, à quelles conditions et à quel prix les plats peuvent être proposés en retrait.
+
 ## Éléments à obtenir pour ouvrir une commande à emporter
 
 **Tous restent à obtenir ou confirmer par le propriétaire. Rien n'est approuvé par ce dossier.**
