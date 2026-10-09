@@ -4,6 +4,9 @@ on:
     paths:
       - 'src/resto-v35-weekly-core.js'
       - 'tests/resto-v35-weekly-core.test.cjs'
+      - 'tests/resto-v35-prototype.test.cjs'
+      - 'prototypes/resto-v35-ma-semaine.html'
+      - 'prototypes/resto-v35-ma-semaine.js'
       - 'docs/RESTO_V35A_MENU_VISUEL_SEMAINE.md'
       - '.github/workflows/resto-v35a-weekly-menu.yml'
   push:
@@ -11,6 +14,9 @@ on:
     paths:
       - 'src/resto-v35-weekly-core.js'
       - 'tests/resto-v35-weekly-core.test.cjs'
+      - 'tests/resto-v35-prototype.test.cjs'
+      - 'prototypes/resto-v35-ma-semaine.html'
+      - 'prototypes/resto-v35-ma-semaine.js'
       - '.github/workflows/resto-v35a-weekly-menu.yml'
 permissions:
   contents: read
@@ -27,4 +33,4 @@ jobs:
         with:
           node-version: '22'
       - name: Test isolated weekly plan, no database or secrets
-        run: node --test tests/resto-v35-weekly-core.test.cjs
+        run: node --test tests/resto-v35-weekly-core.test.cjs tests/resto-v35-prototype.test.cjs
