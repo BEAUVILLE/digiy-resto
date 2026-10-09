@@ -1,0 +1,33 @@
+name: RESTO secure owner index routing
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'resa-resto/acces-proprietaire.html'
+      - 'tests/resto-owner-index-route.test.cjs'
+      - '.github/workflows/resto-owner-index-route.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'resa-resto/acces-proprietaire.html'
+      - 'tests/resto-owner-index-route.test.cjs'
+permissions:
+  contents: read
+jobs:
+  no-test-site-fallback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate callback and per-restaurant owner links
+        run: node --test tests/resto-owner-index-route.test.cjs tests/resto-fiches-crosslinks.test.cjs
