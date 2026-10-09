@@ -67,7 +67,7 @@ footer{color:#65776d;font-size:12px;text-align:center}
 <h2>2. Décrire un plat du jour</h2>
 <form id="dishForm">
 <div class="row"><div><label for="service">Service</label><select id="service"><option value="lunch">Midi</option><option value="dinner">Soir</option></select></div>
-<div><label for="price">Prix annoncé en euros (facultatif)</label><input id="price" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" placeholder="ex. 16.50"></div></div>
+<div><label for="currency">Devise</label><select id="currency"><option value="EUR">€ · EUR</option><option value="XOF">FCFA · XOF</option></select><label for="price">Prix annoncé (facultatif)</label><input id="price" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" placeholder="ex. 16.50"></div></div>
 <div class="field"><label for="dishName">Nom du plat</label><input id="dishName" maxlength="120" required autocomplete="off" placeholder="Ex. Suggestion du chef (votre vrai plat)"></div>
 <div class="field"><label for="dishDescription">Courte description</label><textarea id="dishDescription" maxlength="500" placeholder="Ingrédients et présentation"></textarea></div>
 <div class="photo"><label for="dishPhoto">Photo réelle du plat (facultatif)</label><input id="dishPhoto" type="file" accept="image/jpeg,image/png,image/webp,image/avif"><span class="muted">JPG, PNG, WebP ou AVIF · 4 Mo maximum · aperçu local uniquement</span><img id="photoPreview" alt="Aperçu temporaire de la photo" hidden></div>
