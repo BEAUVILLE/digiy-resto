@@ -76,6 +76,8 @@
       return Object.freeze({visible:false,days:[]});
     }
     const today=localDay(instant,snapshot.timezone);
+    // Archived weeks never masquerade as current availability.
+    if(snapshot.weekStart < mondayOf(today))return Object.freeze({visible:false,days:[]});
     const dates=weekDates(snapshot.weekStart);
     const items=Array.isArray(snapshot.items)?snapshot.items:[];
     const days=dates.map((date,i)=>({
