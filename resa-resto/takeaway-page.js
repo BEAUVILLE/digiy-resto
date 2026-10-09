@@ -1,4 +1,4 @@
-/* RESTO V34 public page. ZERO requests to a DIGIY database or checkout provider. */
+/* RESTO V34 public page. No database calls or payment integrations. */
 (function(){
   'use strict';
   const core=window.DigiyTakeawayCore, catalog=window.DIGIY_TAKEAWAY_CATALOG;
