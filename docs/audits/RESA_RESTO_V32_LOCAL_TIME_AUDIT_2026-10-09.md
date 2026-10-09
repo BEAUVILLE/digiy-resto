@@ -27,6 +27,10 @@ Le **SQL est uniquement un candidat** dans `supabase/candidates/RESA_RESTO_V32_L
 
 ## Contrôle isolé
 
+**Preuve CI vérifiée après correction de la fixture 23:59 → 23:00 :** [GitHub Actions V32 run #37944583805](https://github.com/BEAUVILLE/digiy-resto/actions/runs/37944583805), PostgreSQL **16 et 17 : PASS**. Logs vérifiés : `RESTO_V32_PREPATCH_PAST_BOOKING_REPRODUCED`, `RESTO_V32_UNAUTHORIZED_SQL_BLOCKED`, `RESTO_V32_LOCAL_CLOCK_PASS_Africa/Dakar`, `RESTO_V32_LOCAL_CLOCK_PASS_Europe/Paris`, `RESTO_V32_LOCAL_CLOCK_PASS_America/New_York`, `RESTO_V32_LOCAL_CLOCK_PASS_Asia/Tokyo`, `RESTO_V32_PAST_BLOCK_AND_FUTURE_PASS`, `RESTO_V32_CONCURRENCY_ADVISORY_LOCK_PASS`, `RESTO_V32_ISOLATED_CLOCK_AND_ENGINE_PASS`. Les tests de capacité, fermeture, tables assemblées, rotation et no-show ont aussi réussi.
+
+**Découverte latérale (ne pas mélanger les correctifs) :** la vraie fonction `public_availability_v1` peut boucler à l'infini pour une plage allant jusqu'à **23:30 ou après**, car sa variable `time` revient à minuit par addition de 30 min. La première fixture V32 `00:00–23:59` a exposé ce défaut ; la fixture a été limitée à `00:00–23:00`. La correction de moteur est suivie **séparément** dans [RESTO V33 issue #22](https://github.com/BEAUVILLE/digiy-resto/issues/22). Contrôle réel agrégé sans données client : 8 fenêtres de service, **aucune** finissant après 23:30, dernière limite 20:30 au 9 octobre. Le premier run CI V32, bloqué par la fixture 23:59, est obsolète et ne prouve rien sur la correction finale.
+
 GitHub Actions sur PostgreSQL 16 et 17, base `resto_v32_synthetic` sur `127.0.0.1` avec mot de passe fictif : refus explicite si URL différente. Aucun secret Supabase, aucun client réel et aucun réseau vers DIGIY CORE.
 
 Parcours :
