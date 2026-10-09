@@ -1,0 +1,30 @@
+name: RESTO real professional fiches
+on:
+  pull_request:
+    paths:
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'index.html'
+      - 'tests/resto-fiches-crosslinks.test.cjs'
+      - '.github/workflows/resto-fiches-links.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'index.html'
+      - 'tests/resto-fiches-crosslinks.test.cjs'
+permissions:
+  contents: read
+jobs:
+  validate-fiches:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/resto-fiches-crosslinks.test.cjs
