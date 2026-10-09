@@ -61,3 +61,14 @@ Utiliser le taux de décimales de la devise (XOF : 0 ; EUR : 2) pour l'affichage
 La présente PR de contrat est **préparatoire et en brouillon** : elle n'active aucune commande, ne change pas la vitrine publique et ne modifie jamais la production.
 
 Chantiers parallèles, indépendants : V31 propriétaires, V32 dates passées, V33 créneaux tardifs.
+
+## Implémentation préparatoire sur la branche V34 (9 octobre 2026)
+
+- `resa-resto/a-emporter.html` : interface mobile FR/EN séparée, sans lien ajouté à l'accueil RESTO. Elle montre **« Commande à emporter non disponible »** pour tout site tant que la carte n'est pas validée.
+- `resa-resto/takeaway-catalog.js` : registre **entièrement vide**. Aucune carte, aucun plat, aucun prix ou numéro de commande réel ajouté ou simulé.
+- `resa-resto/takeaway-core.js` : modèle pur, contraintes d'activation par établissement, contrôle des numéros professionnels, prix XOF/EUR, quantités, créneaux de retrait et délais de préparation, comparaison des horaires locaux (dont prudence sur les transitions DST).
+- `resa-resto/takeaway-page.js` : affichage texte sécurisé des menus opt-in, quantités, date et retrait, total indicatif, composition du message WhatsApp vers le **seul canal validé**, alternative « copier la demande / appeler ». WhatsApp n'envoie rien avant action explicite du client et confirmation du restaurateur.
+- `tests/resto-v34-takeaway.test.cjs` : jeux de données **exclusivement fictifs**; vérifient entre autres menu absent, propriétaire non consentant, horaires, devises, liens de contact, refus des quantités invalides, séparation du moteur de tables et absence de code de caisse.
+- `.github/workflows/resto-v34-takeaway.yml` : tests Node 22, sans secret Supabase ni déploiement. [Dernière exécution validée](https://github.com/BEAUVILLE/digiy-resto/actions/runs/37950496742) : **PASS** après correction d'un faux positif de test.
+
+**À ne pas confondre avec une mise en service :** aucun menu réel approuvé, aucun bouton public vers cette page, aucune base ou RPC RESTO modifiée ; la PR reste **en brouillon**. Pour activer un premier restaurateur, il faut sa validation explicite de menu, contacts et plages de retrait, une revue du contenu, des essais mobiles de bout en bout et un GO publication séparé.
