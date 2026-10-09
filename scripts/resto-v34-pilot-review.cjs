@@ -83,7 +83,8 @@ function startServer(args,logger=console){
   const html=buildHtml(readPrivateDraft(options['--draft']),options['--site']);
   const server=http.createServer((req,res)=>{
     // Local-only, read-only page; never serve files or submit requests.
-    if(req.method!=='GET'||req.url!=='/'){
+    const expectedHost='127.0.0.1:'+server.address().port;
+    if(req.headers.host!==expectedHost||req.method!=='GET'||req.url!=='/'){
       res.writeHead(404,{'Cache-Control':'no-store'});res.end('Not found');return;
     }
     res.writeHead(200,{
