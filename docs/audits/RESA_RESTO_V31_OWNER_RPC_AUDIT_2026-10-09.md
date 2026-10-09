@@ -38,7 +38,16 @@ Voir [supabase/candidates/RESA_RESTO_OWNER_RPC_V31_CANDIDATE.sql](../../supabase
 - postcheck sur les droits après transaction et **vérification du RPC `public_book_v1` conservé pour `anon`**.
 - aucune modification de données client, de table, de RLS, de fonction, de caisse, de paiement, de notification, ni de LOC.
 
-Tests [PostgreSQL 16 et 17](../../tests/resa-resto-v31) avec **rôles/fonctions intégralement fictifs** : GRANT anon retiré des fonctions propriétaire, accès authenticated conservé, réservation anonyme conservée, répétition idempotente et rejet d'un contrat SECURITY DEFINER altéré. Le succès de tests fictifs ne prouve pas que les vrais clients n'ont pas de liens anciens.
+Tests [PostgreSQL 16 et 17](../../tests/resa-resto-v31) avec **rôles/fonctions intégralement fictifs** : GRANT anon retiré des fonctions propriétaire, accès authenticated conservé, réservation anonyme conservée, répétition idempotente et rejet d'un contrat SECURITY DEFINER altéré. Un test complémentaire (`assert-execute-roles.sh`) exécute réellement les RPC factices avec `SET ROLE anon`, `authenticated` et `service_role` : refus attendu pour les 3 RPC propriétaires en anonyme, succès pour les deux rôles autorisés, succès public pour la réservation. **Ce n'est pas un test d'autorisation entre deux propriétaires, car les corps des fonctions sont des doublures fictives**. Le succès de ces tests ne prouve pas que les vrais clients n'ont pas de liens anciens.
+
+## Appelants identifiés dans les fichiers publiés sur `main` (contrôle statique)
+
+- `resa-resto/acces-proprietaire.html` : connexion OTP, `shouldCreateUser:false`, puis redirection vers la gestion avec session ; aucun des trois appels RPC propriétaire sans session dans ce fichier.
+- `resa-resto/gestion.html` : `getSession()` avant `enter()` ; `claim_site_by_email_v1` dans `enter`, `owner_refresh_no_shows_v1` **automatique** dans `loadAll`, `owner_set_booking_status_v1` lors du clic Enregistrer. Les écritures directes de tables restent nécessaires.
+- `resa-resto/reglages.html` : `getSession()` ou OTP avant `enter()` ; `claim_site_by_email_v1` dans `enter` ; `UPDATE` direct du site sous RLS.
+- `resa-resto/index.html` : réservation/consultation publique par RPC `public_book_v1`, `public_availability_v1`, `public_settings_v1`, `public_zones_v1` ; aucune dépendance directe aux trois RPC propriétaires.
+
+**Limite de preuve :** cette lecture concerne les quatre fichiers de la branche `main`, pas l'intégralité des copies anciennes, sites déployés, caches, navigateurs encore ouverts ou autres dépôts. Une recherche de code indexée n'a retourné aucun résultat exploitable ; cela n'est **pas** une preuve d'absence d'appelants. Le GO SQL reste bloqué tant que la compatibilité terrain et les sessions réelles n'ont pas été contrôlées.
 
 ## GO/NO-GO avant une exécution sur DIGIY CORE
 
