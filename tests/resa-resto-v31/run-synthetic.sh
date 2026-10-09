@@ -14,6 +14,8 @@ psql "$RESTO_SYNTHETIC_DB_URL" -X -w -v ON_ERROR_STOP=1 -f "$script_dir/assert-g
 # Reapplication is harmless; the postconditions stay the same.
 psql "$RESTO_SYNTHETIC_DB_URL" -X -w -v ON_ERROR_STOP=1 -f "$root/supabase/candidates/RESA_RESTO_OWNER_RPC_V31_CANDIDATE.sql"
 psql "$RESTO_SYNTHETIC_DB_URL" -X -w -v ON_ERROR_STOP=1 -f "$script_dir/assert-grants.sql"
+# Test actual SQL role switching in addition to catalog privileges.
+bash "$script_dir/assert-execute-roles.sh"
 echo 'RESTO_V31_SYNTHETIC_GRANTS_PASS'
 # Break a function's expected owner contract. The transaction MUST fail before
 # changes and never grant anonymous execution as a fallback.
