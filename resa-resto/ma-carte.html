@@ -19,6 +19,10 @@ main{max-width:1120px;margin:0 auto;padding:15px 13px 35px}
 .status{color:#9d2720;font-size:14px;font-weight:800}strong{font-weight:900}
 a.button{display:inline-flex;text-decoration:none;min-height:43px;padding:11px 16px;align-items:center;border-radius:999px;background:#073f32;color:#fff;font-weight:900}
 iframe{display:block;width:100%;min-height:1100px;max-width:100%;border:0;border-radius:20px;background:#fff}
+.mode-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.mode-tabs button{min-height:45px;border:1px solid #bdcfbf;border-radius:999px;background:#fff;color:#073f32;padding:9px 13px;font:800 13px system-ui,-apple-system,"Segoe UI",sans-serif;cursor:pointer}
+.mode-tabs button[aria-pressed="true"]{background:#073f32;color:#fff;border-color:#073f32}
+.mode-help{color:#596e63;font-size:13px;line-height:1.5}
 [hidden]{display:none!important}@media(max-width:760px){iframe{min-height:1450px}}
 </style>
 </head>
@@ -29,11 +33,17 @@ iframe{display:block;width:100%;min-height:1100px;max-width:100%;border:0;border
 <p id="loading">Vérification sécurisée de votre restaurant…</p>
 <div id="denied" hidden><p class="status" id="denialText">Accès propriétaire non autorisé.</p><a class="button" id="loginLink" href="./acces-proprietaire.html">🔐 Accès propriétaire</a></div>
 <div id="allowed" hidden>
-<p class="notice"><strong>Éditeur de préparation V35A — sans sauvegarde :</strong> vous pouvez essayer un menu visuel sur sept jours et des photos. Il reste entièrement dans cet onglet. <strong>Ni la carte publique, ni les réservations, ni l’emporter ne sont modifiés.</strong> La publication est bloquée en attendant la persistance sécurisée et l’accord du restaurateur.</p>
+<p class="notice"><strong>Préparation V35A — sans sauvegarde :</strong> vous pouvez préparer vos plats du jour sur sept jours et, séparément, vos plats et salades à la carte. Pas de menus ni de formules. Les deux brouillons restent dans cet onglet. <strong>Ni la fiche publique, ni les réservations, ni l’emporter ne sont modifiés.</strong> Publication bloquée en attendant une sauvegarde sécurisée et l’accord du restaurateur.</p>
 </div>
 </section>
 <section class="panel" id="previewWrapper" hidden>
-<iframe id="menuPrototype" title="Ma semaine : éditeur visuel de brouillon temporaire" loading="eager" referrerpolicy="no-referrer"></iframe>
+<div class="mode-tabs" role="group" aria-label="Choisir votre carte">
+<button id="weeklyMode" type="button" aria-pressed="true">📅 Plats du jour · 7 jours</button>
+<button id="regularMode" type="button" aria-pressed="false">🥗 Plats &amp; salades à la carte</button>
+</div>
+<p class="mode-help" id="modeHelp">Les plats du jour suivent le calendrier de la semaine. Vous pouvez aussi préparer votre carte habituelle : plats individuels et salades, sans menus ni formules. Ces deux brouillons sont indépendants et restent temporaires.</p>
+<iframe id="menuPrototype" title="Plats du jour : éditeur temporaire de la semaine" loading="eager" referrerpolicy="no-referrer"></iframe>
+<iframe id="cartePrototype" title="Plats et salades : carte habituelle temporaire" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
 </section>
 </main>
 <script>
@@ -72,7 +82,17 @@ async function init(){
   const zone=site.timezone==='Africa/Dakar'?'Africa/Dakar':'Europe/Paris';
   // The inner editor receives no JWT, email or customer data.
   $('menuPrototype').src='../prototypes/resto-v35-ma-semaine.html?timezone='+encodeURIComponent(zone);
+  $('cartePrototype').src='../prototypes/resto-v35-plats-salades.html?timezone='+encodeURIComponent(zone);
 }
+function switchMode(mode){
+ const weekly=mode==='weekly';
+ $('menuPrototype').hidden=!weekly;
+ $('cartePrototype').hidden=weekly;
+ $('weeklyMode').setAttribute('aria-pressed',String(weekly));
+ $('regularMode').setAttribute('aria-pressed',String(!weekly));
+}
+$('weeklyMode').addEventListener('click',()=>switchMode('weekly'));
+$('regularMode').addEventListener('click',()=>switchMode('regular'));
 init().catch(()=>deny('Impossible de vérifier les droits propriétaires. Réessayez depuis votre espace sécurisé.'));
 })();
 </script>
