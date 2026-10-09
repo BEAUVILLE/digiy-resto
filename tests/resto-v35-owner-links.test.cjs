@@ -65,7 +65,7 @@ test('confirmed owner can open only a local mock preview without publication',as
  assert.equal(r.nodes.previewWrapper.hidden,false);
  assert.match(r.nodes.restaurantTitle.textContent,/Restaurant fictif/);
  assert.equal(r.nodes.menuPrototype.src,'../prototypes/resto-v35-ma-semaine.html?timezone=Africa%2FDakar');
- assert.equal(r.nodes.cartePrototype.src,'../prototypes/resto-v35-plats-salades.html?timezone=Africa%2FDakar');
+ assert.equal(r.nodes.cartePrototype.src,'../prototypes/resto-v35-plats-salades-apercu-valide.html?timezone=Africa%2FDakar');
  r.nodes.regularMode.events.click();
  assert.equal(r.nodes.menuPrototype.hidden,true);
  assert.equal(r.nodes.cartePrototype.hidden,false);
