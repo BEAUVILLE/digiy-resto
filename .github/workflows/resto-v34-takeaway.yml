@@ -1,0 +1,31 @@
+name: RESTO V34 takeaway no-cashier client
+on:
+  pull_request:
+    paths:
+      - 'resa-resto/a-emporter.html'
+      - 'resa-resto/takeaway-*.js'
+      - 'tests/resto-v34-takeaway.test.cjs'
+      - 'docs/RESTO_V34_A_EMPORTER_CONTRAT.md'
+      - '.github/workflows/resto-v34-takeaway.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  takeaway-contract:
+    name: RESTO V34 pure client and no-cashier tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run standalone direct-order tests (no Supabase secrets)
+        run: node --test tests/resto-v34-takeaway.test.cjs
+      - name: Check JavaScript syntax
+        run: |
+          node --check resa-resto/takeaway-core.js
+          node --check resa-resto/takeaway-catalog.js
+          node --check resa-resto/takeaway-page.js
