@@ -72,3 +72,15 @@ Chantiers parallèles, indépendants : V31 propriétaires, V32 dates passées, V
 - `.github/workflows/resto-v34-takeaway.yml` : tests Node 22, sans secret Supabase ni déploiement. [Dernière exécution validée](https://github.com/BEAUVILLE/digiy-resto/actions/runs/37950496742) : **PASS** après correction d'un faux positif de test.
 
 **À ne pas confondre avec une mise en service :** aucun menu réel approuvé, aucun bouton public vers cette page, aucune base ou RPC RESTO modifiée ; la PR reste **en brouillon**. Pour activer un premier restaurateur, il faut sa validation explicite de menu, contacts et plages de retrait, une revue du contenu, des essais mobiles de bout en bout et un GO publication séparé.
+
+
+## V34 — derniers garde-fous avant le premier restaurant (9 octobre 2026)
+
+La page `resa-resto/takeaway-page.js` a reçu deux protections additionnelles, toujours **sans nouvelle base ni logiciel de caisse** :
+
+- **Changer de date efface l'heure de retrait précédente**, même si elle serait aussi proposée le nouveau jour. Le client doit confirmer sa nouvelle sélection pour éviter d'envoyer une demande au mauvais jour.
+- Si la liste de plats rendrait le message WhatsApp **trop long** pour notre limite de sécurité (2 500 caractères), le lien de demande est masqué et un avertissement clair invite à réduire la sélection ou à joindre directement le restaurateur. On ne tronque jamais silencieusement la commande.
+
+Les tests Chromium `tests/resto-v34-browser.test.cjs` vérifient ces deux parcours avec des plats fictifs injectés exclusivement dans le test, ainsi qu'un restaurateur ayant explicitement désactivé l'emporter. Les tests métier/préflight restent distincts.
+
+**Validation** : [exécution GitHub complète RESTO V34 #37956561027](https://github.com/BEAUVILLE/digiy-resto/actions/runs/37956561027) : tests métier et Chromium **PASS**. Les fonctions de réservation et les pages RESTO existantes ne changent pas. Le catalogue public demeure vide et la PR reste en brouillon ; aucune vraie carte approuvée ni GO publication.
