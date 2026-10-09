@@ -93,7 +93,7 @@ test('composant DOM n expose que les agrégats, détail par clic et états acces
 test('RESTO reste indépendant; la documentation refuse toute fausse attestation',()=>{
  assert.match(spec,/confirm.*ne suffisent pas/i);
  assert.match(spec,/0 % commission/);
- assert.match(spec,/Aucune RPC d'évaluation/);
+ assert.match(spec,/aucune RPC d'évaluation/i);
  assert.match(spec,/MULTI RÉSA/);
  assert.match(spec,/aucun appel réseau TRUST/i);
  assert.match(css,/@media\(max-width:440px\)/);
