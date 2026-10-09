@@ -16,6 +16,7 @@ on:
       - 'tests/resto-v34-pilot-review.test.cjs'
       - 'scripts/resto-v34-pilot-review.cjs'
       - 'docs/RESTO_V34_PILOTE_ENTRE2_SARLAT.md'
+      - 'docs/RESTO_V34_FICHES_PROPRIETAIRE_EMPORTER.md'
       - 'docs/RESTO_V34_ENTRE2_PROPOSITION_CARTE_SOURCE.md'
       - 'scripts/resto-v34-pilot-preflight.cjs'
       - 'docs/RESTO_V34_PILOTE_VALIDATION_MENU.md'
