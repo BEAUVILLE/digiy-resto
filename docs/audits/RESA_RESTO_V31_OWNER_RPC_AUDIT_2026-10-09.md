@@ -63,6 +63,22 @@ Tests [PostgreSQL 16 et 17](../../tests/resa-resto-v31) avec **rôles/fonctions 
 - Le guide `admin-digiy/docs/RESTORE_DIGIY_CORE_LOCAL_MAC.md` confirme une restauration privée réussie de l'ancienne archive **#74**, mais précise que l'archive **#75** correspondant à 82 jours n'avait pas encore sa preuve de restauration au moment du document. Le dernier run étant postérieur, **sa restauration n'est pas attestée non plus**.
 - **NO-GO SQL inchangé** tant qu'une restauration privée de l'archive retenue pour l'activation, avec inventaire RESTO et historique maître conforme, n'est pas documentée. Ne jamais demander ni publier archive déchiffrée, secret, ni données clients.
 
+## Tests du moteur RESTO réel dans PostgreSQL isolé — preuve CI
+
+[Workflow GitHub Actions du 9 octobre 2026 — PostgreSQL 16 et 17 PASS](https://github.com/BEAUVILLE/digiy-resto/actions/runs/37941916288), commit `61d3f9131c512dd9f3a511185ea99c51c4f2706b`. Les logs confirment explicitement les marqueurs suivants :
+
+- `RESTO_ENGINE_CAPACITY_PASS` : 3 couverts sur 4, refus d'une demande de 2 supplémentaires, admission d'un dernier couvert ; disponibilité cohérente.
+- `RESTO_ENGINE_CLOSURE_PASS` : fermeture hebdomadaire refusée côté moteur public.
+- `RESTO_ENGINE_JOIN_PASS` : une réservation de 3 personnes reçoit deux tables assemblées de 2 places.
+- `RESTO_ENGINE_ROTATION_CANCEL_PASS` : réservation du deuxième service sur la même table, rotation du premier service, puis libération de la rotation après annulation et recalcul.
+- `RESTO_ENGINE_NO_SHOW_PASS` : une réservation fictive expirée est libérée avant l'attribution d'une nouvelle place.
+- `RESTO_ENGINE_CONCURRENCY_ADVISORY_LOCK_PASS` : **deux sessions concurrentes** attendent le même verrou transactionnel ; sur une capacité de 1, une seule réservation confirme et la seconde reçoit le refus de capacité. Le total demeure 1.
+- `RESTO_V31_SYNTHETIC_BOOKING_ENGINE_PASS` : suite complète validée en PostgreSQL 16 et PostgreSQL 17.
+
+Les fichiers `synthetic-booking-schema.sql`, `assert-booking-engine.sql` et `assert-booking-concurrency.sh` tournent uniquement contre la base jetable `resto_v31_booking_synthetic`, distincte du test propriétaire. **Le fichier `synthetic-booking-functions-snapshot.sql` a été généré à partir des définitions réelles `pg_get_functiondef` du 9 octobre 2026**, mais ne contient ni lignes clients ni tables réelles. Les données métiers (restaurants, zones, clients, réservations) sont intégralement inventées.
+
+Cette preuve valide le comportement du snapshot du moteur avec ces fixtures ; **elle ne prouve pas** l'identité complète du schéma de production, les vrais flux OTP, tous les fuseaux horaires, ni les clients anciens. Le contrôle serveur des dates/heures passées est suivi séparément dans [RESTO V32 issue #20](https://github.com/BEAUVILLE/digiy-resto/issues/20). Aucune activation SQL RESTO n'a été réalisée.
+
 ## GO/NO-GO avant une exécution sur DIGIY CORE
 
 **NO-GO SQL actuellement.** Conditions cumulatives :
