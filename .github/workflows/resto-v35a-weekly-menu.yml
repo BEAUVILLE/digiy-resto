@@ -1,0 +1,46 @@
+name: RESTO V35A weekly visual menu contract
+on:
+  pull_request:
+    paths:
+      - 'src/resto-v35-weekly-core.js'
+      - 'tests/resto-v35-weekly-core.test.cjs'
+      - 'tests/resto-v35-prototype.test.cjs'
+      - 'prototypes/resto-v35-ma-semaine.html'
+      - 'prototypes/resto-v35-ma-semaine.js'
+      - 'fiche-le-malraux.html'
+      - 'fiche-lentre2.html'
+      - 'resa-resto/gestion.html'
+      - 'resa-resto/ma-carte.html'
+      - 'tests/resto-v35-owner-links.test.cjs'
+      - 'docs/RESTO_V35A_MENU_VISUEL_SEMAINE.md'
+      - '.github/workflows/resto-v35a-weekly-menu.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/resto-v35-weekly-core.js'
+      - 'tests/resto-v35-weekly-core.test.cjs'
+      - 'tests/resto-v35-prototype.test.cjs'
+      - 'prototypes/resto-v35-ma-semaine.html'
+      - 'prototypes/resto-v35-ma-semaine.js'
+      - 'fiche-le-malraux.html'
+      - 'fiche-lentre2.html'
+      - 'resa-resto/gestion.html'
+      - 'resa-resto/ma-carte.html'
+      - 'tests/resto-v35-owner-links.test.cjs'
+      - '.github/workflows/resto-v35a-weekly-menu.yml'
+permissions:
+  contents: read
+jobs:
+  weekly-date-contract:
+    name: Week/day menu visibility (Node 22)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test isolated weekly plan, no database or secrets
+        run: node --test tests/resto-v35-weekly-core.test.cjs tests/resto-v35-prototype.test.cjs tests/resto-v35-owner-links.test.cjs tests/resto-fiches-crosslinks.test.cjs
