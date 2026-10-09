@@ -1,0 +1,45 @@
+name: RESTO V33 isolated late-night availability
+on:
+  pull_request:
+    paths:
+      - 'tests/resa-resto-v33/**'
+      - 'supabase/candidates/RESA_RESTO_V33_MIDNIGHT_LOOP_CANDIDATE.sql'
+      - 'docs/audits/RESA_RESTO_V33_MIDNIGHT_LOOP_AUDIT_2026-10-09.md'
+      - '.github/workflows/resto-v33-isolated.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthetic-postgres:
+    name: RESTO V33 PostgreSQL ${{ matrix.pg }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        pg: ['16', '17']
+    services:
+      postgres:
+        image: postgres:${{ matrix.pg }}
+        env:
+          POSTGRES_PASSWORD: synthetic-only
+          POSTGRES_DB: resto_v33_synthetic
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d resto_v33_synthetic"
+          --health-interval 4s
+          --health-timeout 3s
+          --health-retries 20
+    env:
+      RESTO_V33_SYNTHETIC_DB_URL: postgresql://postgres:synthetic-only@127.0.0.1:5432/resto_v33_synthetic
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client
+      - name: Reproduce and fix original midnight loop against fake late-night services
+        run: bash tests/resa-resto-v33/run-synthetic.sh
