@@ -49,6 +49,20 @@ Tests [PostgreSQL 16 et 17](../../tests/resa-resto-v31) avec **rôles/fonctions 
 
 **Limite de preuve :** cette lecture concerne les quatre fichiers de la branche `main`, pas l'intégralité des copies anciennes, sites déployés, caches, navigateurs encore ouverts ou autres dépôts. Une recherche de code indexée n'a retourné aucun résultat exploitable ; cela n'est **pas** une preuve d'absence d'appelants. Le GO SQL reste bloqué tant que la compatibilité terrain et les sessions réelles n'ont pas été contrôlées.
 
+## Étape renforcée — essais multi-propriétaires fictifs (9 octobre 2026)
+
+- [Exécution CI verte PostgreSQL 16 et 17](https://github.com/BEAUVILLE/digiy-resto/actions/runs/37939817540) sur le commit `9f60484322a28234dad5a7986ec0c5f15080f86e`.
+- Le nouveau couple `synthetic-owner-ab.sql` / `assert-owner-ab.sql` met en scène **deux propriétaires fictifs A et B** et un site sans propriétaire. Les **trois corps de RPC propriétaires** reproduisent le catalogue lu en production le 9 octobre ; le schéma minimal, les identités JWT et la fonction de recalcul de rotation sont **fictifs**.
+- Assertions qui ont passé : propriété A/B, réclamation du site avec email autorisé, refus du site tiers, refus du changement de réservation tiers, refus du rafraîchissement no-show tiers, refus d'un statut inconnu, suppression no-show du site autorisé, `SELECT/UPDATE` bloqués par RLS hors propriétaire et refus sans identité JWT.
+- Les tests de `EXECUTE` sous les rôles SQL `anon`, `authenticated`, `service_role` restent séparés. Le contrat de réservation publique anonyme et la répétition du candidat SQL sont conservés.
+- **Limite explicite :** ceci n'est **ni** un test d'authentification réelle Supabase avec deux comptes, **ni** une restauration intégrale du schéma RESTO, **ni** un test de concurrence / allocation / rotation réelle (le recalcul est simulé). Les tests de capacités, réservation concurrente, journée passée et effets de no-show en vraie structure isolée restent ouverts.
+
+### État vérifié de la sauvegarde
+
+- Le [workflow DIGIY CORE du 9 octobre 2026](https://github.com/BEAUVILLE/admin-digiy/actions/runs/37909800559) est vert et expose un artefact GitHub **chiffré**. Cela prouve la génération d'une archive, pas sa restauration.
+- Le guide `admin-digiy/docs/RESTORE_DIGIY_CORE_LOCAL_MAC.md` confirme une restauration privée réussie de l'ancienne archive **#74**, mais précise que l'archive **#75** correspondant à 82 jours n'avait pas encore sa preuve de restauration au moment du document. Le dernier run étant postérieur, **sa restauration n'est pas attestée non plus**.
+- **NO-GO SQL inchangé** tant qu'une restauration privée de l'archive retenue pour l'activation, avec inventaire RESTO et historique maître conforme, n'est pas documentée. Ne jamais demander ni publier archive déchiffrée, secret, ni données clients.
+
 ## GO/NO-GO avant une exécution sur DIGIY CORE
 
 **NO-GO SQL actuellement.** Conditions cumulatives :
