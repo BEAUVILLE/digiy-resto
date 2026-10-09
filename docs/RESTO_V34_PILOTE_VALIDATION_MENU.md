@@ -55,3 +55,25 @@
 2. **Publication ciblée** : activer uniquement ce restaurant sur sa page à emporter, après revue.
 3. **Retour terrain** : vérifier qu'un client prépare une demande, l'envoie lui-même et que le restaurateur reçoit et confirme ; aucune écriture dans `digiy_resa_resto_bookings`.
 4. **Généralisation légère** : reproduire la même méthode, sans caisse, sans commission et sans dépendance supplémentaire.
+
+
+## Préflight hors ligne — zéro publication
+
+Le script `scripts/resto-v34-pilot-preflight.cjs` permet à l'opérateur de vérifier un brouillon **après réception de la vraie carte et des autorisations**. Il ne contacte ni GitHub, ni Supabase, ni WhatsApp ; il n'écrit aucun fichier et n'active aucune commande.
+
+Le restaurateur doit approuver séparément **la carte, son numéro de réception, les horaires de retrait et l'option à emporter**. Une attestation opérateur est un rappel de vérification humaine, **pas une signature numérique**. La preuve d'accord reste en archive privée et **ne doit pas être commise dans un dépôt GitHub public**, pas davantage que les échanges personnels. Un identifiant interne suffit pour la référence.
+
+En local, sur une machine autorisée et dans la racine du dépôt :
+
+```bash
+node scripts/resto-v34-pilot-preflight.cjs \
+  --draft /chemin/prive/carte-restaurant.json \
+  --attestation /chemin/prive/validation-proprietaire.json \
+  --site SLUG_REEL_DU_RESTAURANT
+```
+
+La carte proposée doit respecter le schéma de `docs/RESTO_V34_A_EMPORTER_CONTRAT.md`, avec `enabled=true` et `ownerApproved=true` **uniquement après accord réel**. L'attestation privée doit comprendre les champs `restaurantSlug`, `ownerApprovedMenu`, `ownerApprovedContact`, `ownerApprovedPickupHours`, `ownerOptInTakeaway` (tous vrais), `verifiedOn` (date ISO), `evidenceReference` (identifiant interne), `operatorReview` (identifiant du vérificateur) et **`publicationAuthorized=false`**.
+
+**Résultat attendu** : `VALID_FOR_MANUAL_REVIEW_ONLY`, et non un GO de publication. Le script refuse les slugs incompatibles, les contacts incorrects, menus invalides, approbations manquantes, créneaux inutilisables et toute prétention à une autorisation de publication.
+
+**Dernières étapes humaines indispensables** : revue des vrais menus/prix/numéros avec le restaurateur, essai sur son téléphone, nouvelle revue GitHub et GO publication explicite. Le registre public `resa-resto/takeaway-catalog.js` reste **vide et désactivé** jusque-là. Les tests de préflight créent seulement des fixtures fictives temporaires qui ne sont jamais publiées.
