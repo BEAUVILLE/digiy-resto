@@ -110,11 +110,60 @@ test('RESTO V34 real browser: locked until verified menu; synthetic-only happy p
     assert.equal(await page.evaluate(()=>navigator.clipboard.readText()),message);
     assert.deepEqual(external,[],'No backend or external request was made while composing the order');
 
+    // Even when 13:00 is available on both days, a date change MUST clear
+    // the previous selection to prevent silently sending a wrong pickup day.
+    await page.locator('#pickupDate').fill('2026-10-10');
+    await page.locator('#pickupDate').dispatchEvent('change');
+    assert.equal(await page.locator('#pickupTime option[value="13:00"]').count(),1);
+    assert.equal(await page.locator('#pickupTime').inputValue(),'');
+    assert.equal(await page.locator('#whatsapp').isVisible(),false);
+    await page.locator('#pickupTime').selectOption('13:00');
+    assert.equal(await page.locator('#whatsapp').isVisible(),true);
+
     await page.locator('#pickupDate').fill('2026-10-08');
     await page.locator('#pickupDate').dispatchEvent('change');
     assert.equal(await page.locator('#whatsapp').isVisible(),false,'Past-day request must be hidden');
     assert.equal(await page.locator('#pickupTime').isDisabled(),true);
     await context.close();
+  });
+
+  await t.test('disabled restaurant with synthetic menu stays locked without a contact request',async()=>{
+    const page=await browser.newPage();
+    const disabled=JSON.parse(JSON.stringify(fixture));
+    disabled['fictional-pilot'].enabled=false;
+    await page.route('**/takeaway-catalog.js',route=>route.fulfill({
+      status:200,contentType:'application/javascript',
+      body:'window.DIGIY_TAKEAWAY_CATALOG=Object.freeze('+JSON.stringify(disabled)+');'
+    }));
+    await page.goto(url+'/a-emporter.html?site=fictional-pilot');
+    assert.equal(await page.locator('#unavailable').isVisible(),true);
+    assert.equal(await page.locator('#ordering').isVisible(),false);
+    assert.equal(await page.locator('#whatsapp').isVisible(),false);
+    await page.close();
+  });
+
+  await t.test('very long fictitious order is blocked with an understandable message',async()=>{
+    const page=await browser.newPage();
+    await freezeClock(page);
+    const large=JSON.parse(JSON.stringify(fixture));
+    large['fictional-pilot'].items=Array.from({length:35},(_,i)=>({
+      id:'dish-'+i,name:'Synthetic dish test '+String(i).padStart(2,'0')+' '+('x'.repeat(68)),
+      priceMinor:1000,available:true
+    }));
+    await page.route('**/takeaway-catalog.js',route=>route.fulfill({
+      status:200,contentType:'application/javascript',
+      body:'window.DIGIY_TAKEAWAY_CATALOG=Object.freeze('+JSON.stringify(large)+');'
+    }));
+    await page.goto(url+'/a-emporter.html?site=fictional-pilot&lang=fr');
+    assert.equal(await page.locator('#ordering').isVisible(),true);
+    await page.locator('#pickupTime').selectOption('13:00');
+    for(let i=0;i<35;i++){
+      await page.locator('#menu .dish').nth(i).locator('button').nth(1).click();
+    }
+    assert.equal(await page.locator('#whatsapp').isVisible(),false);
+    assert.equal(await page.locator('#copyRequest').isVisible(),false);
+    assert.match(await page.locator('#status').innerText(),/trop de texte pour WhatsApp/);
+    await page.close();
   });
 
   await t.test('hostile dish label rendered as text, not executable HTML',async()=>{
