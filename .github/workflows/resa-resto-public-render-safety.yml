@@ -4,12 +4,14 @@ on:
     paths:
       - 'resa-resto/index.html'
       - 'tests/resa-resto-public-render-safe.test.cjs'
+      - 'docs/audits/RESA_RESTO_PILOT_PREFLIGHT_2026-10-09.md'
       - '.github/workflows/resa-resto-public-render-safety.yml'
   push:
     branches: [main]
     paths:
       - 'resa-resto/index.html'
       - 'tests/resa-resto-public-render-safe.test.cjs'
+      - 'docs/audits/RESA_RESTO_PILOT_PREFLIGHT_2026-10-09.md'
       - '.github/workflows/resa-resto-public-render-safety.yml'
 permissions:
   contents: read
