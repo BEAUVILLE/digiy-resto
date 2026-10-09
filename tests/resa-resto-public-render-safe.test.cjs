@@ -87,3 +87,19 @@ test('public booking and availability RPC names remain unchanged',()=>{
   assert.ok(!html.includes('z.zone_slug}'));
   assert.ok(html.includes('CONFIRMER MA RÉSERVATION'));
 });
+
+test('grace period injected into rule HTML is numeric and bounded',()=>{
+  const from=html.indexOf('function renderRules(){');
+  const to=html.indexOf('/* Public RESTO V1 safety:',from);
+  assert.ok(from>=0&&to>from);
+  const code=html.slice(from,to);
+  const rule={innerHTML:''},closedInfo={textContent:''};
+  const ctx={
+    settings:{closed_weekdays:[],no_show_grace_minutes:'"><img src=x onerror=alert(1)>',table_plan_enabled:true,fixed_services_enabled:true},
+    N:{},$:id=>({rule,closedInfo})[id]
+  };
+  vm.runInNewContext(code+';renderRules()',ctx,{timeout:1000});
+  assert.match(rule.innerHTML,/15 minutes/);
+  assert.doesNotMatch(rule.innerHTML,/<img/);
+  assert.doesNotMatch(rule.innerHTML,/onerror=/);
+});
