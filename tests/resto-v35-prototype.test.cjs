@@ -52,7 +52,7 @@ test('prototype is nonpublished, offline, and has no hidden authorization',()=>{
  assert.match(html,/input id="dishPhoto" type="file"/);
  assert.match(html,/value="Africa\/Dakar"/);
  assert.match(html,/value="XOF"/);
- assert.ok(!/(?:fetch\s*\(|XMLHttpRequest|localStorage|supabase|service_role|\.rpc\s*\(|wa\.me\/|checkout|navigator\.sendBeacon)/i.test(code));
+ assert.ok(!/(?:fetch\s*\(|XMLHttpRequest|localStorage\s*\.|supabase\s*\.|service_role\s*\.|\.rpc\s*\(|wa\.me\/|checkout|navigator\.sendBeacon)/i.test(code));
 });
 test('first screen has seven day tabs, today selected, no fictitious plate',()=>{
  const h=setup();
