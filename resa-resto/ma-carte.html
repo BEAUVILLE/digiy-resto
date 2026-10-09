@@ -82,7 +82,7 @@ async function init(){
   const zone=site.timezone==='Africa/Dakar'?'Africa/Dakar':'Europe/Paris';
   // The inner editor receives no JWT, email or customer data.
   $('menuPrototype').src='../prototypes/resto-v35-ma-semaine.html?timezone='+encodeURIComponent(zone);
-  $('cartePrototype').src='../prototypes/resto-v35-plats-salades.html?timezone='+encodeURIComponent(zone);
+  $('cartePrototype').src='../prototypes/resto-v35-plats-salades-apercu-valide.html?timezone='+encodeURIComponent(zone);
 }
 function switchMode(mode){
  const weekly=mode==='weekly';
