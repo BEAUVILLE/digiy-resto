@@ -97,10 +97,14 @@
   output.appendChild(content);
  }
  $('photo').addEventListener('change',()=>{
-  clearPhoto();
   const file=$('photo').files?.[0];
+  if(pendingPhoto)URL.revokeObjectURL(pendingPhoto);
+  pendingPhoto=null;
+  $('photoPreview').hidden=true;
+  $('photoPreview').removeAttribute('src');
   if(!file)return;
   if(!allowedTypes.has(file.type)||file.size<=0||file.size>4*1024*1024){
+   $('photo').value='';
    status('Photo refusée : JPG, PNG, WebP ou AVIF, 4 Mo maximum.');
    return;
   }
