@@ -66,7 +66,9 @@ test('Owner page keeps original verified site authorization before loading both 
  assert.match(owner,/weeklyMode/);
  assert.match(owner,/regularMode/);
  assert.match(manager,/id="maCarteLink"/);
- assert.match(manager,/GÉRER MES PLATS/);
+ assert.match(manager,/MES PLATS DU JOUR/);
+ assert.match(manager,/MES PLATS &amp; SALADES/);
+ assert.match(manager,/id="platsSaladesLink"/);
 });
 test('Empty carte has no fictional products',()=>{
  const t=harness();

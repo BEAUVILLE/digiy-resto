@@ -15,7 +15,7 @@ assert.ok(script.includes('async function init()'));
 
 function element(){return {href:'',src:'',hidden:false,textContent:'',attributes:{},events:{},
  addEventListener(k,fn){this.events[k]=fn},setAttribute(k,v){this.attributes[k]=v}}}
-async function simulate(slug,userId,ownerId){
+async function simulate(slug,userId,ownerId,vue=''){
  const ids=['back','loginLink','loading','allowed','previewWrapper','denialText','denied','restaurantTitle',
  'menuPrototype','cartePrototype','weeklyMode','regularMode'];
  const nodes=Object.fromEntries(ids.map(id=>[id,element()]));
@@ -31,7 +31,7 @@ async function simulate(slug,userId,ownerId){
   events.push('table:'+name);
   return {select:()=>({eq:()=>query})};
  }})};
- const ctx={URLSearchParams,location:{search:'?site='+encodeURIComponent(slug)},
+ const ctx={URLSearchParams,location:{search:'?site='+encodeURIComponent(slug)+(vue?'&vue='+encodeURIComponent(vue):'')},
   document:{getElementById:id=>nodes[id]},supabase};
  vm.runInNewContext(script,ctx,{timeout:1000});
  await new Promise(resolve=>setImmediate(resolve));
@@ -41,6 +41,11 @@ test('authenticated test Saly management displays a site-specific owner shortcut
  assert.match(management,/id="ma-carte"/);
  assert.match(management,/🥡 Ma carte, mes plats &amp; l’emporter/);
  assert.match(management,/id="maCarteLink"/);
+ assert.match(management,/id="platsSaladesLink"/);
+ assert.match(management,/MES PLATS DU JOUR/);
+ assert.match(management,/MES PLATS &amp; SALADES/);
+ assert.match(management,/'&vue=carte'/);
+ assert.match(management,/'&vue=semaine'/);
  assert.match(management,/ma-carte\.html\?site='\+encodeURIComponent\(SITE_SLUG\)/);
  assert.match(management,/Préversion de test/);
 });
@@ -73,6 +78,28 @@ test('confirmed owner can open only a local mock preview without publication',as
  assert.equal(r.nodes.menuPrototype.hidden,false);
  assert.equal(r.nodes.cartePrototype.hidden,true);
  assert.ok(!/\.insert\(|\.update\(|\.delete\(|\.rpc\(/.test(script));
+});
+test('direct vue=carte opens the approved Plats et Salades interface first',async()=>{
+ const r=await simulate('test-resa-resto-saly','owner-A','owner-A','carte');
+ assert.equal(r.nodes.allowed.hidden,false);
+ assert.equal(r.nodes.menuPrototype.hidden,true);
+ assert.equal(r.nodes.cartePrototype.hidden,false);
+ assert.equal(r.nodes.regularMode.attributes['aria-pressed'],'true');
+ assert.equal(r.nodes.weeklyMode.attributes['aria-pressed'],'false');
+ assert.match(r.nodes.cartePrototype.src,/resto-v35-plats-salades-apercu-valide\.html/);
+});
+test('vue=carte is not an authorization bypass',async()=>{
+ const anon=await simulate('test-resa-resto-saly',null,'owner-A','carte');
+ assert.equal(anon.nodes.previewWrapper.hidden,true);
+ assert.equal(anon.nodes.cartePrototype.src,'');
+ const other=await simulate('test-resa-resto-saly','owner-B','owner-A','carte');
+ assert.equal(other.nodes.previewWrapper.hidden,true);
+ assert.equal(other.nodes.cartePrototype.src,'');
+});
+test('unexpected view cannot create arbitrary iframe URL or replace the weekly default',async()=>{
+ const r=await simulate('test-resa-resto-saly','owner-A','owner-A','../../unsafe');
+ assert.equal(r.nodes.menuPrototype.hidden,false);
+ assert.equal(r.nodes.cartePrototype.hidden,true);
 });
 test('missing or unknown site never silently defaults to TEST SALY',async()=>{
  const r=await simulate('not-a-restaurant','owner-A','owner-A');
