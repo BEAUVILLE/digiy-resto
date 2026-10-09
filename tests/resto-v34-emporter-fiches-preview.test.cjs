@@ -19,6 +19,8 @@ function createElement(tag) {
 function demo(){
  const root=createElement('div');
  const total=createElement('output');
+ // Mirror the initial visible <output> text declared in the actual HTML.
+ total.textContent='0,00 €';
  const ctx={
   document:{getElementById:id=>({products:root,total})[id],createElement},
   Intl,Array
