@@ -1,0 +1,33 @@
+name: RESTO owner access from real fiches
+on:
+  pull_request:
+    paths:
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'resa-resto/acces-proprietaire.html'
+      - 'resa-resto/gestion.html'
+      - 'tests/resto-owner-access-real-fiches.test.cjs'
+      - '.github/workflows/resto-owner-access-fiches.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'resa-resto/acces-proprietaire.html'
+      - 'resa-resto/gestion.html'
+      - 'tests/resto-owner-access-real-fiches.test.cjs'
+permissions:
+  contents: read
+jobs:
+  owner-link:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify owner link, exact site, OTP route and regression checks
+        run: node --test tests/resto-owner-access-real-fiches.test.cjs tests/resto-fiches-crosslinks.test.cjs tests/resto-v34-emporter-fiches-preview.test.cjs
