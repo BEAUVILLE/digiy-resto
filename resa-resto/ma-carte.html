@@ -49,7 +49,9 @@ iframe{display:block;width:100%;min-height:1100px;max-width:100%;border:0;border
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
-const slug=new URLSearchParams(location.search).get('site')||'';
+const params=new URLSearchParams(location.search);
+const slug=params.get('site')||'';
+const firstMode=params.get('vue')==='carte'?'regular':'weekly';
 const allowedSlugs=new Set(['test-resa-resto-saly','modele-resa-resto-sarlat','entre2-sarlat','le-malraux-sarlat']);
 const siteParam='?site='+encodeURIComponent(slug);
 $('back').href='./gestion.html'+siteParam;
@@ -83,6 +85,8 @@ async function init(){
   // The inner editor receives no JWT, email or customer data.
   $('menuPrototype').src='../prototypes/resto-v35-ma-semaine.html?timezone='+encodeURIComponent(zone);
   $('cartePrototype').src='../prototypes/resto-v35-plats-salades-apercu-valide.html?timezone='+encodeURIComponent(zone);
+  // Direct links select the requested editor only after ownership has been verified.
+  switchMode(firstMode);
 }
 function switchMode(mode){
  const weekly=mode==='weekly';
