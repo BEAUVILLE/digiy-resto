@@ -57,7 +57,7 @@ test('fake draft cannot bypass opt-in or schedule validation',()=>{
   for(const changes of [
     {ownerApproved:false},{enabled:false},{whatsapp:'javascript:bad'},{items:[]},
     {pickupWindows:[{weekdays:[1],from:'22:00',to:'01:00'}]},
-    {pickupWindows:[{weekdays:[1,2,3,4,5,6,7],from:'00:00',to:'00:00'}]}
+    {preparationMinutes:361},{currency:'USD'}
   ]){
     const r=check({...fakeMenu(),...changes},fakeAttestation(),slug,when);
     assert.equal(r.ready,false,JSON.stringify(changes));
