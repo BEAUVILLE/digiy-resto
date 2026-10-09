@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#073f32">
+<title>Mon menu · Espace propriétaire DIGIY RESTO</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}
+body{margin:0;background:#f6f2e9;color:#174438;font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:#073f32;color:#fff;padding:19px max(14px,calc((100vw - 1120px)/2))}
+header h1{margin:4px 0 6px;font-size:clamp(26px,5vw,34px)}
+header a{color:#fff;font-weight:800}
+main{max-width:1120px;margin:0 auto;padding:15px 13px 35px}
+.panel{border:1px solid #d9e5db;border-radius:16px;background:#fff;padding:17px;margin:10px 0;box-shadow:0 8px 20px #073f3214}
+.notice{background:#fff7df;border-left:4px solid #d7ac46;padding:14px;border-radius:11px;font-size:13px}
+.status{color:#9d2720;font-size:14px;font-weight:800}strong{font-weight:900}
+a.button{display:inline-flex;text-decoration:none;min-height:43px;padding:11px 16px;align-items:center;border-radius:999px;background:#073f32;color:#fff;font-weight:900}
+iframe{display:block;width:100%;min-height:1100px;max-width:100%;border:0;border-radius:20px;background:#fff}
+[hidden]{display:none!important}@media(max-width:760px){iframe{min-height:1450px}}
+</style>
+</head>
+<body>
+<header><a id="back" href="./gestion.html">← Retour à mon restaurant</a><h1>🥡 Ma carte · À emporter</h1><span id="restaurantTitle">Vérification du propriétaire…</span></header>
+<main>
+<section class="panel" aria-live="polite">
+<p id="loading">Vérification sécurisée de votre restaurant…</p>
+<div id="denied" hidden><p class="status" id="denialText">Accès propriétaire non autorisé.</p><a class="button" id="loginLink" href="./acces-proprietaire.html">🔐 Accès propriétaire</a></div>
+<div id="allowed" hidden>
+<p class="notice"><strong>Éditeur de préparation V35A — sans sauvegarde :</strong> vous pouvez essayer un menu visuel sur sept jours et des photos. Il reste entièrement dans cet onglet. <strong>Ni la carte publique, ni les réservations, ni l’emporter ne sont modifiés.</strong> La publication est bloquée en attendant la persistance sécurisée et l’accord du restaurateur.</p>
+</div>
+</section>
+<section class="panel" id="previewWrapper" hidden>
+<iframe id="menuPrototype" title="Ma semaine : éditeur visuel de brouillon temporaire" loading="eager" referrerpolicy="no-referrer"></iframe>
+</section>
+</main>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const slug=new URLSearchParams(location.search).get('site')||'';
+const allowedSlugs=new Set(['test-resa-resto-saly','modele-resa-resto-sarlat','entre2-sarlat','le-malraux-sarlat']);
+const siteParam='?site='+encodeURIComponent(slug);
+$('back').href='./gestion.html'+siteParam;
+$('loginLink').href='./acces-proprietaire.html'+siteParam;
+const deny=message=>{
+  $('loading').hidden=true;
+  $('allowed').hidden=true;
+  $('previewWrapper').hidden=true;
+  $('denialText').textContent=message;
+  $('denied').hidden=false;
+};
+async function init(){
+  if(!allowedSlugs.has(slug))return deny('Restaurant non reconnu : aucun retour automatique vers un restaurant test.');
+  if(typeof supabase==='undefined')return deny('Service d’authentification indisponible. Revenez à l’accès propriétaire.');
+  const client=supabase.createClient('https://wesqmwjjtsefyjnluosj.supabase.co','sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3',{auth:{persistSession:true,detectSessionInUrl:false}});
+  // Check an actual auth identity; the URL or an email field never establishes ownership.
+  const {data:verified,error:authError}=await client.auth.getUser();
+  const user=verified&&verified.user;
+  if(authError||!user||!user.id)return deny('Connectez-vous au compte propriétaire de ce restaurant avant d’ouvrir sa carte.');
+  const {data:site,error:siteError}=await client.from('digiy_resa_resto_sites')
+    .select('id,slug,display_name,owner_id,timezone').eq('slug',slug).maybeSingle();
+  // Site RLS restricts reading and the owner-id equality provides another guard.
+  if(siteError||!site||site.owner_id!==user.id||site.slug!==slug){
+    return deny('Ce compte n’est pas rattaché à ce restaurant. Aucun accès à la gestion d’un autre établissement.');
+  }
+  $('restaurantTitle').textContent='Restaurant vérifié : '+site.display_name;
+  $('loading').hidden=true;
+  $('allowed').hidden=false;
+  $('previewWrapper').hidden=false;
+  const zone=site.timezone==='Africa/Dakar'?'Africa/Dakar':'Europe/Paris';
+  // The inner editor receives no JWT, email or customer data.
+  $('menuPrototype').src='../prototypes/resto-v35-ma-semaine.html?timezone='+encodeURIComponent(zone);
+}
+init().catch(()=>deny('Impossible de vérifier les droits propriétaires. Réessayez depuis votre espace sécurisé.'));
+})();
+</script>
+</body>
+</html>
