@@ -1,0 +1,31 @@
+name: RESTO V34 fiche emporter preview
+on:
+  pull_request:
+    paths:
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'resto-v34-entre2-preview.js'
+      - 'tests/resto-v34-emporter-fiches-preview.test.cjs'
+      - '.github/workflows/resto-v34-emporter-preview.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'resto-v34-entre2-preview.js'
+      - 'tests/resto-v34-emporter-fiches-preview.test.cjs'
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Ensure no actual order or synthetic menu deployment
+        run: node --test tests/resto-v34-emporter-fiches-preview.test.cjs tests/resto-fiches-crosslinks.test.cjs
