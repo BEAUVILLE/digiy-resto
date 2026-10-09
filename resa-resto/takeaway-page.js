@@ -25,6 +25,7 @@
       copyDone:'Demande copiée. Contactez maintenant le restaurant pour la faire confirmer.',
       copyFailed:'Copie indisponible sur cet appareil. Utilisez le contact direct.',
       invalidTime:'Le créneau n’est plus proposé : vérifiez la date et l’heure.',
+      requestTooLong:'Votre demande contient trop de texte pour WhatsApp. Réduisez la sélection ou contactez le restaurant directement.',
       footer:'DIGIYLYFE · Contact direct · Paiement direct · 0 % commission',
       unavailableDish:'Indisponible',increase:'Ajouter',decrease:'Retirer'
     },
@@ -45,6 +46,7 @@
       copyDone:'Request copied. Contact the restaurant for confirmation.',
       copyFailed:'Copy is not available on this device. Please contact the restaurant.',
       invalidTime:'This slot is no longer offered; select a new pickup time.',
+      requestTooLong:'Your request is too long for WhatsApp. Select fewer dishes or contact the restaurant directly.',
       footer:'DIGIYLYFE · Direct contact · Direct payment · 0% commission',
       unavailableDish:'Unavailable',increase:'Add',decrease:'Remove'
     }
@@ -112,8 +114,8 @@
     });
     counter.append(less,count,more);card.append(counter);menu.append(card);
   }
-  function refreshSlots(){
-    const before=slotSelect.value;
+  function refreshSlots(preserveSelection=false){
+    const before=preserveSelection?slotSelect.value:'';
     slotSelect.replaceChildren();
     const initial=create('option',tr.chooseTime);
     initial.value='';slotSelect.append(initial);
@@ -148,11 +150,15 @@
       }
       copy.classList.remove('hidden');
       $('status').textContent=tr.orderNotice;
-    }catch(_){
-      // No messages or contact URLs until a valid, future pickup and nonempty order.
+    }catch(error){
+      // Closed by default; clearly explain a message that exceeds the safe link size.
+      if(error.message==='Invalid professional contact/message'){
+        $('status').textContent=tr.requestTooLong;
+        $('status').classList.add('error');
+      }
     }
   }
-  $('pickupDate').addEventListener('change',refreshSlots);
+  $('pickupDate').addEventListener('change',()=>refreshSlots(false));
   slotSelect.addEventListener('change',update);
   send.addEventListener('click',event=>{
     try{
@@ -162,7 +168,7 @@
       event.preventDefault();
       $('status').textContent=tr.invalidTime;
       $('status').classList.add('error');
-      refreshSlots();
+      refreshSlots(false);
     }
   });
   copy.addEventListener('click',async()=>{
