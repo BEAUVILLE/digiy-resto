@@ -149,7 +149,7 @@
    output.appendChild(element('p','Contenu en brouillon : ni réservation, ni commande, ni paiement.','muted'));
  }
  $('weekDate').value=today();
- selectedDate=weekStart();
+ selectedDate=today();
  updateWeek();renderDay();
  $('timezone').addEventListener('change',()=>{
    // The real owner timezone will be fixed server-side to the verified site.
@@ -162,8 +162,11 @@
    resetInput();updateWeek();renderDay();if(previewOpen)renderPreview();
  });
  $('dishPhoto').addEventListener('change',()=>{
-   emptyPhoto();
    const file=$('dishPhoto').files?.[0];
+   if(pendingPhoto)URL.revokeObjectURL(pendingPhoto);
+   pendingPhoto=null;
+   $('photoPreview').hidden=true;
+   $('photoPreview').removeAttribute('src');
    // A file can be empty after a cancel; no remote upload ever occurs.
    if(!file)return;
    if(!allowedTypes.has(file.type)||file.size<=0||file.size>maxImageBytes){
