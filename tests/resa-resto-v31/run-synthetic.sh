@@ -35,3 +35,6 @@ if psql "$RESTO_SYNTHETIC_DB_URL" -X -w -v ON_ERROR_STOP=1 \
 fi
 grep -q 'RESTO_V31_PREFLIGHT_FUNCTION_CONTRACT_DRIFT' "$log"
 echo 'RESTO_V31_SYNTHETIC_SCHEMA_DRIFT_REJECTED'
+# Finally test real snapshotted booking functions against a separate, fully
+# synthetic database. No network/production URL or customer dataset accepted.
+bash "$script_dir/run-booking-engine.sh"
