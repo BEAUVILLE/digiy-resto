@@ -1,0 +1,71 @@
+name: RESTO V34 takeaway no-cashier client
+on:
+  pull_request:
+    paths:
+      - 'resa-resto/a-emporter.html'
+      - 'resa-resto/takeaway-*.js'
+      - 'tests/resto-v34-takeaway.test.cjs'
+      - 'tests/resto-v34-browser.test.cjs'
+      - 'tests/resto-v34-fiches-browser.test.cjs'
+      - 'fiche-le-malraux.html'
+      - 'fiche-lentre2.html'
+      - 'index.html'
+      - 'resa-resto/acces-proprietaire.html'
+      - 'resa-resto/gestion.html'
+      - 'tests/resto-v34-pilot-preflight.test.cjs'
+      - 'tests/resto-v34-pilot-review.test.cjs'
+      - 'scripts/resto-v34-pilot-review.cjs'
+      - 'docs/RESTO_V34_PILOTE_ENTRE2_SARLAT.md'
+      - 'docs/RESTO_V34_FICHES_PROPRIETAIRE_EMPORTER.md'
+      - 'docs/RESTO_V34_ENTRE2_PROPOSITION_CARTE_SOURCE.md'
+      - 'scripts/resto-v34-pilot-preflight.cjs'
+      - 'docs/RESTO_V34_PILOTE_VALIDATION_MENU.md'
+      - 'docs/RESTO_V34_A_EMPORTER_CONTRAT.md'
+      - '.github/workflows/resto-v34-takeaway.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  takeaway-contract:
+    name: RESTO V34 pure client and no-cashier tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run standalone direct-order tests (no Supabase secrets)
+        run: node --test tests/resto-v34-takeaway.test.cjs tests/resto-v34-pilot-preflight.test.cjs tests/resto-v34-pilot-review.test.cjs
+      - name: Check JavaScript syntax
+        run: |
+          node --check resa-resto/takeaway-core.js
+          node --check resa-resto/takeaway-catalog.js
+          node --check resa-resto/takeaway-page.js
+          node --check scripts/resto-v34-pilot-preflight.cjs
+          node --check scripts/resto-v34-pilot-review.cjs
+  browser-smoke:
+    name: RESTO V34 Chromium pilot simulation (local-only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Use runner Chrome when available (test only)
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "RESTO_CHROME_PATH=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          elif command -v chromium >/dev/null 2>&1; then
+            echo "RESTO_CHROME_PATH=$(command -v chromium)" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Test locked live catalog and fictitious browser order locally
+        run: node --test tests/resto-v34-browser.test.cjs tests/resto-v34-fiches-browser.test.cjs

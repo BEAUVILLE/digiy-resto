@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#073f32">
+<meta name="robots" content="noindex,nofollow">
+<title>DIGIY RESTO — À emporter</title>
+<style>
+:root{--forest:#073f32;--forest2:#0d634b;--gold:#dbb04b;--cream:#f5f1e6;--ink:#173b31;--muted:#657b71;--line:#d9e6dd;--red:#9c2828}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#073f32 0,#0b5d48 280px,var(--cream) 281px);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.container{max-width:760px;margin:auto;padding:18px 14px 56px}
+header{color:white}.top{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}.brand{font-weight:950;font-size:15px}
+a.back{border:1px solid #ffffff66;border-radius:999px;color:#fff;text-decoration:none;padding:8px 12px;font-weight:750;font-size:12px}
+h1{margin:32px 0 8px;color:#fff;font-size:clamp(32px,9vw,54px);line-height:1.08}header p{margin:0 0 24px;color:#eff8ee;font-weight:650}
+article{background:#fffefa;border:1px solid var(--line);border-radius:22px;padding:clamp(18px,4vw,30px);box-shadow:0 16px 36px #073f3226}
+.muted{color:var(--muted)}h2{font-size:19px;color:var(--forest);margin:0 0 6px}.small{font-size:13px}.flag{color:#614b14;background:#fff7db;border-left:4px solid var(--gold);padding:12px 14px;border-radius:10px}
+.hr{height:1px;background:var(--line);margin:22px 0}.menu{display:grid;gap:12px}.dish{border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dishName{font-weight:780}.price{color:var(--forest2);font-weight:850;font-size:14px}.counter{display:flex;align-items:center;gap:9px}
+.counter button{border:1px solid #b7d2c1;color:var(--forest);background:white;border-radius:999px;width:34px;height:34px;font-size:19px;cursor:pointer}.counter button:disabled{opacity:.35;cursor:not-allowed}.counter output{min-width:22px;text-align:center;font-weight:850}
+label{display:block;font-size:13px;font-weight:800;margin:13px 0 6px}input,select{min-width:0;width:100%;font:inherit;color:var(--ink);background:#fff;border:1px solid #bacdc1;border-radius:12px;min-height:46px;padding:9px 12px}
+.total{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:18px;font-weight:900}
+.primary,.secondary{display:block;width:100%;border-radius:999px;padding:13px 16px;text-align:center;font:inherit;font-weight:850;text-decoration:none;cursor:pointer;margin-top:12px}
+.primary{background:var(--forest);border:1px solid var(--forest);color:white}.secondary{background:white;color:var(--forest);border:1px solid var(--forest)}
+.primary:disabled,.secondary:disabled{opacity:.5;cursor:not-allowed}.hidden{display:none!important}
+.status{margin-top:10px;font-size:13px;font-weight:700}.error{color:var(--red)}
+footer{margin-top:24px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:430px){.dish{align-items:flex-start;flex-direction:column}.counter{align-self:flex-end}}
+</style>
+<script src="./takeaway-core.js" defer></script>
+<script src="./takeaway-catalog.js" defer></script>
+<script src="./takeaway-page.js" defer></script>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="top">
+    <strong class="brand">🍽️ DIGIY RESTO · 0 % COMMISSION</strong>
+    <a class="back" href="../index.html" id="back">← RESTO</a>
+  </div>
+  <h1 id="heroTitle">À emporter</h1>
+  <p id="heroNote">Votre repas, à récupérer directement au restaurant.</p>
+</header>
+<main>
+<article id="unavailable" aria-live="polite">
+  <h2 id="unavailableTitle">Commande à emporter non disponible</h2>
+  <p id="unavailableText" class="muted">Aucune carte à emporter approuvée pour cet établissement. Contactez-le directement pour connaître ses possibilités.</p>
+  <a href="../index.html" class="secondary" id="directoryLink">Voir les restaurants et leurs contacts</a>
+</article>
+<article id="ordering" class="hidden" aria-label="Demande de commande à emporter">
+  <h2 id="restaurantName"></h2>
+  <div id="orderNotice" class="flag">Ceci est une demande, pas une commande confirmée. Le restaurateur valide les plats, le retrait et le prix définitif.</div>
+  <div class="hr"></div>
+  <h2 id="menuHeading">Choisir les plats</h2>
+  <div id="menu" class="menu"></div>
+  <div class="hr"></div>
+  <h2 id="pickupHeading">Choisir le retrait</h2>
+  <label for="pickupDate" id="dateLabel">Date souhaitée</label>
+  <input id="pickupDate" type="date" autocomplete="off">
+  <label for="pickupTime" id="timeLabel">Heure souhaitée</label>
+  <select id="pickupTime"><option value="">Choisir une heure</option></select>
+  <p class="muted small" id="pickupInfo">Le retrait doit respecter les horaires et le délai de préparation du restaurant.</p>
+  <div class="hr"></div>
+  <div class="total"><span id="totalLabel">Total indicatif</span><output id="total"></output></div>
+  <p class="muted small" id="directPay">Paiement direct au restaurant. DIGIYLYFE ne collecte aucun règlement.</p>
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+  <a id="whatsapp" class="primary hidden" href="#" target="_blank" rel="noopener noreferrer">Envoyer la demande sur WhatsApp ↗</a>
+  <button id="copyRequest" class="secondary hidden" type="button">Copier la demande</button>
+  <a id="phone" class="secondary hidden" href="#">Appeler le restaurateur</a>
+  <p class="flag small" id="requestNote">Aucune demande n'est transmise à DIGIYLYFE. C'est le restaurant qui accepte ou refuse directement.</p>
+</article>
+</main>
+<footer id="footer">DIGIYLYFE · Contact direct · Paiement direct · 0 % commission</footer>
+</div>
+</body>
+</html>
