@@ -24,7 +24,7 @@ header{background:var(--green);color:#fff;border-bottom:4px solid var(--gold);pa
 .langs button{background:#fffefa;color:var(--green);border-color:#e1e8e4} .langs button.active{background:var(--gold);border-color:var(--gold)}
 .join{margin-top:10px;display:flex;justify-content:space-between;gap:10px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(216,173,70,.55);border-radius:13px;padding:9px 10px}
 .join div{display:flex;flex-direction:column;gap:2px} .join strong{font-size:11px} .join span{font-size:9px;color:#e8e2ca}
-.join a{background:var(--gold);color:var(--green);text-decoration:none;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:950;text-align:center}.owner-test-access{margin-top:10px;display:flex;gap:7px;flex-wrap:wrap}.owner-test-access a{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 11px;border-radius:999px;text-decoration:none;font-size:9px;font-weight:1000}.owner-test-access .saly{background:#fff;color:var(--green);border:1px solid #fff}.owner-test-access .sarlat{background:var(--gold);color:var(--green);border:1px solid var(--gold)}
+.join a{background:var(--gold);color:var(--green);text-decoration:none;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:950;text-align:center}.owner-guidance{margin:12px 0 0;padding:10px 13px;border:1px solid rgba(216,173,70,.6);border-radius:12px;color:#f8f0d8;background:rgba(255,255,255,.08);font-size:12px}.owner-btn{background:#fff3d4;border:2px solid var(--gold);color:var(--green);font-weight:1000;min-height:39px;display:flex;align-items:center;justify-content:center}
 main{max-width:980px;margin:auto;padding:16px 8px 40px}
 .section{display:flex;align-items:center;gap:9px;margin-bottom:9px} .section .ico{width:38px;height:38px;background:#e4efe8;border-radius:50%;display:grid;place-items:center}
 .section h1{font-size:18px;margin:0} .section p{font-size:10px;color:var(--muted);margin:2px 0 0}
@@ -59,31 +59,44 @@ html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-r
 </head>
 <body>
 <script>
+/* RESTO INDEX — Auth callback adapter only; never selects a test restaurant. */
 (async function(){
   try{
-    var pending='';
+    const allowed=new Set([
+      'test-resa-resto-saly','modele-resa-resto-sarlat',
+      'entre2-sarlat','le-malraux-sarlat'
+    ]);
+    const params=new URLSearchParams(location.search);
+    const requested=params.get('site');
+    let pending='';
     try{pending=localStorage.getItem('digiy_resa_owner_site')||''}catch(_){}
-    var target=pending||'test-resa-resto-saly';
-    var authReturn=/(?:access_token|refresh_token|error_description)=/.test(location.hash||'') || /(?:[?&](?:code|token_hash|error|error_code)=)/.test(location.search||'');
-    if(!authReturn && !pending)return;
-
-    var db=window.supabase.createClient(
+    // An explicitly invalid site is a hard stop, NEVER a fallback to saved test data.
+    if(requested!==null && !allowed.has(requested))return;
+    const target=requested!==null?requested:(allowed.has(pending)?pending:'');
+    const authReturn=/(?:access_token|refresh_token|error_description)=/.test(location.hash||'')
+      || /(?:[?&](?:code|token_hash|error|error_code)=)/.test(location.search||'');
+    // Normal visitors must remain on the public RESTO index.
+    if(!target||(!authReturn&&!pending))return;
+    if(!window.supabase)return;
+    const db=window.supabase.createClient(
       'https://wesqmwjjtsefyjnluosj.supabase.co',
       'sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3',
       {auth:{persistSession:true,detectSessionInUrl:true}}
     );
-
-    var tries=0;
-    var route=async function(){
+    let tries=0;
+    const route=async()=>{
       tries++;
-      var res=await db.auth.getSession();
+      const res=await db.auth.getSession();
       if(res.data&&res.data.session){
         try{localStorage.removeItem('digiy_resa_owner_site')}catch(_){}
-        location.replace('/resa-resto/gestion.html?site='+encodeURIComponent(target));
-        return true;
+        // ALWAYS return through site-specific authorization gate, not management
+        // and never a guessed TEST SALY/TEST SARLAT establishment.
+        location.replace('/resa-resto/acces-proprietaire.html?site='+encodeURIComponent(target));
+        return;
       }
-      if(tries<8){setTimeout(route,250);return false;}
-      return false;
+      if(tries<8){setTimeout(route,250);return;}
+      // Do not repeatedly route visitors on a stale pending site.
+      try{localStorage.removeItem('digiy_resa_owner_site')}catch(_){}
     };
     await route();
   }catch(_){}
@@ -99,10 +112,7 @@ html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-r
     <a href="https://digiylyfe.com/?lang=fr" target="_blank">🌍 DIGIYLYFE</a>
     <a href="https://resto.digiylyfe.com/" target="_blank">🍽️ DIGIY RESTO</a>
   </div>
-  <div class="owner-test-access">
-    <a class="saly" href="https://resto.digiylyfe.com/resa-resto/acces-proprietaire.html?site=test-resa-resto-saly">🔐 PROPRIÉTAIRE TEST SALY</a>
-    <a class="sarlat" href="https://resto.digiylyfe.com/resa-resto/acces-proprietaire.html?site=modele-resa-resto-sarlat">🔐 PROPRIÉTAIRE TEST SARLAT</a>
-  </div>
+  <p class="owner-guidance">🔐 Propriétaires : ouvrez la fiche de <strong>votre restaurant</strong>, puis son accès sécurisé. Aucun site test n’est choisi à votre place.</p>
   <div class="langs" id="langs">
     <button data-lang="fr" class="active">🇫🇷 FR</button><button data-lang="en">🇬🇧 EN</button><button data-lang="es">🇪🇸 ES</button><button data-lang="pt">🇵🇹 PT</button>
     <button data-lang="de">🇩🇪 DE</button><button data-lang="it">🇮🇹 IT</button><button data-lang="nl">🇳🇱 NL</button><button data-lang="ar">🇸🇦 AR</button>
@@ -163,6 +173,7 @@ html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-r
           <a class="btn primary" href="fiche-le-malraux.html" data-i18n="fiche">VOIR LA FICHE</a>
           <a class="btn secondary" href="https://malraux-entre2.digiylyfe.com/" target="_blank" rel="noopener" data-i18n="site">VOIR LE SITE</a>
           <a class="btn whatsapp" href="tel:+33642160657">📞 APPELER</a>
+          <a class="btn owner-btn" href="resa-resto/acces-proprietaire.html?site=le-malraux-sarlat" aria-label="Accès propriétaire sécurisé le-malraux-sarlat">🔐 ACCÈS PROPRIÉTAIRE</a>
         </div>
       </div>
     </article>
@@ -210,6 +221,7 @@ html[dir="rtl"] body{direction:rtl} html[dir="rtl"] .rule{border-left:0;border-r
           <a class="btn primary" href="fiche-lentre2.html" data-i18n="fiche">VOIR LA FICHE</a>
           <a class="btn secondary" href="https://malraux-entre2.digiylyfe.com/" target="_blank" rel="noopener" data-i18n="site">VOIR LE SITE</a>
           <a class="btn whatsapp" href="tel:+33673274427">📞 APPELER</a>
+          <a class="btn owner-btn" href="resa-resto/acces-proprietaire.html?site=entre2-sarlat" aria-label="Accès propriétaire sécurisé entre2-sarlat">🔐 ACCÈS PROPRIÉTAIRE</a>
         </div>
       </div>
     </article>
