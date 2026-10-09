@@ -41,6 +41,18 @@ Chantier parent : [V35, autonomie de la carte du restaurateur](https://github.co
 
 ## État réellement codé dans cette PR
 
-`src/resto-v35-weekly-core.js` calcule des semaines ISO et choisit les jours localement sans modifier la base. `tests/resto-v35-weekly-core.test.cjs` vérifie ce comportement avec **des plats fictifs uniquement dans les tests**. Ce cœur sans réseau **n'est pas un espace propriétaire, ne sauvegarde rien et n'active aucun affichage public en production**. Le vrai développement propriétaire/auth/stockage est un chantier ultérieur séparé.
+- `src/resto-v35-weekly-core.js` : calcul ISO de la semaine, changement de territoire/fuseau, contrôle des jours et projection publique des seuls menus publiés. **Aucune requête réseau.**
+- `prototypes/resto-v35-ma-semaine.html` et `prototypes/resto-v35-ma-semaine.js` : **interface de démonstration réellement interactive, NON CONNECTÉE**. Choisir un jour, midi/soir, ajouter un plat et sa description, sélectionner un prix EUR/XOF, prévisualiser une photo locale JPG/PNG/WebP/AVIF de moins de 4 Mo, examiner le programme des sept jours et effacer le brouillon.
+- Le prototype ne conserve **rien** : pas de base, pas d'auth, pas de cookie, pas de `localStorage`, pas d'upload, pas de commande, aucun bouton « Publier » actif. Les photos sont des URLs `blob:` temporaires révoquées lors de leur suppression/fermeture. Le formulaire est explicitement étiqueté « MAQUETTE NON CONNECTÉE ».
+- `tests/resto-v35-weekly-core.test.cjs` (**9 cas**) + `tests/resto-v35-prototype.test.cjs` (**7 cas**) et workflow CI Node 22 : 16 scénarios automatiques isolés. Ces tests ne prouvent **pas** un accès propriétaire réel ni un affichage navigateur final sur téléphone.
+- **À ne pas confondre avec le déploiement client** : aucun menu hebdomadaire réel n'est visible sur `resto.digiylyfe.com`, pas de table Supabase weekly menu, et pas de lien depuis l'espace propriétaire réel vers cette maquette.
+
+### Conditions avant de mettre en service
+
+1. Rattachement du **vrai propriétaire** à son restaurant et authentification fonctionnelle, sans repli sur les sites de démonstration.
+2. Persistance d'un brouillon propriétaire + version publiée distincte ; auth A/B, `anon` lecture des seules versions publiées ; sauvegarde chiffrée/restauration isolée et RLS avant activation.
+3. Images professionnelles stockées avec autorisation propriétaire et quotas, photo réelle approuvée, retrait d'image/suppression propre ; optimisation mobile.
+4. Raccord `gestion.html` « Ma semaine », puis bloc public « Les plats aujourd'hui / Cette semaine » sur les deux fiches, sans fausse disponibilité, sans paiement et sans changement aux RPC réservations.
+5. Tests sur navigateur/téléphone, horaires Europe/Paris/Africa/Dakar, accord du restaurateur, autorisation de publication et contrôle après déploiement.
 
 **Doctrine : être vu, être trouvé, être contacté. 0 % de commission. Relation directe et carte décidée par le restaurateur.**
