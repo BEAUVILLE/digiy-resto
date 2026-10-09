@@ -20,6 +20,8 @@
 <div class="sites">
 <button class="site" type="button" data-site="test-resa-resto-saly">TEST SALY</button>
 <button class="site" type="button" data-site="modele-resa-resto-sarlat">TEST SARLAT</button>
+<button class="site" type="button" data-site="entre2-sarlat">L’ENTRE 2 · SARLAT</button>
+<button class="site" type="button" data-site="le-malraux-sarlat">LE MALRAUX · SARLAT</button>
 </div>
 <div class="field"><label>Email propriétaire</label><input id="email" type="email" autocomplete="email" placeholder="Votre email"></div>
 <button class="btn" id="send" type="button">RECEVOIR MON ACCÈS →</button>
@@ -39,22 +41,31 @@ const db=supabase.createClient(URL,KEY,{auth:{persistSession:true,detectSessionI
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
 let site=params.get('site')||'test-resa-resto-saly';
-const allowed=new Set(['test-resa-resto-saly','modele-resa-resto-sarlat']);
-if(!allowed.has(site))site='test-resa-resto-saly';
+const allowed=new Set(['test-resa-resto-saly','modele-resa-resto-sarlat','entre2-sarlat','le-malraux-sarlat']);
+if(!allowed.has(site))site='';
+const eligible=()=>allowed.has(site)&&site!=='entre2-sarlat';
 
 function paint(){
   document.querySelectorAll('.site').forEach(b=>b.classList.toggle('active',b.dataset.site===site));
+  const ready=eligible();
+  $('send').disabled=!ready;
+  $('otpBox').classList.add('hidden');
+  if(!site)msg('Lien restaurant non reconnu. Sélectionnez votre établissement.',true);
+  else if(!ready)msg("L’Entre 2 : rattachement propriétaire en attente. Aucun email propriétaire n’est configuré. Contactez DIGIYLYFE pour faire valider et activer cet accès.",true);
+  else msg('');
 }
 function managementUrl(){return './gestion.html?site='+encodeURIComponent(site)}
 function redirectUrl(){return location.origin+location.pathname+'?site='+encodeURIComponent(site)}
 function msg(t,bad=false){$('status').textContent=t||'';$('status').classList.toggle('bad',!!bad)}
 async function openIfSession(){
+  if(!eligible())return false;
   const {data}=await db.auth.getSession();
   if(data&&data.session){location.replace(managementUrl());return true}
   return false;
 }
 document.querySelectorAll('.site').forEach(b=>b.addEventListener('click',()=>{site=b.dataset.site;history.replaceState(null,'',location.pathname+'?site='+encodeURIComponent(site));paint()}));
 $('send').addEventListener('click',async()=>{
+  if(!eligible())return msg('Accès propriétaire non activé ou site non reconnu.',true);
   const email=$('email').value.trim();
   if(!email)return msg('Indiquez votre email propriétaire.',true);
   $('send').disabled=true;msg('Envoi de votre accès sécurisé…');
@@ -65,6 +76,7 @@ $('send').addEventListener('click',async()=>{
   msg('Email envoyé. Cliquez sur le lien reçu ou saisissez le code.');
 });
 $('verify').addEventListener('click',async()=>{
+  if(!eligible())return msg('Accès propriétaire non activé ou site non reconnu.',true);
   const email=$('email').value.trim(),token=$('otp').value.trim();
   if(!email||!/^[0-9]{6,10}$/.test(token))return msg('Entrez le code reçu par email.',true);
   $('verify').disabled=true;
@@ -73,7 +85,7 @@ $('verify').addEventListener('click',async()=>{
   if(error)return msg('⚠️ Code invalide ou expiré.',true);
   if(data&&data.session)location.replace(managementUrl());
 });
-db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_IN'&&session)setTimeout(()=>location.replace(managementUrl()),0)});
+db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_IN'&&session&&eligible())setTimeout(()=>location.replace(managementUrl()),0)});
 paint();
 openIfSession();
 })();
