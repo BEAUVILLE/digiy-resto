@@ -6,6 +6,12 @@ on:
       - 'resa-resto/takeaway-*.js'
       - 'tests/resto-v34-takeaway.test.cjs'
       - 'tests/resto-v34-browser.test.cjs'
+      - 'tests/resto-v34-fiches-browser.test.cjs'
+      - 'fiche-le-malraux.html'
+      - 'fiche-lentre2.html'
+      - 'index.html'
+      - 'resa-resto/acces-proprietaire.html'
+      - 'resa-resto/gestion.html'
       - 'tests/resto-v34-pilot-preflight.test.cjs'
       - 'tests/resto-v34-pilot-review.test.cjs'
       - 'scripts/resto-v34-pilot-review.cjs'
@@ -61,4 +67,4 @@ jobs:
             npx playwright install --with-deps chromium
           fi
       - name: Test locked live catalog and fictitious browser order locally
-        run: node --test tests/resto-v34-browser.test.cjs
+        run: node --test tests/resto-v34-browser.test.cjs tests/resto-v34-fiches-browser.test.cjs
