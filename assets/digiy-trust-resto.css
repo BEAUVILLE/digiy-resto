@@ -1,0 +1,18 @@
+/* DIGIY TRUST RESTO · interface de restitution uniquement.
+   Aucune note n'est chargée ou inventée par cette feuille. */
+.digiy-trust-resto{margin:18px 0 2px;padding:18px;border:1px solid #cbdccf;border-radius:17px;background:#f6faf7;color:#153a2e;line-height:1.55}
+.digiy-trust-resto h2{font-size:clamp(18px,4vw,23px);line-height:1.2;margin:0 0 8px;color:#123f2d}
+.digiy-trust-resto p{margin:8px 0;font-size:13px}
+.digiy-trust-resto .digiy-trust-hint{color:#526a5d;font-size:12px}
+.digiy-trust-resto .digiy-trust-empty{padding:11px 13px;border:1px dashed #bfcec5;border-radius:11px;background:#fff;font-weight:700}
+.digiy-trust-resto .digiy-trust-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:13px 0}
+.digiy-trust-resto .digiy-trust-stat{padding:13px;border:1px solid #d9e5dc;border-radius:13px;background:#fff}
+.digiy-trust-resto .digiy-trust-stat--value{border-color:#dac28f;background:#fcf9ee}
+.digiy-trust-resto .digiy-trust-stat strong{display:block;font-size:12px}
+.digiy-trust-resto .digiy-trust-stat output{display:block;margin:5px 0;font-size:26px;font-weight:850;font-variant-numeric:tabular-nums}
+.digiy-trust-resto .digiy-trust-stat small{color:#4c6558}
+.digiy-trust-resto details{margin-top:8px;border-radius:10px;background:#fff;padding:10px 12px}
+.digiy-trust-resto summary{cursor:pointer;font-weight:750}
+.digiy-trust-resto ul{padding-left:19px;margin:8px 0}
+.digiy-trust-resto li{margin:6px 0;font-size:13px}
+@media(max-width:440px){.digiy-trust-resto{padding:14px}.digiy-trust-resto .digiy-trust-stats{grid-template-columns:1fr}}
