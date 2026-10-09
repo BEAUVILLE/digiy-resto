@@ -16,6 +16,11 @@ psql "$RESTO_SYNTHETIC_DB_URL" -X -w -v ON_ERROR_STOP=1 -f "$root/supabase/candi
 psql "$RESTO_SYNTHETIC_DB_URL" -X -w -v ON_ERROR_STOP=1 -f "$script_dir/assert-grants.sql"
 # Test actual SQL role switching in addition to catalog privileges.
 bash "$script_dir/assert-execute-roles.sh"
+# Replace simple RPC fixtures with 2026-10-09 owner-body snapshots and
+# exercise A/B authorization and RLS on fake records only.
+psql "$RESTO_SYNTHETIC_DB_URL" -X -w -v ON_ERROR_STOP=1 -f "$script_dir/synthetic-owner-ab.sql"
+psql "$RESTO_SYNTHETIC_DB_URL" -X -w -v ON_ERROR_STOP=1 -f "$script_dir/assert-owner-ab.sql"
+echo 'RESTO_V31_SYNTHETIC_OWNER_AB_PASS'
 echo 'RESTO_V31_SYNTHETIC_GRANTS_PASS'
 # Break a function's expected owner contract. The transaction MUST fail before
 # changes and never grant anonymous execution as a fallback.
