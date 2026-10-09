@@ -78,7 +78,7 @@ test('both real restaurant fiches show their own owner access, never shared or t
  assert.match(malraux,/href="\.\/resa-resto\/acces-proprietaire\.html\?site=le-malraux-sarlat"/);
  assert.ok(!entre2.includes('acces-proprietaire.html?site=test-resa-resto-saly'));
  assert.ok(!malraux.includes('acces-proprietaire.html?site=test-resa-resto-saly'));
- assert.match(entre2,/rattachement propriétaire/);
+ assert.match(entre2,/le rattachement et l’email de gestion/);
  assert.match(malraux,/rattachement/);
 });
 test('never promise a functional restaurant menu editor or live takeaway order',()=>{
