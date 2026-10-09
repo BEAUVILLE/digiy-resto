@@ -1,6 +1,6 @@
 /* RESTO V35A — IN-MEMORY PROTOTYPE ONLY.
  * This code must never be mistaken for a public or owner-authenticated menu.
- * No network access, no localStorage, no cookies, no database, no publication.
+ * Runs only in page memory: no requests, persistence, cookies, backend, or publication.
  */
 (()=>{'use strict';
  const core=window.DigiyWeeklyMenuCore;
