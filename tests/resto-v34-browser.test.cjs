@@ -103,6 +103,9 @@ test('RESTO V34 real browser: locked until verified menu; synthetic-only happy p
     assert.equal(await page.locator('#phone').getAttribute('href'),'tel:+221770000000');
 
     await page.locator('#copyRequest').click();
+    // Clipboard is asynchronous: wait for the UI to report success before reading it.
+    await page.waitForFunction(()=>document.getElementById('status').textContent.includes('Demande copiée'),
+      {timeout:3000});
     assert.match(await page.locator('#status').innerText(),/Demande copiée/);
     assert.equal(await page.evaluate(()=>navigator.clipboard.readText()),message);
     assert.deepEqual(external,[],'No backend or external request was made while composing the order');
