@@ -1,0 +1,37 @@
+name: DIGIY TRUST RESTO — zéro faux avis
+on:
+  pull_request:
+    paths:
+      - 'assets/digiy-trust-resto.js'
+      - 'assets/digiy-trust-resto.css'
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'tests/trust-resto-readonly.test.cjs'
+      - 'docs/DIGIY_TRUST_RESTO_GATE_20261010.md'
+      - '.github/workflows/resto-trust-readonly.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/digiy-trust-resto.js'
+      - 'assets/digiy-trust-resto.css'
+      - 'fiche-lentre2.html'
+      - 'fiche-le-malraux.html'
+      - 'tests/trust-resto-readonly.test.cjs'
+      - 'docs/DIGIY_TRUST_RESTO_GATE_20261010.md'
+      - '.github/workflows/resto-trust-readonly.yml'
+permissions:
+  contents: read
+jobs:
+  trust-resto-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Read-only trust contract and syntax
+        run: |
+          node --check assets/digiy-trust-resto.js
+          node --check tests/trust-resto-readonly.test.cjs
+          node --test tests/trust-resto-readonly.test.cjs
