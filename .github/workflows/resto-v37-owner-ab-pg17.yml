@@ -1,0 +1,42 @@
+name: RESTO V37 — propriétaires A/B isolés PostgreSQL 17
+
+on:
+  pull_request:
+    paths:
+      - 'tests/sql/resto-owner-ab-isolated-pg17.sql'
+      - '.github/workflows/resto-v37-owner-ab-pg17.yml'
+      - 'docs/RESTO_V37_PROPRIETAIRES_ET_RESERVATIONS.md'
+  push:
+    branches: [main]
+    paths:
+      - 'tests/sql/resto-owner-ab-isolated-pg17.sql'
+      - '.github/workflows/resto-v37-owner-ab-pg17.yml'
+      - 'docs/RESTO_V37_PROPRIETAIRES_ET_RESERVATIONS.md'
+permissions:
+  contents: read
+jobs:
+  owner-ab-isolated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start disposable PostgreSQL 17 with NO network
+        run: |
+          set -euo pipefail
+          docker run -d --rm --name digiy-resto-v37-ab --network none \
+            -e POSTGRES_PASSWORD=disposable_synthetic_ci \
+            postgres:17
+      - name: Execute restored shape owner A/B tests
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 45); do
+            docker exec digiy-resto-v37-ab pg_isready -U postgres >/dev/null 2>&1 && break
+            sleep 1
+          done
+          docker exec -i digiy-resto-v37-ab \
+            psql -U postgres -d postgres -X -v ON_ERROR_STOP=1 \
+            < tests/sql/resto-owner-ab-isolated-pg17.sql | tee /tmp/resto-v37-ab-results.txt
+          grep -q 'RESTO_ISOLATED_OWNER_AB_OK' /tmp/resto-v37-ab-results.txt
+      - name: Tear down disposable database
+        if: always()
+        run: docker rm -f digiy-resto-v37-ab >/dev/null 2>&1 || true
