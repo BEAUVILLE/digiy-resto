@@ -1,0 +1,45 @@
+name: RESTO V31 owner RPC grants isolated
+on:
+  pull_request:
+    paths:
+      - 'supabase/candidates/RESA_RESTO_OWNER_RPC_V31_CANDIDATE.sql'
+      - 'tests/resa-resto-v31/**'
+      - '.github/workflows/resa-resto-v31-isolated.yml'
+      - 'docs/audits/RESA_RESTO_V31_OWNER_RPC_AUDIT_2026-10-09.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pg:
+    name: Synthetic PostgreSQL ${{ matrix.pg }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        pg: ['16','17']
+    services:
+      postgres:
+        image: postgres:${{ matrix.pg }}
+        env:
+          POSTGRES_PASSWORD: synthetic-only
+          POSTGRES_DB: resto_v31_synthetic
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d resto_v31_synthetic"
+          --health-interval 4s
+          --health-timeout 3s
+          --health-retries 20
+    env:
+      RESTO_SYNTHETIC_DB_URL: postgresql://postgres:synthetic-only@127.0.0.1:5432/resto_v31_synthetic
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client
+      - name: Confirm dedicated synthetic database and run permissions contract
+        run: bash tests/resa-resto-v31/run-synthetic.sh
