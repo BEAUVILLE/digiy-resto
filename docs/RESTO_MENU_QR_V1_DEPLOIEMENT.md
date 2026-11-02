@@ -31,7 +31,7 @@ Ajouter **dans DIGIY RESTO existant**, sans nouveau module ni nouvel abonnement 
 Les clients ne récupèrent pas les emails des propriétaires ni les réservations. Texte public rendu avec `textContent` (pas de HTML fourni par le commerçant). Les numéros de téléphone passent par une validation stricte pour les actions d'appel/WhatsApp.
 
 ## Mise en service : ordre impératif
-1. **Ne pas fusionner ni présenter comme disponible au public avant validation.** SQL non appliqué par cette PR.
+1. **La fusion du code est permise, mais n'active pas la fonction** : le bloc Menu QR dans `resa-resto/gestion.html` reste masqué par la classe CSS `hidden`, et aucune carte n'est publiée. Le SQL n'est PAS appliqué par la fusion ; n'annoncer ni lien QR opérationnel ni menus modifiables aux restaurateurs avant activation.
 2. Contrôler le dernier **backup chiffré digiy-core**, effectuer une **restauration isolée** et vérifier RLS / droits actuels. Ne jamais afficher la clé de sauvegarde.
 3. Exécuter le SQL de manière transactionnelle **sur environnement isolé d'abord** ; vérifier les politiques avec deux utilisateurs authentifiés A et B propriétaires de deux sites différents et un utilisateur anonyme :
    - A peut sauvegarder puis publier **uniquement A** ;
@@ -42,7 +42,7 @@ Les clients ne récupèrent pas les emails des propriétaires ni les réservatio
    - le retour de la publication côté navigateur indique un succès seulement après confirmation DB.
 4. Vérifier sur iPhone et Android : menus vides, plusieurs rubriques, FCFA/EUR, prix absent, prix corrigé, épuisé, impressions QR, caméra native, accès sans application, connexion lente et panne du CDN QR (lien texte reste utilisable).
 5. Vérifier qu'aucune donnée de réservation, aucun calendrier, aucune caisse ou commande réelle n'a été modifiée.
-6. Après accord propriétaire pour **ses vrais plats et prix**, déployer la migration en production et fusionner le code ; refaire les tests A/B réels et le contrôle du public. Sans ce feu vert, conserver la fonctionnalité en branche.
+6. Après accord propriétaire pour **ses vrais plats et prix**, et restauration de sauvegarde récente prouvée, déployer la migration en production, habiliter les deux propriétaires distincts, réaliser les tests A/B réels et téléphone, puis **ouvrir le bloc Menu QR par une nouvelle PR dédiée** retirant sa classe `hidden`. Tant que ces prérequis manquent, le menu demeure masqué malgré la fusion du code.
 
 ## Limites V1
 - Création **manuelle** des textes et prix ; ni import PDF, ni téléchargement de photo, ni édition des plats de la semaine V35A.
