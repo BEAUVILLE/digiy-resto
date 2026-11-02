@@ -78,7 +78,8 @@ async function refresh(){
    var name=node('div','dish-name',item.name);
    if(!item.available)name.appendChild(node('span','sold',' · Épuisé / indisponible'));
    head.appendChild(name);
-   head.appendChild(node('div','price',core.formatPrice(item.price,menu.currency)));
+   var included=section.name.startsWith('Choix menu ')&&item.price===null;
+   head.appendChild(node('div','price',included?'Inclus dans la formule':core.formatPrice(item.price,menu.currency)));
    dish.appendChild(head);
    if(item.description)dish.appendChild(node('p','desc',item.description));
    article.appendChild(dish);
