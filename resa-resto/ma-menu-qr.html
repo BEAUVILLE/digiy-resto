@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#073f32">
+<title>Ma carte QR · Gestion DIGIY RESTO</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../src/resto-qr-menu-core.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<style>
+:root{--g:#073f32;--gold:#d8ad46;--ink:#183d32;--bg:#f5f1e6;--line:#d4e4d8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:var(--g);color:#fff;padding:15px 16px}.wrap{max-width:1000px;margin:auto}header a{color:#fff;text-decoration:none;font-weight:850}
+h1{margin:8px 0;font-size:clamp(28px,5vw,39px)}h2{font-size:21px;margin:6px 0 12px}main{padding:15px 12px 45px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;margin:12px 0;box-shadow:0 8px 22px #073f320d}
+.notice{background:#fff7df;border-left:4px solid var(--gold);padding:11px 14px;border-radius:10px;font-size:13px}
+label{display:block;margin:9px 0 4px;font-size:12px;font-weight:850}
+input,textarea,select{display:block;width:100%;min-height:44px;border:1px solid #b9cec0;border-radius:10px;padding:10px 11px;background:white;font:inherit;color:var(--ink)}
+textarea{min-height:75px;resize:vertical}input[type=checkbox]{display:inline-block;width:20px;height:20px;min-height:0;vertical-align:middle;margin-right:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.section{border:2px solid #d3e5d6;border-radius:15px;padding:12px;margin:15px 0;background:#fafdfb}
+.item{border:1px solid #d8e4da;border-radius:13px;padding:12px;margin:10px 0;background:#fff}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+button,.btn{font:inherit;min-height:43px;padding:9px 13px;border-radius:999px;cursor:pointer;border:0;font-weight:850;text-decoration:none}
+.primary{background:var(--g);color:white}.gold{background:var(--gold);color:var(--g)}.ghost{background:#fff;color:var(--g);border:1px solid #9bbba6}.danger{color:#9e2727;background:#fff0ee;border:1px solid #e5b1ae}
+button:disabled{opacity:.45;cursor:not-allowed}.status{padding:12px 14px;border-radius:12px;background:#fdf3d7;color:#674c05;font-weight:800;margin:12px 0}
+.status.ok{background:#e2f4e7;color:#1d663b}.status.bad{background:#fff0ee;color:#9e2727}
+.small{color:#667e70;font-size:12px}.qrposter{margin:20px auto;padding:16px;border:2px solid var(--g);border-radius:15px;background:#fff;text-align:center;max-width:300px}
+.qrposter h3{font-size:19px;margin:6px 0}.qrposter p{margin:7px 0;font-size:12px}
+#qrcode{display:flex;justify-content:center;margin:12px 0}#qrcode img{max-width:100%}
+#menuUrl{overflow-wrap:anywhere;display:block;margin-top:7px}.showonlyprint{display:none}
+[hidden]{display:none!important}
+@media(max-width:640px){.two{grid-template-columns:1fr}.panel{padding:13px}}
+@media print{
+body{background:white}header,main>.panel,#stateMessage,.no-print{display:none!important}
+main{padding:0}.showonlyprint{display:block}#qrPrint{display:block!important;border:0;box-shadow:none;max-width:400px}
+#qrPrint .qrposter{border:2px solid #073f32;max-width:340px;padding:22px}#qrPrint #menuUrl{font-size:11px}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a id="back" href="./gestion.html">← Mon restaurant</a><h1>🍽️ Ma carte QR</h1><p id="restaurantTitle">Vérification de l’accès propriétaire…</p></div></header>
+<main class="wrap">
+<div id="stateMessage" class="status" role="status" aria-live="polite">Connexion et contrôle des droits…</div>
+<section class="panel" id="editor" hidden>
+<p class="notice"><strong>Vous gardez la main.</strong> Changez un plat ou un prix, indiquez « épuisé », enregistrez votre brouillon puis publiez uniquement quand la carte est prête. Votre brouillon est privé. Pas de commande ni de paiement automatique.</p>
+<div class="two"><div><label for="title">Titre public de la carte</label><input id="title" maxlength="100" placeholder="Le nom de votre restaurant"></div><div><label for="currency">Devise</label><select id="currency"><option value="XOF">FCFA</option><option value="EUR">Euro</option><option value="USD">Dollar US</option></select></div></div>
+<label for="intro">Présentation courte</label><textarea id="intro" maxlength="500" placeholder="Notre cuisine, nos spécialités…"></textarea>
+<label for="phone">Téléphone public / WhatsApp (facultatif, indicatif international)</label><input id="phone" type="tel" maxlength="30" placeholder="+221 77 123 45 67">
+<div class="actions"><h2 style="margin-right:auto">Mes rubriques &amp; mes plats</h2><button class="ghost" id="addSection" type="button">+ Ajouter une rubrique</button></div>
+<div id="sections"></div>
+<div class="actions no-print">
+<button class="ghost" id="save" type="button">💾 Sauvegarder mon brouillon</button>
+<button class="primary" id="publish" type="button">✅ Publier ma carte</button>
+<button class="danger" id="pause" type="button">⏸ Masquer ma carte</button>
+</div>
+<p class="small">La publication remplace intégralement la précédente version publique. Toute correction de brouillon reste privée jusqu’à votre prochain clic sur « Publier ».</p>
+</section>
+<section class="panel no-print" id="qrControls" hidden>
+<h2>Mon QR de table</h2>
+<p class="small">La même adresse reste valable après chaque modification de prix. Imprimez une fois, actualisez votre carte autant que nécessaire.</p>
+<div class="actions">
+<a class="btn gold" id="openMenu" href="#" target="_blank" rel="noopener noreferrer">👀 Voir la carte client</a>
+<button class="ghost" id="copy" type="button">📋 Copier le lien</button>
+<button class="primary" id="print" type="button" disabled>🖨 Imprimer le QR</button>
+</div>
+</section>
+<section class="showonlyprint" id="qrPrint">
+<div class="qrposter">
+<h3>🍽️ <span id="posterName">Carte du restaurant</span></h3>
+<p>Scannez pour découvrir notre carte</p>
+<div id="qrcode" aria-label="QR code du menu public"></div>
+<small id="menuUrl"></small>
+<p>DIGIY RESTO · Contact direct · 0 % commission</p>
+</div>
+</section>
+</main>
+<script>
+(function(){'use strict';
+var $=function(id){return document.getElementById(id);};
+var core=window.DigiyRestoQrCore;
+var slug=new URLSearchParams(location.search).get('site')||'';
+var site=null,menu=null,publicExists=false,db=null;
+function msg(s,type){$('stateMessage').textContent=s;$('stateMessage').className='status'+(type?' '+type:'');}
+function make(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
+function field(parent,label,value,kind,fn){
+ var wrapper=make('div'),lab=make('label','',label),control=make(kind==='multiline'?'textarea':'input');
+ if(kind==='price'){control.type='number';control.min='0';control.max='100000000';control.step='0.01';}
+ if(kind==='check'){control.type='checkbox';control.checked=Boolean(value);}
+ else{control.value=value===null||value===undefined?'':String(value);}
+ control.setAttribute('aria-label',label);
+ control.addEventListener(kind==='check'?'change':'input',function(){fn(kind==='check'?control.checked:control.value);});
+ wrapper.appendChild(lab);wrapper.appendChild(control);parent.appendChild(wrapper);
+ return control;
+}
+function draw(){
+ var host=$('sections');host.replaceChildren();
+ menu.sections.forEach(function(section,si){
+  var box=make('section','section');var head=make('div','actions');
+  head.appendChild(make('strong','', 'Rubrique '+(si+1)));
+  var remove=make('button','danger','Supprimer la rubrique');remove.type='button';
+  remove.onclick=function(){menu.sections.splice(si,1);draw();};
+  head.appendChild(remove);box.appendChild(head);
+  field(box,'Nom de rubrique (ex. Plats, Boissons, Desserts)',section.name,'text',function(v){section.name=v;});
+  section.items.forEach(function(item,ii){
+   var card=make('div','item');
+   field(card,'Nom du plat',item.name,'text',function(v){item.name=v;});
+   field(card,'Description (facultative)',item.description,'multiline',function(v){item.description=v;});
+   var grid=make('div','two');
+   field(grid,'Prix (laisser vide si sur demande)',item.price,'price',function(v){item.price=v===''?null:v;});
+   field(grid,'Disponible (décocher si épuisé)',item.available,'check',function(v){item.available=v;});
+   card.appendChild(grid);
+   var del=make('button','danger','× Retirer ce plat');del.type='button';
+   del.onclick=function(){section.items.splice(ii,1);draw();};
+   card.appendChild(del);box.appendChild(card);
+  });
+  var add=make('button','gold','+ Ajouter un plat');add.type='button';
+  add.onclick=function(){
+   if(section.items.length>=80)return msg('Maximum 80 plats par rubrique.','bad');
+   section.items.push({name:'',description:'',price:null,available:true});draw();
+  };
+  box.appendChild(add);host.appendChild(box);
+ });
+}
+function readForm(){
+ menu.title=$('title').value;menu.intro=$('intro').value;menu.currency=$('currency').value;menu.phone=$('phone').value;
+ return core.normalize(menu);
+}
+function showForm(){
+ $('title').value=menu.title;$('intro').value=menu.intro;$('currency').value=menu.currency;$('phone').value=menu.phone;draw();
+}
+function busy(flag){['save','publish','pause'].forEach(function(id){$(id).disabled=flag;});}
+async function saveDraft(){
+ var current=readForm();
+ var r=await db.from('digiy_resto_qr_drafts').upsert({
+   site_id:site.id,content:current,updated_at:new Date().toISOString()
+ },{onConflict:'site_id'}).select('site_id').single();
+ if(r.error||!r.data)throw new Error('Sauvegarde refusée : '+(r.error?r.error.message:'aucune ligne modifiée'));
+ menu=current;return current;
+}
+function publicUrl(){return location.origin+'/menu-qr.html?site='+encodeURIComponent(slug);}
+async function publish(){
+ var verdict=core.publishable(readForm());
+ if(!verdict.ok)return msg(verdict.message,'bad');
+ busy(true);
+ try{
+  await saveDraft();
+  var r=await db.from('digiy_resto_qr_public').upsert({
+   site_id:site.id,slug:site.slug,content:verdict.menu,published:true,
+   published_at:new Date().toISOString(),updated_at:new Date().toISOString()
+  },{onConflict:'site_id'}).select('site_id').single();
+  if(r.error||!r.data)throw new Error(r.error?r.error.message:'Publication non confirmée');
+  publicExists=true;
+  msg('✅ Carte publiée. Le client verra cette version en ouvrant ou en actualisant le QR.','ok');
+ }catch(e){msg('⚠️ '+e.message,'bad');}finally{busy(false);}
+}
+async function pause(){
+ if(!publicExists)return msg('Aucune carte déjà publiée à masquer.','bad');
+ busy(true);
+ try{
+  var r=await db.from('digiy_resto_qr_public').update({published:false,updated_at:new Date().toISOString()}).eq('site_id',site.id).select('site_id').maybeSingle();
+  if(r.error||!r.data)throw new Error(r.error?r.error.message:'Masquage non confirmé');
+  msg('Carte masquée pour les visiteurs. Votre brouillon est conservé.','ok');
+ }catch(e){msg('⚠️ '+e.message,'bad');}finally{busy(false);}
+}
+function renderQr(){
+ var href=publicUrl();$('openMenu').href=href;$('menuUrl').textContent=href;
+ $('posterName').textContent=site.display_name;
+ var box=$('qrcode');box.replaceChildren();
+ if(typeof QRCode==='undefined'){
+  $('print').disabled=true;msg('Lien de menu prêt. Générateur QR indisponible : copiez le lien ou rechargez la page.','bad');
+  return;
+ }
+ new QRCode(box,{text:href,width:224,height:224,colorDark:'#073f32',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+ $('print').disabled=false;
+}
+async function boot(){
+ if(!core||!core.validSlug(slug)||!window.supabase){msg('Lien propriétaire invalide. Ouvrez votre restaurant depuis l’accès sécurisé.','bad');return;}
+ $('back').href='./gestion.html?site='+encodeURIComponent(slug);
+ db=supabase.createClient('https://wesqmwjjtsefyjnluosj.supabase.co',
+ 'sb_publishable_tGHItRgeWDmGjnd0CK1DVQ_BIep4Ug3',{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+ var identity=await db.auth.getUser();
+ if(identity.error||!identity.data||!identity.data.user){msg('Connectez-vous à votre accès propriétaire pour modifier votre carte.','bad');return;}
+ var current=await db.from('digiy_resa_resto_sites').select('id,slug,display_name,owner_id,is_active')
+  .eq('slug',slug).maybeSingle();
+ var s=current.data;
+ if(current.error||!s||!s.is_active||s.owner_id!==identity.data.user.id){msg('Ce compte n’est pas propriétaire de ce restaurant. Aucune donnée n’a été ouverte.','bad');return;}
+ site=s;$('restaurantTitle').textContent='Restaurant : '+site.display_name;
+ var d=await db.from('digiy_resto_qr_drafts').select('content').eq('site_id',site.id).maybeSingle();
+ if(d.error)throw new Error('Accès au stockage des menus indisponible : '+d.error.message);
+ menu=core.normalize(d.data?d.data.content:{title:site.display_name,currency:'XOF',sections:[]});
+ var p=await db.from('digiy_resto_qr_public').select('published').eq('site_id',site.id).maybeSingle();
+ if(p.error)throw new Error('État de publication inaccessible : '+p.error.message);
+ publicExists=Boolean(p.data);
+ showForm();$('editor').hidden=false;$('qrControls').hidden=false;
+ msg(p.data&&p.data.published?'Carte publiée : vos modifications ne sont pas encore publiques.':'Brouillon privé : ajoutez un plat puis publiez votre carte.','ok');
+ // Un QR reste stable, même avant la première publication.
+ if(document.readyState==='complete')renderQr();
+ else window.addEventListener('load',renderQr,{once:true});
+}
+$('addSection').onclick=function(){
+ if(menu.sections.length>=20)return msg('Maximum 20 rubriques.','bad');
+ menu.sections.push({name:'',items:[]});draw();
+};
+$('save').onclick=async function(){busy(true);try{await saveDraft();msg('✅ Brouillon sauvegardé, invisible des visiteurs.','ok');}catch(e){msg('⚠️ '+e.message,'bad');}finally{busy(false);}};
+$('publish').onclick=publish;$('pause').onclick=pause;
+$('copy').onclick=async function(){
+ try{await navigator.clipboard.writeText(publicUrl());msg('Lien de menu copié.','ok');}
+ catch(e){msg('Copie automatique indisponible : sélectionnez le lien imprimé sous le QR.','bad');}
+};
+$('print').onclick=function(){if(!$('print').disabled)window.print();};
+boot().catch(function(e){msg('⚠️ '+e.message,'bad');});
+})();
+</script>
+</body></html>
