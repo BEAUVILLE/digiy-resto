@@ -1,8 +1,23 @@
 
 -- DIGIY RESTO : menu QR V1. À appliquer uniquement après sauvegarde et tests A/B.
 -- Ne touche ni aux réservations ni aux tables existantes.
+-- Les deux restaurants disposent d'un site web commun, mais chacun garde sa
+-- propre identité de gestion et son propre owner Auth.
+-- Un index partiel protège leur indépendance sans imposer cette règle
+-- aux environnements de test SALY/SARLAT ou aux autres restaurants.
+-- Les deux comptes réels doivent être autorisés et rattachés séparément.
+
 -- Les brouillons et la publication sont dans DEUX tables, pour éviter toute fuite via SELECT anon.
 begin;
+
+-- Deux établissements : jamais le même owner_id sur leurs deux fiches RESTO.
+-- Les owner_id NULL sont permis durant l'onboarding, sans créer de compte fictif.
+-- Aucune des données existantes n'est modifiée ; la création échoue si
+-- ces deux sites possèdent déjà le même propriétaire, ce qui impose un audit.
+create unique index if not exists digiy_resto_malraux_entre2_owners_distinct_uq
+  on public.digiy_resa_resto_sites (owner_id)
+  where owner_id is not null
+    and slug in ('le-malraux-sarlat', 'entre2-sarlat');
 
 create table if not exists public.digiy_resto_qr_drafts (
   site_id uuid primary key references public.digiy_resa_resto_sites(id) on delete cascade,
