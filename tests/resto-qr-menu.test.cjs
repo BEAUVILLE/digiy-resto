@@ -65,6 +65,22 @@ test('SQL isole drafts des visiteurs et revérifie l’owner à chaque écriture
  assert.match(sql,/with check \(exists/);
  assert.doesNotMatch(sql,/security definer/i);
 });
+
+test('site internet commun mais deux fiches, deux QR et deux espaces propriétaires',()=>{
+ const malraux=read('fiche-le-malraux.html');
+ const entre2=read('fiche-lentre2.html');
+ assert.match(malraux,/https:\/\/malraux-entre2\.digiylyfe\.com\//);
+ assert.match(entre2,/https:\/\/malraux-entre2\.digiylyfe\.com\//);
+ assert.match(malraux,/acces-proprietaire\.html\?site=le-malraux-sarlat/);
+ assert.match(entre2,/acces-proprietaire\.html\?site=entre2-sarlat/);
+ const sql=read('sql/20261102_resto_menu_qr_owner_public.sql');
+ assert.match(sql,/create unique index if not exists digiy_resto_malraux_entre2_owners_distinct_uq/);
+ assert.match(sql,/slug in \('le-malraux-sarlat', 'entre2-sarlat'\)/);
+ assert.match(sql,/owner_id is not null/);
+ const integration=read('resa-resto/gestion.html');
+ assert.match(integration,/ma-menu-qr\.html\?site=/);
+});
+
 test('scripts inline statiques compilent',()=>{
  for(const name of ['menu-qr.html','resa-resto/ma-menu-qr.html','resa-resto/gestion.html']){
   const html=read(name);
