@@ -44,6 +44,12 @@ test('public ne lit jamais les brouillons et n’affiche que published',()=>{
  assert.match(html,/textContent/);
  assert.doesNotMatch(html,/\.innerHTML\s*=/);
 });
+test('les plats inclus dans une formule ne s affichent pas comme prix sur demande',()=>{
+ const html=read('menu-qr.html');
+ assert.match(html,/section\.name\.startsWith\('Choix menu '\)\&\&item\.price===null/);
+ assert.match(html,/Inclus dans la formule/);
+});
+
 test('éditeur vérifie identité ET ownership et publie explicitement',()=>{
  const html=read('resa-resto/ma-menu-qr.html');
  assert.match(html,/auth\.getUser\(\)/);
