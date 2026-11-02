@@ -1,0 +1,32 @@
+name: RESTO QR menu — tests statiques et core
+on:
+  pull_request:
+    paths:
+      - "menu-qr.html"
+      - "resa-resto/ma-menu-qr.html"
+      - "resa-resto/gestion.html"
+      - "src/resto-qr-menu-core.js"
+      - "sql/20261102_resto_menu_qr_owner_public.sql"
+      - "tests/resto-qr-menu.test.cjs"
+      - ".github/workflows/resto-qr-menu.yml"
+  push:
+    branches: [main]
+    paths:
+      - "menu-qr.html"
+      - "resa-resto/ma-menu-qr.html"
+      - "resa-resto/gestion.html"
+      - "src/resto-qr-menu-core.js"
+      - "sql/20261102_resto_menu_qr_owner_public.sql"
+      - "tests/resto-qr-menu.test.cjs"
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Unit and static security checks
+        run: node --test tests/resto-qr-menu.test.cjs
