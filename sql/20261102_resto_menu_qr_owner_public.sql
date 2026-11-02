@@ -78,7 +78,7 @@ create policy "resto qr published owner insert"
 on public.digiy_resto_qr_public for insert to authenticated
 with check (exists (
   select 1 from public.digiy_resa_resto_sites s
-  where s.id = site_id and s.slug = slug
+  where s.id = site_id and s.slug = digiy_resto_qr_public.slug
     and s.owner_id = (select auth.uid()) and s.is_active
 ));
 create policy "resto qr published owner update"
@@ -89,7 +89,7 @@ using (exists (
 ))
 with check (exists (
   select 1 from public.digiy_resa_resto_sites s
-  where s.id = site_id and s.slug = slug
+  where s.id = site_id and s.slug = digiy_resto_qr_public.slug
     and s.owner_id = (select auth.uid()) and s.is_active
 ));
 commit;
