@@ -3,6 +3,21 @@
 ## Rôle
 Ajouter **dans DIGIY RESTO existant**, sans nouveau module ni nouvel abonnement technique, un menu lisible sur téléphone accessible par QR de table. Le restaurateur garde le contrôle de ses titres, rubriques, descriptions, prix, disponibilité et contact public. Pas d'application à installer pour les visiteurs, pas d'encaissement ni de réservation impliqués, zéro commission sur la transaction.
 
+## Décision propriétaire — site commun, gestion indépendante (2 novembre 2026)
+
+**Le Malraux et L’Entre 2 partagent une vitrine web** `https://malraux-entre2.digiylyfe.com/`, **mais ne partagent pas leur compte de gestion**. Il ne faut jamais confondre le site vitrine commun avec une propriété juridique ou une autorisation partagée.
+
+| Restaurant | Slug de gestion | Menu QR dédié | Identité de gestion |
+| --- | --- | --- | --- |
+| Le Malraux | `le-malraux-sarlat` | `/menu-qr.html?site=le-malraux-sarlat` | Son propre compte Auth, distinct |
+| L’Entre 2 | `entre2-sarlat` | `/menu-qr.html?site=entre2-sarlat` | Son propre compte Auth, distinct |
+
+- Une connexion à un établissement **n'autorise jamais** la modification des prix, plats, brouillons ou publications de l'autre.
+- La migration propose un **index SQL unique partiel** sur `digiy_resa_resto_sites.owner_id`, ciblé **uniquement sur les deux slugs réels** : elle refuse le rattachement des deux restaurants au même identifiant Auth. Les environnements de test restent autonomes et sont exclus de cet index.
+- Aujourd'hui les deux fiches RÉSA de ces établissements sont **inactives et sans owner_id**. Ceci décrit l'activation logicielle, **pas la fermeture des établissements physiques**. Il faut deux propriétaires effectivement autorisés et deux rattachements séparés avant toute ouverture.
+- Aucun compte ne doit être inventé, partagé ou revendiqué sans l'accord du professionnel. Ne modifier ni le site web commun ni les contacts publics pour contourner ce contrôle.
+- Le test PostgreSQL 17 isolé vérifie la séparation des droits A/B **et** le refus SQL d'un owner Auth commun.
+
 ## Parcours livré dans la branche
 - Depuis l'espace authentifié `/resa-resto/gestion.html?site=<slug>`, le restaurateur clique **GÉRER MON MENU QR**.
 - `/resa-resto/ma-menu-qr.html?site=<slug>` vérifie **le JWT Auth réel** et que `digiy_resa_resto_sites.owner_id = auth.uid()`. Aucun repli sur un site test.
