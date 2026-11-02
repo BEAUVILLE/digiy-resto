@@ -79,6 +79,8 @@ test('site internet commun mais deux fiches, deux QR et deux espaces propriétai
  assert.match(sql,/owner_id is not null/);
  const integration=read('resa-resto/gestion.html');
  assert.match(integration,/ma-menu-qr\.html\?site=/);
+ assert.doesNotMatch(integration,/SITE_SLUG=\(new URLSearchParams\(location\.search\)\.get\('site'\)\|\|'modele-resa-resto-sarlat'\)/);
+ assert.match(integration,/data\.owner_id!==session\.user\.id/);
 });
 
 test('scripts inline statiques compilent',()=>{
