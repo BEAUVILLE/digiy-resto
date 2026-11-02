@@ -8,6 +8,7 @@ on:
       - "src/resto-qr-menu-core.js"
       - "sql/20261102_resto_menu_qr_owner_public.sql"
       - "tests/resto-qr-menu.test.cjs"
+      - "tests/sql/resto_qr_ab.sql"
       - ".github/workflows/resto-qr-menu.yml"
   push:
     branches: [main]
@@ -30,3 +31,28 @@ jobs:
           node-version: "22"
       - name: Unit and static security checks
         run: node --test tests/resto-qr-menu.test.cjs
+
+  database-rls:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: digiy-test-only
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: RLS PostgreSQL 17 -- deux propriétaires fictifs et un anonyme
+        env:
+          PGPASSWORD: digiy-test-only
+        run: psql -h 127.0.0.1 -p 5432 -U postgres -d postgres -v ON_ERROR_STOP=1 -f tests/sql/resto_qr_ab.sql
