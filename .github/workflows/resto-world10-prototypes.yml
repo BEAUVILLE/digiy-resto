@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'prototypes/resto-v35-ma-semaine.html'
+      - 'prototypes/resto-v35-ma-semaine.js'
       - 'prototypes/resto-v35-plats-salades-apercu-valide.html'
       - 'resa-resto/world10-pro.js'
       - 'tests/test_resto_world10_prototypes.py'
@@ -11,6 +12,7 @@ on:
     branches: [main]
     paths:
       - 'prototypes/resto-v35-ma-semaine.html'
+      - 'prototypes/resto-v35-ma-semaine.js'
       - 'prototypes/resto-v35-plats-salades-apercu-valide.html'
       - 'resa-resto/world10-pro.js'
       - 'tests/test_resto_world10_prototypes.py'
