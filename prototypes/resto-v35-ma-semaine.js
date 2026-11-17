@@ -207,7 +207,7 @@
  $('previewBtn').addEventListener('click',renderPreview);
  $('clearBtn').addEventListener('click',()=>{
    if(!items.length)return;
-   if(!window.confirm('Effacer tous les plats de cette maquette ? Ils ne sont pas enregistrés.'))return;
+   if(!window.confirm(window.DIGIY_RESTO_PRO_WORLD10?.translate?.('Effacer tous les plats de cette maquette ? Ils ne sont pas enregistrés.') || 'Effacer tous les plats de cette maquette ? Ils ne sont pas enregistrés.'))return;
    for(const item of items)if(item.photoURL)URL.revokeObjectURL(item.photoURL);
    items.length=0;resetInput();renderDay();if(previewOpen)renderPreview();
    status('Brouillon temporaire effacé.');
