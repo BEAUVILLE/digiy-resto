@@ -153,6 +153,8 @@
   }
   const originalText = new WeakMap();
   const originalPlaceholder = new WeakMap();
+  const originalAria = new WeakMap();
+  const originalTitleAttr = new WeakMap();
   const params = new URLSearchParams(location.search);
   let lang = params.get("lang");
   if (!langs.includes(lang)) {
@@ -164,7 +166,7 @@
     const row = phrases.get(fr);
     return row ? row[langs.indexOf(lang)] : fr;
   };
-  const isOwnerName = el => !!el.closest(".site, #ownerHeaderTitle, #siteName");
+  const isOwnerName = el => !!el.closest(".site, #ownerHeaderTitle, #siteName, #posterName");
   function translateText(node) {
     if (!node || !node.parentElement) return;
     const parent = node.parentElement;
@@ -179,7 +181,12 @@
       const frStatuses = {confirmed:"Confirmée", arrived:"Arrivée", completed:"Terminée", cancelled:"Annulée", no_show_released:"Absence, table libérée"};
       value = frStatuses[source] || value;
     }
-    if (parent.id === "who" && source.startsWith("Connecté : ")) {
+    if (parent.id === "restaurantTitle" && (source.startsWith("Restaurant : ") || source.startsWith("Restaurant vérifié : "))) {
+      const prefix = source.startsWith("Restaurant vérifié : ") ? "Restaurant vérifié : " : "Restaurant : ";
+      value = t(prefix) + source.slice(prefix.length);
+    } else if (source.startsWith("Rubrique ") && /^Rubrique [0-9]+$/.test(source) && parent.tagName === "STRONG") {
+      value = t("Rubrique ") + source.slice("Rubrique ".length);
+    } else if (parent.id === "who" && source.startsWith("Connecté : ")) {
       value = t("Connecté : ") + source.slice("Connecté : ".length);
     } else if (parent.classList.contains("rotation") && source.startsWith("⚠️ Table requise au service suivant · libération avant ")) {
       const prefix = "⚠️ Table requise au service suivant · libération avant ";
@@ -200,11 +207,27 @@
       const raw = originalPlaceholder.get(el);
       if (raw != null && el.getAttribute("placeholder") !== t(raw)) el.setAttribute("placeholder", t(raw));
     });
+    // Les titres accessibles et les labels sont des libellés d'interface, jamais des valeurs métier.
+    for (const [attr, cache] of [["aria-label", originalAria], ["title", originalTitleAttr]]) {
+      document.querySelectorAll("["+attr+"]").forEach(el => {
+        if (!cache.has(el)) cache.set(el, el.getAttribute(attr));
+        const original = cache.get(el);
+        if (original && phrases.has(original) && el.getAttribute(attr) !== t(original)) {
+          el.setAttribute(attr, t(original));
+        }
+      });
+    }
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     while (walker.nextNode()) translateText(walker.currentNode);
-    const access = location.pathname.endsWith("/acces-proprietaire.html");
-    const demo = location.pathname.endsWith("/demo-pro.html");
-    document.title = t(demo ? "DEMO RESTO PRO · DIGIYLYFE" : (access ? "Accès propriétaire RÉSA RESTO — DIGIYLYFE" : "Gestion RESA RESTO — DIGIYLYFE"));
+    const titles = {
+      "acces-proprietaire.html": "Accès propriétaire RÉSA RESTO — DIGIYLYFE",
+      "gestion.html": "Gestion RESA RESTO — DIGIYLYFE",
+      "demo-pro.html": "DEMO RESTO PRO · DIGIYLYFE",
+      "reglages.html": "Réglages RESA RESTO — DIGIYLYFE",
+      "ma-carte.html": "Mes plats · Espace propriétaire DIGIY RESTO",
+      "ma-menu-qr.html": "Ma carte QR · Gestion DIGIY RESTO"
+    };
+    document.title = t(titles[location.pathname.split("/").pop()] || "Gestion RESA RESTO — DIGIYLYFE");
     const picker = document.getElementById("restoProWorld10");
     if (picker) {
       picker.value = lang;
@@ -231,7 +254,7 @@
     translatePage();
   }
   function boot() {
-    const header = document.querySelector("header.top");
+    const header = document.querySelector("header.top") || document.querySelector("body > header .wrap") || document.querySelector("body > header");
     if (header && !document.getElementById("restoProWorld10")) {
       const picker = document.createElement("select");
       picker.id = "restoProWorld10";
