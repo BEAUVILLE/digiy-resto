@@ -1,0 +1,27 @@
+name: RESTO client demo · WORLD10 sans écriture
+on:
+  pull_request:
+    paths:
+      - 'resa-resto/demo-client.html'
+      - 'resa-resto/demo-pro.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_demo_client.py'
+      - '.github/workflows/resto-demo-client.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'resa-resto/demo-client.html'
+      - 'resa-resto/demo-pro.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_demo_client.py'
+      - '.github/workflows/resto-demo-client.yml'
+permissions:
+  contents: read
+jobs:
+  demo-client-sans-ecriture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier les 10 langues et aucune réservation réelle
+        run: python3 -m unittest discover -s tests -p 'test_resto_demo_client.py' -v
