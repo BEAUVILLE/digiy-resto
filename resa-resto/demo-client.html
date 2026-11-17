@@ -50,6 +50,7 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--gold);outl
   <p data-t="intro">Choisissez votre date, le nombre de personnes, la zone et un horaire disponible, comme le ferait un véritable client.</p>
  </section>
  <main class="card">
+  <div style="margin:0 0 17px"><a id="takeawayLink" href="./demo-emporter.html" style="display:block;text-align:center;padding:12px 14px;border-radius:999px;background:#fff5d7;border:2px solid #d8ad46;color:#073f32;text-decoration:none;font-size:13px;font-weight:950">🥡 Commander à emporter (démo) →</a></div>
   <div class="notice" data-t="notice">DÉMONSTRATION UNIQUEMENT · Aucune véritable réservation, aucun paiement et aucune donnée personnelle envoyés.</div>
   <div class="grid">
    <div class="field"><label for="day" data-t="day">Jour</label><input id="day" type="date" required></div>
@@ -95,6 +96,7 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--gold);outl
     nl:['← PRO-demo','FICTIEF RESTAURANT · SALY','Reserveer een tafel.','Kies een datum, aantal personen, ruimte en beschikbare tijd.','ALLEEN DEMO · Er worden geen echte boekingen, betalingen of persoonsgegevens verzonden.','Datum','Aantal personen','Gewenste plek','Terras','Zaal','Gekozen tijd','Naam','Telefoon','Beschikbare tijden (voorbeeld)','Alle tijden zijn fictief en geen echte beschikbaarheid.','RESERVERING SIMULEREN →','In de echte software bepaalt het restaurant openingsdagen, tijden en capaciteit. RESA controleert beschikbaarheid.','← Bekijk eigenaarspaneel','Reservering gesimuleerd!','Er is geen echte reservering gemaakt.','personen','Controleer datum, naam, telefoon en tijd.'],
     ar:['عرض PRO →','مطعم افتراضي · سالي','احجز طاولة.','اختر التاريخ وعدد الضيوف والمنطقة والوقت المتاح كما يفعل العميل.','عرض تجريبي فقط · لن يتم إنشاء حجز أو دفع أو إرسال بيانات شخصية.','التاريخ','عدد الأشخاص','المنطقة المطلوبة','الشرفة','القاعة','الوقت المختار','الاسم','الهاتف','المواعيد المتاحة (مثال)','الأوقات المعروضة وهمية ولا تعكس التوفر الحقيقي.','محاكاة الحجز ←','في النظام الحقيقي يحدد المطعم أيام العمل والأوقات والسعة، ويتحقق RESA من التوفر قبل التأكيد.','عرض لوحة مالك المطعم →','تمت محاكاة الحجز!','لم يتم إنشاء أي حجز حقيقي.','أشخاص','تحقق من التاريخ والاسم والهاتف والموعد.']
   };
+  const takeawayCopy={"fr":"🥡 Commander à emporter (démo) →","wo":"🥡 Jël lekk ngir yóbbu (demo) →","zh":"🥡 模拟外带点餐 →","en":"🥡 Order takeaway (demo) →","es":"🥡 Pedir para llevar (demo) →","pt":"🥡 Pedir takeaway (demo) →","it":"🥡 Ordina da asporto (demo) →","de":"🥡 Essen zur Abholung (Demo) →","nl":"🥡 Afhalen bestellen (demo) →","ar":"🥡 طلب طعام للاستلام (عرض) ←"};
   const fields=['back','subtitle','headline','intro','notice','day','guests','zone','terrace','room','time','name','phone','available','slotNotice','confirm','rule','proLink','done','none','people','error'];
   const $=id=>document.getElementById(id);
   let lang=new URLSearchParams(location.search).get('lang')||'fr';
@@ -107,6 +109,8 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--gold);outl
     document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=t(el.dataset.t)});
     $('lang').value=lang;
     document.title='DIGIY RESTO · '+t('headline');
+    $('takeawayLink').textContent=takeawayCopy[lang];
+    $('takeawayLink').href='./demo-emporter.html?lang='+encodeURIComponent(lang);
     $('back').href='./demo-pro.html?lang='+encodeURIComponent(lang);
     document.querySelector('.bottom a').href='./demo-pro.html?lang='+encodeURIComponent(lang);
     const u=new URL(location.href);u.searchParams.set('lang',lang);history.replaceState(null,'',u);
