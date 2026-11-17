@@ -280,7 +280,9 @@
     const row = phrases.get(fr);
     return row ? row[langs.indexOf(lang)] : fr;
   };
-  const isOwnerName = el => !!el.closest(".site, #ownerHeaderTitle, #siteName, #posterName");
+  const isOwnerName = el => !!el.closest(".site, #ownerHeaderTitle, #siteName, #posterName") ||
+    (location.pathname.includes("/prototypes/resto-v35-") &&
+     !!el.closest(".card strong, .card p, .preview-card strong, .preview-card p"));
   function translateText(node) {
     if (!node || !node.parentElement) return;
     const parent = node.parentElement;
@@ -345,7 +347,9 @@
       "demo-pro.html": "DEMO RESTO PRO · DIGIYLYFE",
       "reglages.html": "Réglages RESA RESTO — DIGIYLYFE",
       "ma-carte.html": "Mes plats · Espace propriétaire DIGIY RESTO",
-      "ma-menu-qr.html": "Ma carte QR · Gestion DIGIY RESTO"
+      "ma-menu-qr.html": "Ma carte QR · Gestion DIGIY RESTO",
+      "resto-v35-ma-semaine.html": "DIGIY RESTO V35A — Ma semaine (maquette non connectée)",
+      "resto-v35-plats-salades-apercu-valide.html": "DIGIY RESTO — Aperçu interactif Plats & Salades"
     };
     document.title = t(titles[location.pathname.split("/").pop()] || "Gestion RESA RESTO — DIGIYLYFE");
     const picker = document.getElementById("restoProWorld10");
@@ -372,10 +376,18 @@
     url.searchParams.set("lang", lang);
     history.replaceState(null, "", url.href);
     translatePage();
+    signalEmbeddedEditors();
+  }
+  function signalEmbeddedEditors() {
+    document.querySelectorAll("iframe#menuPrototype, iframe#cartePrototype").forEach(frame => {
+      try {
+        if (frame.contentWindow) frame.contentWindow.postMessage({type:"DIGIY_RESTO_WORLD10_LANG", lang}, location.origin);
+      } catch (_) {}
+    });
   }
   function boot() {
     const header = document.querySelector("header.top") || document.querySelector("body > header .wrap") || document.querySelector("body > header");
-    if (header && !document.getElementById("restoProWorld10")) {
+    if (header && window.self === window.top && !document.getElementById("restoProWorld10")) {
       const picker = document.createElement("select");
       picker.id = "restoProWorld10";
       picker.style.cssText = "width:auto;max-width:120px;min-height:37px;border:1px solid #d8ad46;border-radius:12px;padding:6px 8px;background:#fff;color:#073f32;font:900 12px system-ui;direction:ltr";
@@ -391,6 +403,18 @@
       header.appendChild(picker);
     }
     translatePage();
+    // Chaque prototype est un éditeur temporaire en iframe. On transmet seulement
+    // la langue, sans recharger l'iframe ni effacer ses brouillons en mémoire.
+    document.querySelectorAll("iframe#menuPrototype, iframe#cartePrototype").forEach(frame => {
+      frame.addEventListener("load", signalEmbeddedEditors);
+    });
+    if (window.self !== window.top) {
+      window.addEventListener("message", e => {
+        if (e.origin !== location.origin || e.source !== window.parent) return;
+        if (!e.data || e.data.type !== "DIGIY_RESTO_WORLD10_LANG") return;
+        if (langs.includes(e.data.lang)) setLang(e.data.lang);
+      });
+    }
     // Rend aussi les panneaux construits après chargement Supabase / chaque réservation.
     const observer = new MutationObserver(() => translatePage());
     observer.observe(document.body, {subtree:true, childList:true, characterData:true});
