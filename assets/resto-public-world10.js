@@ -510,6 +510,8 @@
       next = value.slice(0, -suffix.length) + t(suffix);
     } else if (parent.closest("#success") && / · tables? /.test(value)) {
       next = value.replace(" · tables ", t(" · tables ")).replace(" · table ", t(" · table "));
+    } else if (parent.id === "slotsMeta" && value.startsWith("Créneau disponible · ")) {
+      next = t("Créneau disponible") + value.slice("Créneau disponible".length);
     } else if (parent.id === "status" && value.startsWith("⚠️ ") &&
                value.endsWith(". Essayez une autre date, une autre zone ou une autre heure.")) {
       const suffix = ". Essayez une autre date, une autre zone ou une autre heure.";
@@ -544,8 +546,23 @@
         let old = originalAttributes.get(el);
         if (!old) {old={};originalAttributes.set(el,old);}
         if (!(attr in old)) old[attr]=el.getAttribute(attr);
-        const source=old[attr], target=t(source);
-        if (source && phrases.has(source) && el.getAttribute(attr)!==target) el.setAttribute(attr,target);
+        const source=old[attr];
+        if (!source) return;
+        let target=t(source);
+        if (attr==="aria-label" && !phrases.has(source) &&
+            (source.startsWith("Retirer ") || source.startsWith("Ajouter "))) {
+          const prefix=source.startsWith("Retirer ") ? "Retirer " : "Ajouter ";
+          target=t(prefix)+source.slice(prefix.length);
+        }
+        // Si le code de l'établissement a remplacé le libellé, ne jamais l'écraser.
+        const current=el.getAttribute(attr);
+        const candidates=[source];
+        if (phrases.has(source)) candidates.push(...phrases.get(source));
+        else if (source.startsWith("Retirer ") || source.startsWith("Ajouter ")) {
+          const prefix=source.startsWith("Retirer ") ? "Retirer " : "Ajouter ";
+          candidates.push(...phrases.get(prefix).map(v=>v+source.slice(prefix.length)));
+        }
+        if (candidates.includes(current) && current!==target) el.setAttribute(attr,target);
       });
     }
     const title=phrases.get(document.documentElement.dataset.world10Title||document.title);
