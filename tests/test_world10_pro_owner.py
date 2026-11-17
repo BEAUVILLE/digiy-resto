@@ -56,7 +56,12 @@ class RestoProWorld10(unittest.TestCase):
             index = LANGS.index(lang)
             translated = sum(row[index] != row[0] for row in data["rows"])
             self.assertGreaterEqual(translated, 85, lang)
-        for text in ["Code reçu", "Déconnexion", "Enregistrer les horaires",
+        for text in ["MON RESTAURANT", "Lien de restaurant requis",
+                     "Aucun restaurant associé à ce lien",
+                     "Ouvrez votre espace professionnel avec votre lien sécurisé par e-mail. L’accès dépend de votre restaurant et de vos droits de propriétaire.",
+                     "Ce lien ne désigne aucun restaurant. Ouvrez « Accès propriétaire » depuis votre propre fiche DIGIY RESTO. Aucun établissement de test ne sera choisi à votre place.",
+                     "Le lien envoyé par e-mail (Magic Link) et le code reçu ouvrent la même gestion sécurisée, après vérification des droits de votre compte. Chaque restaurant conserve ses propres données.",
+                     "Code reçu", "Déconnexion", "Enregistrer les horaires",
                      "Aucune réservation à venir.", "⚠️ Ce compte n’est pas autorisé à gérer ce restaurant.",
                      "✅ Réservation mise à jour.", "Oui", "Non", "confirmed", "Arrivé protège la table du no-show. Annulé la libère et retire la contrainte de rotation si elle n’est plus nécessaire."]:
             self.assertIn(text, fr_keys)
