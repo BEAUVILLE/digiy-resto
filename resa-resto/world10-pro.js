@@ -8,6 +8,12 @@
   const names = ["🇫🇷 FR","🇬🇧 EN","🇪🇸 ES","🇵🇹 PT","🇩🇪 DE","🇮🇹 IT","🇳🇱 NL","🇸🇦 AR","🇸🇳 WO","🇨🇳 ZH"];
   // fr, en, es, pt, de, it, nl, ar, wo, zh — une traduction par colonne.
   const rows = [
+    ["⚠️ Sauvegarde refusée : ","⚠️ Save refused: ","⚠️ Guardado rechazado: ","⚠️ Gravação recusada: ","⚠️ Speichern abgelehnt: ","⚠️ Salvataggio rifiutato: ","⚠️ Opslaan geweigerd: ","⚠️ تعذّر الحفظ: ","⚠️ Denc bi ñu nanguwul: ","⚠️ 保存被拒绝："],
+    ["aucune ligne modifiée","no row changed","ninguna fila modificada","nenhuma linha alterada","keine Zeile geändert","nessuna riga modificata","geen rij gewijzigd","لم يتغير أي سجل","Amul liggéey bu soppeeku","没有修改任何记录"],
+    ["Publication non confirmée","Publishing not confirmed","Publicación no confirmada","Publicação não confirmada","Veröffentlichung nicht bestätigt","Pubblicazione non confermata","Publicatie niet bevestigd","لم يتم تأكيد النشر","Siif bi deggalul","发布未确认"],
+    ["Masquage non confirmé","Hiding not confirmed","Ocultación no confirmada","Ocultação não confirmada","Ausblenden nicht bestätigt","Nascondimento non confermato","Verbergen niet bevestigd","لم يتم تأكيد الإخفاء","Nëbb bi deggalul","隐藏未确认"],
+    ["⚠️ Accès au stockage des menus indisponible : ","⚠️ Menu storage unavailable: ","⚠️ Almacenamiento de cartas no disponible: ","⚠️ Armazenamento de cartas indisponível: ","⚠️ Menüspeicher nicht erreichbar: ","⚠️ Archivio menu non disponibile: ","⚠️ Menuopslag niet beschikbaar: ","⚠️ تخزين القوائم غير متاح: ","⚠️ Dencukaayu kart bi amul: ","⚠️ 菜单存储不可用："],
+    ["⚠️ État de publication inaccessible : ","⚠️ Publication status unavailable: ","⚠️ Estado de publicación no disponible: ","⚠️ Estado da publicação indisponível: ","⚠️ Veröffentlichungsstatus nicht verfügbar: ","⚠️ Stato pubblicazione non disponibile: ","⚠️ Publicatiestatus niet beschikbaar: ","⚠️ حالة النشر غير متاحة: ","⚠️ Naka siif bi amul: ","⚠️ 无法获取发布状态："],
     ["Structure indicative · facultative","Suggested structure · optional","Estructura orientativa · opcional","Estrutura indicativa · opcional","Vorgeschlagene Struktur · optional","Struttura indicativa · facoltativa","Voorgestelde indeling · optioneel","هيكل إرشادي · اختياري","Tëralin bu ñu joxe · du lu war","建议结构 · 可选"],
     ["🔐 Accès propriétaire","🔐 Owner login","🔐 Acceso propietario","🔐 Acesso proprietário","🔐 Inhaberzugang","🔐 Accesso proprietario","🔐 Eigenaarstoegang","🔐 دخول المالك","🔐 Duggub boroom","🔐 业主入口"],
     ["Rubrique ","Section ","Sección ","Secção ","Kategorie ","Sezione ","Rubriek ","القسم ","Pàcc ","分类 "],
@@ -294,6 +300,12 @@
       value = t(prefix) + source.slice(prefix.length);
     } else if (source.startsWith("Rubrique ") && /^Rubrique [0-9]+$/.test(source) && parent.tagName === "STRONG") {
       value = t("Rubrique ") + source.slice("Rubrique ".length);
+    } else if (parent.id === "stateMessage") {
+      // Ne traduit que les préfixes techniques, jamais le texte d'une erreur retournée par le serveur.
+      const prefixes = ["⚠️ Sauvegarde refusée : ", "⚠️ Accès au stockage des menus indisponible : ", "⚠️ État de publication inaccessible : "];
+      for (const prefix of prefixes) {
+        if (source.startsWith(prefix)) { value = t(prefix) + source.slice(prefix.length); break; }
+      }
     } else if (parent.id === "who" && source.startsWith("Connecté : ")) {
       value = t("Connecté : ") + source.slice("Connecté : ".length);
     } else if (parent.classList.contains("rotation") && source.startsWith("⚠️ Table requise au service suivant · libération avant ")) {
