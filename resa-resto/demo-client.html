@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="theme-color" content="#073f32">
+<title>DIGIY RESTO · Démo réservation client</title>
+<style>
+:root{--g:#073f32;--g2:#0b5d48;--gold:#d8ad46;--sand:#f5f1e6;--ink:#173b31;--muted:#60766c;--line:#d9e7dd}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,var(--g),var(--g2) 300px,var(--sand) 300px);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{width:min(780px,calc(100% - 22px));margin:auto;padding:18px 0 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:white}.brand{font-weight:1000}.back{border:1px solid #ffffff70;border-radius:999px;padding:7px 11px;color:white;text-decoration:none;font-size:12px;font-weight:900}
+.hero{padding:27px 3px;color:white}.hero h1{margin:6px 0 4px;font-size:clamp(32px,8vw,58px);line-height:1}.hero p{max-width:630px;color:#e6eee9;font-weight:700}
+.language{border:1px solid var(--gold);border-radius:10px;background:white;color:var(--g);font-weight:800;font-size:13px;min-height:35px}
+.card{background:white;border:1px solid var(--line);border-radius:22px;padding:clamp(17px,4vw,27px);box-shadow:0 20px 45px #073f3225}
+.notice{background:#fff5d5;border-left:4px solid var(--gold);padding:12px 14px;border-radius:11px;font-weight:850;margin:0 0 20px;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:4px}.field label{font-size:11px;font-weight:1000;color:#5d7167;text-transform:uppercase;letter-spacing:.03em}
+input,select{border:1px solid #c8d8cf;border-radius:12px;min-height:47px;padding:10px 12px;font:inherit;background:white;color:var(--ink);width:100%}
+input:focus,select:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.slots{margin:19px 0;padding:15px;border:1px solid var(--line);border-radius:16px;background:#f7fbf8}
+.slots-head{font-weight:950;color:var(--g)}.slots-grid{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.slot{padding:10px 14px;border:1px solid #a9c1b5;border-radius:999px;background:white;color:var(--g);font:900 14px system-ui;cursor:pointer}
+.slot.selected{background:var(--g);color:white}.slot:disabled{background:#ecefeb;color:#9ba39c;text-decoration:line-through;cursor:not-allowed;border-color:#e0e5e1}
+.explain{font-size:12px;color:var(--muted);font-weight:800}
+.btn{background:var(--g);color:white;border:0;border-radius:999px;padding:14px 18px;min-height:50px;cursor:pointer;width:100%;font:1000 15px system-ui}
+.confirmation{background:#e2f4e7;border-radius:15px;margin-top:16px;padding:17px;border-left:4px solid #17723e;color:#205239}
+.confirmation strong{font-size:17px}.hidden{display:none!important}
+.rule{margin-top:16px;font-size:12px;font-weight:700;line-height:1.5;background:#fffbea;border-radius:10px;padding:12px}
+.bottom{padding:18px 0;text-align:center;font-size:12px;color:var(--muted)}.bottom a{color:var(--g);font-weight:850}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.hero{padding:20px 3px 25px}.card{border-radius:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header class="top">
+  <div class="brand">🍽️ DIGIY RESTO · CLIENT</div>
+  <div style="display:flex;gap:8px;align-items:center">
+   <select id="lang" class="language" aria-label="Langue">
+    <option value="fr">🇫🇷 FR</option><option value="wo">🇸🇳 WO</option><option value="zh">🇨🇳 ZH</option>
+    <option value="en">🇬🇧 EN</option><option value="es">🇪🇸 ES</option><option value="pt">🇵🇹 PT</option>
+    <option value="it">🇮🇹 IT</option><option value="de">🇩🇪 DE</option><option value="nl">🇳🇱 NL</option><option value="ar">🇸🇦 AR</option>
+   </select>
+   <a id="back" class="back" href="./demo-pro.html" data-t="back">← Démo PRO</a>
+  </div>
+ </header>
+ <section class="hero">
+  <div data-t="subtitle" style="font-size:11px;letter-spacing:.1em;font-weight:950;color:#ffe4a0">RESTAURANT FICTIF · SALY</div>
+  <h1 data-t="headline">Réserver une table.</h1>
+  <p data-t="intro">Choisissez votre date, le nombre de personnes, la zone et un horaire disponible, comme le ferait un véritable client.</p>
+ </section>
+ <main class="card">
+  <div class="notice" data-t="notice">DÉMONSTRATION UNIQUEMENT · Aucune véritable réservation, aucun paiement et aucune donnée personnelle envoyés.</div>
+  <div class="grid">
+   <div class="field"><label for="day" data-t="day">Jour</label><input id="day" type="date" required></div>
+   <div class="field"><label for="guests" data-t="guests">Nombre de personnes</label><input id="guests" type="number" min="1" max="12" value="2" required></div>
+   <div class="field"><label for="zone" data-t="zone">Zone souhaitée</label><select id="zone"><option value="terrace" data-t="terrace">Terrasse</option><option value="room" data-t="room">Salle</option></select></div>
+   <div class="field"><label for="time" data-t="time">Heure choisie</label><input id="time" type="time" readonly value="12:30"></div>
+   <div class="field"><label for="name" data-t="name">Nom</label><input id="name" autocomplete="off" value="Client démo" maxlength="80"></div>
+   <div class="field"><label for="phone" data-t="phone">Téléphone</label><input id="phone" type="tel" autocomplete="off" value="00 000 00 00" maxlength="25"></div>
+  </div>
+  <section class="slots" aria-labelledby="slotsTitle">
+   <div class="slots-head" id="slotsTitle" data-t="available">Créneaux disponibles (exemple)</div>
+   <div id="slots" class="slots-grid" role="group" aria-label="Choix de l'heure">
+    <button class="slot" type="button" data-time="12:00">12:00</button>
+    <button class="slot selected" type="button" data-time="12:30" aria-pressed="true">12:30</button>
+    <button class="slot" type="button" data-time="13:00">13:00</button>
+    <button class="slot" type="button" data-time="19:00">19:00</button>
+    <button class="slot" type="button" data-time="19:30">19:30</button>
+    <button class="slot" type="button" data-time="20:00">20:00</button>
+    <button class="slot" type="button" disabled title="Exemple de créneau complet">20:30</button>
+   </div>
+   <div class="explain" data-t="slotNotice">Les horaires affichés sont inventés et ne correspondent pas à des disponibilités réelles.</div>
+  </section>
+  <button class="btn" id="confirm" type="button" data-t="confirm">SIMULER MA RÉSERVATION →</button>
+  <div id="confirmation" class="confirmation hidden" role="status" aria-live="polite"></div>
+  <div class="rule" data-t="rule">Dans le véritable logiciel, le restaurant définit ses jours d'ouverture, ses horaires et sa capacité. RESA vérifie les disponibilités avant de confirmer.</div>
+ </main>
+ <div class="bottom"><a href="./demo-pro.html" data-t="proLink">← Voir le cockpit du restaurateur</a></div>
+</div>
+<script>
+(() => {
+  'use strict';
+  // Démonstration locale uniquement. Pas de client Supabase, requête réseau ou stockage.
+  const keys=['fr','wo','zh','en','es','pt','it','de','nl','ar'];
+  const translations={
+    fr:['← Démo PRO','RESTAURANT FICTIF · SALY','Réserver une table.','Choisissez votre date, le nombre de personnes, la zone et un horaire disponible, comme le ferait un véritable client.','DÉMONSTRATION UNIQUEMENT · Aucune véritable réservation, aucun paiement et aucune donnée personnelle envoyés.','Jour','Nombre de personnes','Zone souhaitée','Terrasse','Salle','Heure choisie','Nom','Téléphone','Créneaux disponibles (exemple)','Les horaires affichés sont inventés et ne correspondent pas à des disponibilités réelles.','SIMULER MA RÉSERVATION →','Dans le véritable logiciel, le restaurant définit ses jours d’ouverture, ses horaires et sa capacité. RESA vérifie les disponibilités avant de confirmer.','← Voir le cockpit du restaurateur','Réservation simulée !','Aucune réservation réelle n’a été créée.','personnes','Vérifiez le jour, le nom, le téléphone et un créneau disponible.'],
+    wo:['← Demo PRO','RESTAURAŊ BU ÑU SÀKK · SALY','Tànn taabal.','Tànnal bés, ñaata nit, béréb ak waxtu bi nga bëgg. Lii ab misaal la.','DEMO REKK · Amul rezervaasiyoŋ bu dëgg, amul peymaŋ, kenn du yónnee say done.','Bés','Ñaata nit','Béréb bi nga bëgg','Teras','Saal','Waxtu bi nga tànn','Tur','Telefon','Waxtu yi ñu mën a tànn (misaal)','Waxtu yii ay misaal lañu; duñu wax waxtu yi féex ci dëgg.','SEET SAMA REZERVAASIYOŊ →','Ci liggéey bu dëgg bi, boroom restauraŋ bi mooy tëral bés, waxtu ak ñaata palaas. RESA dafay seet li féex.','← Xool saytu boroom restauraŋ','Revegetasaasiyoŋ bu ñu seet rekk !','Amul rezervaasiyoŋ bu dëgg bu ñu def.','nit','Seetal bés, tur, telefon ak waxtu bi féex.'],
+    zh:['← 专业版演示','虚构餐厅 · SALY','预订餐桌。','像真正的顾客一样，选择日期、人数、区域和可用时间。','仅供演示 · 不会产生真实预订、付款或发送个人数据。','日期','人数','希望区域','露台','室内','所选时间','姓名','电话','可选时间（示例）','显示的时间均为虚构，不代表真实余位。','模拟预订 →','真实系统中，餐厅设置营业日、时间与容量。RESA 确认前会核实余位。','← 查看餐厅经营后台','模拟预订成功！','未创建任何真实预订。','人','请检查日期、姓名、电话及时间。'],
+    en:['← PRO demo','FICTIONAL RESTAURANT · SALY','Book a table.','Choose your date, party size, area and an available time, just like a real guest.','DEMO ONLY · No real booking, payment or personal data is sent.','Date','Number of guests','Preferred area','Terrace','Dining room','Selected time','Name','Phone','Available times (example)','All times shown are fictional, not real availability.','SIMULATE MY BOOKING →','In the real software the restaurant sets open days, hours and capacity. RESA checks availability before confirming.','← See the owner dashboard','Booking simulated!','No real reservation was created.','guests','Check the date, name, phone and available time.'],
+    es:['← Demo PRO','RESTAURANTE FICTICIO · SALY','Reservar una mesa.','Elige fecha, personas, zona y horario disponible, como un cliente real.','SOLO DEMO · No se envían reservas, pagos ni datos personales reales.','Fecha','Personas','Zona deseada','Terraza','Sala','Hora elegida','Nombre','Teléfono','Horarios disponibles (ejemplo)','Los horarios son ficticios y no indican disponibilidad real.','SIMULAR MI RESERVA →','En el sistema real el restaurante define días, horarios y capacidad. RESA verifica la disponibilidad.','← Ver panel del restaurante','¡Reserva simulada!','No se creó ninguna reserva real.','personas','Comprueba fecha, nombre, teléfono y horario.'],
+    pt:['← Demo PRO','RESTAURANTE FICTÍCIO · SALY','Reservar uma mesa.','Escolha a data, o número de pessoas, a zona e a hora disponível.','APENAS DEMO · Nenhuma reserva, pagamento ou dado pessoal é enviado.','Data','Pessoas','Zona desejada','Terraço','Sala','Hora escolhida','Nome','Telefone','Horários disponíveis (exemplo)','Os horários são fictícios e não representam disponibilidade real.','SIMULAR RESERVA →','No sistema real, o restaurante define dias, horários e capacidade. RESA verifica a disponibilidade.','← Ver gestão do restaurante','Reserva simulada!','Nenhuma reserva real foi criada.','pessoas','Verifique a data, o nome, o telefone e a hora.'],
+    it:['← Demo PRO','RISTORANTE FITTIZIO · SALY','Prenota un tavolo.','Scegli data, numero di persone, zona e orario disponibile.','SOLO DEMO · Nessuna prenotazione, pagamento o dato personale viene inviato.','Data','Numero di persone','Zona preferita','Terrazza','Sala','Ora scelta','Nome','Telefono','Orari disponibili (esempio)','Gli orari sono fittizi, non disponibilità reali.','SIMULA LA PRENOTAZIONE →','Nel sistema reale il ristorante imposta giorni, orari e capienza. RESA controlla la disponibilità.','← Vedi pannello ristorante','Prenotazione simulata!','Non è stata creata alcuna prenotazione reale.','persone','Controlla data, nome, telefono e orario.'],
+    de:['← PRO-Demo','FIKTIVES RESTAURANT · SALY','Tisch reservieren.','Wählen Sie Datum, Personenzahl, Bereich und eine verfügbare Uhrzeit.','NUR DEMO · Keine echte Reservierung, Zahlung oder Übertragung persönlicher Daten.','Datum','Personenzahl','Gewünschter Bereich','Terrasse','Gastraum','Gewählte Zeit','Name','Telefon','Verfügbare Zeiten (Beispiel)','Diese Zeiten sind erfunden und keine echte Verfügbarkeit.','RESERVIERUNG SIMULIEREN →','In der echten Software legt das Restaurant Öffnungstage, Zeiten und Kapazität fest. RESA prüft die Verfügbarkeit.','← Inhaberbereich ansehen','Reservierung simuliert!','Es wurde keine echte Reservierung erstellt.','Personen','Datum, Namen, Telefon und Uhrzeit prüfen.'],
+    nl:['← PRO-demo','FICTIEF RESTAURANT · SALY','Reserveer een tafel.','Kies een datum, aantal personen, ruimte en beschikbare tijd.','ALLEEN DEMO · Er worden geen echte boekingen, betalingen of persoonsgegevens verzonden.','Datum','Aantal personen','Gewenste plek','Terras','Zaal','Gekozen tijd','Naam','Telefoon','Beschikbare tijden (voorbeeld)','Alle tijden zijn fictief en geen echte beschikbaarheid.','RESERVERING SIMULEREN →','In de echte software bepaalt het restaurant openingsdagen, tijden en capaciteit. RESA controleert beschikbaarheid.','← Bekijk eigenaarspaneel','Reservering gesimuleerd!','Er is geen echte reservering gemaakt.','personen','Controleer datum, naam, telefoon en tijd.'],
+    ar:['عرض PRO →','مطعم افتراضي · سالي','احجز طاولة.','اختر التاريخ وعدد الضيوف والمنطقة والوقت المتاح كما يفعل العميل.','عرض تجريبي فقط · لن يتم إنشاء حجز أو دفع أو إرسال بيانات شخصية.','التاريخ','عدد الأشخاص','المنطقة المطلوبة','الشرفة','القاعة','الوقت المختار','الاسم','الهاتف','المواعيد المتاحة (مثال)','الأوقات المعروضة وهمية ولا تعكس التوفر الحقيقي.','محاكاة الحجز ←','في النظام الحقيقي يحدد المطعم أيام العمل والأوقات والسعة، ويتحقق RESA من التوفر قبل التأكيد.','عرض لوحة مالك المطعم →','تمت محاكاة الحجز!','لم يتم إنشاء أي حجز حقيقي.','أشخاص','تحقق من التاريخ والاسم والهاتف والموعد.']
+  };
+  const fields=['back','subtitle','headline','intro','notice','day','guests','zone','terrace','room','time','name','phone','available','slotNotice','confirm','rule','proLink','done','none','people','error'];
+  const $=id=>document.getElementById(id);
+  let lang=new URLSearchParams(location.search).get('lang')||'fr';
+  if(!keys.includes(lang))lang='fr';
+  let lastResult=null;
+  function t(k){const i=fields.indexOf(k);return i>=0?translations[lang][i]:k;}
+  function updateLang(){
+    document.documentElement.lang=lang;
+    document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+    document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=t(el.dataset.t)});
+    $('lang').value=lang;
+    document.title='DIGIY RESTO · '+t('headline');
+    $('back').href='./demo-pro.html?lang='+encodeURIComponent(lang);
+    document.querySelector('.bottom a').href='./demo-pro.html?lang='+encodeURIComponent(lang);
+    const u=new URL(location.href);u.searchParams.set('lang',lang);history.replaceState(null,'',u);
+    if(lastResult)drawConfirmation(lastResult);
+  }
+  $('lang').addEventListener('change',()=>{lang=$('lang').value;updateLang()});
+  const today=new Date();const yy=today.getFullYear(),mm=String(today.getMonth()+1).padStart(2,'0'),dd=String(today.getDate()).padStart(2,'0');
+  const start=[yy,mm,dd].join('-');$('day').min=start;$('day').value=start;
+  function hideResult(){lastResult=null;$('confirmation').classList.add('hidden');$('confirmation').replaceChildren()}
+  ['day','guests','zone','name','phone'].forEach(id=>$(id).addEventListener('input',hideResult));
+  document.querySelectorAll('[data-time]').forEach(button=>{
+    button.addEventListener('click',()=>{
+      document.querySelectorAll('[data-time]').forEach(x=>{x.classList.remove('selected');x.setAttribute('aria-pressed','false')});
+      button.classList.add('selected');button.setAttribute('aria-pressed','true');$('time').value=button.dataset.time;hideResult();
+    });
+  });
+  function drawConfirmation(data){
+    const panel=$('confirmation');panel.replaceChildren();
+    const heading=document.createElement('strong');heading.textContent='✅ '+t('done');
+    const info=document.createElement('p');info.textContent=data.guests+' '+t('people')+' · '+data.day+' · '+data.time+' · '+t(data.zone);
+    const last=document.createElement('p');last.textContent=t('none');
+    panel.append(heading,info,last);panel.classList.remove('hidden');
+  }
+  $('confirm').addEventListener('click',()=>{
+    const guests=Number($('guests').value),day=$('day').value,time=$('time').value;
+    if(!day||day<start||!time||!Number.isInteger(guests)||guests<1||guests>12||!$('name').value.trim()||!$('phone').value.trim()){
+      const panel=$('confirmation');panel.textContent=t('error');panel.classList.remove('hidden');lastResult=null;return;
+    }
+    lastResult={day,guests,time,zone:$('zone').value==='terrace'?'terrace':'room'};
+    drawConfirmation(lastResult);
+    // Pas de fetch, pas de base de données, pas de stockage, pas d'envoi des champs.
+  });
+  for (const key of keys) {
+    if (!translations[key] || translations[key].length!==fields.length) throw new Error('Demo WORLD10 incomplete: '+key);
+  }
+  updateLang();
+})();
+</script>
+</body></html>
