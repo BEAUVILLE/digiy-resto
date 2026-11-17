@@ -1,0 +1,30 @@
+name: DIGIY RESTO · WORLD10 vrai logiciel propriétaire
+
+on:
+  pull_request:
+    paths:
+      - 'resa-resto/acces-proprietaire.html'
+      - 'resa-resto/gestion.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_world10_pro_owner.py'
+      - '.github/workflows/world10-pro-owner.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'resa-resto/acces-proprietaire.html'
+      - 'resa-resto/gestion.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_world10_pro_owner.py'
+      - '.github/workflows/world10-pro-owner.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  owner-world10:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier 10 langues, scripts, propriétaires et écritures inchangées
+        run: python3 -m unittest discover -s tests -p 'test_world10_pro_owner.py' -v
