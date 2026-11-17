@@ -117,7 +117,7 @@ class PublicWorld10(unittest.TestCase):
             for attrs, script in re.findall(
                 r"<script\b([^>]*)>([\s\S]*?)</script>", html
             ):
-                if "src=" in attrs or not script.strip():
+                if "src=" in attrs or not script.strip() or "application/ld+json" in attrs:
                     continue
                 checked = subprocess.run(["node", "--check", "-"], input=script,
                                          text=True, capture_output=True)
