@@ -7,6 +7,12 @@
   const langs = ["fr","en","es","pt","de","it","nl","ar","wo","zh"];
   const names = ["🇫🇷 FR","🇬🇧 EN","🇪🇸 ES","🇵🇹 PT","🇩🇪 DE","🇮🇹 IT","🇳🇱 NL","🇸🇦 AR","🇸🇳 WO","🇨🇳 ZH"];
   const rows = [
+    ["TEST RESA RESTO · SALY","RESTO TEST · SALY","PRUEBA RESTO · SALY","TESTE RESTO · SALY","RESTO-TEST · SALY","TEST RESTO · SALY","RESTO-TEST · SALY","تجربة RESTO · سالي","TEST RESTO · SALY","RESTO 测试 · 萨利"],
+    ["TEST RESA RESTO · SARLAT","RESTO TEST · SARLAT","PRUEBA RESTO · SARLAT","TESTE RESTO · SARLAT","RESTO-TEST · SARLAT","TEST RESTO · SARLAT","RESTO-TEST · SARLAT","تجربة RESTO · سارلا","TEST RESTO · SARLAT","RESTO 测试 · 萨拉"],
+    ["· Épuisé / indisponible","· Sold out / unavailable","· Agotado / no disponible","· Esgotado / indisponível","· Ausverkauft / nicht verfügbar","· Esaurito / non disponibile","· Uitverkocht / niet beschikbaar","· نفد / غير متاح","· Jeex na / amul","· 售罄 / 不可用"],
+    [" · table "," · table "," · mesa "," · mesa "," · Tisch "," · tavolo "," · tafel "," · طاولة "," · taabal "," · 餐桌 "],
+    [" · tables "," · tables "," · mesas "," · mesas "," · Tische "," · tavoli "," · tafels "," · طاولات "," · taabal yi "," · 餐桌 "],
+    [". Essayez une autre date, une autre zone ou une autre heure.",". Try another date, area or time.",". Prueba otra fecha, zona u hora.",". Tente outra data, zona ou hora.",". Versuchen Sie einen anderen Tag, Bereich oder eine andere Uhrzeit.",". Prova un'altra data, zona o ora.",". Probeer een andere datum, plek of tijd.",". جرّب تاريخًا أو منطقة أو وقتًا آخر.",". Jéemal beneen bés, béréb walla waxtu.","。请尝试其他日期、区域或时间。"],
     ["Jour","Date","Día","Dia","Tag","Giorno","Dag","اليوم","Bés","日期"],
     ["Retour DIGIYLYFE.COM","Back to DIGIYLYFE.COM","Volver a DIGIYLYFE.COM","Voltar a DIGIYLYFE.COM","Zurück zu DIGIYLYFE.COM","Torna a DIGIYLYFE.COM","Terug naar DIGIYLYFE.COM","العودة إلى DIGIYLYFE.COM","Dellu DIGIYLYFE.COM","返回 DIGIYLYFE.COM"],
     ["Voir la fiche DIGIY RESTO du Malraux","View Le Malraux's DIGIY RESTO profile","Ver ficha DIGIY RESTO de Le Malraux","Ver perfil DIGIY RESTO de Le Malraux","DIGIY RESTO-Profil von Le Malraux ansehen","Vedi profilo DIGIY RESTO di Le Malraux","Bekijk DIGIY RESTO-profiel van Le Malraux","عرض صفحة Le Malraux على DIGIY RESTO","Xool fich DIGIY RESTO bu Le Malraux","查看 Le Malraux 的 DIGIY RESTO 商家页"],
