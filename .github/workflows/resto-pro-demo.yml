@@ -1,0 +1,27 @@
+name: DIGIY RESTO · démo PRO lecture seule WORLD10
+on:
+  pull_request:
+    paths:
+      - 'resa-resto/demo-pro.html'
+      - 'resa-resto/acces-proprietaire.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_pro_demo.py'
+      - '.github/workflows/resto-pro-demo.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'resa-resto/demo-pro.html'
+      - 'resa-resto/acces-proprietaire.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_pro_demo.py'
+      - '.github/workflows/resto-pro-demo.yml'
+permissions:
+  contents: read
+jobs:
+  demo-readonly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier la lecture seule et les 10 langues
+        run: python3 -m unittest discover -s tests -p 'test_resto_pro_demo.py' -v
