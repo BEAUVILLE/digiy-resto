@@ -8,6 +8,8 @@
   const names = ["🇫🇷 FR","🇬🇧 EN","🇪🇸 ES","🇵🇹 PT","🇩🇪 DE","🇮🇹 IT","🇳🇱 NL","🇸🇦 AR","🇸🇳 WO","🇨🇳 ZH"];
   // fr, en, es, pt, de, it, nl, ar, wo, zh — une traduction par colonne.
   const rows = [
+    ["Structure indicative · facultative","Suggested structure · optional","Estructura orientativa · opcional","Estrutura indicativa · opcional","Vorgeschlagene Struktur · optional","Struttura indicativa · facoltativa","Voorgestelde indeling · optioneel","هيكل إرشادي · اختياري","Tëralin bu ñu joxe · du lu war","建议结构 · 可选"],
+    ["🔐 Accès propriétaire","🔐 Owner login","🔐 Acceso propietario","🔐 Acesso proprietário","🔐 Inhaberzugang","🔐 Accesso proprietario","🔐 Eigenaarstoegang","🔐 دخول المالك","🔐 Duggub boroom","🔐 业主入口"],
     ["Rubrique ","Section ","Sección ","Secção ","Kategorie ","Sezione ","Rubriek ","القسم ","Pàcc ","分类 "],
     ["Supprimer la rubrique","Delete section","Eliminar sección","Eliminar secção","Kategorie löschen","Elimina sezione","Rubriek verwijderen","حذف القسم","Far pàcc bi","删除分类"],
     ["Nom de rubrique (ex. Plats, Boissons, Desserts)","Section name (e.g. Dishes, Drinks, Desserts)","Nombre de sección (ej. Platos, Bebidas, Postres)","Nome da secção (ex. Pratos, Bebidas, Sobremesas)","Kategoriename (z. B. Gerichte, Getränke, Desserts)","Nome sezione (es. Piatti, Bevande, Dessert)","Naam rubriek (bijv. Gerechten, Drankjes, Desserts)","اسم القسم (مثل أطباق ومشروبات وحلويات)","Turu pàcc (misaal lekk, naan, dessert)","分类名称（如菜品、饮料、甜点）"],
