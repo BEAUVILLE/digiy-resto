@@ -129,7 +129,7 @@
   const params = new URLSearchParams(location.search);
   let lang = params.get("lang");
   if (!langs.includes(lang)) {
-    try { lang = sessionStorage.getItem("digiy_resto_pro_lang"); } catch (_) {}
+    try { lang = localStorage.getItem("digiy_resto_pro_lang") || sessionStorage.getItem("digiy_resto_pro_lang"); } catch (_) {}
   }
   if (!langs.includes(lang)) lang = "fr";
 
@@ -141,13 +141,17 @@
   function translateText(node) {
     if (!node || !node.parentElement) return;
     const parent = node.parentElement;
-    if (parent.closest("script,style,textarea,option,code") || isOwnerName(parent)) return;
+    if (parent.closest("script,style,textarea,code") || isOwnerName(parent)) return;
     let raw = originalText.get(node);
     if (raw === undefined) { raw = node.nodeValue; originalText.set(node, raw); }
     const leading = (raw.match(/^\s*/) || [""])[0];
     const trailing = (raw.match(/\s*$/) || [""])[0];
     const source = raw.trim();
     let value = t(source);
+    if (parent.matches(".badge") && lang === "fr") {
+      const frStatuses = {confirmed:"Confirmée", arrived:"Arrivée", completed:"Terminée", cancelled:"Annulée", no_show_released:"Absence, table libérée"};
+      value = frStatuses[source] || value;
+    }
     if (parent.id === "who" && source.startsWith("Connecté : ")) {
       value = t("Connecté : ") + source.slice("Connecté : ".length);
     } else if (parent.classList.contains("rotation") && source.startsWith("⚠️ Table requise au service suivant · libération avant ")) {
@@ -192,7 +196,7 @@
   function setLang(next) {
     if (!langs.includes(next)) return;
     lang = next;
-    try { sessionStorage.setItem("digiy_resto_pro_lang", lang); } catch (_) {}
+    try { sessionStorage.setItem("digiy_resto_pro_lang", lang); localStorage.setItem("digiy_resto_pro_lang", lang); } catch (_) {}
     const url = new URL(location.href);
     url.searchParams.set("lang", lang);
     history.replaceState(null, "", url.href);
