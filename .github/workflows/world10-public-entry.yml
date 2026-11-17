@@ -1,0 +1,26 @@
+name: DIGIY RESTO · entrée publique en 10 langues
+
+on:
+  pull_request:
+    paths:
+      - index.html
+      - tests/test_world10_public_entry.py
+      - .github/workflows/world10-public-entry.yml
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - tests/test_world10_public_entry.py
+      - .github/workflows/world10-public-entry.yml
+
+permissions:
+  contents: read
+
+jobs:
+  public-entry-world10:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier les boutons, les dictionnaires, les prix et le JavaScript
+        run: python3 -m unittest discover -s tests -p 'test_world10_public_entry.py' -v
