@@ -11,6 +11,7 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="https://digiylyfe.com/icon-192.png?v=20260713">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./assets/resto-public-world10.js" defer></script>
 <style>
 :root{--green:#073f32;--green2:#0d634b;--gold:#d8ad46;--cream:#f6f1e5;--paper:#fffefa;--ink:#173b31;--muted:#6e8179;--line:#dfe8e2}
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--cream);color:var(--ink)}
@@ -241,9 +242,12 @@ function setLang(lang){
 const tarifLink=document.querySelector('a[data-i18n="join"]');
 if(tarifLink){const src=new URLSearchParams(location.search);const raw=String(src.get('country')||src.get('pays')||'sn').toLowerCase();const country=(raw==='fr'||raw==='france')?'fr':(raw==='us'||raw==='usa')?'us':'sn';const dest=new URL('https://digiylyfe.com/tarifs-adherents-1.html');dest.searchParams.set('country',country);dest.searchParams.set('lang',lang);tarifLink.href=dest.toString();}
 const u=new URL(location.href); u.searchParams.set('lang',lang); history.replaceState(null,'',u);
+if(window.DIGIY_RESTO_PUBLIC_WORLD10) window.DIGIY_RESTO_PUBLIC_WORLD10.setLang(lang);
 }
 document.querySelectorAll('#langs button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-setLang(new URLSearchParams(location.search).get('lang')||'fr');
+let initialRestoLang=new URLSearchParams(location.search).get('lang');
+if(!T[initialRestoLang]) {try{initialRestoLang=localStorage.getItem('digiy_resto_public_lang')}catch(_){}}
+setLang(T[initialRestoLang]?initialRestoLang:'fr');
 
 function updateRestoMachineMetadata(){
   const restaurants=[...document.querySelectorAll('article.listing')].map(card=>{
