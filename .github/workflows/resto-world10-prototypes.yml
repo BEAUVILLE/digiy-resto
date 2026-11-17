@@ -1,0 +1,29 @@
+name: DIGIY RESTO PRO · WORLD10 deux éditeurs embarqués
+on:
+  pull_request:
+    paths:
+      - 'prototypes/resto-v35-ma-semaine.html'
+      - 'prototypes/resto-v35-ma-semaine.js'
+      - 'prototypes/resto-v35-plats-salades-apercu-valide.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_world10_prototypes.py'
+      - '.github/workflows/resto-world10-prototypes.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'prototypes/resto-v35-ma-semaine.html'
+      - 'prototypes/resto-v35-ma-semaine.js'
+      - 'prototypes/resto-v35-plats-salades-apercu-valide.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_world10_prototypes.py'
+      - '.github/workflows/resto-world10-prototypes.yml'
+permissions:
+  contents: read
+jobs:
+  prototypes-world10:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: WORLD10 des éditeurs — protections et libellés
+        run: python3 -m unittest discover -s tests -p 'test_resto_world10_prototypes.py' -v

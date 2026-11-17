@@ -567,7 +567,7 @@
         }
       });
     });
-    window.DIGIY_RESTO_PRO_WORLD10 = {locales: langs.slice(), phrases: phrases.size, getLang: () => lang, setLang};
+    window.DIGIY_RESTO_PRO_WORLD10 = {locales: langs.slice(), phrases: phrases.size, getLang: () => lang, setLang, translate: t};
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, {once:true});
   else boot();
