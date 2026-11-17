@@ -81,6 +81,30 @@ class EmbeddedProWorld10(unittest.TestCase):
         self.assertIn(".card strong, .card p, .preview-card strong, .preview-card p",DICTIONARY)
         self.assertIn("variants.includes(current)",DICTIONARY)
 
+    def test_clear_draft_confirmation_uses_active_language(self):
+        weekly=(ROOT/"prototypes/resto-v35-ma-semaine.js").read_text(encoding="utf-8")
+        regular=PAGES["regular"]
+        self.assertIn("translate: t",DICTIONARY)
+        self.assertIn("DIGIY_RESTO_PRO_WORLD10?.translate?.(",weekly)
+        self.assertIn("DIGIY_RESTO_PRO_WORLD10?.translate?.(",regular)
+        translation={row[0]:row for row in translated_rows()["rows"]}
+        for text in [
+            "Effacer tous les plats de cette maquette ? Ils ne sont pas enregistrés.",
+            "Effacer tous les plats et salades de cette démonstration ?"
+        ]:
+            self.assertIn(text,translation)
+            self.assertEqual(len(translation[text]),10)
+            self.assertNotEqual(translation[text][0],translation[text][9])
+        result=subprocess.run(["node","--check",
+                               str(ROOT/"prototypes/resto-v35-ma-semaine.js")],
+                              capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stderr)
+        inline=re.search(r"<script>([\\s\\S]*?)</script>",regular)
+        self.assertIsNotNone(inline)
+        result=subprocess.run(["node","--check","-"],input=inline.group(1),
+                              capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stderr)
+
     def test_no_prototype_business_code_changed(self):
         self.assertIn('src="../src/resto-v35-weekly-core.js" defer',PAGES["week"])
         self.assertIn('src="./resto-v35-ma-semaine.js" defer',PAGES["week"])
