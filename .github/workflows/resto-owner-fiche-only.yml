@@ -1,0 +1,26 @@
+name: RESTO · propriétaire par fiche et Magic Link
+
+on:
+  pull_request:
+    paths:
+      - 'resa-resto/acces-proprietaire.html'
+      - 'tests/test_resto_owner_fiche_only.py'
+      - '.github/workflows/resto-owner-fiche-only.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'resa-resto/acces-proprietaire.html'
+      - 'tests/test_resto_owner_fiche_only.py'
+      - '.github/workflows/resto-owner-fiche-only.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  owner-fiche-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Contrôler la porte PRO RESTO et les droits du propriétaire
+        run: python3 -m unittest discover -s tests -p 'test_resto_owner_fiche_only.py' -v
