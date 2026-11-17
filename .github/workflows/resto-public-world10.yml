@@ -1,0 +1,40 @@
+name: DIGIY RESTO PUBLIC · WORLD10 site, fiches, réservations, QR
+
+on:
+  pull_request:
+    paths:
+      - 'assets/resto-public-world10.js'
+      - 'index.html'
+      - 'resa-resto/index.html'
+      - 'menu-qr.html'
+      - 'fiche-le-malraux.html'
+      - 'fiche-lentre2.html'
+      - 'tests/test_resto_public_world10.py'
+      - 'tests/resto-public-world10.test.cjs'
+      - '.github/workflows/resto-public-world10.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/resto-public-world10.js'
+      - 'index.html'
+      - 'resa-resto/index.html'
+      - 'menu-qr.html'
+      - 'fiche-le-malraux.html'
+      - 'fiche-lentre2.html'
+      - 'tests/test_resto_public_world10.py'
+      - 'tests/resto-public-world10.test.cjs'
+      - '.github/workflows/resto-public-world10.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  public-world10:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier chaque page publique et ses 10 langues
+        run: python3 -m unittest discover -s tests -p 'test_resto_public_world10.py' -v
+      - name: Simuler changement FR EN AR ZH et préserver les données restaurant
+        run: node --test tests/resto-public-world10.test.cjs
