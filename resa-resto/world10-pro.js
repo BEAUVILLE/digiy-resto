@@ -377,6 +377,7 @@
   const originalPlaceholder = new WeakMap();
   const originalAria = new WeakMap();
   const originalTitleAttr = new WeakMap();
+  const originalAlt = new WeakMap();
   const params = new URLSearchParams(location.search);
   let lang = params.get("lang");
   if (!langs.includes(lang)) {
@@ -416,6 +417,16 @@
       for (const prefix of prefixes) {
         if (source.startsWith(prefix)) { value = t(prefix) + source.slice(prefix.length); break; }
       }
+    } else if (parent.id === "selection" && source.startsWith("Jour sélectionné : ") && source.endsWith(" · votre brouillon est privé et non enregistré.")) {
+      const prefix = "Jour sélectionné : ", suffix = " · votre brouillon est privé et non enregistré.";
+      value = t(prefix) + source.slice(prefix.length, -suffix.length) + t(suffix);
+    } else if (parent.id === "formStatus" && source.startsWith("Plat ajouté au brouillon temporaire du ") && source.endsWith(". Rien n’a été publié.")) {
+      const prefix = "Plat ajouté au brouillon temporaire du ", suffix = ". Rien n’a été publié.";
+      value = t(prefix) + source.slice(prefix.length, -suffix.length) + t(suffix);
+    } else if (parent.id === "formStatus" && source.startsWith("Photo temporaire : ")) {
+      value = t("Photo temporaire : ") + source.slice("Photo temporaire : ".length);
+    } else if (parent.id === "count" && /^[0-9]+ éléments?$/.test(source)) {
+      value = source.replace(/ éléments?$/, match => t(match));
     } else if (parent.id === "who" && source.startsWith("Connecté : ")) {
       value = t("Connecté : ") + source.slice("Connecté : ".length);
     } else if (parent.classList.contains("rotation") && source.startsWith("⚠️ Table requise au service suivant · libération avant ")) {
@@ -438,13 +449,23 @@
       if (raw != null && el.getAttribute("placeholder") !== t(raw)) el.setAttribute("placeholder", t(raw));
     });
     // Les titres accessibles et les labels sont des libellés d'interface, jamais des valeurs métier.
-    for (const [attr, cache] of [["aria-label", originalAria], ["title", originalTitleAttr]]) {
+    for (const [attr, cache] of [["aria-label", originalAria], ["title", originalTitleAttr], ["alt", originalAlt]]) {
       document.querySelectorAll("["+attr+"]").forEach(el => {
         if (!cache.has(el)) cache.set(el, el.getAttribute(attr));
         const original = cache.get(el);
-        if (original && phrases.has(original) && el.getAttribute(attr) !== t(original)) {
-          el.setAttribute(attr, t(original));
+        if (!original) return;
+        let next = t(original);
+        // Préserver le vrai nom du plat : seules les amorces d'accessibilité changent.
+        if (attr === "aria-label" && original.startsWith("Supprimer le plat ")) {
+          next = t("Supprimer le plat ") + original.slice("Supprimer le plat ".length);
+        } else if (attr === "aria-label" && original.startsWith("Supprimer ") && original !== "Supprimer") {
+          next = t("Supprimer") + " " + original.slice("Supprimer ".length);
+        } else if (attr === "alt" && original.startsWith("Photo de démonstration : ")) {
+          next = t("Photo de démonstration : ") + original.slice("Photo de démonstration : ".length);
+        } else if (attr === "alt" && original.startsWith("Photo de ")) {
+          next = t("Photo de ") + original.slice("Photo de ".length);
         }
+        if (el.getAttribute(attr) !== next) el.setAttribute(attr, next);
       });
     }
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
