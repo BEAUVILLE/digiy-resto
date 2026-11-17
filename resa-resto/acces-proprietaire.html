@@ -10,20 +10,15 @@
 <script src="./world10-pro.js" defer></script>
 <style>
 :root{--g:#073f32;--g2:#0b5d48;--gold:#d8ad46;--cream:#f5f1e6;--ink:#16342c;--muted:#6f7f79;--line:#dfe7e2;--red:#a3231d}
-*{box-sizing:border-box}body{margin:0;min-height:100svh;background:linear-gradient(180deg,var(--g),var(--g2) 34%,var(--cream) 34%);color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,sans-serif}.wrap{width:min(620px,calc(100% - 22px));margin:auto;padding:18px 0 42px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#fff}.brand{font-weight:1000}.back{color:#fff;text-decoration:none;border:1px solid #ffffff55;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:900}.hero{color:#fff;padding:30px 2px 25px}.hero h1{font-size:clamp(38px,9vw,62px);line-height:.94;margin:8px 0}.hero p{color:#e8f2ed;font-weight:760;line-height:1.5}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(18px,5vw,28px);box-shadow:0 20px 48px #073f3230}.sites{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px}.site{border:1px solid #b9cdc2;background:#fff;color:var(--g);border-radius:16px;padding:12px;font-weight:950;cursor:pointer}.site.active{background:var(--g);color:#fff}.field{display:grid;gap:6px;margin-top:12px}.field label{font-size:10px;font-weight:1000;text-transform:uppercase;color:var(--muted)}input{width:100%;min-height:50px;border:1px solid #cbd9d1;border-radius:13px;padding:11px 12px;font:inherit}.btn{width:100%;margin-top:12px;border:0;border-radius:999px;min-height:50px;padding:11px 16px;background:var(--g);color:#fff;font:inherit;font-weight:1000;cursor:pointer}.gold{background:var(--gold);color:#173f35}.status{min-height:21px;margin-top:11px;font-size:12px;font-weight:900;line-height:1.45;white-space:pre-line}.bad{color:var(--red)}.hidden{display:none!important}.hint{margin-top:13px;color:var(--muted);font-size:11px;line-height:1.5;font-weight:750}@media(max-width:520px){.sites{grid-template-columns:1fr}}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;background:linear-gradient(180deg,var(--g),var(--g2) 34%,var(--cream) 34%);color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,sans-serif}.wrap{width:min(620px,calc(100% - 22px));margin:auto;padding:18px 0 42px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#fff}.brand{font-weight:1000}.back{color:#fff;text-decoration:none;border:1px solid #ffffff55;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:900}.hero{color:#fff;padding:30px 2px 25px}.hero h1{font-size:clamp(38px,9vw,62px);line-height:.94;margin:8px 0}.hero p{color:#e8f2ed;font-weight:760;line-height:1.5}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(18px,5vw,28px);box-shadow:0 20px 48px #073f3230}.chosen{display:grid;gap:6px;margin-bottom:16px;padding:15px;border:1px solid #b9cdc2;background:#edf5ef;border-radius:16px}.chosen small{font-weight:900;color:#4e6b60}.chosen strong{color:var(--g);font-size:17px}.field{display:grid;gap:6px;margin-top:12px}.field label{font-size:10px;font-weight:1000;text-transform:uppercase;color:var(--muted)}input{width:100%;min-height:50px;border:1px solid #cbd9d1;border-radius:13px;padding:11px 12px;font:inherit}.btn{width:100%;margin-top:12px;border:0;border-radius:999px;min-height:50px;padding:11px 16px;background:var(--g);color:#fff;font:inherit;font-weight:1000;cursor:pointer}.gold{background:var(--gold);color:#173f35}.status{min-height:21px;margin-top:11px;font-size:12px;font-weight:900;line-height:1.45;white-space:pre-line}.bad{color:var(--red)}.hidden{display:none!important}.hint{margin-top:13px;color:var(--muted);font-size:11px;line-height:1.5;font-weight:750}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header class="top"><div class="brand">🍽️ DIGIY RÉSA RESTO</div><a class="back" href="../">← RESTO</a></header>
-<section class="hero"><div style="font-size:10px;font-weight:1000;letter-spacing:.12em;color:#ffe8a0">ESPACE PROPRIÉTAIRE</div><h1>Entrer dans ma gestion.</h1><p>Choisissez votre restaurant, recevez votre accès sécurisé, puis ouvrez directement votre espace de gestion.</p></section>
+<section class="hero"><div style="font-size:10px;font-weight:1000;letter-spacing:.12em;color:#ffe8a0">ESPACE PROPRIÉTAIRE</div><h1>Entrer dans ma gestion.</h1><p>Ouvrez votre espace professionnel avec votre lien sécurisé par e-mail. L’accès dépend de votre restaurant et de vos droits de propriétaire.</p></section>
 <section class="card">
-<div class="sites">
-<button class="site" type="button" data-site="test-resa-resto-saly">TEST SALY</button>
-<button class="site" type="button" data-site="modele-resa-resto-sarlat">TEST SARLAT</button>
-<button class="site" type="button" data-site="entre2-sarlat">L’ENTRE 2 · SARLAT</button>
-<button class="site" type="button" data-site="le-malraux-sarlat">LE MALRAUX · SARLAT</button>
-</div>
+<div class="chosen" aria-live="polite"><small>MON RESTAURANT</small><strong id="chosenRestaurantName">Lien de restaurant requis</strong></div>
 <div class="field"><label>Email propriétaire</label><input id="email" type="email" autocomplete="email" placeholder="Votre email"></div>
 <button class="btn" id="send" type="button">RECEVOIR MON ACCÈS →</button>
 <div id="otpBox" class="hidden">
@@ -31,7 +26,7 @@
 <button class="btn gold" id="verify" type="button">OUVRIR MA GESTION →</button>
 </div>
 <div class="status" id="status" aria-live="polite"></div>
-<p class="hint">Le lien email et le code ouvrent la même gestion. Aucun passage par PRO ESPACE ni par l’index public.</p>
+<p class="hint">Le lien envoyé par e-mail (Magic Link) et le code reçu ouvrent la même gestion sécurisée, après vérification des droits de votre compte. Chaque restaurant conserve ses propres données.</p>
 </section>
 </div>
 <script>
@@ -50,18 +45,21 @@ if(!allowed.has(site))site='';
 const needsOwnerOnboarding=new Set(['entre2-sarlat']);
 const eligible=()=>allowed.has(site)&&!needsOwnerOnboarding.has(site);
 
+const restaurantNames = Object.freeze({
+  'test-resa-resto-saly':'SITE TEST · SALY',
+  'modele-resa-resto-sarlat':'SITE TEST · SARLAT',
+  'entre2-sarlat':'L’ENTRE 2 · SARLAT',
+  'le-malraux-sarlat':'LE MALRAUX · SARLAT'
+});
 function paint(){
-  document.querySelectorAll('.site').forEach(b=>{
-    const active=b.dataset.site===site;
-    b.classList.toggle('active',active);
-    b.setAttribute('aria-pressed',String(active));
-  });
   const ready=eligible();
+  $('chosenRestaurantName').textContent=restaurantNames[site]||'Aucun restaurant associé à ce lien';
+  $('email').disabled=!ready;
   $('send').disabled=!ready;
   $('verify').disabled=!ready;
   $('otpBox').classList.add('hidden');
   $('otp').value='';
-  if(!site)msg('Sélectionnez votre restaurant : aucun site de test ne sera choisi automatiquement.',true);
+  if(!site)msg('Ce lien ne désigne aucun restaurant. Ouvrez « Accès propriétaire » depuis votre propre fiche DIGIY RESTO. Aucun établissement de test ne sera choisi à votre place.',true);
   else if(site==='entre2-sarlat')msg("L’Entre 2 : accès propriétaire en préparation. Aucun email de gestion n’est encore configuré. Contactez DIGIYLYFE pour valider votre rattachement.",true);
   else msg('');
 }
@@ -74,12 +72,6 @@ async function openIfSession(){
   if(data&&data.session){location.replace(managementUrl());return true}
   return false;
 }
-document.querySelectorAll('.site').forEach(b=>b.addEventListener('click',()=>{
-  site=b.dataset.site;
-  history.replaceState(null,'',location.pathname+'?site='+encodeURIComponent(site));
-  $('email').value='';
-  paint();
-}));
 $('send').addEventListener('click',async()=>{
   if(!eligible())return msg('Cet accès propriétaire n’est pas encore activé ou le restaurant est inconnu.',true);
   const chosenSite=site;
