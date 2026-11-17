@@ -1,0 +1,29 @@
+name: RESTO emporter · démonstration WORLD10 sans commande
+on:
+  pull_request:
+    paths:
+      - 'resa-resto/demo-emporter.html'
+      - 'resa-resto/demo-client.html'
+      - 'resa-resto/demo-pro.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_demo_emporter.py'
+      - '.github/workflows/resto-demo-emporter.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'resa-resto/demo-emporter.html'
+      - 'resa-resto/demo-client.html'
+      - 'resa-resto/demo-pro.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_demo_emporter.py'
+      - '.github/workflows/resto-demo-emporter.yml'
+permissions:
+  contents: read
+jobs:
+  demo-emporter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier les 10 langues et absence de commande, paiement et requête réseau
+        run: python3 -m unittest discover -s tests -p 'test_resto_demo_emporter.py' -v
