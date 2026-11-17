@@ -99,7 +99,7 @@ class EmbeddedProWorld10(unittest.TestCase):
                                str(ROOT/"prototypes/resto-v35-ma-semaine.js")],
                               capture_output=True,text=True)
         self.assertEqual(result.returncode,0,result.stderr)
-        inline=re.search(r"<script>([\\s\\S]*?)</script>",regular)
+        inline=re.search(r"<script>([\s\S]*?)</script>",regular)
         self.assertIsNotNone(inline)
         result=subprocess.run(["node","--check","-"],input=inline.group(1),
                               capture_output=True,text=True)
