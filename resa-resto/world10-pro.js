@@ -8,6 +8,7 @@
   const names = ["🇫🇷 FR","🇬🇧 EN","🇪🇸 ES","🇵🇹 PT","🇩🇪 DE","🇮🇹 IT","🇳🇱 NL","🇸🇦 AR","🇸🇳 WO","🇨🇳 ZH"];
   // fr, en, es, pt, de, it, nl, ar, wo, zh — une traduction par colonne.
   const rows = [
+    ["👁 VOIR LA DÉMONSTRATION CLIENT →","👁 VIEW CUSTOMER DEMO →","👁 VER DEMO DEL CLIENTE →","👁 VER DEMO DO CLIENTE →","👁 KUNDEN-DEMO ANSEHEN →","👁 VEDI DEMO CLIENTE →","👁 BEKIJK KLANTDEMO →","👁 عرض تجربة العميل ←","👁 XOOL DEMO KILIYAAN →","👁 查看顾客演示 →"],
     ["👁 VOIR UNE DÉMONSTRATION (SANS COMPTE) →","👁 VIEW A DEMO (NO ACCOUNT) →","👁 VER DEMO (SIN CUENTA) →","👁 VER DEMO (SEM CONTA) →","👁 DEMO OHNE KONTO ANSEHEN →","👁 VEDI DEMO (SENZA ACCOUNT) →","👁 DEMO ZONDER ACCOUNT →","👁 عرض تجريبي (دون حساب) ←","👁 XOOL DEMO (AMUL KONT) →","👁 查看演示（无需账户）→"],
     ["← ACCÈS PROPRIÉTAIRE","← OWNER LOGIN","← ACCESO PROPIETARIO","← ACESSO PROPRIETÁRIO","← INHABERZUGANG","← ACCESSO PROPRIETARIO","← EIGENAARSTOEGANG","دخول المالك →","← DUGGUB BOROOM BI","← 业主入口"],
     ["DEMO RESTO PRO · DIGIYLYFE","RESTO PRO DEMO · DIGIYLYFE","DEMO RESTO PRO · DIGIYLYFE","DEMO RESTO PRO · DIGIYLYFE","RESTO PRO DEMO · DIGIYLYFE","DEMO RESTO PRO · DIGIYLYFE","RESTO PRO DEMO · DIGIYLYFE","عرض RESTO PRO · DIGIYLYFE","DEMO RESTO PRO · DIGIYLYFE","餐厅专业版演示 · DIGIYLYFE"],
