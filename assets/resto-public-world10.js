@@ -461,6 +461,7 @@
   function isBusinessContent(el) {
     // Menu QR publié : le restaurant possède lui-même titres, rubriques, plats et prix.
     if (location.pathname.endsWith("/menu-qr.html")) {
+      if (el.closest(".sold")) return false; // Le badge est une UI; le nom du plat reste intact.
       return !!el.closest("#title, #intro, #sections h2, .dish-name, .desc, .price, #posterName");
     }
     // Ne jamais convertir une valeur saisie dans un champ ou des données structurées.
@@ -475,10 +476,31 @@
     let next = t(value);
     if (value.startsWith("Version publiée le ")) {
       next = t("Version publiée le ") + value.slice("Version publiée le ".length);
-    } else if (value.startsWith("Prochain créneau disponible : ")) {
-      next = t("Prochain créneau disponible : ") + value.slice("Prochain créneau disponible : ".length);
-    } else if (value.startsWith("Jours de fermeture habituels : ")) {
-      next = t("Jours de fermeture habituels : ") + value.slice("Jours de fermeture habituels : ".length);
+    } else if (parent.id === "nextSlot" && value.startsWith("Prochain créneau disponible : ")) {
+      const rest = value.slice("Prochain créneau disponible : ".length);
+      next = t("Prochain créneau disponible : ") + rest.replace(" à ", t(" à "));
+    } else if (parent.id === "closedInfo" && value.startsWith("Jours de fermeture habituels : ")) {
+      const rest = value.slice("Jours de fermeture habituels : ".length);
+      next = t("Jours de fermeture habituels : ") +
+        rest.replace(/\b(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\b/g, day => t(day));
+    } else if (parent.closest("#success") && /^\d+ personnes? ·/.test(value)) {
+      next = value.replace(/^(\d+) (personnes?) ·/, (_, n, name) => n + " " + t(name) + " ·");
+    } else if (parent.closest("#success") && value.startsWith("Votre réservation est garantie ") &&
+               value.endsWith(" minutes après l’heure choisie.")) {
+      const prefix = "Votre réservation est garantie ", suffix = " minutes après l’heure choisie.";
+      next = t(prefix) + value.slice(prefix.length, -suffix.length) + t(suffix);
+    } else if (parent.closest("#success") && value.includes(" · réservation confirmée selon la capacité disponible")) {
+      const suffix = " · réservation confirmée selon la capacité disponible";
+      next = value.slice(0, -suffix.length) + t(suffix);
+    } else if (parent.closest("#success") && / · tables? /.test(value)) {
+      next = value.replace(" · tables ", t(" · tables ")).replace(" · table ", t(" · table "));
+    } else if (parent.id === "status" && value.startsWith("⚠️ ") &&
+               value.endsWith(". Essayez une autre date, une autre zone ou une autre heure.")) {
+      const suffix = ". Essayez une autre date, une autre zone ou une autre heure.";
+      next = value.slice(0, -suffix.length) + t(suffix);
+    } else if (parent.tagName === "OPTION" && / couverts max$/.test(value)) {
+      const match = value.match(/^(.* · \d+) couverts max$/);
+      if (match) next = match[1] + t(" couverts max");
     }
     const leading = (original.match(/^\s*/) || [""])[0];
     const trailing = (original.match(/\s*$/) || [""])[0];
