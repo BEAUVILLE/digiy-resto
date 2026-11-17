@@ -451,21 +451,30 @@
     // Les titres accessibles et les labels sont des libellés d'interface, jamais des valeurs métier.
     for (const [attr, cache] of [["aria-label", originalAria], ["title", originalTitleAttr], ["alt", originalAlt]]) {
       document.querySelectorAll("["+attr+"]").forEach(el => {
-        if (!cache.has(el)) cache.set(el, el.getAttribute(attr));
+        const current = el.getAttribute(attr);
+        if (!cache.has(el)) cache.set(el, current);
         const original = cache.get(el);
-        if (!original) return;
-        let next = t(original);
-        // Préserver le vrai nom du plat : seules les amorces d'accessibilité changent.
-        if (attr === "aria-label" && original.startsWith("Supprimer le plat ")) {
-          next = t("Supprimer le plat ") + original.slice("Supprimer le plat ".length);
-        } else if (attr === "aria-label" && original.startsWith("Supprimer ") && original !== "Supprimer") {
-          next = t("Supprimer") + " " + original.slice("Supprimer ".length);
-        } else if (attr === "alt" && original.startsWith("Photo de démonstration : ")) {
-          next = t("Photo de démonstration : ") + original.slice("Photo de démonstration : ".length);
-        } else if (attr === "alt" && original.startsWith("Photo de ")) {
-          next = t("Photo de ") + original.slice("Photo de ".length);
+        if (!original || !current) return;
+        let next = null, variants = [original];
+        const row = phrases.get(original);
+        if (row) { next = t(original); variants = [original, ...row]; }
+        // Traduire les amorces d'accessibilité sans jamais modifier le nom d'un plat.
+        const prefixes = attr === "aria-label" ? ["Supprimer le plat ", "Supprimer "] :
+          attr === "alt" ? ["Photo de démonstration : ", "Photo de "] : [];
+        for (const prefix of prefixes) {
+          if (!original.startsWith(prefix)) continue;
+          const remainder = original.slice(prefix.length);
+          if (!remainder) continue;
+          const translatedPrefix = phrases.get(prefix) || (prefix === "Supprimer " ? phrases.get("Supprimer")?.map(v => v + " ") : null);
+          if (!translatedPrefix) break;
+          next = translatedPrefix[langs.indexOf(lang)] + remainder;
+          variants = [original, ...translatedPrefix.map(v => v + remainder)];
+          break;
         }
-        if (el.getAttribute(attr) !== next) el.setAttribute(attr, next);
+        if (next === null) return;
+        // Si le code métier a remplacé l'attribut depuis notre passage, le préserver.
+        if (!variants.includes(current)) { cache.set(el, current); return; }
+        if (current !== next) el.setAttribute(attr, next);
       });
     }
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
