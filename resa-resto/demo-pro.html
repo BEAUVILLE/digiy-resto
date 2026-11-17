@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="theme-color" content="#073f32">
+<title>DEMO RESTO PRO · DIGIYLYFE</title>
+<style>
+:root{--green:#073f32;--green2:#126249;--gold:#d8ad46;--sand:#f5f1e6;--ink:#16342c;--line:#dae5dc;--muted:#597569}
+*{box-sizing:border-box}body{margin:0;background:var(--sand);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1050px;margin:auto;padding:16px 14px 42px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;background:var(--green);color:white;border-radius:17px}
+.brand{font-size:18px;font-weight:950}.back{color:white;font-size:12px;text-decoration:none;border:1px solid #ffffff66;border-radius:999px;padding:9px 12px;font-weight:800}
+.hero{padding:23px 4px 12px}.eyebrow{font-size:11px;font-weight:1000;letter-spacing:.09em;color:#977024;text-transform:uppercase}
+.hero h1{margin:5px 0 4px;font-size:clamp(26px,6vw,41px);line-height:1.12}
+.hero p{max-width:720px;margin:8px 0 0;color:var(--muted);font-weight:700}
+.notice{background:#fff9de;border-left:4px solid var(--gold);border-radius:13px;padding:13px 15px;margin:14px 0;font-size:13px;font-weight:750}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:20px;margin:13px 0;box-shadow:0 8px 25px #073f320b}
+.panel h2{font-size:20px;margin:3px 0 4px;color:var(--green)}.panel p{margin:5px 0 12px;color:var(--muted);font-size:13px}
+.rows{display:grid;gap:10px}.line{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px;border:1px solid var(--line);background:#fbfdfb;border-radius:12px}
+.line strong{font-size:14px}.line small{color:var(--muted);font-weight:700}.line span{font-weight:800}
+.pill{font-weight:900;background:#e5f3e9;color:#23573a;border-radius:999px;padding:5px 8px;font-size:11px;white-space:nowrap}
+.pill.gold{background:#fff3c4;color:#725400}
+.strong{font-weight:950}.kbd{font-variant-numeric:tabular-nums}
+.btn{border:1px solid var(--line);border-radius:11px;padding:9px 12px;background:#e7e7e7;color:#505a55;font-weight:850;opacity:.8;cursor:not-allowed}
+.auth{display:inline-block;margin:16px 0 5px;padding:11px 16px;border-radius:999px;background:var(--green);color:white;text-decoration:none;font-size:13px;font-weight:900}
+.footer{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}
+@media(max-width:730px){.grid{grid-template-columns:1fr}.panel{padding:16px}.wrap{padding-left:10px;padding-right:10px}}
+</style>
+<script src="./world10-pro.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="brand">🍽️ DIGIY RESTO PRO</div>
+  <a class="back" href="./acces-proprietaire.html">← ACCÈS PROPRIÉTAIRE</a>
+</header>
+<section class="hero">
+ <div class="eyebrow">DÉMONSTRATION · AUCUNE DONNÉE RÉELLE</div>
+ <h1>🍽️ RESTAURANT DÉMO · SALY</h1>
+ <p>Voici un exemple du cockpit du restaurateur. Les horaires, tables et réservations ci-dessous sont entièrement fictifs.</p>
+</section>
+<div class="notice">MODE LECTURE SEULE · Aucune réservation, aucun paiement et aucune modification ne sont possibles ici. Le vrai logiciel exige un Magic Link et des droits propriétaire vérifiés.</div>
+
+<div class="grid">
+<section class="panel" aria-label="Services de démonstration">
+  <div class="eyebrow">MON RESTAURANT · NOUVEAU</div>
+  <h2>🕒 Services</h2>
+  <p>Horaires modifiables. Chaque service affiche clairement son début et sa dernière heure de réservation.</p>
+  <div class="rows">
+    <div class="line"><div><strong>Service midi</strong><div><small>Début · Fin réservations</small></div></div><span class="kbd">12:00 – 14:30</span></div>
+    <div class="line"><div><strong>Service soir</strong><div><small>Début · Fin réservations</small></div></div><span class="kbd">19:00 – 22:00</span></div>
+  </div>
+  <div style="margin-top:14px"><button class="btn" disabled>Enregistrer les horaires</button></div>
+</section>
+<section class="panel" aria-label="Zones et tables de démonstration">
+ <div class="eyebrow">ENVIRONNEMENT TEST</div>
+ <h2>🪑 Zones &amp; tables</h2>
+ <p>Structure indicative · facultative. Chaque grand carré peut représenter un secteur réel du restaurant.</p>
+ <div class="rows">
+   <div class="line"><strong>Terrasse</strong><span>4 tables · 12 places</span></div>
+   <div class="line"><strong>Salle</strong><span>6 tables · 24 places</span></div>
+ </div>
+ <div style="margin-top:14px"><button class="btn" disabled>+ Ajouter une zone</button></div>
+</section>
+</div>
+
+<section class="panel" aria-label="Réservations fictives">
+ <h2>📒 Réservations</h2>
+ <p>Arrivé protège la table du no-show. Annulé la libère et retire la contrainte de rotation si elle n’est plus nécessaire.</p>
+ <div class="rows">
+  <div class="line"><div><strong>Client démo A · 2 pers.</strong><div><small>12:30 · Terrasse · T1</small></div></div><span class="pill gold">✅ Réservée</span></div>
+  <div class="line"><div><strong>Client démo B · 4 pers.</strong><div><small>20:00 · Salle · T3</small></div></div><span class="pill">🟢 Arrivé</span></div>
+ </div>
+ <div style="margin-top:14px"><button class="btn" disabled>Enregistrer</button></div>
+</section>
+<section class="panel" aria-label="Menu fictif">
+ <h2>📱 Mon menu QR · Je modifie mes prix</h2>
+ <p>Créez vos rubriques, changez les prix, signalez un plat épuisé et publiez votre carte quand elle est prête. QR stable, accessible sur tout smartphone. Le brouillon reste privé.</p>
+ <div class="rows">
+  <div class="line"><strong>Plat démo A</strong><span class="kbd">4 500 FCFA</span></div>
+  <div class="line"><strong>Plat démo B</strong><span class="kbd">6 000 FCFA</span></div>
+ </div>
+ <div style="margin-top:14px"><button class="btn" disabled>📱 GÉRER MON MENU QR →</button></div>
+</section>
+<a class="auth" href="./acces-proprietaire.html">🔐 ACCÈS PROPRIÉTAIRE · MAGIC LINK</a>
+<p class="footer">EXEMPLE FICTIF · Aucun compte ni aucune donnée réelle utilisés.</p>
+</div>
+</body>
+</html>
