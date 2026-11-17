@@ -46,6 +46,7 @@ iframe{display:block;width:100%;min-height:1100px;max-width:100%;border:0;border
 <iframe id="cartePrototype" title="Plats et salades : carte habituelle temporaire" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
 </section>
 </main>
+<script src="./world10-pro.js" defer></script>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
@@ -100,5 +101,6 @@ $('regularMode').addEventListener('click',()=>switchMode('regular'));
 init().catch(()=>deny('Impossible de vérifier les droits propriétaires. Réessayez depuis votre espace sécurisé.'));
 })();
 </script>
+
 </body>
 </html>

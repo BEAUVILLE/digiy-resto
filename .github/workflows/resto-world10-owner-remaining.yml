@@ -1,0 +1,29 @@
+name: DIGIY RESTO PRO · WORLD10 réglages plats QR
+on:
+  pull_request:
+    paths:
+      - 'resa-resto/reglages.html'
+      - 'resa-resto/ma-carte.html'
+      - 'resa-resto/ma-menu-qr.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_world10_owner_remaining.py'
+      - '.github/workflows/resto-world10-owner-remaining.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'resa-resto/reglages.html'
+      - 'resa-resto/ma-carte.html'
+      - 'resa-resto/ma-menu-qr.html'
+      - 'resa-resto/world10-pro.js'
+      - 'tests/test_resto_world10_owner_remaining.py'
+      - '.github/workflows/resto-world10-owner-remaining.yml'
+permissions:
+  contents: read
+jobs:
+  owner-world10:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier écrans réels, droits propriétaire, UI et 10 langues
+        run: python3 -m unittest discover -s tests -p 'test_resto_world10_owner_remaining.py' -v
